@@ -22,6 +22,7 @@
   --green:#16864D; --red:#C8282D; --gold:#9A6F10; --blue:#1A5FBF;
 }
 *{box-sizing:border-box}
+.view{display:none}.view.active{display:block}
 body{margin:0;background:var(--bg);color:var(--txt);
   font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Helvetica,Arial,sans-serif;
   font-size:17px;line-height:1.65;-webkit-font-smoothing:antialiased}
@@ -68,6 +69,7 @@ h3{font-size:19px;font-weight:600;margin:0 0 4px}
 .trade-head .name{font-size:20px;font-weight:650}
 .trade-head .meta{color:var(--muted);font-size:15px}
 .trade-head .pnl{font-size:24px;font-weight:700;font-variant-numeric:tabular-nums}
+.tbl-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch}
 .tbl{width:100%;border-collapse:collapse;background:var(--panel);
   border:1px solid var(--line);border-top:none;border-radius:0 0 14px 14px;overflow:hidden}
 .tbl th{color:var(--muted);font-size:12.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;
@@ -175,7 +177,7 @@ textarea::placeholder{color:#4A566A}
 .dont .ev2{color:var(--dim);font-size:14.5px;margin-top:10px;font-style:italic}
 .dont.do{border-left-color:var(--green)}
 .dont.do .no{color:var(--green)}
-.big{background:linear-gradient(135deg,#1A2230,#12171F);border:1px solid rgba(212,166,60,.35);
+.big{background:var(--panel2);border:1px solid rgba(212,166,60,.35);
   border-radius:16px;padding:34px 36px;margin-top:20px}
 .big .l{color:var(--gold);font-size:13px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;margin-bottom:14px}
 .big .t{font-size:27px;font-weight:650;line-height:1.35;letter-spacing:-.01em}
@@ -213,9 +215,12 @@ textarea::placeholder{color:#4A566A}
 <body>
 <div class="view active" id="view-dashboard">
 <div class="wrap">
+<div style="display:flex;justify-content:flex-end;margin-bottom:12px">
+  <button id="theme-toggle" title="Changer le thème" style="background:var(--panel);border:1px solid var(--line);color:var(--muted);border-radius:999px;padding:7px 16px;font-size:13px;font-weight:650;cursor:pointer;letter-spacing:.04em;transition:.15s">🌙 Sombre</button>
+</div>
 <p class="eyebrow">Journal de suivi &middot; Futures</p>
   <h1>Journal de trading</h1>
-  <p class="sub">MNQ · EUR/USD (6EU) — cinq comptes actifs Tradovate / Lucid</p>
+  <p class="sub">MNQ · 6EU — cinq comptes actifs Tradovate / Lucid</p>
 
   <div class="big" style="margin-top:32px">
     <div class="l">Avant chaque séance</div>
@@ -259,7 +264,7 @@ textarea::placeholder{color:#4A566A}
     </a>
     <a class="s win" href="#" data-goto="s0819">
       <div class="day"><div class="dt">Mercredi 19 août</div><div class="dd">2026</div></div>
-      <div class="desc">Trois entrées décrites par des critères précis pour la première fois : prise de liquidité Asian Low, clôture au-dessus du MOS, OB haussier M1. Topstep +501 $, 47 % de l'objectif. <span style="color:var(--dim)">Détail des ordres en attente.</span></div>
+      <div class="desc">Trois entrées décrites par des critères précis pour la première fois : prise de liquidité Asian Low, clôture au-dessus du MOS, OB haussier M1. Premier jour où chaque entrée s'explique par une condition, pas par une impression.</div>
       <div class="num"><div class="p pos">+384 $</div><div class="q">3 trades · 3 comptes</div></div>
     </a>
     <a class="s lose" href="#" data-goto="s0818">
@@ -285,11 +290,11 @@ textarea::placeholder{color:#4A566A}
   </div>
 
   <h2>Courbe</h2>
-  <p class="sub" style="margin-bottom:18px">Topstep en net, Tradovate en brut. Le 13 et le 17 sont incomplets.</p>
+  <p class="sub" style="margin-bottom:18px">Le 13 et le 17 sont incomplets (trades partiellement documentés).</p>
   <div class="card">
     <div style="display:flex;align-items:center;gap:18px;padding:14px 0;border-bottom:1px solid var(--line)">
       <div style="min-width:150px;font-weight:600">Jeudi 13</div>
-      <div style="flex:1;height:26px;background:#0C1017;border-radius:6px;position:relative">
+      <div style="flex:1;height:26px;background:var(--panel2);border-radius:6px;position:relative">
         <div style="position:absolute;left:50%;top:0;bottom:0;width:1px;background:var(--line)"></div>
         <div style="position:absolute;top:4px;bottom:4px;left:50%;width:45%;border-radius:4px;background:linear-gradient(90deg,#2C8F62,#3DD68C)"></div>
       </div>
@@ -297,7 +302,7 @@ textarea::placeholder{color:#4A566A}
     </div>
     <div style="display:flex;align-items:center;gap:18px;padding:14px 0;border-bottom:1px solid var(--line)">
       <div style="min-width:150px;font-weight:600">Vendredi 14</div>
-      <div style="flex:1;height:26px;background:#0C1017;border-radius:6px;position:relative">
+      <div style="flex:1;height:26px;background:var(--panel2);border-radius:6px;position:relative">
         <div style="position:absolute;left:50%;top:0;bottom:0;width:1px;background:var(--line)"></div>
         <div style="position:absolute;top:4px;bottom:4px;left:45.4%;width:4.6%;border-radius:4px;background:linear-gradient(90deg,#F2555A,#B03A3E)"></div>
       </div>
@@ -305,7 +310,7 @@ textarea::placeholder{color:#4A566A}
     </div>
     <div style="display:flex;align-items:center;gap:18px;padding:14px 0;border-bottom:1px solid var(--line)">
       <div style="min-width:150px;font-weight:600">Lundi 17</div>
-      <div style="flex:1;height:26px;background:#0C1017;border-radius:6px;position:relative">
+      <div style="flex:1;height:26px;background:var(--panel2);border-radius:6px;position:relative">
         <div style="position:absolute;left:50%;top:0;bottom:0;width:1px;background:var(--line)"></div>
         <div style="position:absolute;top:4px;bottom:4px;left:50%;width:3.8%;border-radius:4px;background:linear-gradient(90deg,#2C8F62,#3DD68C)"></div>
       </div>
@@ -313,7 +318,7 @@ textarea::placeholder{color:#4A566A}
     </div>
     <div style="display:flex;align-items:center;gap:18px;padding:14px 0;border-bottom:1px solid var(--line)">
       <div style="min-width:150px;font-weight:600">Mardi 18</div>
-      <div style="flex:1;height:26px;background:#0C1017;border-radius:6px;position:relative">
+      <div style="flex:1;height:26px;background:var(--panel2);border-radius:6px;position:relative">
         <div style="position:absolute;left:50%;top:0;bottom:0;width:1px;background:var(--line)"></div>
         <div style="position:absolute;top:4px;bottom:4px;left:35.9%;width:14.1%;border-radius:4px;background:linear-gradient(90deg,#F2555A,#B03A3E)"></div>
       </div>
@@ -321,7 +326,7 @@ textarea::placeholder{color:#4A566A}
     </div>
     <div style="display:flex;align-items:center;gap:18px;padding:14px 0;border-bottom:1px solid var(--line)">
       <div style="min-width:150px;font-weight:600">Mercredi 19</div>
-      <div style="flex:1;height:26px;background:#0C1017;border-radius:6px;position:relative">
+      <div style="flex:1;height:26px;background:var(--panel2);border-radius:6px;position:relative">
         <div style="position:absolute;left:50%;top:0;bottom:0;width:1px;background:var(--line)"></div>
         <div style="position:absolute;top:4px;bottom:4px;left:50%;width:7.1%;border-radius:4px;background:linear-gradient(90deg,#2C8F62,#3DD68C)"></div>
       </div>
@@ -329,7 +334,7 @@ textarea::placeholder{color:#4A566A}
     </div>
     <div style="display:flex;align-items:center;gap:18px;padding:14px 0;border-bottom:1px solid var(--line)">
       <div style="min-width:150px;font-weight:600">Jeudi 20</div>
-      <div style="flex:1;height:26px;background:#0C1017;border-radius:6px;position:relative">
+      <div style="flex:1;height:26px;background:var(--panel2);border-radius:6px;position:relative">
         <div style="position:absolute;left:50%;top:0;bottom:0;width:1px;background:var(--line)"></div>
         <div style="position:absolute;top:4px;bottom:4px;left:36.5%;width:13.5%;border-radius:4px;background:linear-gradient(90deg,#F2555A,#B03A3E)"></div>
       </div>
@@ -337,7 +342,7 @@ textarea::placeholder{color:#4A566A}
     </div>
     <div style="display:flex;align-items:center;gap:18px;padding:20px 0 6px">
       <div style="min-width:150px;font-weight:600">Cumul</div>
-      <div style="flex:1;height:26px;background:#0C1017;border-radius:6px;position:relative">
+      <div style="flex:1;height:26px;background:var(--panel2);border-radius:6px;position:relative">
         <div style="position:absolute;left:50%;top:0;bottom:0;width:1px;background:var(--line)"></div>
         <div style="position:absolute;top:4px;bottom:4px;left:50%;width:23.6%;border-radius:4px;background:linear-gradient(90deg,#2C8F62,#3DD68C)"></div>
       </div>
@@ -2815,7 +2820,10 @@ window.SESSIONS = [
             'Soit ' + (Math.max.apply(null, rows.map(function(x){ return x.riskUsd; })) / 500).toFixed(2) + ' % d\'un compte 50 k')
       + '</div>';
 
-    h += '<table class="tbl" style="border-radius:14px;border-top:1px solid var(--line);margin-top:20px">'
+    h += '<details style="margin-top:20px"><summary style="cursor:pointer;color:var(--muted);font-size:14px;font-weight:650;letter-spacing:.06em;text-transform:uppercase;padding:12px 0;list-style:none;display:flex;gap:8px;align-items:center">'
+      + '<span class="det-arrow" style="font-size:10px;transition:.15s">▶</span>'
+      + rows.length + ' trades avec stop documenté — voir le détail</summary>';
+    h += '<table class="tbl" style="border-radius:14px;border-top:1px solid var(--line);margin-top:12px">'
       + '<thead><tr><th>Jour</th><th>Marché</th><th>Compte</th><th>Sens</th><th>Qté</th>'
       + '<th>Entrée</th><th>Stop</th><th>Objectif</th><th>Risque</th><th>R:R</th><th>Résultat</th></tr></thead><tbody>';
 
@@ -2842,11 +2850,16 @@ window.SESSIONS = [
     var sansStop = window.TRADES.length - rows.length;
     h += '</tbody></table>';
     if(sansStop > 0){
-      h += '<div class="ac-ask" style="margin-top:16px">' + sansStop
-         + ' trade(s) sans stop initial connu : impossible de calculer leur R:R. '
-         + 'Note le stop dans le journal et ils entreront dans ce tableau.</div>';
+      h += '<p style="color:var(--dim);font-size:13.5px;margin-top:12px">'
+         + sansStop + ' trade(s) sans stop initial connu — non inclus dans ce tableau.</p>';
     }
+    h += '</details>';
     host.innerHTML = h;
+    // rotate arrow on open
+    host.querySelector('details').addEventListener('toggle', function(){
+      var arr = this.querySelector('.det-arrow');
+      if(arr) arr.style.transform = this.open ? 'rotate(90deg)' : '';
+    });
   }
 
   function kpi(lbl, val, note, cls){
@@ -2860,7 +2873,34 @@ window.SESSIONS = [
 </script>
 <script>/* Bascule entre les vues (tableau de bord, brief, séances) */
 (function(){
+
+  /* ── Thème : dark / light / system ── */
+  var THEMES = ['system','dark','light'];
+  var LABELS = {system:'⚙️ Système', dark:'🌙 Sombre', light:'☀️ Clair'};
+  var curTheme = 'system';
+  try{ curTheme = localStorage.getItem('journal-theme') || 'system'; }catch(e){}
+
+  function applyTheme(t){
+    curTheme = t;
+    if(t === 'dark')  document.documentElement.setAttribute('data-theme','dark');
+    else if(t === 'light') document.documentElement.setAttribute('data-theme','light');
+    else document.documentElement.removeAttribute('data-theme');
+    var btn = document.getElementById('theme-toggle');
+    if(btn) btn.textContent = LABELS[t] || t;
+    try{ localStorage.setItem('journal-theme', t); }catch(e){}
+  }
+
+  applyTheme(curTheme);
+
   document.addEventListener('DOMContentLoaded', function(){
+    var btn = document.getElementById('theme-toggle');
+    if(btn){
+      btn.textContent = LABELS[curTheme] || curTheme;
+      btn.addEventListener('click', function(){
+        var idx = THEMES.indexOf(curTheme);
+        applyTheme(THEMES[(idx + 1) % THEMES.length]);
+      });
+    }
     // les tableaux larges défilent dans leur propre conteneur, jamais la page entière
     document.querySelectorAll('table.tbl').forEach(function(t){
       if(t.parentNode && t.parentNode.classList.contains('tbl-wrap')) return;
