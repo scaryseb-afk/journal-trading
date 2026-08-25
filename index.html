@@ -1,5 +1,11 @@
-<title>Journal de Trading — Viale</title>
-<style>:root{
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Journal de trading — Viale</title>
+<style>
+:root{
   --bg:#0A0D13; --panel:#131820; --panel2:#1A212C; --line:#242D3A;
   --txt:#EAF0F8; --muted:#8FA0B6; --dim:#5D6C82;
   --green:#3DD68C; --red:#F2555A; --gold:#D4A63C; --blue:#5B9DF9;
@@ -192,6 +198,7 @@ textarea::placeholder{color:#4A566A}
   .ar-bal{font-size:17px}
 }
 
+
 /* ---- Navigation par onglets (consolidé claude.ai) ---- */
 .topnav{position:sticky;top:0;z-index:20;background:rgba(10,13,19,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
 .topnav-inner{max-width:1220px;margin:0 auto;padding:14px 32px;display:flex;align-items:center;gap:26px}
@@ -238,11 +245,14 @@ textarea::placeholder{color:#4A566A}
 .week .day.now{border-color:rgba(212,166,60,.5);background:linear-gradient(180deg,#1A2230,#12171F)}
 .week .day.now .s{color:var(--gold)}
 .week .day .s.pos{color:var(--green)} .week .day .s.neg{color:var(--red)}
+
 </style>
+</head>
+<body>
 <nav id="topnav"><div class="tn-logo">Journal · Viale</div><div id="tab-bar"></div></nav>
 <section class="view" id="view-dashboard"><p class="eyebrow">Journal de suivi &middot; Futures</p>
   <h1>Journal de trading</h1>
-  <p class="sub">MNQ, MGC, EUR/USD, MCL — quatre comptes actifs Tradovate / Lucid</p>
+  <p class="sub">MNQ · EUR/USD (6EU) — cinq comptes actifs Tradovate / Lucid</p>
 
   <div class="big" style="margin-top:32px">
     <div class="l">Avant chaque séance</div>
@@ -250,27 +260,12 @@ textarea::placeholder{color:#4A566A}
     <div class="d">Réécrit après chaque séance journalisée, et épinglé dans ta barre latérale Claude. Cinq actions concrètes, cinq interdits, cinq questions à te poser avant d'appuyer. À lire avant l'ouverture de New York, pas après.</div>
   </div>
 
-  <div class="obs warn" style="margin-top:20px">
-    <div class="t">Ce que ce journal sait, et ce qu'il ignore</div>
-    <div class="d">Les quatre comptes Tradovate / Lucid sont relevés par export CSV — soldes fiables, mais le détail des ordres n'est documenté que quand tu me l'envoies. TopstepX a été clôturé le 20/08 et retiré du suivi actif ; son historique (6 séances) reste dans le journal et sert de base à plusieurs règles ci-dessous, mais n'apparaît plus dans « Mes comptes ».</div>
-  </div>
-
   <div class="kpis">
-    <div class="kpi"><div class="lbl">Cumul Topstep (historique)</div><div class="val pos">≈ +1 297 $</div><div class="note">6 séances, compte clôturé — pour mémoire</div></div>
-    <div class="kpi"><div class="lbl">Sessions journalisées</div><div class="val">7</div><div class="note">6 complètes · 1 partielle (21/08)</div></div>
-    <div class="kpi"><div class="lbl">Trades</div><div class="val">23</div><div class="note">5 gagnants · 2 à l'équilibre</div></div>
-    <div class="kpi"><div class="lbl">Règles non appliquées</div><div class="val neg">757 $</div><div class="note">Coût identifié, hors séance du 20/08</div></div>
-    <div class="kpi"><div class="lbl">Comptes actifs</div><div class="val">4</div><div class="note">Tradovate / Lucid, tous identifiés</div></div>
-  </div>
-
-  <div class="obs good" style="margin-top:20px">
-    <div class="t">Le verrouillage Tradovate : à vérifier auprès de Lucid</div>
-    <div class="d">J'ai écrit le 18/08 que la plateforme t'avait bloqué. À nuancer : le …0004 affiche « Verrouillé <strong>par</strong> 5 pm CDT » même un jour normal — c'est probablement un verrouillage horaire de fin de séance. En revanche le …0005 affichait le 18 « Verrouillé <strong>jusqu'au</strong> 4:00 PM CDT », formulation absente aujourd'hui, qui ressemblait bien à un blocage. <strong>Demande à Lucid s'il existe une limite de perte journalière et à quel montant</strong> : si elle existe, autant la connaître pour t'arrêter avant elle.</div>
-  </div>
-
-  <div class="obs warn">
-    <div class="t">Ce que disent les vrais soldes, quatre comptes actifs</div>
-    <div class="d">…0004 49 984,00 $ (−16, confirmé) · …0005 48 252,70 $ (<strong>−1 747</strong>) · …0001 49 484,00 $ (−516, position clôturée) · …0002 49 601,70 $ (−398, détail du jour partiel, 5e compte identifié le 21/08). Soit <strong>−2 678 $</strong> au total depuis le départ sur ces quatre comptes, s'ils ont bien démarré à 50 000 $ chacun. TopstepX (+673 $, clôturé le 20/08) n'est plus compté ici — voir « Cumul Topstep » ci-dessus pour son historique.</div>
+    <div class="kpi"><div class="lbl">Sessions journalisées</div><div class="val">8</div><div class="note">du 13/08 au 24/08</div></div>
+    <div class="kpi"><div class="lbl">Cumul 5 comptes</div><div class="val neg">−2 691 $</div><div class="note">depuis le départ (50 k$ chacun)</div></div>
+    <div class="kpi"><div class="lbl">Meilleure session</div><div class="val pos">+2 472 $</div><div class="note">13/08 — AMD MNQ</div></div>
+    <div class="kpi"><div class="lbl">Pire session</div><div class="val neg">−1 340 $</div><div class="note">21/08 — 5 comptes</div></div>
+    <div class="kpi"><div class="lbl">Compte E</div><div class="val pos">+593 $</div><div class="note">Seul compte au-dessus du départ</div></div>
   </div>
 
   <h2>Mes comptes</h2>
@@ -284,10 +279,15 @@ textarea::placeholder{color:#4A566A}
 
   <h2>Sessions</h2>
   <div class="sessions">
-    <a class="s" href="#" data-goto="s0821" style="border-color:rgba(212,166,60,.4)">
+    <a class="s lose" href="#" data-goto="s0824">
+      <div class="day"><div class="dt">Lundi 24 août</div><div class="dd">2026</div></div>
+      <div class="desc">3 comptes actifs. Compte C teste le 6EU6 (EUR/USD futures) pour la première fois. Compte E seul positif — long 4 contrats, deux sorties partielles aux niveaux techniques.</div>
+      <div class="num"><div class="p neg">−427 $</div><div class="q">9 trades · A −380 · C −525 · E +478</div></div>
+    </a>
+    <a class="s lose" href="#" data-goto="s0821" style="border-color:rgba(212,166,60,.4)">
       <div class="day"><div class="dt">Vendredi 21 août</div><div class="dd">2026</div></div>
-      <div class="desc">Un 5e compte Tradovate (…0002) découvert, un trade MCL clôturé sans sortie transmise. <span style="color:var(--dim)">Page partielle — détail des trades en attente.</span></div>
-      <div class="num"><div class="p">−71,50 $</div><div class="q">1 trade confirmé · reste à détailler</div></div>
+      <div class="desc">5 comptes. Journée lourde — 18 trades, 4 gagnants. Compte E seul positif +123 $.</div>
+      <div class="num"><div class="p neg">−1 340 $</div><div class="q">18 trades · 4 comptes en perte</div></div>
     </a>
     <a class="s lose" href="#" data-goto="s0820">
       <div class="day"><div class="dt">Jeudi 20 août</div><div class="dd">2026</div></div>
@@ -306,12 +306,12 @@ textarea::placeholder{color:#4A566A}
     </a>
     <a class="s win" href="#" data-goto="s0817">
       <div class="day"><div class="dt">Lundi 17 août</div><div class="dd">2026</div></div>
-      <div class="desc">MNQ sur le …0005 : 2 lots, entrée limite, stop remonté, sortie à l'équilibre, aucune reprise — les cinq interdits respectés. Puis un short EUR/USD tenu <strong>5 h 07</strong> sur Topstep : +202 $ net. La plus longue tenue du journal.</div>
+      <div class="desc">MNQ sur le …0005 : 2 lots, entrée limite, stop remonté, sortie à l'équilibre, aucune reprise — les cinq interdits respectés. Short EUR/USD tenu <strong>5 h 07</strong> : +202 $ net. La plus longue tenue du journal.</div>
       <div class="num"><div class="p pos">+206 $</div><div class="q">2 trades · 2 comptes</div></div>
     </a>
     <a class="s lose" href="#" data-goto="s0814">
       <div class="day"><div class="dt">Vendredi 14 août</div><div class="dd">2026</div></div>
-      <div class="desc"><span style="color:var(--green)">3 comptes documentés.</span> Or du matin +502 $. Session NY : short coupé, puis retournement long jusqu'à 9 contrats sur 3 comptes, sans biais personnel. Lockout activé en fin de séance.</div>
+      <div class="desc"><span style="color:var(--green)">3 comptes documentés.</span> Session NY : short coupé, puis retournement long jusqu'à 9 contrats sur 3 comptes, sans biais personnel. Lockout activé en fin de séance.</div>
       <div class="num"><div class="p neg">−264 $</div><div class="q">3 trades · 1/3</div></div>
     </a>
     <a class="s win" href="#" data-goto="s0813">
@@ -483,7 +483,8 @@ textarea::placeholder{color:#4A566A}
   <p class="foot">
     Les notes de chaque session s'enregistrent toutes seules pendant que tu écris.<br>
     Garde cette page en favori — c'est le point d'entrée du journal.
-  </p></section>
+  </p>
+</section>
 <section class="view" id="view-brief">  <p class="eyebrow">Mis à jour après la séance du jeudi 20 août 2026</p>
   <h1>Ta prochaine séance</h1>
   <p class="sub">Ce qu'il faut faire, ce qu'il ne faut pas faire. Construit uniquement à partir de tes journaux.</p>
@@ -747,9 +748,11 @@ textarea::placeholder{color:#4A566A}
       <div class="d">5e compte, identifié le 21/08. Un trade visible : long 1 MNQU6, entrée 29 486,75, sorti au marché à 29 451 (−71,50 $). Ce seul trade n'explique pas les −398,30 $ affichés : au moins un autre trade a eu lieu, non capturé.</div>
     </div>
   </div>
+
 </section>
 
 <section class="view" id="view-s0813" data-journal-date="2026-08-13">
+<div style="margin-bottom:24px"><a href="#" data-goto="dashboard" style="color:var(--muted);font-weight:600;font-size:.88rem;text-decoration:none">← Journal</a></div>
   <p class="eyebrow">Journal de suivi &middot; Futures</p>
   <h1>Session du jeudi 13 août 2026</h1>
   <p class="sub">Lecture AMD sur MNQ à l'ouverture NY. 3 trades, 3 gagnants.</p>
@@ -1079,6 +1082,7 @@ Jours d'annonce (CPI, NFP, FOMC) : 1-2 contrats maximum, ou pas de trade.</texta
 </section>
 
 <section class="view" id="view-s0814" data-journal-date="2026-08-14">
+<div style="margin-bottom:24px"><a href="#" data-goto="dashboard" style="color:var(--muted);font-weight:600;font-size:.88rem;text-decoration:none">← Journal</a></div>
   <p class="eyebrow">Journal de suivi &middot; Futures</p>
   <h1>Vendredi 14 août 2026</h1>
   <p class="sub">Trois comptes, trois idées. L'or du matin sauve la journée ; la session de New York coûte 757 $.</p>
@@ -1317,6 +1321,7 @@ Jours d'annonce (CPI, NFP, FOMC) : 1-2 contrats maximum, ou pas de trade.</texta
 </section>
 
 <section class="view" id="view-s0817" data-journal-date="2026-08-17">
+<div style="margin-bottom:24px"><a href="#" data-goto="dashboard" style="color:var(--muted);font-weight:600;font-size:.88rem;text-decoration:none">← Journal</a></div>
   <p class="eyebrow">Journal de suivi &middot; Futures</p>
   <h1>Lundi 17 août 2026</h1>
   <p class="sub">Deux trades sur deux instruments. Le MNQ sort à l'équilibre, le short EUR/USD tenu 5 heures rapporte 202 $. Séance propre de bout en bout.</p>
@@ -1597,6 +1602,7 @@ Jours d'annonce (CPI, NFP, FOMC) : 1-2 contrats maximum, ou pas de trade.</texta
 </section>
 
 <section class="view" id="view-s0818" data-journal-date="2026-08-18">
+<div style="margin-bottom:24px"><a href="#" data-goto="dashboard" style="color:var(--muted);font-weight:600;font-size:.88rem;text-decoration:none">← Journal</a></div>
   <p class="eyebrow">Journal de suivi &middot; Futures</p>
   <h1>Mardi 18 août 2026</h1>
   <p class="sub">Tu avais le bon biais. Le marché a fait −1,66 % et tu l'avais vu. Tu as acheté trois fois parce que d'autres étaient haussiers.</p>
@@ -1942,6 +1948,7 @@ Je suis finalement rentré dessus sur Topstep, j'ai pris BE.</textarea></div>
 </section>
 
 <section class="view" id="view-s0819" data-journal-date="2026-08-19">
+<div style="margin-bottom:24px"><a href="#" data-goto="dashboard" style="color:var(--muted);font-weight:600;font-size:.88rem;text-decoration:none">← Journal</a></div>
   <p class="eyebrow">Journal de suivi &middot; Futures</p>
   <h1>Mercredi 19 août 2026</h1>
   <p class="sub">Journée verte, et surtout : trois entrées décrites par des critères précis, pas par une impression.</p>
@@ -2127,6 +2134,7 @@ Parfois il faut attendre plus de 50 minutes avant de rentrer.</textarea>
 </section>
 
 <section class="view" id="view-s0820" data-journal-date="2026-08-20">
+<div style="margin-bottom:24px"><a href="#" data-goto="dashboard" style="color:var(--muted);font-weight:600;font-size:.88rem;text-decoration:none">← Journal</a></div>
   <p class="eyebrow">Journal de suivi &middot; Futures</p>
   <h1>Jeudi 20 août 2026</h1>
   <p class="sub">Six trades avant l'ouverture de New York, cinq perdants, un scratché. La pire séance depuis le début du journal.</p>
@@ -2253,6 +2261,7 @@ Parfois il faut attendre plus de 50 minutes avant de rentrer.</textarea>
 </section>
 
 <section class="view" id="view-s0821" data-journal-date="2026-08-21">
+<div style="margin-bottom:24px"><a href="#" data-goto="dashboard" style="color:var(--muted);font-weight:600;font-size:.88rem;text-decoration:none">← Journal</a></div>
   <p class="eyebrow">Journal de suivi &middot; Futures</p>
   <h1>Vendredi 21 août 2026</h1>
   <p class="sub">18 trades sur 5 comptes. MCL tradé simultanément sur 3 comptes — 891 $ de perte sur ce seul instrument. Compte E identifié, seul positif de la journée (+123 $).</p>
@@ -2377,6 +2386,7 @@ Parfois il faut attendre plus de 50 minutes avant de rentrer.</textarea>
 </section>
 
 <section class="view" id="view-s0824" data-journal-date="2026-08-24">
+<div style="margin-bottom:24px"><a href="#" data-goto="dashboard" style="color:var(--muted);font-weight:600;font-size:.88rem;text-decoration:none">← Journal</a></div>
   <p class="eyebrow">Journal de suivi &middot; Futures</p>
   <h1>Lundi 24 août 2026</h1>
   <p class="sub">3 comptes actifs sur 5. Compte C teste 6EU6 (nouveau instrument). Compte E seul positif, position gérée sur 57 minutes. Total journée : −427 $.</p>
@@ -2500,7 +2510,7 @@ window.COMPTES = [
     objectif: null,
     mll: null,
     maxContrats: null,
-    note: "48 252,70 $ — Inactif le 24/08. −534 $ le 21/08 (4 trades MCL).",
+    note: "48 252,70 $ — Inactif le 24/08. −534 $ le 21/08.",
     aConfirmer: null
   },
   {
@@ -2532,7 +2542,7 @@ window.COMPTES = [
     objectif: null,
     mll: null,
     maxContrats: null,
-    note: "49 601,70 $ — Inactif le 24/08. −398,30 $ le 21/08 (MGC ×3 + MCL ×1 + MNQ ×1).",
+    note: "49 601,70 $ — Inactif le 24/08. −398,30 $ le 21/08.",
     aConfirmer: null
   },
   {
@@ -2880,6 +2890,47 @@ window.SESSIONS = [
   document.addEventListener('DOMContentLoaded', function(){ comptes(); risque(); });
 })();
 </script>
+<script>/* Bascule entre les vues (tableau de bord, brief, séances) */
+(function(){
+  document.addEventListener('DOMContentLoaded', function(){
+    // les tableaux larges défilent dans leur propre conteneur, jamais la page entière
+    document.querySelectorAll('table.tbl').forEach(function(t){
+      if(t.parentNode && t.parentNode.classList.contains('tbl-wrap')) return;
+      var wrap = document.createElement('div');
+      wrap.className = 'tbl-wrap';
+      t.parentNode.insertBefore(wrap, t);
+      wrap.appendChild(t);
+    });
+
+    var views = document.querySelectorAll('.view');
+    var tabs = document.querySelectorAll('[data-goto]');
+
+    function show(id){
+      var found = false;
+      views.forEach(function(v){
+        var on = v.id === 'view-' + id;
+        v.classList.toggle('active', on);
+        if(on) found = true;
+      });
+      if(!found){ id = 'dashboard'; views.forEach(function(v){ v.classList.toggle('active', v.id === 'view-dashboard'); }); }
+      tabs.forEach(function(t){ t.classList.toggle('on', t.dataset.goto === id); });
+      window.scrollTo(0, 0);
+      try{ localStorage.setItem('journal-last-view', id); }catch(e){}
+    }
+
+    tabs.forEach(function(t){
+      t.addEventListener('click', function(e){
+        e.preventDefault();
+        show(this.dataset.goto);
+      });
+    });
+
+    var last = 'dashboard';
+    try{ last = localStorage.getItem('journal-last-view') || 'dashboard'; }catch(e){}
+    show(last);
+  });
+})();
+</script>
 <script>/* Journal de trading — enregistrement automatique, multi-séances.
    Chaque section [data-journal-date] a ses notes sauvegardées sous sa propre clé. */
 (function(){
@@ -3009,44 +3060,5 @@ window.SESSIONS = [
   });
 })();
 </script>
-<script>/* Bascule entre les vues (tableau de bord, brief, séances) */
-(function(){
-  document.addEventListener('DOMContentLoaded', function(){
-    // les tableaux larges défilent dans leur propre conteneur, jamais la page entière
-    document.querySelectorAll('table.tbl').forEach(function(t){
-      if(t.parentNode && t.parentNode.classList.contains('tbl-wrap')) return;
-      var wrap = document.createElement('div');
-      wrap.className = 'tbl-wrap';
-      t.parentNode.insertBefore(wrap, t);
-      wrap.appendChild(t);
-    });
-
-    var views = document.querySelectorAll('.view');
-    var tabs = document.querySelectorAll('[data-goto]');
-
-    function show(id){
-      var found = false;
-      views.forEach(function(v){
-        var on = v.id === 'view-' + id;
-        v.classList.toggle('active', on);
-        if(on) found = true;
-      });
-      if(!found){ id = 'dashboard'; views.forEach(function(v){ v.classList.toggle('active', v.id === 'view-dashboard'); }); }
-      tabs.forEach(function(t){ t.classList.toggle('on', t.dataset.goto === id); });
-      window.scrollTo(0, 0);
-      try{ localStorage.setItem('journal-last-view', id); }catch(e){}
-    }
-
-    tabs.forEach(function(t){
-      t.addEventListener('click', function(e){
-        e.preventDefault();
-        show(this.dataset.goto);
-      });
-    });
-
-    var last = 'dashboard';
-    try{ last = localStorage.getItem('journal-last-view') || 'dashboard'; }catch(e){}
-    show(last);
-  });
-})();
-</script>
+</body>
+</html>
