@@ -1,14 +1,25 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-<meta charset="utf-8">
+<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Journal de trading — Viale</title>
-<style>
-:root{
+<title>Journal de Trading</title>
+<style>:root{
   --bg:#0A0D13; --panel:#131820; --panel2:#1A212C; --line:#242D3A;
   --txt:#EAF0F8; --muted:#8FA0B6; --dim:#5D6C82;
   --green:#3DD68C; --red:#F2555A; --gold:#D4A63C; --blue:#5B9DF9;
+}
+@media(prefers-color-scheme:light){
+  :root:not([data-theme="dark"]){
+    --bg:#F5F6F8; --panel:#FFFFFF; --panel2:#F0F2F5; --line:#D8DCE4;
+    --txt:#111827; --muted:#556070; --dim:#8A96A6;
+    --green:#16864D; --red:#C8282D; --gold:#9A6F10; --blue:#1A5FBF;
+  }
+}
+:root[data-theme="light"]{
+  --bg:#F5F6F8; --panel:#FFFFFF; --panel2:#F0F2F5; --line:#D8DCE4;
+  --txt:#111827; --muted:#556070; --dim:#8A96A6;
+  --green:#16864D; --red:#C8282D; --gold:#9A6F10; --blue:#1A5FBF;
 }
 *{box-sizing:border-box}
 body{margin:0;background:var(--bg);color:var(--txt);
@@ -66,9 +77,9 @@ h3{font-size:19px;font-weight:600;margin:0 0 4px}
 .tbl td{padding:15px 18px;text-align:right;border-bottom:1px solid var(--line);
   font-variant-numeric:tabular-nums;font-size:16px}
 .tbl tr:last-child td{border-bottom:none}
-.tbl tr.tot td{background:#0F141C;font-weight:700;font-size:17px}
+.tbl tr.tot td{background:var(--panel2);font-weight:700;font-size:17px}
 .tbl td.fill{color:var(--muted);font-size:15px}
-.tag{display:inline-block;padding:4px 11px;border-radius:6px;font-size:12.5px;font-weight:700;letter-spacing:.05em}
+.tag{display:inline-block;padding:4px 11px;border-radius:6px;font-size:12.5px;font-weight:700;letter-spacing:.05em;min-width:58px;text-align:center}
 .tag.l{background:rgba(61,214,140,.14);color:var(--green)}
 .tag.s{background:rgba(242,85,90,.14);color:var(--red)}
 .acc{display:inline-block;padding:3px 10px;border-radius:6px;font-size:12.5px;font-weight:650;
@@ -90,7 +101,7 @@ h3{font-size:19px;font-weight:600;margin:0 0 4px}
 .grid2{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:20px}
 @media(max-width:880px){.grid2{grid-template-columns:1fr}}
 label{display:block;color:var(--gold);font-size:12.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;margin:0 0 9px}
-textarea{width:100%;background:#0C1017;border:1px solid var(--line);border-radius:10px;color:var(--txt);
+textarea{width:100%;background:var(--panel2);border:1px solid var(--line);border-radius:10px;color:var(--txt);
   font:inherit;font-size:16px;padding:14px 16px;resize:vertical;min-height:96px;line-height:1.6}
 textarea:focus{outline:none;border-color:var(--blue)}
 textarea::placeholder{color:#4A566A}
@@ -98,13 +109,13 @@ textarea::placeholder{color:#4A566A}
 .prompt{color:var(--dim);font-size:14px;margin:-4px 0 9px;font-style:italic}
 
 .grade{display:flex;flex-wrap:wrap;gap:7px;margin-top:6px}
-.grade button{width:42px;height:42px;border-radius:9px;border:1px solid var(--line);background:#0C1017;
+.grade button{width:42px;height:42px;border-radius:9px;border:1px solid var(--line);background:var(--panel2);
   color:var(--muted);font:inherit;font-weight:650;font-size:16px;cursor:pointer;transition:.12s}
 .grade button:hover{border-color:var(--blue);color:var(--txt)}
 .grade button.on{background:var(--gold);border-color:var(--gold);color:#161009}
 
 .chk{display:flex;flex-wrap:wrap;gap:10px;margin-top:6px}
-.chk button{border:1px solid var(--line);background:#0C1017;color:var(--muted);border-radius:999px;
+.chk button{border:1px solid var(--line);background:var(--panel2);color:var(--muted);border-radius:999px;
   padding:9px 17px;font:inherit;font-size:14.5px;cursor:pointer;transition:.12s}
 .chk button:hover{border-color:var(--blue);color:var(--txt)}
 .chk button.on{background:rgba(61,214,140,.15);border-color:var(--green);color:#A8ECC8}
@@ -197,60 +208,12 @@ textarea::placeholder{color:#4A566A}
   .ar{padding:14px 16px}
   .ar-bal{font-size:17px}
 }
-
-
-/* ---- Navigation par onglets (consolidé claude.ai) ---- */
-.topnav{position:sticky;top:0;z-index:20;background:rgba(10,13,19,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
-.topnav-inner{max-width:1220px;margin:0 auto;padding:14px 32px;display:flex;align-items:center;gap:26px}
-.brand{font-weight:700;color:var(--gold);font-size:13px;letter-spacing:.1em;text-transform:uppercase;white-space:nowrap}
-.tabs{display:flex;gap:4px;overflow-x:auto;flex:1;scrollbar-width:thin}
-.tab{white-space:nowrap;padding:8px 14px;border-radius:8px;color:var(--muted);font-weight:600;font-size:14.5px;transition:.12s;cursor:pointer}
-.tab:hover{color:var(--txt);text-decoration:none;background:var(--panel2)}
-.tab.on{color:#161009;background:var(--gold)}
-.view{display:none}
-.view.active{display:block}
-
-/* ---- tableaux larges : ils défilent eux-mêmes, jamais la page ---- */
-.tbl-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;border-radius:14px}
-.tbl-wrap .tbl{border-radius:0}
-
-/* ---- AMD (phases accumulation / manipulation / distribution) ---- */
-.amd{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:8px}
-@media(max-width:880px){.amd{grid-template-columns:1fr}}
-.phase{background:var(--panel);border:1px solid var(--line);border-top:4px solid var(--dim);border-radius:12px;padding:22px 24px}
-.phase.a{border-top-color:var(--blue)}
-.phase.m{border-top-color:var(--gold)}
-.phase.d{border-top-color:var(--green)}
-.phase .p{font-size:13px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
-.phase.a .p{color:var(--blue)} .phase.m .p{color:var(--gold)} .phase.d .p{color:var(--green)}
-.phase .h{font-size:14px;color:var(--dim);font-variant-numeric:tabular-nums;margin-bottom:10px}
-.phase .x{color:var(--txt);font-size:15.5px;line-height:1.55}
-
-/* ---- ctx / lvl (contexte de séance + niveaux clés) ---- */
-.ctx{display:grid;grid-template-columns:1.3fr 1fr;gap:16px;margin-top:16px}
-@media(max-width:880px){.ctx{grid-template-columns:1fr}}
-.lvl{display:flex;justify-content:space-between;gap:12px;padding:9px 0;border-bottom:1px solid var(--line);font-size:15px}
-.lvl:last-child{border-bottom:none}
-.lvl span:first-child{color:var(--muted)}
-.lvl span:last-child{font-weight:650;font-variant-numeric:tabular-nums;text-align:right}
-
-/* ---- week (résumé hebdomadaire, session 13/08) ---- */
-.week{display:flex;flex-wrap:wrap;gap:12px;margin-top:8px}
-.week .day{flex:1;min-width:150px;background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:18px 20px}
-.week .day .d{font-size:13px;font-weight:700;color:var(--muted);letter-spacing:.03em;margin-bottom:8px}
-.week .day .s{font-size:17px;font-weight:700;margin-bottom:6px}
-.week .day .n{color:var(--dim);font-size:13.5px;line-height:1.5}
-.week .day.bad{border-color:rgba(242,85,90,.4)}
-.week .day.bad .s{color:var(--red)}
-.week .day.now{border-color:rgba(212,166,60,.5);background:linear-gradient(180deg,#1A2230,#12171F)}
-.week .day.now .s{color:var(--gold)}
-.week .day .s.pos{color:var(--green)} .week .day .s.neg{color:var(--red)}
-
 </style>
 </head>
 <body>
-<nav id="topnav"><div class="tn-logo">Journal · Viale</div><div id="tab-bar"></div></nav>
-<section class="view" id="view-dashboard"><p class="eyebrow">Journal de suivi &middot; Futures</p>
+<div class="view active" id="view-dashboard">
+<div class="wrap">
+<p class="eyebrow">Journal de suivi &middot; Futures</p>
   <h1>Journal de trading</h1>
   <p class="sub">MNQ · EUR/USD (6EU) — cinq comptes actifs Tradovate / Lucid</p>
 
@@ -265,7 +228,7 @@ textarea::placeholder{color:#4A566A}
     <div class="kpi"><div class="lbl">Cumul 5 comptes</div><div class="val neg">−2 691 $</div><div class="note">depuis le départ (50 k$ chacun)</div></div>
     <div class="kpi"><div class="lbl">Meilleure session</div><div class="val pos">+2 472 $</div><div class="note">13/08 — AMD MNQ</div></div>
     <div class="kpi"><div class="lbl">Pire session</div><div class="val neg">−1 340 $</div><div class="note">21/08 — 5 comptes</div></div>
-    <div class="kpi"><div class="lbl">Compte E</div><div class="val pos">+593 $</div><div class="note">Seul compte au-dessus du départ</div></div>
+    <div class="kpi"><div class="lbl">Compte 06</div><div class="val pos">+593 $</div><div class="note">Seul compte au-dessus du départ</div></div>
   </div>
 
   <h2>Mes comptes</h2>
@@ -281,12 +244,12 @@ textarea::placeholder{color:#4A566A}
   <div class="sessions">
     <a class="s lose" href="#" data-goto="s0824">
       <div class="day"><div class="dt">Lundi 24 août</div><div class="dd">2026</div></div>
-      <div class="desc">3 comptes actifs. Compte C teste le 6EU6 (EUR/USD futures) pour la première fois. Compte E seul positif — long 4 contrats, deux sorties partielles aux niveaux techniques.</div>
-      <div class="num"><div class="p neg">−427 $</div><div class="q">9 trades · A −380 · C −525 · E +478</div></div>
+      <div class="desc">3 comptes actifs. 01 teste le 6EU6 (EUR/USD futures) pour la première fois. 06 seul positif — long 4 contrats, deux sorties partielles aux niveaux techniques.</div>
+      <div class="num"><div class="p neg">−427 $</div><div class="q">9 trades · 04 −380 · 01 −525 · 06 +478</div></div>
     </a>
     <a class="s lose" href="#" data-goto="s0821" style="border-color:rgba(212,166,60,.4)">
       <div class="day"><div class="dt">Vendredi 21 août</div><div class="dd">2026</div></div>
-      <div class="desc">5 comptes. Journée lourde — 18 trades, 4 gagnants. Compte E seul positif +123 $.</div>
+      <div class="desc">5 comptes. Journée lourde — 18 trades, 4 gagnants. 06 seul positif +123 $.</div>
       <div class="num"><div class="p neg">−1 340 $</div><div class="q">18 trades · 4 comptes en perte</div></div>
     </a>
     <a class="s lose" href="#" data-goto="s0820">
@@ -316,7 +279,7 @@ textarea::placeholder{color:#4A566A}
     </a>
     <a class="s win" href="#" data-goto="s0813">
       <div class="day"><div class="dt">Jeudi 13 août</div><div class="dd">2026</div></div>
-      <div class="desc">AMD complet sur MNQ à l'ouverture NY. Lecture juste, exécution rapide. TP mal configuré (−322 $) et taille doublée à 8 contrats. <span style="color:var(--dim)">Compte B non relevé.</span></div>
+      <div class="desc">AMD complet sur MNQ à l'ouverture NY. Lecture juste, exécution rapide. TP mal configuré (−322 $) et taille doublée à 8 contrats. <span style="color:var(--dim)">05 non relevé.</span></div>
       <div class="num"><div class="p pos">+2 472 $</div><div class="q">3 trades · 3/3</div></div>
     </a>
   </div>
@@ -484,8 +447,12 @@ textarea::placeholder{color:#4A566A}
     Les notes de chaque session s'enregistrent toutes seules pendant que tu écris.<br>
     Garde cette page en favori — c'est le point d'entrée du journal.
   </p>
-</section>
-<section class="view" id="view-brief">  <p class="eyebrow">Mis à jour après la séance du jeudi 20 août 2026</p>
+</div>
+</div>
+<section class="view" id="view-brief">
+<div class="wrap">
+  <div style="margin-bottom:24px"><a href="#" data-goto="dashboard" style="color:var(--muted);font-weight:600;font-size:.88rem;text-decoration:none">← Journal</a></div>
+  <p class="eyebrow">Mis à jour après la séance du jeudi 20 août 2026</p>
   <h1>Ta prochaine séance</h1>
   <p class="sub">Ce qu'il faut faire, ce qu'il ne faut pas faire. Construit uniquement à partir de tes journaux.</p>
 
@@ -749,6 +716,7 @@ textarea::placeholder{color:#4A566A}
     </div>
   </div>
 
+</div>
 </section>
 
 <section class="view" id="view-s0813" data-journal-date="2026-08-13">
@@ -2482,8 +2450,24 @@ Parfois il faut attendre plus de 50 minutes avant de rentrer.</textarea>
    plus dans la liste des comptes actifs. */
 window.COMPTES = [
   {
+    nom: "Tradovate / Lucid — …4680006",
+    ref: "Compte 06",
+    statut: "evaluation",
+    statutLabel: "Évaluation",
+    devise: "$",
+    depart: 50000,
+    solde: 50593.00,
+    soldeDate: "24/08/2026 (info compte)",
+    reference: "LTE05085004680006",
+    objectif: null,
+    mll: null,
+    maxContrats: null,
+    note: "50 593,00 $ — +478 $ le 24/08 (MNQU6 : short −182, long ×2 sorties partielles +666). Seul compte positif. +123 $ le 21/08.",
+    aConfirmer: null
+  },
+  {
     nom: "Tradovate / Lucid — …4680004",
-    ref: "Compte A",
+    ref: "Compte 04",
     statut: "evaluation",
     statutLabel: "Évaluation",
     devise: "$",
@@ -2498,40 +2482,8 @@ window.COMPTES = [
     aConfirmer: null
   },
   {
-    nom: "Tradovate / Lucid — …4680005",
-    ref: "Compte B",
-    statut: "evaluation",
-    statutLabel: "Sous le seuil de départ",
-    devise: "$",
-    depart: 50000,
-    solde: 48252.70,
-    soldeDate: "24/08/2026 (info compte — confirmé inchangé)",
-    reference: "LTE05085004680005",
-    objectif: null,
-    mll: null,
-    maxContrats: null,
-    note: "48 252,70 $ — Inactif le 24/08. −534 $ le 21/08.",
-    aConfirmer: null
-  },
-  {
-    nom: "Tradovate / Lucid — …4680001",
-    ref: "Compte C",
-    statut: "evaluation",
-    statutLabel: "Évaluation",
-    devise: "$",
-    depart: 50000,
-    solde: 48958.85,
-    soldeDate: "24/08/2026 (info compte)",
-    reference: "LTE05085004680001",
-    objectif: null,
-    mll: null,
-    maxContrats: null,
-    note: "48 958,85 $ — −525,15 $ le 24/08 (6EU2 + MNQU6 ×3). Nouveau : premier trade 6EU6 (EUR/USD futures).",
-    aConfirmer: null
-  },
-  {
     nom: "Tradovate / Lucid — …4680002",
-    ref: "Compte D",
+    ref: "Compte 02",
     statut: "evaluation",
     statutLabel: "Évaluation",
     devise: "$",
@@ -2546,19 +2498,35 @@ window.COMPTES = [
     aConfirmer: null
   },
   {
-    nom: "Tradovate / Lucid — …4680006",
-    ref: "Compte E",
+    nom: "Tradovate / Lucid — …4680001",
+    ref: "Compte 01",
     statut: "evaluation",
     statutLabel: "Évaluation",
     devise: "$",
     depart: 50000,
-    solde: 50593.00,
+    solde: 48958.85,
     soldeDate: "24/08/2026 (info compte)",
-    reference: "LTE05085004680006",
+    reference: "LTE05085004680001",
     objectif: null,
     mll: null,
     maxContrats: null,
-    note: "50 593,00 $ — +478 $ le 24/08 (MNQU6 : short −182, long ×2 sorties partielles +666). Seul compte positif. +123 $ le 21/08.",
+    note: "48 958,85 $ — −525,15 $ le 24/08 (6EU2 + MNQU6 ×3). Nouveau : premier trade 6EU6 (EUR/USD futures).",
+    aConfirmer: null
+  },
+  {
+    nom: "Tradovate / Lucid — …4680005",
+    ref: "Compte 05",
+    statut: "evaluation",
+    statutLabel: "Sous le seuil de départ",
+    devise: "$",
+    depart: 50000,
+    solde: 48252.70,
+    soldeDate: "24/08/2026 (info compte — confirmé inchangé)",
+    reference: "LTE05085004680005",
+    objectif: null,
+    mll: null,
+    maxContrats: null,
+    note: "48 252,70 $ — Inactif le 24/08. −534 $ le 21/08.",
     aConfirmer: null
   }
 ];
@@ -2567,9 +2535,9 @@ window.COMPTES = [
    R:R calculé uniquement quand le stop initial est connu. */
 window.TRADES = [
   /* ── 13 AOÛT ─────────────────────────────────────────────────── */
-  { jour:"13/08", instrument:"MNQ", sens:"Long",  qte:8, compte:"A + Topstep",
+  { jour:"13/08", instrument:"MNQ", sens:"Long",  qte:8, compte:"04 + Topstep",
     entree:29928.41, stop:null, objectif:null, sortie:30068.00, pnl:2233.50, tick:2 },
-  { jour:"13/08", instrument:"MNQ", sens:"Short", qte:1, compte:"Topstep",
+  { jour:"13/08", instrument:"MNQ", sens:"Short", qte:1, compte:"Topstep" ,
     entree:29911.50, stop:null, objectif:null, sortie:29895.50, pnl:32.00, tick:2 },
   { jour:"13/08", instrument:"MGC", sens:"Short", qte:1, compte:"Topstep",
     entree:4455.80, stop:null, objectif:null, sortie:4434.30, pnl:215.00, tick:10 },
@@ -2577,12 +2545,12 @@ window.TRADES = [
   /* ── 14 AOÛT ─────────────────────────────────────────────────── */
   { jour:"14/08", instrument:"MGC", sens:"Long",  qte:2, compte:"Topstep",
     entree:4374.00, stop:null, objectif:null, sortie:4399.10, pnl:502.00, tick:10 },
-  { jour:"14/08", instrument:"MNQ", sens:"Short", qte:3, compte:"A + Topstep",
+  { jour:"14/08", instrument:"MNQ", sens:"Short", qte:3, compte:"04 + Topstep",
     entree:30212.00, stop:30259.25, objectif:30029.25, sortie:30237.75, pnl:-170.00, tick:2,
-    remarque:"R:R sur la jambe Compte A (2 lots)" },
-  { jour:"14/08", instrument:"MNQ", sens:"Long",  qte:3, compte:"Compte A",
+    remarque:"R:R sur la jambe Compte 04 (2 lots)" },
+  { jour:"14/08", instrument:"MNQ", sens:"Long",  qte:3, compte:"Compte 04",
     entree:30253.50, stop:30195.00, objectif:30370.50, sortie:30219.50, pnl:-204.00, tick:2 },
-  { jour:"14/08", instrument:"MNQ", sens:"Long",  qte:3, compte:"Compte B",
+  { jour:"14/08", instrument:"MNQ", sens:"Long",  qte:3, compte:"Compte 05",
     entree:30274.00, stop:30213.25, objectif:30277.25, sortie:30209.00, pnl:-390.00, tick:2,
     remarque:"Bracket incohérent — objectif à 3,25 pts" },
 
@@ -2590,7 +2558,7 @@ window.TRADES = [
   { jour:"17/08", instrument:"6E", sens:"Short", qte:1, compte:"Topstep",
     entree:1.16070, stop:1.16170, objectif:1.15870, sortie:1.15905, pnl:202.03, tick:125000, dec:5,
     remarque:"Risque 125 $ (20 ticks), objectif 250 $ (40 ticks). Sorti a 33 ticks : TP deplace." },
-  { jour:"17/08", instrument:"MNQ", sens:"Long",  qte:2, compte:"Compte B",
+  { jour:"17/08", instrument:"MNQ", sens:"Long",  qte:2, compte:"Compte 05",
     entree:30197.00, stop:30164.00, objectif:30331.00, sortie:30198.75, pnl:7.00, tick:2,
     remarque:"Stop remonté à 30 199 avant la sortie" },
 
@@ -2701,19 +2669,19 @@ window.TRADES = [
     remarque:"14h02→15h19 (1h16) — sorti au marché, TP et stop annulés simultanément" },
 
   /* ── 21 AOÛT — Compte E (631159020xxx) ──────────────────────── */
-  { jour:"21/08", instrument:"MNQ", sens:"Long", qte:2, compte:"Compte E",
+  { jour:"21/08", instrument:"MNQ", sens:"Long", qte:2, compte:"Compte 06",
     entree:29330.00, stop:null, objectif:null, sortie:29334.00, pnl:16.00, tick:2, dec:2,
     remarque:"15h51→16h06 (15m)" },
-  { jour:"21/08", instrument:"MNQ", sens:"Short", qte:1, compte:"Compte E",
+  { jour:"21/08", instrument:"MNQ", sens:"Short", qte:1, compte:"Compte 06",
     entree:29320.00, stop:null, objectif:null, sortie:29277.00, pnl:-86.00, tick:2, dec:2,
     remarque:"16h09→16h13 (4m)" },
-  { jour:"21/08", instrument:"MNQ", sens:"Short", qte:2, compte:"Compte E",
+  { jour:"21/08", instrument:"MNQ", sens:"Short", qte:2, compte:"Compte 06",
     entree:29287.25, stop:null, objectif:null, sortie:29261.00, pnl:-105.00, tick:2, dec:2,
     remarque:"16h14→16h26 (12m)" },
-  { jour:"21/08", instrument:"MNQ", sens:"Long", qte:2, compte:"Compte E",
+  { jour:"21/08", instrument:"MNQ", sens:"Long", qte:2, compte:"Compte 06",
     entree:29294.00, stop:null, objectif:null, sortie:29335.25, pnl:165.00, tick:2, dec:2,
     remarque:"16h26→17h03 (36m)" },
-  { jour:"21/08", instrument:"MNQ", sens:"Long", qte:1, compte:"Compte E",
+  { jour:"21/08", instrument:"MNQ", sens:"Long", qte:1, compte:"Compte 06",
     entree:29294.00, stop:null, objectif:null, sortie:29360.50, pnl:133.00, tick:2, dec:2,
     remarque:"16h26→17h04 (38m) — même entrée, lot laissé courir plus longtemps" },
 
@@ -2740,22 +2708,22 @@ window.TRADES = [
     remarque:"15h46→15h46 (22 sec) — sortie manuelle simultanée avec fermeture 6EU · possible panique" },
 
   /* ── 24 AOÛT — Compte E (…0006) ─────────────────────────────── */
-  { jour:"24/08", instrument:"MNQ", sens:"Short", qte:2, compte:"Compte E",
+  { jour:"24/08", instrument:"MNQ", sens:"Short", qte:2, compte:"Compte 06",
     entree:28959.75, stop:29004.25, objectif:28795.25, sortie:29005.25, pnl:-182.00, tick:2, dec:2,
     remarque:"16h12→16h16 (4m) — Stop Loss déclenché" },
-  { jour:"24/08", instrument:"MNQ", sens:"Long", qte:2, compte:"Compte E",
+  { jour:"24/08", instrument:"MNQ", sens:"Long", qte:2, compte:"Compte 06",
     entree:28993.25, stop:null, objectif:29080.75, sortie:29080.75, pnl:350.00, tick:2, dec:2,
     remarque:"16h17→16h34 (17m) — sortie partielle limite · 2 des 4 contrats" },
-  { jour:"24/08", instrument:"MNQ", sens:"Long", qte:2, compte:"Compte E",
+  { jour:"24/08", instrument:"MNQ", sens:"Long", qte:2, compte:"Compte 06",
     entree:28993.25, stop:null, objectif:29039.25, sortie:29072.25, pnl:316.00, tick:2, dec:2,
     remarque:"16h17→17h13 (56m) — 2e sortie partielle · limite 29 039 exécutée à 29 072 (améliorée)" }
 ];
 
 window.SESSIONS = [
   { jour:"24/08", label:"Lundi 24 août", fichier:"2026-08-24-lundi.html", pnl:-427.15, trades:9, gagnants:3, neutres:0,
-    note:"A −380 · C −525,15 · E +478. B et D inactifs. Nouveau instrument 6EU6 (EUR/USD futures) sur C. 9 trades documentés (+ trades antérieurs non capturés sur C et E)." },
+    note:"04 −380 · 01 −525,15 · 06 +478. B et D inactifs. Nouveau instrument 6EU6 (EUR/USD futures) sur C. 9 trades documentés (+ trades antérieurs non capturés sur C et E)." },
   { jour:"21/08", label:"Vendredi 21 août", fichier:"2026-08-21-vendredi.html", pnl:-1340.10, trades:18, gagnants:4, neutres:0,
-    note:"−1 463,10 $ sur les 4 comptes confirmés + Compte E +123 $ brut ≈ −1 340 $ net. 18 trades documentés via Performance CSV." },
+    note:"−1 463,10 $ sur les 4 comptes confirmés + 06 +123 $ brut ≈ −1 340 $ net. 18 trades documentés via Performance CSV." },
   { jour:"20/08", label:"Jeudi 20 août",    fichier:"2026-08-20-jeudi.html",    pnl:-740.40,  trades:9, gagnants:2, neutres:1 },
   { jour:"19/08", label:"Mercredi 19 août", fichier:"2026-08-19-mercredi.html", pnl:384.16,   trades:4, gagnants:1, neutres:0 },
   { jour:"18/08", label:"Mardi 18 août",    fichier:"2026-08-18-mardi.html",    pnl:-761.94,  trades:5, gagnants:1, neutres:0 },
