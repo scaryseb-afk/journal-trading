@@ -236,7 +236,7 @@ textarea::placeholder{color:#4A566A}
 </div>
 <p class="eyebrow">Journal de suivi &middot; Futures</p>
   <h1>Journal de trading</h1>
-  <p class="sub">MNQ · 6EU — cinq comptes actifs Tradovate / Lucid</p>
+  <p class="sub">MNQ — cinq comptes actifs Tradovate / Lucid</p>
 
   <div class="big" style="margin-top:32px">
     <div class="l">Avant chaque séance</div>
@@ -245,8 +245,8 @@ textarea::placeholder{color:#4A566A}
   </div>
 
   <div class="kpis">
-    <div class="kpi"><div class="lbl">Sessions journalisées</div><div class="val">10</div><div class="note">du 13/08 au 26/08</div></div>
-    <div class="kpi"><div class="lbl">Cumul 5 comptes</div><div class="val neg">−3 015 $</div><div class="note">depuis le départ (50 k$ chacun)</div></div>
+    <div class="kpi"><div class="lbl">Sessions journalisées</div><div class="val">12</div><div class="note">du 13/08 au 28/08</div></div>
+    <div class="kpi"><div class="lbl">Cumul 5 comptes</div><div class="val neg">−3 261 $</div><div class="note">depuis le départ (50 k$ chacun)</div></div>
     <div class="kpi"><div class="lbl">Meilleure session</div><div class="val pos">+2 472 $</div><div class="note">13/08 — AMD MNQ</div></div>
     <div class="kpi"><div class="lbl">Pire session</div><div class="val neg">−1 340 $</div><div class="note">21/08 — 5 comptes</div></div>
     <div class="kpi"><div class="lbl">Compte …002</div><div class="val neg">−701 $</div><div class="note">49 299 $ · était à +593 avant le 25/08</div></div>
@@ -262,7 +262,43 @@ textarea::placeholder{color:#4A566A}
   <div id="rr"></div>
 
   <h2>Sessions</h2>
+
+  <div class="mois-label" style="display:flex;align-items:center;gap:12px;margin-bottom:10px">
+    <span style="color:var(--gold);font-size:13px;font-weight:700;letter-spacing:.12em;text-transform:uppercase">Septembre 2026</span>
+    <span style="flex:1;height:1px;background:var(--line)"></span>
+  </div>
+  <div class="sessions" style="margin-bottom:28px">
+    <div class="s" style="opacity:.5;pointer-events:none;border-style:dashed">
+      <div class="day"><div class="dt">Semaine du 1 sept.</div><div class="dd">2026</div></div>
+      <div class="desc" style="font-style:italic">Pas encore de session journalisée.</div>
+      <div class="num"><div class="p" style="color:var(--dim)">—</div><div class="q" style="color:var(--dim)">En attente</div></div>
+    </div>
+  </div>
+
+  <details id="details-aout" open>
+    <summary style="cursor:pointer;display:flex;align-items:center;gap:12px;margin-bottom:10px;list-style:none;-webkit-appearance:none">
+      <span style="color:var(--muted);font-size:13px;font-weight:700;letter-spacing:.12em;text-transform:uppercase">Août 2026</span>
+      <span style="flex:1;height:1px;background:var(--line)"></span>
+      <span id="aout-toggle-lbl" style="color:var(--dim);font-size:13px;font-weight:600">12 sessions · −3 261 $ ▾</span>
+    </summary>
+    <script>
+      (function(){
+        var d=document.getElementById('details-aout');
+        var l=document.getElementById('aout-toggle-lbl');
+        d.addEventListener('toggle',function(){l.textContent=d.open?'12 sessions · −3 261 $ ▾':'12 sessions · −3 261 $ ▸';});
+      })();
+    </script>
   <div class="sessions">
+    <a class="s lose" href="#" data-goto="s0828">
+      <div class="day"><div class="dt">Vendredi 28 août</div><div class="dd">2026</div></div>
+      <div class="desc">2 comptes actifs. Compte …006 : 3 shorts consécutifs contre la tendance haussière, stops en série, −298 $. Compte inconnu : 3 longs dans le même mouvement, +131 $. Même instrument, biais opposés.</div>
+      <div class="num"><div class="p neg">−167 $</div><div class="q">6 trades · 2 gagnants · 33 %</div></div>
+    </a>
+    <a class="s lose" href="#" data-goto="s0827">
+      <div class="day"><div class="dt">Jeudi 27 août</div><div class="dd">2026</div></div>
+      <div class="desc">1 compte actif (…006). 5 scalps MNQU6, tous longs. Un stop lourd à −90,50 $ en 52 s efface 4 petits gagnants (+3, +5, +8,50, +2 $). Discipline correcte — juste malchanceux sur le timing.</div>
+      <div class="num"><div class="p neg">−79 $</div><div class="q">5 trades · 4 gagnants · 80 %</div></div>
+    </a>
     <a class="s win" href="#" data-goto="s0826">
       <div class="day"><div class="dt">Mercredi 26 août</div><div class="dd">2026</div></div>
       <div class="desc">1 compte actif. Or micro (MGCZ6) : 2 shorts propres au matin, +127 $. MNQ : 1 short raté (sweep trop petit, −179 $), puis long haussier sur setup complet BPR+FVG+SMT+MSS, +210,50 $ brut. Sortie en BE sur 3ème position par peur du SL.</div>
@@ -314,6 +350,7 @@ textarea::placeholder{color:#4A566A}
       <div class="num"><div class="p pos">+2 472 $</div><div class="q">3 trades · 3/3</div></div>
     </a>
   </div>
+  </details>
 
   <h2>Ce qui revient</h2>
   <div class="watch">
@@ -2471,6 +2508,103 @@ Parfois il faut attendre plus de 50 minutes avant de rentrer.</textarea>
   </div>
 </section>
 
+<section class="view" id="view-s0828" data-journal-date="2026-08-28">
+<div style="margin-bottom:24px"><a href="#" data-goto="dashboard" style="color:var(--muted);font-weight:600;font-size:.88rem;text-decoration:none">← Journal</a></div>
+  <p class="eyebrow">Journal de suivi &middot; Futures</p>
+  <h1>Vendredi 28 août 2026</h1>
+  <p class="sub">2 comptes actifs. 6 trades MNQU6 — journée de fin de semaine difficile. Compte …006 : −298 $. Compte inconnu : +131 $. Total net : −167 $.</p>
+
+  <div class="kpis">
+    <div class="kpi"><div class="lbl">P&amp;L journée</div><div class="val neg">−167 $</div><div class="note">Net estimé · brut −167 $ · frais ~−12 $</div></div>
+    <div class="kpi"><div class="lbl">Trades</div><div class="val">6</div><div class="note">2 gagnants · 3 perdants · 1 neutre · 33 %</div></div>
+    <div class="kpi"><div class="lbl">Compte …006</div><div class="val neg">−298 $</div><div class="note">3 trades · 0 gagnant · série de stops</div></div>
+    <div class="kpi"><div class="lbl">Compte …00?</div><div class="val pos">+131 $</div><div class="note">3 trades · 2 gagnants · +84 $, +48 $, −1 $</div></div>
+  </div>
+
+  <div class="big" style="margin-top:32px;border-color:rgba(220,60,60,.4)">
+    <div class="l">La journée en un mot</div>
+    <div class="t">Fin de semaine sous pression — compte …006 touche 3 stops d'affilée, compte inconnu sauve partiellement la mise.</div>
+    <div class="d">Tous les trades concentrés entre 16h11 et 17h34 (NY afternoon). Le compte …006 encaisse 3 stops consécutifs : −101 $, −152 $, −45 $ = −298 $ en 12 minutes. Le deuxième compte prend 3 longs dans la même zone temporelle et finit positif : +84 $, +48 $, −1 $ = +131 $. Résultat combiné : −167 $ brut. Même instrument, même moment, deux biais opposés — résultat logiquement asymétrique.</div>
+  </div>
+
+  <h2>Compte …006 — 3 Shorts (stops)</h2>
+  <p style="color:var(--sub);font-size:.85rem;margin:-8px 0 14px">3 trades · brut −298 $ · stops consécutifs</p>
+  <div class="tbl-wrap">
+  <table class="tbl" style="border-radius:14px;border-top:1px solid var(--line)">
+    <thead><tr><th>Heure</th><th>Instrument</th><th>Sens</th><th>Qté</th><th>Entrée</th><th>Sortie</th><th>Tenue</th><th>P&amp;L</th><th>Note</th></tr></thead>
+    <tbody>
+      <tr><td class="fill">16h11</td><td class="fill">MNQU6</td><td><span class="tag s">SHORT</span></td><td class="fill">1</td><td class="fill">29 570,25</td><td class="fill">29 620,75</td><td class="fill">8 min 17 s</td><td class="neg">−101 $</td><td class="fill">Stop atteint</td></tr>
+      <tr><td class="fill">16h20</td><td class="fill">MNQU6</td><td><span class="tag s">SHORT</span></td><td class="fill">2</td><td class="fill">29 604,50</td><td class="fill">29 642,50</td><td class="fill">1 min 46 s</td><td class="neg">−152 $</td><td class="fill">Stop rapide · 2 lots</td></tr>
+      <tr><td class="fill">16h22</td><td class="fill">MNQU6</td><td><span class="tag s">SHORT</span></td><td class="fill">2</td><td class="fill">29 651,50</td><td class="fill">29 662,75</td><td class="fill">54 s</td><td class="neg">−45 $</td><td class="fill">3ème tentative — stop en 54 s</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <h2 style="margin-top:40px">Compte …00? — 3 Longs</h2>
+  <p style="color:var(--sub);font-size:.85rem;margin:-8px 0 14px">3 trades · brut +131 $</p>
+  <div class="tbl-wrap">
+  <table class="tbl" style="border-radius:14px;border-top:1px solid var(--line)">
+    <thead><tr><th>Heure</th><th>Instrument</th><th>Sens</th><th>Qté</th><th>Entrée</th><th>Sortie</th><th>Tenue</th><th>P&amp;L</th><th>Note</th></tr></thead>
+    <tbody>
+      <tr><td class="fill">16h24</td><td class="fill">MNQU6</td><td><span class="tag l">LONG</span></td><td class="fill">3</td><td class="fill">29 640,75</td><td class="fill">29 626,75</td><td class="fill">5 min 03 s</td><td class="pos">+84 $</td><td class="fill">Biais long correct</td></tr>
+      <tr><td class="fill">17h22</td><td class="fill">MNQU6</td><td><span class="tag l">LONG</span></td><td class="fill">1</td><td class="fill">29 768,75</td><td class="fill">29 744,75</td><td class="fill">11 min 11 s</td><td class="pos">+48 $</td><td class="fill">Gain modéré</td></tr>
+      <tr><td class="fill">17h24</td><td class="fill">MNQU6</td><td><span class="tag l">LONG</span></td><td class="fill">1</td><td class="fill">29 768,75</td><td class="fill">29 769,25</td><td class="fill">10 min 01 s</td><td class="neg">−1 $</td><td class="fill">Quasi neutre</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <div class="big" style="border-color:rgba(220,180,60,.35);margin-top:20px">
+    <div class="l">Analyse de séance</div>
+    <div class="t">3 stops consécutifs dans la même direction = biais faux. La règle : arrêter après 2 stops dans le même sens.</div>
+    <div class="d"><strong>Compte …006 (Short) :</strong> Short contre une tendance haussière (+92 pts entre 16h11 et 17h34). Après 2 stops, la règle est d'arrêter ou d'inverser — pas de re-entrer short. Le 3ème trade (−45 $) était évitable.<br><br><strong>Compte …00? (Long) :</strong> Biais correct, +131 $ brut. La différence n'est pas la technique, c'est le biais.<br><br><strong>Point critique :</strong> Sur le compte …006, 2 stops consécutifs auraient dû déclencher une pause obligatoire.</div>
+  </div>
+
+  <p class="foot">Séance journalisée le 30/08/2026 · CSV Performance confirmé (2 comptes).</p>
+</section>
+
+<section class="view" id="view-s0827" data-journal-date="2026-08-27">
+<div style="margin-bottom:24px"><a href="#" data-goto="dashboard" style="color:var(--muted);font-weight:600;font-size:.88rem;text-decoration:none">← Journal</a></div>
+  <p class="eyebrow">Journal de suivi &middot; Futures</p>
+  <h1>Jeudi 27 août 2026</h1>
+  <p class="sub">1 compte actif (…006). 5 trades MNQU6. Séance en dent de scie — un stop lourd plombe 4 petits gagnants. Total : −79 $.</p>
+
+  <div class="kpis">
+    <div class="kpi"><div class="lbl">P&amp;L journée</div><div class="val neg">−79 $</div><div class="note">Net après frais (−7 $) · brut −72 $</div></div>
+    <div class="kpi"><div class="lbl">Trades</div><div class="val">5</div><div class="note">4 gagnants · 1 perdant · 80 %</div></div>
+    <div class="kpi"><div class="lbl">Meilleur trade</div><div class="val pos">+8,50 $</div><div class="note">15h50 · 5 min 08 s · re-entrée après stop</div></div>
+    <div class="kpi"><div class="lbl">Pire trade</div><div class="val neg">−90,50 $</div><div class="note">15h48 · 52 s · stop atteint</td></div>
+  </div>
+
+  <div class="big" style="margin-top:32px;border-color:rgba(220,60,60,.4)">
+    <div class="l">La journée en un mot</div>
+    <div class="t">4 gagnants pour +18,50 $ brut, annulés par un stop à −90,50 $ en 52 secondes.</div>
+    <div class="d">Séance NY uniquement (15h30–16h30). 5 scalps MNQU6, tous longs. Les 4 trades gagnants rapportent +18,50 $ cumulé. Le troisième (−90,50 $) est un stop propre atteint en 52 secondes — marché sweepé le bas avant de monter. Pas de revenge trading, pas d'overtrading. Résultat net : −79 $.</div>
+  </div>
+
+  <h2>MNQU6 — 5 trades</h2>
+  <p style="color:var(--sub);font-size:.85rem;margin:-8px 0 14px">5 trades · brut −72 $ · 4 gagnants / 1 perdant</p>
+  <div class="tbl-wrap">
+  <table class="tbl" style="border-radius:14px;border-top:1px solid var(--line)">
+    <thead><tr><th>Heure</th><th>Instrument</th><th>Sens</th><th>Qté</th><th>Entrée</th><th>Sortie</th><th>Tenue</th><th>P&amp;L</th><th>Note</th></tr></thead>
+    <tbody>
+      <tr><td class="fill">15h30</td><td class="fill">MNQU6</td><td><span class="tag l">LONG</span></td><td class="fill">1</td><td class="fill">29 547,50</td><td class="fill">29 549,00</td><td class="fill">59 s</td><td class="pos">+3 $</td><td class="fill">Scalp rapide</td></tr>
+      <tr><td class="fill">15h42</td><td class="fill">MNQU6</td><td><span class="tag l">LONG</span></td><td class="fill">1</td><td class="fill">29 492,75</td><td class="fill">29 495,25</td><td class="fill">5 min 05 s</td><td class="pos">+5 $</td><td class="fill">Scalp propre</td></tr>
+      <tr><td class="fill">15h48</td><td class="fill">MNQU6</td><td><span class="tag l">LONG</span></td><td class="fill">1</td><td class="fill">29 499,50</td><td class="fill">29 454,25</td><td class="fill">52 s</td><td class="neg">−90,50 $</td><td class="fill">Stop atteint — sweep avant retournement</td></tr>
+      <tr><td class="fill">15h50</td><td class="fill">MNQU6</td><td><span class="tag l">LONG</span></td><td class="fill">1</td><td class="fill">29 507,25</td><td class="fill">29 511,50</td><td class="fill">5 min 08 s</td><td class="pos">+8,50 $</td><td class="fill">Re-entrée propre</td></tr>
+      <tr><td class="fill">16h14</td><td class="fill">MNQU6</td><td><span class="tag l">LONG</span></td><td class="fill">1</td><td class="fill">29 584,25</td><td class="fill">29 585,25</td><td class="fill">16 min 05 s</td><td class="pos">+2 $</td><td class="fill">Sortie prématurée</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <div class="big" style="border-color:rgba(220,180,60,.35);margin-top:20px">
+    <div class="l">Analyse de séance</div>
+    <div class="t">Discipline correcte. Le stop à −90,50 $ était légitime — le marché a sweepé un bas puis inversé.</div>
+    <div class="d"><strong>Ce qui fonctionne :</strong> Re-entrée immédiate après le stop (15h50, +8,50 $). Pas de revenge trading. Biais haussier cohérent sur toute la séance (5 trades, tous longs).<br><br><strong>Point à travailler :</strong> Le rapport gain moyen (4,60 $) vs stop max (90,50 $) est très déséquilibré. Sur les trades gagnants, les TP sont pris trop tôt — le dernier trade à 16h14 (+2 $ en 16 min) avait potentiellement plus à donner.</div>
+  </div>
+
+  <p class="foot">Séance journalisée le 30/08/2026 · CSV Performance …006 confirmé.</p>
+</section>
+
 <section class="view" id="view-s0826" data-journal-date="2026-08-26">
 <div style="margin-bottom:24px"><a href="#" data-goto="dashboard" style="color:var(--muted);font-weight:600;font-size:.88rem;text-decoration:none">← Journal</a></div>
   <p class="eyebrow">Journal de suivi &middot; Futures</p>
@@ -2950,8 +3084,8 @@ window.TRADES = [
 
 window.SESSIONS = [
   { jour:"31/08", label:"Lundi 31 août",    fichier:"2026-08-31-lundi.html",    pnl:null, trades:0, gagnants:0, neutres:0, note:"À documenter." },
-  { jour:"28/08", label:"Vendredi 28 août", fichier:"2026-08-28-vendredi.html", pnl:null, trades:0, gagnants:0, neutres:0, note:"À documenter." },
-  { jour:"27/08", label:"Jeudi 27 août",    fichier:"2026-08-27-jeudi.html",    pnl:null, trades:0, gagnants:0, neutres:0, note:"À documenter." },
+  { jour:"28/08", label:"Vendredi 28 août", fichier:"2026-08-28-vendredi.html", pnl:-167.00, trades:6, gagnants:2, neutres:1, note:"Compte …006 −298 $ (3 shorts consécutifs contre tendance) · Compte …00? +131 $ (3 longs) · net −167 $." },
+  { jour:"27/08", label:"Jeudi 27 août",    fichier:"2026-08-27-jeudi.html",    pnl:-79.00, trades:5, gagnants:4, neutres:0, note:"…006 · 5 scalps MNQU6 · 4 gagnants (+3, +5, +8,50, +2 $) · 1 stop −90,50 $ en 52 s · net −79 $." },
   { jour:"26/08", label:"Mercredi 26 août", fichier:"2026-08-26-mercredi.html", pnl:151.30, trades:6, gagnants:5, neutres:0, note:"MGCZ6 +127 $ (2 shorts) · MNQU6 −179 $ (sweep trop petit) · MNQU6 +212,50 $ (long BPR+FVG+SMT+MSS) · net +151,30 $." },
   { jour:"25/08", label:"Mardi 25 août", fichier:"2026-08-25-mardi.html", pnl:-475.00, trades:11, gagnants:5, neutres:0,
     note:"02 −305 · 06 −170 · 04/01/05 inactifs. 11 trades MNQU6 (4 sur C02 + 7 sur C06). C06 : −248 $ en ouverture (2 longs consécutifs perdants)." },
