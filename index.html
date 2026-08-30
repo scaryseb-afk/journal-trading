@@ -245,8 +245,8 @@ textarea::placeholder{color:#4A566A}
   </div>
 
   <div class="kpis">
-    <div class="kpi"><div class="lbl">Sessions journalisées</div><div class="val">9</div><div class="note">du 13/08 au 25/08</div></div>
-    <div class="kpi"><div class="lbl">Cumul 5 comptes</div><div class="val neg">−3 166 $</div><div class="note">depuis le départ (50 k$ chacun)</div></div>
+    <div class="kpi"><div class="lbl">Sessions journalisées</div><div class="val">10</div><div class="note">du 13/08 au 26/08</div></div>
+    <div class="kpi"><div class="lbl">Cumul 5 comptes</div><div class="val neg">−3 015 $</div><div class="note">depuis le départ (50 k$ chacun)</div></div>
     <div class="kpi"><div class="lbl">Meilleure session</div><div class="val pos">+2 472 $</div><div class="note">13/08 — AMD MNQ</div></div>
     <div class="kpi"><div class="lbl">Pire session</div><div class="val neg">−1 340 $</div><div class="note">21/08 — 5 comptes</div></div>
     <div class="kpi"><div class="lbl">Compte …002</div><div class="val neg">−701 $</div><div class="note">49 299 $ · était à +593 avant le 25/08</div></div>
@@ -263,6 +263,11 @@ textarea::placeholder{color:#4A566A}
 
   <h2>Sessions</h2>
   <div class="sessions">
+    <a class="s win" href="#" data-goto="s0826">
+      <div class="day"><div class="dt">Mercredi 26 août</div><div class="dd">2026</div></div>
+      <div class="desc">1 compte actif. Or micro (MGCZ6) : 2 shorts propres au matin, +127 $. MNQ : 1 short raté (sweep trop petit, −179 $), puis long haussier sur setup complet BPR+FVG+SMT+MSS, +210,50 $ brut. Sortie en BE sur 3ème position par peur du SL.</div>
+      <div class="num"><div class="p pos">+151 $</div><div class="q">6 trades · 5 gagnants · 83 %</div></div>
+    </a>
     <a class="s lose" href="#" data-goto="s0825">
       <div class="day"><div class="dt">Mardi 25 août</div><div class="dd">2026</div></div>
       <div class="desc">2 comptes actifs. Même erreur sur les deux : longs consécutifs dans un marché baissier, aucun ajustement. …006 : −248 $ en 9 minutes à l'ouverture, récupération partielle sur 5 trades.</div>
@@ -2470,19 +2475,102 @@ Parfois il faut attendre plus de 50 minutes avant de rentrer.</textarea>
 <div style="margin-bottom:24px"><a href="#" data-goto="dashboard" style="color:var(--muted);font-weight:600;font-size:.88rem;text-decoration:none">← Journal</a></div>
   <p class="eyebrow">Journal de suivi &middot; Futures</p>
   <h1>Mercredi 26 août 2026</h1>
-  <p class="sub">Session à documenter — données à ajouter après la clôture du marché.</p>
+  <p class="sub">1 compte actif. 6 trades — MGCZ6 (or micro) + MNQU6. Séance positive malgré un Short perdant en pré-NY. Total : +151 $.</p>
 
   <div class="kpis">
-    <div class="kpi"><div class="lbl">P&amp;L journée</div><div class="val neu">—</div><div class="note">À remplir</div></div>
-    <div class="kpi"><div class="lbl">Trades</div><div class="val neu">—</div><div class="note">À documenter</div></div>
-    <div class="kpi"><div class="lbl">Compte 06</div><div class="val neu">—</div><div class="note">En attente</div></div>
-    <div class="kpi"><div class="lbl">Compte 02</div><div class="val neu">—</div><div class="note">En attente</div></div>
+    <div class="kpi"><div class="lbl">P&amp;L journée</div><div class="val pos">+151 $</div><div class="note">Net après frais (−9 $) · brut +160,50 $</div></div>
+    <div class="kpi"><div class="lbl">Trades</div><div class="val">6</div><div class="note">5 gagnants · 1 perdant · 83 %</div></div>
+    <div class="kpi"><div class="lbl">MGCZ6 (or micro)</div><div class="val pos">+127 $</div><div class="note">2 Shorts · +63 $ et +64 $ · pré-midi</div></div>
+    <div class="kpi"><div class="lbl">MNQU6 — Short</div><div class="val neg">−179 $</div><div class="note">2 contrats · 6 min 55 s · setup pas valable</div></div>
+    <div class="kpi"><div class="lbl">MNQU6 — Longs</div><div class="val pos">+212 $</div><div class="note">NY open · +101,50 + 109 + 2 · sortie BE sur dernier</div></div>
   </div>
 
-  <div class="big" style="margin-top:32px;border-color:rgba(120,120,120,.3)">
-    <div class="l">Session à venir</div>
-    <div class="t">Envoie les exports Tradovate (Performance CSV + info compte) après la clôture pour que je remplisse cette page.</div>
-    <div class="d">Fichiers utiles : Performance.csv (par compte), ordrestout.csv, infoducompte.csv. Exporter depuis chaque compte actif séparément pour identification correcte.</div>
+  <div class="big" style="margin-top:32px;border-color:rgba(60,180,100,.4)">
+    <div class="l">La journée en un mot</div>
+    <div class="t">Journée positive (+151 $) structurée en trois temps : or short, MNQ short raté, MNQ long réussi.</div>
+    <div class="d">Matin : 2 shorts sur MGCZ6 tenus ~24 minutes chacun, +127 $ propres. Pré-NY : 1 short MNQU6 sur setup pas valable (sweep trop petit) → −179 $ en 7 minutes. Ouverture NY : long MNQU6 sur setup solide → +210,50 $ brut, sorti en BE sur la dernière position par peur du SL malgré les conseils du formateur.</div>
+  </div>
+
+  <h2 style="font-size:20px;margin:40px 0 16px">MGCZ6 — Shorts du matin</h2>
+  <p style="color:var(--muted);font-size:.85rem;margin:-8px 0 14px">2 trades · brut +127 $ · net ~+118 $</p>
+  <div style="overflow-x:auto">
+  <table style="width:100%;border-collapse:collapse;font-size:.88rem">
+    <thead><tr style="color:var(--muted);font-size:.78rem;text-transform:uppercase;letter-spacing:.07em">
+      <th style="padding:8px 12px;text-align:left;border-bottom:1px solid var(--line)">Heure</th>
+      <th style="padding:8px 12px;text-align:left;border-bottom:1px solid var(--line)">Instr.</th>
+      <th style="padding:8px 12px;text-align:left;border-bottom:1px solid var(--line)">Sens</th>
+      <th style="padding:8px 12px;text-align:right;border-bottom:1px solid var(--line)">Qté</th>
+      <th style="padding:8px 12px;text-align:right;border-bottom:1px solid var(--line)">Entrée</th>
+      <th style="padding:8px 12px;text-align:right;border-bottom:1px solid var(--line)">Sortie</th>
+      <th style="padding:8px 12px;text-align:right;border-bottom:1px solid var(--line)">Tenue</th>
+      <th style="padding:8px 12px;text-align:right;border-bottom:1px solid var(--line)">P&amp;L</th>
+    </tr></thead>
+    <tbody>
+      <tr><td style="padding:10px 12px;border-bottom:1px solid var(--line)">12h01</td><td style="padding:10px 12px;border-bottom:1px solid var(--line)">MGCZ6</td><td style="padding:10px 12px;border-bottom:1px solid var(--line)"><span style="background:rgba(242,85,90,.15);color:var(--red);padding:2px 8px;border-radius:5px;font-size:.8rem;font-weight:700">SHORT</span></td><td style="padding:10px 12px;text-align:right;border-bottom:1px solid var(--line)">1</td><td style="padding:10px 12px;text-align:right;border-bottom:1px solid var(--line)">4 677,6</td><td style="padding:10px 12px;text-align:right;border-bottom:1px solid var(--line)">4 671,3</td><td style="padding:10px 12px;text-align:right;border-bottom:1px solid var(--line)">23 min 58 s</td><td style="padding:10px 12px;text-align:right;border-bottom:1px solid var(--line);color:var(--green);font-weight:600">+63 $</td></tr>
+      <tr><td style="padding:10px 12px">12h01</td><td style="padding:10px 12px">MGCZ6</td><td style="padding:10px 12px"><span style="background:rgba(242,85,90,.15);color:var(--red);padding:2px 8px;border-radius:5px;font-size:.8rem;font-weight:700">SHORT</span></td><td style="padding:10px 12px;text-align:right">1</td><td style="padding:10px 12px;text-align:right">4 677,7</td><td style="padding:10px 12px;text-align:right">4 671,3</td><td style="padding:10px 12px;text-align:right">24 min 06 s</td><td style="padding:10px 12px;text-align:right;color:var(--green);font-weight:600">+64 $</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <h2 style="font-size:20px;margin:40px 0 16px">MNQU6 — 1er Sell (raté)</h2>
+  <p style="color:var(--muted);font-size:.85rem;margin:-8px 0 14px">1 trade · brut −179 $</p>
+  <div style="overflow-x:auto">
+  <table style="width:100%;border-collapse:collapse;font-size:.88rem">
+    <thead><tr style="color:var(--muted);font-size:.78rem;text-transform:uppercase;letter-spacing:.07em">
+      <th style="padding:8px 12px;text-align:left;border-bottom:1px solid var(--line)">Heure</th>
+      <th style="padding:8px 12px;text-align:left;border-bottom:1px solid var(--line)">Instr.</th>
+      <th style="padding:8px 12px;text-align:left;border-bottom:1px solid var(--line)">Sens</th>
+      <th style="padding:8px 12px;text-align:right;border-bottom:1px solid var(--line)">Qté</th>
+      <th style="padding:8px 12px;text-align:right;border-bottom:1px solid var(--line)">Entrée</th>
+      <th style="padding:8px 12px;text-align:right;border-bottom:1px solid var(--line)">Sortie</th>
+      <th style="padding:8px 12px;text-align:right;border-bottom:1px solid var(--line)">Tenue</th>
+      <th style="padding:8px 12px;text-align:right;border-bottom:1px solid var(--line)">P&amp;L</th>
+      <th style="padding:8px 12px;text-align:left;border-bottom:1px solid var(--line)">Note</th>
+    </tr></thead>
+    <tbody>
+      <tr><td style="padding:10px 12px">15h36</td><td style="padding:10px 12px">MNQU6</td><td style="padding:10px 12px"><span style="background:rgba(242,85,90,.15);color:var(--red);padding:2px 8px;border-radius:5px;font-size:.8rem;font-weight:700">SHORT</span></td><td style="padding:10px 12px;text-align:right">2</td><td style="padding:10px 12px;text-align:right">29 241,75</td><td style="padding:10px 12px;text-align:right">29 286,50</td><td style="padding:10px 12px;text-align:right">6 min 55 s</td><td style="padding:10px 12px;text-align:right;color:var(--red);font-weight:600">−179 $</td><td style="padding:10px 12px;font-size:.82rem;color:var(--muted)">Setup pas valable — stop atteint</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <div class="big" style="border-color:rgba(220,60,60,.35);margin-top:14px">
+    <div class="l">Analyse — 1er Sell</div>
+    <div class="t">Le setup présentait les bons éléments mais le sweep était trop petit pour valider l'entrée.</div>
+    <div class="d"><strong>Éléments présents :</strong> Prise de liquidité en haut (sweep) · SMT baissière · Entrée sur une IFVG.<br><br><strong>Problème :</strong> Le sweep était trop petit — il n'atteignait pas un niveau de liquidité significatif. Sans un sweep valable, la prise de liquidité ne confirme pas le retournement. Résultat : −179 $ en 6 min 55 s, stoppé proprement.</div>
+  </div>
+
+  <h2 style="font-size:20px;margin:40px 0 16px">MNQU6 — 2ème Buy (NY open)</h2>
+  <p style="color:var(--muted);font-size:.85rem;margin:-8px 0 14px">3 trades · brut +212,50 $ · net ~+203 $</p>
+  <div style="overflow-x:auto">
+  <table style="width:100%;border-collapse:collapse;font-size:.88rem">
+    <thead><tr style="color:var(--muted);font-size:.78rem;text-transform:uppercase;letter-spacing:.07em">
+      <th style="padding:8px 12px;text-align:left;border-bottom:1px solid var(--line)">Heure</th>
+      <th style="padding:8px 12px;text-align:left;border-bottom:1px solid var(--line)">Instr.</th>
+      <th style="padding:8px 12px;text-align:left;border-bottom:1px solid var(--line)">Sens</th>
+      <th style="padding:8px 12px;text-align:right;border-bottom:1px solid var(--line)">Qté</th>
+      <th style="padding:8px 12px;text-align:right;border-bottom:1px solid var(--line)">Entrée</th>
+      <th style="padding:8px 12px;text-align:right;border-bottom:1px solid var(--line)">Sortie</th>
+      <th style="padding:8px 12px;text-align:right;border-bottom:1px solid var(--line)">Tenue</th>
+      <th style="padding:8px 12px;text-align:right;border-bottom:1px solid var(--line)">P&amp;L</th>
+      <th style="padding:8px 12px;text-align:left;border-bottom:1px solid var(--line)">Note</th>
+    </tr></thead>
+    <tbody>
+      <tr><td style="padding:10px 12px;border-bottom:1px solid var(--line)">16h39</td><td style="padding:10px 12px;border-bottom:1px solid var(--line)">MNQU6</td><td style="padding:10px 12px;border-bottom:1px solid var(--line)"><span style="background:rgba(61,214,140,.12);color:var(--green);padding:2px 8px;border-radius:5px;font-size:.8rem;font-weight:700">LONG</span></td><td style="padding:10px 12px;text-align:right;border-bottom:1px solid var(--line)">1</td><td style="padding:10px 12px;text-align:right;border-bottom:1px solid var(--line)">29 213,50</td><td style="padding:10px 12px;text-align:right;border-bottom:1px solid var(--line)">29 264,25</td><td style="padding:10px 12px;text-align:right;border-bottom:1px solid var(--line)">13 min</td><td style="padding:10px 12px;text-align:right;border-bottom:1px solid var(--line);color:var(--green);font-weight:600">+101,50 $</td><td style="padding:10px 12px;border-bottom:1px solid var(--line);font-size:.82rem;color:var(--muted)">Sortie partielle — 1 lot</td></tr>
+      <tr><td style="padding:10px 12px;border-bottom:1px solid var(--line)">16h39</td><td style="padding:10px 12px;border-bottom:1px solid var(--line)">MNQU6</td><td style="padding:10px 12px;border-bottom:1px solid var(--line)"><span style="background:rgba(61,214,140,.12);color:var(--green);padding:2px 8px;border-radius:5px;font-size:.8rem;font-weight:700">LONG</span></td><td style="padding:10px 12px;text-align:right;border-bottom:1px solid var(--line)">2</td><td style="padding:10px 12px;text-align:right;border-bottom:1px solid var(--line)">29 213,50</td><td style="padding:10px 12px;text-align:right;border-bottom:1px solid var(--line)">29 240,75</td><td style="padding:10px 12px;text-align:right;border-bottom:1px solid var(--line)">15 min 56 s</td><td style="padding:10px 12px;text-align:right;border-bottom:1px solid var(--line);color:var(--green);font-weight:600">+109 $</td><td style="padding:10px 12px;border-bottom:1px solid var(--line);font-size:.82rem;color:var(--muted)">Sortie partielle — 2 lots</td></tr>
+      <tr><td style="padding:10px 12px">16h57</td><td style="padding:10px 12px">MNQU6</td><td style="padding:10px 12px"><span style="background:rgba(61,214,140,.12);color:var(--green);padding:2px 8px;border-radius:5px;font-size:.8rem;font-weight:700">LONG</span></td><td style="padding:10px 12px;text-align:right">1</td><td style="padding:10px 12px;text-align:right">29 249,25</td><td style="padding:10px 12px;text-align:right">29 250,25</td><td style="padding:10px 12px;text-align:right">16 min 33 s</td><td style="padding:10px 12px;text-align:right;color:var(--green);font-weight:600">+2 $</td><td style="padding:10px 12px;font-size:.82rem;color:var(--muted)">Re-entrée · sorti en BE par peur du SL</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <div class="big" style="border-color:rgba(60,140,220,.35);margin-top:14px">
+    <div class="l">Analyse — 2ème Buy</div>
+    <div class="t">Setup haussier complet, bien exécuté sur les deux premières positions. La troisième laisse de la marge sur la table.</div>
+    <div class="d"><strong>Éléments présents :</strong> BPR haussier en M15 non inversé · FVG 1M · SMT haussière 1H · Clôture au-dessus d'un MSS haussier.<br><br><strong>Exécution :</strong> Entrée à 29 213,50 sur 3 contrats (1+2), premiers TP à 29 264 et 29 240. Résultat net : +210,50 $ brut sur les deux premières sorties.<br><br><strong>Problème — 3ème position :</strong> Re-entrée à 29 249,25 après les sorties partielles. Sorti en breakeven (+2 $) par peur du stop loss, en écoutant le formateur qui conseillait de rester. La position a atteint +131 $ max en run-up avant de revenir. La sortie en BE à 29 250 était une décision émotionnelle, pas technique.</div>
+  </div>
+
+  <h2 style="font-size:20px;margin:40px 0 16px">Notes de séance</h2>
+  <div class="big" style="border-color:rgba(220,180,60,.35)">
+    <div class="l">Ce que cette séance montre</div>
+    <div class="t">Premier jour où un setup raté est expliqué par un critère précis manquant. Et premier jour où la sortie anticipée sur une bonne position est clairement identifiée.</div>
+    <div class="d">Sur le Short : le sweep trop petit n'est pas une impression — c'est une règle. Si la prise de liquidité n'atteint pas un niveau significatif, le setup n'est pas valable. Rentrer quand même, c'est payer pour tester. −179 $ pour apprendre que le critère n'est pas négociable.<br><br>Sur le Buy : le trade était juste. +210,50 $ brut sur les deux sorties le confirment. La troisième entrée était aussi valide — sortir en BE par peur revient à appliquer la règle 5 à l'envers : modifier l'ordre en position, dans le mauvais sens, pour de mauvaises raisons.</div>
   </div>
 </section>
 
@@ -2864,7 +2952,7 @@ window.SESSIONS = [
   { jour:"31/08", label:"Lundi 31 août",    fichier:"2026-08-31-lundi.html",    pnl:null, trades:0, gagnants:0, neutres:0, note:"À documenter." },
   { jour:"28/08", label:"Vendredi 28 août", fichier:"2026-08-28-vendredi.html", pnl:null, trades:0, gagnants:0, neutres:0, note:"À documenter." },
   { jour:"27/08", label:"Jeudi 27 août",    fichier:"2026-08-27-jeudi.html",    pnl:null, trades:0, gagnants:0, neutres:0, note:"À documenter." },
-  { jour:"26/08", label:"Mercredi 26 août", fichier:"2026-08-26-mercredi.html", pnl:null, trades:0, gagnants:0, neutres:0, note:"À documenter." },
+  { jour:"26/08", label:"Mercredi 26 août", fichier:"2026-08-26-mercredi.html", pnl:151.30, trades:6, gagnants:5, neutres:0, note:"MGCZ6 +127 $ (2 shorts) · MNQU6 −179 $ (sweep trop petit) · MNQU6 +212,50 $ (long BPR+FVG+SMT+MSS) · net +151,30 $." },
   { jour:"25/08", label:"Mardi 25 août", fichier:"2026-08-25-mardi.html", pnl:-475.00, trades:11, gagnants:5, neutres:0,
     note:"02 −305 · 06 −170 · 04/01/05 inactifs. 11 trades MNQU6 (4 sur C02 + 7 sur C06). C06 : −248 $ en ouverture (2 longs consécutifs perdants)." },
   { jour:"24/08", label:"Lundi 24 août", fichier:"2026-08-24-lundi.html", pnl:-427.15, trades:9, gagnants:3, neutres:0,
