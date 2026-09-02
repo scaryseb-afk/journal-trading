@@ -270,7 +270,7 @@ textarea::placeholder{color:#4A566A}
   <div class="sessions" style="margin-bottom:28px">
     <div class="s" style="opacity:.5;pointer-events:none;border-style:dashed">
       <div class="day"><div class="dt">Semaine du 1 sept.</div><div class="dd">2026</div></div>
-      <div class="desc" style="font-style:italic">Pas encore de session journalisée.</div>
+      <div class="desc" style="font-style:italic">Sessions en cours — à journaliser.</div>
       <div class="num"><div class="p" style="color:var(--dim)">—</div><div class="q" style="color:var(--dim)">En attente</div></div>
     </div>
   </div>
@@ -289,6 +289,11 @@ textarea::placeholder{color:#4A566A}
       })();
     </script>
   <div class="sessions">
+    <a class="s" href="#" data-goto="s0831" style="border-color:rgba(91,157,249,.3)">
+      <div class="day"><div class="dt">Lundi 31 août</div><div class="dd">2026</div></div>
+      <div class="desc">Aucun trade. Pas de setup valable identifié — décision de ne pas entrer. Plan respecté. Dernier jour d'août.</div>
+      <div class="num"><div class="p" style="color:var(--muted)">0 $</div><div class="q">0 trade · plan ✓</div></div>
+    </a>
     <a class="s lose" href="#" data-goto="s0828">
       <div class="day"><div class="dt">Vendredi 28 août</div><div class="dd">2026</div></div>
       <div class="desc">2 comptes actifs. Compte …006 : 3 shorts consécutifs contre la tendance haussière, stops en série, −298 $. Compte inconnu : 3 longs dans le même mouvement, +131 $. Même instrument, biais opposés.</div>
@@ -2508,6 +2513,29 @@ Parfois il faut attendre plus de 50 minutes avant de rentrer.</textarea>
   </div>
 </section>
 
+<section class="view" id="view-s0831" data-journal-date="2026-08-31">
+<div style="margin-bottom:24px"><a href="#" data-goto="dashboard" style="color:var(--muted);font-weight:600;font-size:.88rem;text-decoration:none">← Journal</a></div>
+  <p class="eyebrow">Journal de suivi &middot; Futures</p>
+  <h1>Lundi 31 août 2026</h1>
+  <p class="sub">0 trade. Plan respecté — journée sans position. Dernier jour d'août.</p>
+  <div class="kpis">
+    <div class="kpi"><div class="lbl">P&amp;L journée</div><div class="val" style="color:var(--muted)">0 $</div><div class="note">Aucun trade pris</div></div>
+    <div class="kpi"><div class="lbl">Trades</div><div class="val" style="color:var(--muted)">0</div><div class="note">Plan respecté</div></div>
+    <div class="kpi"><div class="lbl">Conformité plan</div><div class="val pos">✓</div><div class="note">Ne pas trader = une décision</div></div>
+  </div>
+  <div class="big" style="margin-top:32px;border-color:rgba(60,180,100,.4)">
+    <div class="l">La journée en un mot</div>
+    <div class="t">Pas de setup valable — pas de trade. C'est la bonne décision.</div>
+    <div class="d">Fin de mois chargée (−3 261 $ sur août). Observer sans agir, c'est aussi du trading. Une journée à 0 $ vaut mieux qu'une journée à −200 $ sur un setup douteux en fin de mois.</div>
+  </div>
+  <div class="big" style="border-color:rgba(91,157,249,.3);margin-top:20px">
+    <div class="l">Bilan août 2026</div>
+    <div class="t">12 sessions journalisées · −3 261 $ net · premier mois complet de suivi.</div>
+    <div class="d"><strong>Ce qui progresse :</strong> Setups nommés avec critères précis. Le 26/08 est un exemple de bonne lecture.<br><br><strong>À corriger en septembre :</strong> Biais persistant après 2 stops consécutifs. Sorties anticipées sur positions valides. R:R trop faible sur les scalps.<br><br><strong>Objectif :</strong> Checklist complète avant chaque entrée. Après 2 stops dans le même sens → pause obligatoire.</div>
+  </div>
+  <p class="foot">Séance journalisée le 01/09/2026 · Aucun trade · Plan respecté.</p>
+</section>
+
 <section class="view" id="view-s0828" data-journal-date="2026-08-28">
 <div style="margin-bottom:24px"><a href="#" data-goto="dashboard" style="color:var(--muted);font-weight:600;font-size:.88rem;text-decoration:none">← Journal</a></div>
   <p class="eyebrow">Journal de suivi &middot; Futures</p>
@@ -2728,45 +2756,6 @@ Parfois il faut attendre plus de 50 minutes avant de rentrer.</textarea>
   </div>
 </section>
 
-<section class="view" id="view-s0828" data-journal-date="2026-08-28">
-<div style="margin-bottom:24px"><a href="#" data-goto="dashboard" style="color:var(--muted);font-weight:600;font-size:.88rem;text-decoration:none">← Journal</a></div>
-  <p class="eyebrow">Journal de suivi &middot; Futures</p>
-  <h1>Vendredi 28 août 2026</h1>
-  <p class="sub">Session à documenter — données à ajouter après la clôture du marché.</p>
-
-  <div class="kpis">
-    <div class="kpi"><div class="lbl">P&amp;L journée</div><div class="val neu">—</div><div class="note">À remplir</div></div>
-    <div class="kpi"><div class="lbl">Trades</div><div class="val neu">—</div><div class="note">À documenter</div></div>
-    <div class="kpi"><div class="lbl">Compte 06</div><div class="val neu">—</div><div class="note">En attente</div></div>
-    <div class="kpi"><div class="lbl">Compte 02</div><div class="val neu">—</div><div class="note">En attente</div></div>
-  </div>
-
-  <div class="big" style="margin-top:32px;border-color:rgba(120,120,120,.3)">
-    <div class="l">Session à venir</div>
-    <div class="t">Envoie les exports Tradovate (Performance CSV + info compte) après la clôture pour que je remplisse cette page.</div>
-    <div class="d">Fichiers utiles : Performance.csv (par compte), ordrestout.csv, infoducompte.csv. Exporter depuis chaque compte actif séparément pour identification correcte.</div>
-  </div>
-</section>
-
-<section class="view" id="view-s0831" data-journal-date="2026-08-31">
-<div style="margin-bottom:24px"><a href="#" data-goto="dashboard" style="color:var(--muted);font-weight:600;font-size:.88rem;text-decoration:none">← Journal</a></div>
-  <p class="eyebrow">Journal de suivi &middot; Futures</p>
-  <h1>Lundi 31 août 2026</h1>
-  <p class="sub">Session à documenter — données à ajouter après la clôture du marché.</p>
-
-  <div class="kpis">
-    <div class="kpi"><div class="lbl">P&amp;L journée</div><div class="val neu">—</div><div class="note">À remplir</div></div>
-    <div class="kpi"><div class="lbl">Trades</div><div class="val neu">—</div><div class="note">À documenter</div></div>
-    <div class="kpi"><div class="lbl">Compte 06</div><div class="val neu">—</div><div class="note">En attente</div></div>
-    <div class="kpi"><div class="lbl">Compte 02</div><div class="val neu">—</div><div class="note">En attente</div></div>
-  </div>
-
-  <div class="big" style="margin-top:32px;border-color:rgba(120,120,120,.3)">
-    <div class="l">Session à venir</div>
-    <div class="t">Envoie les exports Tradovate (Performance CSV + info compte) après la clôture pour que je remplisse cette page.</div>
-    <div class="d">Fichiers utiles : Performance.csv (par compte), ordrestout.csv, infoducompte.csv. Exporter depuis chaque compte actif séparément pour identification correcte.</div>
-  </div>
-</section>
 
 </div>
 <script>/* ============================================================
@@ -3083,7 +3072,7 @@ window.TRADES = [
 ];
 
 window.SESSIONS = [
-  { jour:"31/08", label:"Lundi 31 août",    fichier:"2026-08-31-lundi.html",    pnl:null, trades:0, gagnants:0, neutres:0, note:"À documenter." },
+  { jour:"31/08", label:"Lundi 31 août",    fichier:"2026-08-31-lundi.html",    pnl:0, trades:0, gagnants:0, neutres:0, note:"Aucun trade. Plan respecté — pas de setup valable. Dernier jour d'août." },
   { jour:"28/08", label:"Vendredi 28 août", fichier:"2026-08-28-vendredi.html", pnl:-167.00, trades:6, gagnants:2, neutres:1, note:"Compte …006 −298 $ (3 shorts consécutifs contre tendance) · Compte …00? +131 $ (3 longs) · net −167 $." },
   { jour:"27/08", label:"Jeudi 27 août",    fichier:"2026-08-27-jeudi.html",    pnl:-79.00, trades:5, gagnants:4, neutres:0, note:"…006 · 5 scalps MNQU6 · 4 gagnants (+3, +5, +8,50, +2 $) · 1 stop −90,50 $ en 52 s · net −79 $." },
   { jour:"26/08", label:"Mercredi 26 août", fichier:"2026-08-26-mercredi.html", pnl:151.30, trades:6, gagnants:5, neutres:0, note:"MGCZ6 +127 $ (2 shorts) · MNQU6 −179 $ (sweep trop petit) · MNQU6 +212,50 $ (long BPR+FVG+SMT+MSS) · net +151,30 $." },
