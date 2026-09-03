@@ -138,28 +138,25 @@ textarea::placeholder{color:#4A566A}
 .saveline.err{color:var(--red);border-color:rgba(242,85,90,.5)}
 
 /* index — sessions feed compact */
-.sf{display:flex;flex-direction:column;gap:5px;margin-top:4px;margin-bottom:28px}
+.sf{display:flex;flex-direction:column;gap:4px;margin-top:4px;margin-bottom:28px}
 .sf-mh{display:flex;align-items:center;gap:14px;margin:24px 0 8px}
-.sf-mh-name{color:var(--muted);font-size:12.5px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;white-space:nowrap}
-.sf-mh-sum{font-size:12.5px;font-weight:700;white-space:nowrap}
+.sf-mh-name{color:var(--muted);font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;white-space:nowrap}
+.sf-mh-sum{font-size:12px;font-weight:700;white-space:nowrap}
 .sf-mh-line{flex:1;height:1px;background:var(--line)}
-.sr{display:grid;grid-template-columns:120px 56px 88px 56px 1fr;gap:0 14px;align-items:center;
-  background:var(--panel);border:1px solid var(--line);border-left:3px solid transparent;
-  border-radius:10px;padding:11px 16px;transition:.12s;color:var(--txt);text-decoration:none}
-.sr:hover{border-color:var(--blue);text-decoration:none;background:var(--panel2);transform:translateX(2px)}
+.sr{display:grid;grid-template-columns:140px 80px 52px 1fr;gap:0 16px;align-items:center;
+  background:var(--panel);border:1px solid var(--line);border-left:3px solid var(--dim);
+  border-radius:8px;padding:10px 16px;transition:.1s;color:var(--txt);text-decoration:none}
+.sr:hover{border-color:var(--blue);background:var(--panel2)}
 .sr.win{border-left-color:var(--green)}
 .sr.lose{border-left-color:var(--red)}
 .sr.flat{border-left-color:var(--dim)}
-.sr.pending{opacity:.45;pointer-events:none;border-style:dashed;border-left-style:dashed}
-.sr-date{font-size:14px;font-weight:650}
-.sr-dots{display:flex;gap:3px;align-items:center;flex-wrap:wrap}
-.sr-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0}
-.sr-dot.w{background:var(--green)} .sr-dot.l{background:var(--red)} .sr-dot.n{background:var(--dim)}
-.sr-pnl{font-size:15px;font-weight:700;font-variant-numeric:tabular-nums;text-align:right;white-space:nowrap}
-.sr-stats{color:var(--dim);font-size:12.5px;text-align:right;white-space:nowrap;font-variant-numeric:tabular-nums}
-.sr-note{color:var(--muted);font-size:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0}
+.sr.pending{opacity:.4;pointer-events:none;border-left-style:dashed}
+.sr-date{font-size:13.5px;font-weight:600;color:var(--txt)}
+.sr-pnl{font-size:14px;font-weight:700;font-variant-numeric:tabular-nums;text-align:right;white-space:nowrap}
+.sr-wr{font-size:12px;color:var(--dim);text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+.sr-note{color:var(--muted);font-size:12.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0}
 @media(max-width:700px){
-  .sr{grid-template-columns:100px 44px 80px 46px}
+  .sr{grid-template-columns:110px 72px 44px}
   .sr-note{display:none}
 }
 /* keep legacy .s/.sessions for any remaining refs */
@@ -3740,34 +3737,22 @@ window.SESSIONS = [
         // Date
         h += '<div class="sr-date">' + jourLabel(s.jour) + '</div>';
 
-        // Win dots (up to 10, proportional)
-        h += '<div class="sr-dots">';
-        if(s.trades > 0){
-          var show = Math.min(s.trades, 10);
-          var wins = Math.round(s.gagnants / s.trades * show);
-          var losses = show - wins;
-          for(var i=0; i<wins; i++) h += '<span class="sr-dot w"></span>';
-          for(var i=0; i<losses; i++) h += '<span class="sr-dot l"></span>';
-        } else {
-          h += '<span style="color:var(--dim);font-size:11px">—</span>';
-        }
-        h += '</div>';
-
         // P&L
         if(isPending){
           h += '<div class="sr-pnl" style="color:var(--dim)">—</div>';
         } else {
-          var pnlStr = (s.pnl > 0 ? '+' : '') + s.pnl.toFixed(0) + ' $';
+          var pnlStr = (s.pnl > 0 ? '+' : '') + s.pnl.toFixed(0) + ' $';
           h += '<div class="sr-pnl ' + (s.pnl > 0 ? 'pos' : (s.pnl < 0 ? 'neg' : '')) + '">' + pnlStr + '</div>';
         }
 
-        // Stats
+        // Win rate
         if(s.trades > 0){
-          h += '<div class="sr-stats">' + s.trades + 'T&nbsp;·&nbsp;' + winRate + '%</div>';
+          h += '<div class="sr-wr">' + winRate + '%</div>';
         } else {
-          h += '<div class="sr-stats" style="color:var(--dim)">—</div>';
+          h += '<div class="sr-wr">—</div>';
         }
 
+        // Note
         // Note
         h += '<div class="sr-note">' + (s.note || '') + '</div>';
 
