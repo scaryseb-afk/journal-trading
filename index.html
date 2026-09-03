@@ -137,20 +137,41 @@ textarea::placeholder{color:#4A566A}
 .saveline.ok{color:var(--green);border-color:rgba(61,214,140,.35)}
 .saveline.err{color:var(--red);border-color:rgba(242,85,90,.5)}
 
-/* index */
+/* index — sessions feed compact */
+.sf{display:flex;flex-direction:column;gap:5px;margin-top:4px;margin-bottom:28px}
+.sf-mh{display:flex;align-items:center;gap:14px;margin:24px 0 8px}
+.sf-mh-name{color:var(--muted);font-size:12.5px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;white-space:nowrap}
+.sf-mh-sum{font-size:12.5px;font-weight:700;white-space:nowrap}
+.sf-mh-line{flex:1;height:1px;background:var(--line)}
+.sr{display:grid;grid-template-columns:120px 56px 88px 56px 1fr;gap:0 14px;align-items:center;
+  background:var(--panel);border:1px solid var(--line);border-left:3px solid transparent;
+  border-radius:10px;padding:11px 16px;transition:.12s;color:var(--txt);text-decoration:none}
+.sr:hover{border-color:var(--blue);text-decoration:none;background:var(--panel2);transform:translateX(2px)}
+.sr.win{border-left-color:var(--green)}
+.sr.lose{border-left-color:var(--red)}
+.sr.flat{border-left-color:var(--dim)}
+.sr.pending{opacity:.45;pointer-events:none;border-style:dashed;border-left-style:dashed}
+.sr-date{font-size:14px;font-weight:650}
+.sr-dots{display:flex;gap:3px;align-items:center;flex-wrap:wrap}
+.sr-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0}
+.sr-dot.w{background:var(--green)} .sr-dot.l{background:var(--red)} .sr-dot.n{background:var(--dim)}
+.sr-pnl{font-size:15px;font-weight:700;font-variant-numeric:tabular-nums;text-align:right;white-space:nowrap}
+.sr-stats{color:var(--dim);font-size:12.5px;text-align:right;white-space:nowrap;font-variant-numeric:tabular-nums}
+.sr-note{color:var(--muted);font-size:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0}
+@media(max-width:700px){
+  .sr{grid-template-columns:100px 44px 80px 46px}
+  .sr-note{display:none}
+}
+/* keep legacy .s/.sessions for any remaining refs */
 .sessions{display:flex;flex-direction:column;gap:14px;margin-top:8px}
 .s{display:flex;flex-wrap:wrap;gap:20px;align-items:center;background:var(--panel);
   border:1px solid var(--line);border-radius:14px;padding:24px 28px;transition:.14s}
 .s:hover{border-color:var(--blue);transform:translateX(3px);text-decoration:none}
-.s .day{min-width:170px}
-.s .day .dt{font-size:19px;font-weight:650;color:var(--txt)}
-.s .day .dd{color:var(--dim);font-size:14px}
-.s .desc{flex:1;min-width:240px;color:var(--muted);font-size:15.5px;line-height:1.5}
+.s .day{min-width:170px}.s .day .dt{font-size:19px;font-weight:650;color:var(--txt)}
+.s .day .dd{color:var(--dim);font-size:14px}.s .desc{flex:1;min-width:240px;color:var(--muted);font-size:15.5px;line-height:1.5}
 .s .num{text-align:right;font-variant-numeric:tabular-nums;min-width:130px}
-.s .num .p{font-size:24px;font-weight:700}
-.s .num .q{color:var(--dim);font-size:14px}
-.s.win{border-left:4px solid var(--green)}
-.s.lose{border-left:4px solid var(--red)}
+.s .num .p{font-size:24px;font-weight:700}.s .num .q{color:var(--dim);font-size:14px}
+.s.win{border-left:4px solid var(--green)}.s.lose{border-left:4px solid var(--red)}
 
 .watch{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px;margin-top:8px}
 .w{background:var(--panel);border:1px solid var(--line);border-left:4px solid var(--red);
@@ -222,6 +243,72 @@ textarea::placeholder{color:#4A566A}
   .ar{padding:14px 16px}
   .ar-bal{font-size:17px}
 }
+
+/* ── Mobile iOS ───────────────────────────────────────────── */
+@media(max-width:700px){
+  /* Layout */
+  .wrap{padding:20px 16px 64px}
+  h1{font-size:26px;letter-spacing:-.01em}
+  h2{font-size:20px;margin:36px 0 14px}
+  .sub{font-size:15px}
+
+  /* Nav */
+  .nav{gap:10px;font-size:14px;padding-bottom:14px;margin-bottom:18px;flex-wrap:wrap}
+
+  /* KPIs — 2 colonnes sur mobile */
+  .kpis{grid-template-columns:1fr 1fr;gap:10px;margin-top:20px}
+  .kpi{padding:16px 14px;border-radius:12px}
+  .kpi .val{font-size:24px}
+  .kpi .lbl{font-size:11.5px;margin-bottom:8px}
+  .kpi .note{font-size:12.5px;margin-top:6px}
+
+  /* Cards sessions */
+  .s{gap:12px;padding:14px 16px;border-radius:14px}
+  .s .day .dt{font-size:16px}
+  .s .day .dd{font-size:13px}
+  .s .desc{font-size:14px;min-width:0}
+  .s .num .p{font-size:20px}
+  .s .num{min-width:auto;text-align:right}
+
+  /* Tableaux — scroll horizontal OK, mais on réduit les paddings */
+  .tbl th{font-size:11px;padding:10px 10px}
+  .tbl th:first-child,.tbl td:first-child{padding-left:12px}
+  .tbl th:last-child,.tbl td:last-child{padding-right:12px}
+  .tbl td{font-size:13.5px;padding:10px 10px}
+  .tbl tr.tot td{font-size:14px}
+  .tbl td.fill{font-size:12.5px}
+
+  /* Big blocks */
+  .big{padding:16px 16px;border-radius:14px}
+  .big .l{font-size:11px;margin-bottom:8px}
+  .big .t{font-size:16px;margin-bottom:8px}
+  .big .d{font-size:14.5px}
+
+  /* Obs */
+  .obs{padding:16px 16px;border-radius:14px}
+  .obs .t{font-size:16px}
+  .obs .d{font-size:14.5px}
+
+  /* Trade head */
+  .trade-head{gap:8px}
+  .trade-head .name{font-size:17px}
+  .trade-head .pnl{font-size:20px}
+
+  /* Règles */
+  .rule{padding:16px}
+  .rule .t{font-size:17px}
+  .rule .d{font-size:14.5px}
+
+  /* Brief / inputs */
+  .don,.dont{gap:10px}
+  .dont .no{font-size:28px}
+
+  /* Theme toggle */
+  #theme-toggle{font-size:12px;padding:6px 12px}
+
+  /* Details summary */
+  details summary{font-size:13px !important}
+}
 </style>
 </head>
 <body>
@@ -245,12 +332,15 @@ textarea::placeholder{color:#4A566A}
   </div>
 
   <div class="kpis">
-    <div class="kpi"><div class="lbl">Sessions journalisées</div><div class="val">12</div><div class="note">du 13/08 au 28/08</div></div>
-    <div class="kpi"><div class="lbl">Cumul 5 comptes</div><div class="val neg">−3 261 $</div><div class="note">depuis le départ (50 k$ chacun)</div></div>
+    <div class="kpi"><div class="lbl">Sessions journalisées</div><div class="val">16</div><div class="note">du 13/08 au 3/09</div></div>
+    <div class="kpi"><div class="lbl">Cumul 5 comptes</div><div class="val neg">−2 376 $</div><div class="note">depuis le départ · août −3 261 $ · sept +885 $</div></div>
     <div class="kpi"><div class="lbl">Meilleure session</div><div class="val pos">+2 472 $</div><div class="note">13/08 — AMD MNQ</div></div>
     <div class="kpi"><div class="lbl">Pire session</div><div class="val neg">−1 340 $</div><div class="note">21/08 — 5 comptes</div></div>
     <div class="kpi"><div class="lbl">Compte …002</div><div class="val neg">−701 $</div><div class="note">49 299 $ · était à +593 avant le 25/08</div></div>
   </div>
+
+  <h2>Données &amp; Analyse</h2>
+  <div id="analyse-section"></div>
 
   <h2>Mes comptes</h2>
   <p class="sub">État au dernier relevé transmis.<br>
@@ -262,95 +352,7 @@ textarea::placeholder{color:#4A566A}
   <div id="rr"></div>
 
   <h2>Sessions</h2>
-
-  <div class="mois-label" style="display:flex;align-items:center;gap:12px;margin-bottom:10px">
-    <span style="color:var(--gold);font-size:13px;font-weight:700;letter-spacing:.12em;text-transform:uppercase">Septembre 2026</span>
-    <span style="flex:1;height:1px;background:var(--line)"></span>
-  </div>
-  <div class="sessions" style="margin-bottom:28px">
-    <div class="s" style="opacity:.5;pointer-events:none;border-style:dashed">
-      <div class="day"><div class="dt">Semaine du 1 sept.</div><div class="dd">2026</div></div>
-      <div class="desc" style="font-style:italic">Pas encore de session journalisée.</div>
-      <div class="num"><div class="p" style="color:var(--dim)">—</div><div class="q" style="color:var(--dim)">En attente</div></div>
-    </div>
-  </div>
-
-  <details id="details-aout" open>
-    <summary style="cursor:pointer;display:flex;align-items:center;gap:12px;margin-bottom:10px;list-style:none;-webkit-appearance:none">
-      <span style="color:var(--muted);font-size:13px;font-weight:700;letter-spacing:.12em;text-transform:uppercase">Août 2026</span>
-      <span style="flex:1;height:1px;background:var(--line)"></span>
-      <span id="aout-toggle-lbl" style="color:var(--dim);font-size:13px;font-weight:600">12 sessions · −3 261 $ ▾</span>
-    </summary>
-    <script>
-      (function(){
-        var d=document.getElementById('details-aout');
-        var l=document.getElementById('aout-toggle-lbl');
-        d.addEventListener('toggle',function(){l.textContent=d.open?'12 sessions · −3 261 $ ▾':'12 sessions · −3 261 $ ▸';});
-      })();
-    </script>
-  <div class="sessions">
-    <a class="s lose" href="#" data-goto="s0828">
-      <div class="day"><div class="dt">Vendredi 28 août</div><div class="dd">2026</div></div>
-      <div class="desc">2 comptes actifs. Compte …006 : 3 shorts consécutifs contre la tendance haussière, stops en série, −298 $. Compte inconnu : 3 longs dans le même mouvement, +131 $. Même instrument, biais opposés.</div>
-      <div class="num"><div class="p neg">−167 $</div><div class="q">6 trades · 2 gagnants · 33 %</div></div>
-    </a>
-    <a class="s lose" href="#" data-goto="s0827">
-      <div class="day"><div class="dt">Jeudi 27 août</div><div class="dd">2026</div></div>
-      <div class="desc">1 compte actif (…006). 5 scalps MNQU6, tous longs. Un stop lourd à −90,50 $ en 52 s efface 4 petits gagnants (+3, +5, +8,50, +2 $). Discipline correcte — juste malchanceux sur le timing.</div>
-      <div class="num"><div class="p neg">−79 $</div><div class="q">5 trades · 4 gagnants · 80 %</div></div>
-    </a>
-    <a class="s win" href="#" data-goto="s0826">
-      <div class="day"><div class="dt">Mercredi 26 août</div><div class="dd">2026</div></div>
-      <div class="desc">1 compte actif. Or micro (MGCZ6) : 2 shorts propres au matin, +127 $. MNQ : 1 short raté (sweep trop petit, −179 $), puis long haussier sur setup complet BPR+FVG+SMT+MSS, +210,50 $ brut. Sortie en BE sur 3ème position par peur du SL.</div>
-      <div class="num"><div class="p pos">+151 $</div><div class="q">6 trades · 5 gagnants · 83 %</div></div>
-    </a>
-    <a class="s lose" href="#" data-goto="s0825">
-      <div class="day"><div class="dt">Mardi 25 août</div><div class="dd">2026</div></div>
-      <div class="desc">2 comptes actifs. Même erreur sur les deux : longs consécutifs dans un marché baissier, aucun ajustement. …006 : −248 $ en 9 minutes à l'ouverture, récupération partielle sur 5 trades.</div>
-      <div class="num"><div class="p neg">−475 $</div><div class="q">9 trades · …002 −305 · …006 −170</div></div>
-    </a>
-    <a class="s lose" href="#" data-goto="s0824">
-      <div class="day"><div class="dt">Lundi 24 août</div><div class="dd">2026</div></div>
-      <div class="desc">3 comptes actifs. 01 teste le 6EU6 (EUR/USD futures) pour la première fois. 06 seul positif — long 4 contrats, deux sorties partielles aux niveaux techniques.</div>
-      <div class="num"><div class="p neg">−427 $</div><div class="q">9 trades · 04 −380 · 01 −525 · 06 +478</div></div>
-    </a>
-    <a class="s lose" href="#" data-goto="s0821" style="border-color:rgba(212,166,60,.4)">
-      <div class="day"><div class="dt">Vendredi 21 août</div><div class="dd">2026</div></div>
-      <div class="desc">5 comptes. Journée lourde — 18 trades, 4 gagnants. 06 seul positif +123 $.</div>
-      <div class="num"><div class="p neg">−1 340 $</div><div class="q">18 trades · 4 comptes en perte</div></div>
-    </a>
-    <a class="s lose" href="#" data-goto="s0820">
-      <div class="day"><div class="dt">Jeudi 20 août</div><div class="dd">2026</div></div>
-      <div class="desc">Matinée personnelle difficile — <strong>« j'ai craqué, je sais même pas combien de trades j'ai pris »</strong>. Six trades avant l'ouverture NY, cinq perdants, aucun tenu plus d'1h33. La pire séance du journal.</div>
-      <div class="num"><div class="p neg">−740 $</div><div class="q">6 trades · 1 à l'équilibre</div></div>
-    </a>
-    <a class="s win" href="#" data-goto="s0819">
-      <div class="day"><div class="dt">Mercredi 19 août</div><div class="dd">2026</div></div>
-      <div class="desc">Trois entrées décrites par des critères précis pour la première fois : prise de liquidité Asian Low, clôture au-dessus du MOS, OB haussier M1. Premier jour où chaque entrée s'explique par une condition, pas par une impression.</div>
-      <div class="num"><div class="p pos">+384 $</div><div class="q">3 trades · 3 comptes</div></div>
-    </a>
-    <a class="s lose" href="#" data-goto="s0818">
-      <div class="day"><div class="dt">Mardi 18 août</div><div class="dd">2026</div></div>
-      <div class="desc"><strong>Biais baissier juste, marché à −1,66 %</strong> — et trois achats pris en écoutant d'autres avis. Erreur de lot à 14 contrats, stop élargi, retournement 33 s après un stop-out. Les seuls trades non perdants sont les deux shorts, c'est-à-dire son propre biais.</div>
-      <div class="num"><div class="p neg">−762 $</div><div class="q">5 trades · 1 à l'équilibre</div></div>
-    </a>
-    <a class="s win" href="#" data-goto="s0817">
-      <div class="day"><div class="dt">Lundi 17 août</div><div class="dd">2026</div></div>
-      <div class="desc">MNQ sur le …0005 : 2 lots, entrée limite, stop remonté, sortie à l'équilibre, aucune reprise — les cinq interdits respectés. Short EUR/USD tenu <strong>5 h 07</strong> : +202 $ net. La plus longue tenue du journal.</div>
-      <div class="num"><div class="p pos">+206 $</div><div class="q">2 trades · 2 comptes</div></div>
-    </a>
-    <a class="s lose" href="#" data-goto="s0814">
-      <div class="day"><div class="dt">Vendredi 14 août</div><div class="dd">2026</div></div>
-      <div class="desc"><span style="color:var(--green)">3 comptes documentés.</span> Session NY : short coupé, puis retournement long jusqu'à 9 contrats sur 3 comptes, sans biais personnel. Lockout activé en fin de séance.</div>
-      <div class="num"><div class="p neg">−264 $</div><div class="q">3 trades · 1/3</div></div>
-    </a>
-    <a class="s win" href="#" data-goto="s0813">
-      <div class="day"><div class="dt">Jeudi 13 août</div><div class="dd">2026</div></div>
-      <div class="desc">AMD complet sur MNQ à l'ouverture NY. Lecture juste, exécution rapide. TP mal configuré (−322 $) et taille doublée à 8 contrats. <span style="color:var(--dim)">05 non relevé.</span></div>
-      <div class="num"><div class="p pos">+2 472 $</div><div class="q">3 trades · 3/3</div></div>
-    </a>
-  </div>
-  </details>
+  <div id="sessions-feed"></div>
 
   <h2>Ce qui revient</h2>
   <div class="watch">
@@ -2508,6 +2510,177 @@ Parfois il faut attendre plus de 50 minutes avant de rentrer.</textarea>
   </div>
 </section>
 
+<section class="view" id="view-s0904" data-journal-date="2026-09-04">
+<div style="margin-bottom:24px"><a href="#" data-goto="dashboard" style="color:var(--muted);font-weight:600;font-size:.88rem;text-decoration:none">← Journal</a></div>
+  <p class="eyebrow">Journal de suivi &middot; Futures &middot; Septembre 2026</p>
+  <h1>Vendredi 4 septembre 2026</h1>
+  <p class="sub">Session en cours — données à ajouter après la clôture.</p>
+  <div class="big" style="margin-top:32px;border-color:rgba(120,120,120,.3)">
+    <div class="l">À journaliser</div>
+    <div class="t">Envoie le CSV Performance après la séance pour que je remplisse cette page.</div>
+    <div class="d">Export depuis chaque compte actif séparément → Performance.csv par compte → partage ici.</div>
+  </div>
+  <p class="foot">Page créée le 02/09/2026 · En attente des données.</p>
+</section>
+
+<section class="view" id="view-s0903" data-journal-date="2026-09-03">
+<div style="margin-bottom:24px"><a href="#" data-goto="dashboard" style="color:var(--muted);font-weight:600;font-size:.88rem;text-decoration:none">← Journal</a></div>
+  <p class="eyebrow">Journal de suivi &middot; Futures &middot; Septembre 2026</p>
+  <h1>Jeudi 3 septembre 2026</h1>
+  <p class="sub">2 comptes actifs. 8 trades MNQU6. 3 shorts consécutifs perdants — même schéma que le 28/08.</p>
+
+  <div class="kpis">
+    <div class="kpi"><div class="lbl">P&amp;L journée</div><div class="val neg">−586,50 $</div><div class="note">Brut · net ~−598 $</div></div>
+    <div class="kpi"><div class="lbl">Trades</div><div class="val">8</div><div class="note">1 gagnant · 7 perdants · 12,5 %</div></div>
+    <div class="kpi"><div class="lbl">Trade principal</div><div class="val neg">−316,50 $</div><div class="note">6 contrats · 14min · Short 16:01 · contre tendance</div></div>
+    <div class="kpi"><div class="lbl">Violation règle</div><div class="val" style="color:var(--red)">×3</div><div class="note">3 shorts consécutifs après stop initial</div></div>
+  </div>
+
+  <div class="big" style="margin-top:32px;border-color:rgba(220,60,60,.5)">
+    <div class="l">La journée en un mot</div>
+    <div class="t">Setup valide — exécution problématique. 3 re-entrées dans le même sens après la première perte.</div>
+    <div class="d">Setup SMT bearish M5 + H1 avec IFVG, 3 lots à l'ouverture NY. Le marché monte contre la position — stop encaissé. Plutôt que de stopper, 2 nouvelles re-entrées short dans les 50 minutes qui suivent. Puis retournement long tenté à 17:29, également perdant. La règle est claire : après 2 stops dans le même sens, pause obligatoire.</div>
+  </div>
+
+  <h2>MNQU6 — 2 comptes, 8 trades</h2>
+  <p style="color:var(--sub);font-size:.85rem;margin:-8px 0 14px">Brut −586,50 $ · 7 perdants</p>
+  <div class="tbl-wrap">
+  <table class="tbl" style="border-radius:14px;border-top:1px solid var(--line)">
+    <thead><tr><th>Heure</th><th>Sens</th><th>Qté</th><th>Entrée</th><th>Sortie</th><th>Durée</th><th>Cte B</th><th>Cte C</th></tr></thead>
+    <tbody>
+      <tr><td class="fill">16:01</td><td style="text-align:center"><span class="tag s">SHORT</span></td><td class="fill">3</td><td class="fill">29 280,25</td><td class="fill">~29 307</td><td class="fill">14min 13s</td><td class="neg">−163,50 $</td><td class="neg">−153 $</td></tr>
+      <tr><td class="fill">16:35</td><td style="text-align:center"><span class="tag s">SHORT</span></td><td class="fill">3</td><td class="fill">~29 301</td><td class="fill">~29 311</td><td class="fill">35 sec</td><td class="neg">−58,50 $</td><td class="neg">−54 $</td></tr>
+      <tr><td class="fill">16:36</td><td style="text-align:center"><span class="tag s">SHORT</span></td><td class="fill">3</td><td class="fill">~29 308</td><td class="fill">~29 309</td><td class="fill">13min 1s</td><td class="neg">−9 $</td><td class="pos">+1,50 $</td></tr>
+      <tr><td class="fill">17:29</td><td style="text-align:center"><span class="tag l">LONG</span></td><td class="fill">3</td><td class="fill">~29 531</td><td class="fill">~29 519</td><td class="fill">4–9 min</td><td class="neg">−60 $</td><td class="neg">−90 $</td></tr>
+      <tr class="tot"><td colspan="6">Total</td><td class="neg">−291 $</td><td class="neg">−295,50 $</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <div class="big" style="border-color:rgba(220,60,60,.35);margin-top:20px">
+    <div class="l">Analyse de séance</div>
+    <div class="t">Le premier trade était justifié. Tout ce qui suit ne l'était pas.</div>
+    <div class="d"><strong>16:01 — Short principal (−316,50 $) :</strong> SMT bearish M5 + H1, IFVG confirmée, 3 lots. Setup solide — le marché a monté ~27 pts contre la position. Stop joué, perte acceptable.<br><br><strong>16:35 — Re-entrée short n°1 (35 sec, −112,50 $) :</strong> Même sens immédiatement après le stop. Ce trade n'aurait pas dû exister.<br><br><strong>16:36 — Re-entrée short n°2 (13min, −7,50 $) :</strong> Troisième tentative consécutive. Quasi flat par chance, pas par discipline. Règle "2 stops = pause" violée.<br><br><strong>17:29 — Long (−150 $) :</strong> Retournement tenté 50 min plus tard, perdu. Fin de séance sous tension.<br><br><strong>Point critique :</strong> Même pattern que le 28/08. La règle à appliquer sans exception : 2 stops dans le même sens → écran éteint.</div>
+  </div>
+
+  <div class="big" style="border-color:rgba(120,120,120,.3);margin-top:20px">
+    <div class="l">Notes du trader</div>
+    <div class="t">2 SMT Bearish M5 + 1 SMT Bearish H1 — grosse IFVG de prise. Rentré short au marché avec 3 lots.</div>
+    <div class="d">Confluence SMT bearish M5 (×2) et H1, IFVG comme zone d'entrée, exécution au marché. Le setup était là — c'est la gestion post-stop qui a failli.</div>
+  </div>
+
+  <div class="obs bad">Même pattern que le 28/08 : stops consécutifs dans le même sens. Règle absolue : après 2 stops dans le même sens → pause obligatoire, pas de 3ème entrée.</div>
+
+  <p class="foot">Séance journalisée le 03/09/2026 · CSVs Performance 2 comptes confirmés.</p>
+</section>
+
+<section class="view" id="view-s0902" data-journal-date="2026-09-02">
+<div style="margin-bottom:24px"><a href="#" data-goto="dashboard" style="color:var(--muted);font-weight:600;font-size:.88rem;text-decoration:none">← Journal</a></div>
+  <p class="eyebrow">Journal de suivi &middot; Futures &middot; Septembre 2026</p>
+  <h1>Mercredi 2 septembre 2026</h1>
+  <p class="sub">3 comptes actifs. 15 trades MNQU6. Stop initial sur tous les comptes → retournement short → reprise long → clôture en force.</p>
+
+  <div class="kpis">
+    <div class="kpi"><div class="lbl">P&amp;L journée</div><div class="val pos">+750 $</div><div class="note">Brut · net ~+738 $</div></div>
+    <div class="kpi"><div class="lbl">Trades</div><div class="val">15</div><div class="note">10 gagnants · 5 perdants · 67 %</div></div>
+    <div class="kpi"><div class="lbl">Trade principal</div><div class="val pos">+274–276 $</div><div class="note">4 contrats · 5min 40s · MNQU6 Long · 16:16</div></div>
+    <div class="kpi"><div class="lbl">Comptes actifs</div><div class="val">3</div><div class="note">2 comptes inactifs (0 trade)</div></div>
+  </div>
+
+  <div class="big" style="margin-top:32px;border-color:rgba(60,180,100,.5)">
+    <div class="l">La journée en un mot</div>
+    <div class="t">Stop à l'ouverture sur tous les comptes — puis bonne réaction : retournement, lecture, +750 $.</div>
+    <div class="d">Première entrée long à 15:43 stoppée sur les 3 comptes en moins de 3 minutes (−279 $ combinés). Réponse immédiate : short @ 15:47 sur deux comptes, scale-out propre, +350 $. Long de 16:05 partiellement raté (exit trop rapide sur 2 lots). Short 12 secondes à 16:12, raté. Long final à 16:16 sur 4 contrats — tenu 5min 40s jusqu'au TP — +550 $ combinés. La discipline de retournement après le stop initial est la clé de cette séance.</div>
+  </div>
+
+  <h2>MNQU6 — 3 comptes, 15 trades</h2>
+  <p style="color:var(--sub);font-size:.85rem;margin:-8px 0 14px">Brut +750 $ · 10 gagnants</p>
+  <div class="tbl-wrap">
+  <table class="tbl" style="border-radius:14px;border-top:1px solid var(--line)">
+    <thead><tr><th>Heure</th><th>Sens</th><th>Qté</th><th>Entrée</th><th>Sortie</th><th>Durée</th><th>Cte A</th><th>Cte B</th><th>Cte C</th></tr></thead>
+    <tbody>
+      <tr><td class="fill">15:43</td><td style="text-align:center"><span class="tag l">LONG</span></td><td class="fill">2</td><td class="fill">29 092,00</td><td class="fill">~29 069</td><td class="fill">~2min 45s</td><td class="neg">−110 $</td><td class="neg">−87 $</td><td class="neg">−82 $</td></tr>
+      <tr><td class="fill">15:47</td><td style="text-align:center"><span class="tag s">SHORT</span></td><td class="fill">2</td><td class="fill">29 078,00</td><td class="fill">29 034–35</td><td class="fill">4–9 min</td><td class="fill" style="color:var(--sub)">—</td><td class="pos">+174 $</td><td class="pos">+176,50 $</td></tr>
+      <tr><td class="fill">16:05</td><td style="text-align:center"><span class="tag l">LONG</span></td><td class="fill">3</td><td class="fill">~29 086</td><td class="fill">29 088–119</td><td class="fill">5–7 min</td><td class="fill" style="color:var(--sub)">—</td><td class="pos">+64,50 $</td><td class="pos">+85,50 $</td></tr>
+      <tr><td class="fill">16:12</td><td style="text-align:center"><span class="tag s">SHORT</span></td><td class="fill">1</td><td class="fill">29 088,50</td><td class="fill">~29 094</td><td class="fill">12 sec</td><td class="fill" style="color:var(--sub)">—</td><td class="neg">−11 $</td><td class="neg">−10,50 $</td></tr>
+      <tr><td class="fill">16:16</td><td style="text-align:center"><span class="tag l">LONG</span></td><td class="fill">4</td><td class="fill">~29 136</td><td class="fill">29 170,75</td><td class="fill">5min 40s</td><td class="fill" style="color:var(--sub)">—</td><td class="pos">+274 $</td><td class="pos">+276 $</td></tr>
+      <tr class="tot"><td colspan="6">Total</td><td class="neg">−110 $</td><td class="pos">+414,50 $</td><td class="pos">+445,50 $</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <div class="big" style="border-color:rgba(60,180,100,.35);margin-top:20px">
+    <div class="l">Analyse de séance</div>
+    <div class="t">Le retournement après le stop est le moment clé — pas la première entrée.</div>
+    <div class="d"><strong>15:43 — Stop initial (−279 $) :</strong> Long déclenché à l'ouverture NY sur 3 comptes. Stoppé en 3 minutes sur tous. Stops tenus, pas de tenue perdante.<br><br><strong>15:47 — Retournement short (+350 $) :</strong> Réaction immédiate. Short 2 contrats @ 29 078, scale-out sur 2 lots : +44 pts puis +43–44 pts. Décision clé de la journée.<br><br><strong>16:05 — Long partiel (+150 $) :</strong> 1 lot bien tenu jusqu'à +31–35 pts. 2 lots sortis quasi flat à 29 088,50 — sortie trop rapide, le marché continuait. ~60–80 $ laissés.<br><br><strong>16:12 — Short 12 secondes (−21,50 $) :</strong> Pas de setup, pas de durée. À corriger.<br><br><strong>16:16 — Long final (+550 $) :</strong> 4 contrats @ 29 136 → 29 170,75 en 5min 40s. Ce trade fait la journée.</div>
+  </div>
+
+  <div class="obs ok">Deux bonnes séances de suite : +718 $ hier, +750 $ aujourd'hui = +1 468 $ en deux jours. Septembre démarre bien. Point à corriger : sortie trop rapide sur les 2 lots du long de 16:05 et le short impulsif de 12 secondes.</div>
+
+  <div class="big" style="border-color:rgba(120,120,120,.3);margin-top:20px">
+    <div class="l">Notes du trader</div>
+    <div class="t">Setups SMT — deux lectures de marché distinctes.</div>
+    <div class="d">
+      <strong>Trade 1 — Short (SMT bearish M15 + M1) :</strong> Entrée short sur confirmation SMT bearish sur les deux timeframes. Le BPR a été invalidé car clôture en dessous du haussier — court court, mais on est allé chercher la liquidité. TP partiel atteint.<br><br>
+      <strong>Trade 2 — Long (SMT bullish) :</strong> Retournement long sur SMT bullish. Lecture de retournement confirmée — trade principal de la journée.
+    </div>
+  </div>
+
+  <p class="foot">Séance journalisée le 02/09/2026 · CSVs Performance 3 comptes confirmés.</p>
+</section>
+
+<section class="view" id="view-s0901" data-journal-date="2026-09-01">
+<div style="margin-bottom:24px"><a href="#" data-goto="dashboard" style="color:var(--muted);font-weight:600;font-size:.88rem;text-decoration:none">← Journal</a></div>
+  <p class="eyebrow">Journal de suivi &middot; Futures &middot; Septembre 2026</p>
+  <h1>Mardi 1<sup>er</sup> septembre 2026</h1>
+  <p class="sub">1 compte actif (…006). 2 trades MNQU6. Long de 43 min tenu jusqu'au TP : +715,50 $ sur 3 contrats. Meilleure session depuis le 13 août.</p>
+  <div class="kpis">
+    <div class="kpi"><div class="lbl">P&amp;L journée</div><div class="val pos">+718 $</div><div class="note">Net après frais · brut +721,50 $</div></div>
+    <div class="kpi"><div class="lbl">Trades</div><div class="val">2</div><div class="note">2 gagnants · 0 perdant · 100 %</div></div>
+    <div class="kpi"><div class="lbl">Trade principal</div><div class="val pos">+715,50 $</div><div class="note">3 contrats · 43 min 42 s · +119 pts</div></div>
+  </div>
+  <div class="big" style="margin-top:32px;border-color:rgba(60,180,100,.5)">
+    <div class="l">La journée en un mot</div>
+    <div class="t">Ouverture de septembre parfaite — un long propre tenu jusqu'au TP, aucune sortie anticipée.</div>
+    <div class="d">Deux trades à l'ouverture NY. Scalp rapide (+6 $, 3 min 51 s). Puis le trade principal : long à 29 105,75, sortie à 29 225,00, +119,25 pts sur 3 contrats = +715,50 $. Tenu 43 minutes 42 secondes — aucun stop touché, aucune modification de position. Conformité totale au plan.</div>
+  </div>
+  <h2>MNQU6 — 2 trades</h2>
+  <div class="tbl-wrap">
+  <table class="tbl" style="border-radius:14px;border-top:1px solid var(--line)">
+    <thead><tr><th>Heure</th><th>Instrument</th><th>Sens</th><th>Qté</th><th>Entrée</th><th>Sortie</th><th>Tenue</th><th>P&amp;L</th><th>Note</th></tr></thead>
+    <tbody>
+      <tr><td class="fill">15h47</td><td class="fill">MNQU6</td><td><span class="tag l">LONG</span></td><td class="fill">3</td><td class="fill">29 129,75</td><td class="fill">29 130,75</td><td class="fill">3 min 51 s</td><td class="pos">+6 $</td><td class="fill">Scalp d'entrée</td></tr>
+      <tr><td class="fill">15h59</td><td class="fill">MNQU6</td><td><span class="tag l">LONG</span></td><td class="fill">3</td><td class="fill">29 105,75</td><td class="fill">29 225,00</td><td class="fill">43 min 42 s</td><td class="pos">+715,50 $</td><td class="fill">Tenu jusqu'au TP · +119 pts</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <div class="obs ok">Session de référence pour septembre : 100% conformité, position tenue, sortie au TP. Reproduire cette discipline.</div>
+  <p class="foot">Séance journalisée le 02/09/2026 · CSV Performance …006 confirmé.</p>
+</section>
+
+<section class="view" id="view-s0831" data-journal-date="2026-08-31">
+<div style="margin-bottom:24px"><a href="#" data-goto="dashboard" style="color:var(--muted);font-weight:600;font-size:.88rem;text-decoration:none">← Journal</a></div>
+  <p class="eyebrow">Journal de suivi &middot; Futures</p>
+  <h1>Lundi 31 août 2026</h1>
+  <p class="sub">0 trade. Plan respecté — journée sans position. Dernier jour d'août.</p>
+  <div class="kpis">
+    <div class="kpi"><div class="lbl">P&amp;L journée</div><div class="val" style="color:var(--muted)">0 $</div><div class="note">Aucun trade pris</div></div>
+    <div class="kpi"><div class="lbl">Trades</div><div class="val" style="color:var(--muted)">0</div><div class="note">Plan respecté</div></div>
+    <div class="kpi"><div class="lbl">Conformité plan</div><div class="val pos">✓</div><div class="note">Ne pas trader = une décision</div></div>
+  </div>
+  <div class="big" style="margin-top:32px;border-color:rgba(60,180,100,.4)">
+    <div class="l">La journée en un mot</div>
+    <div class="t">Pas de setup valable — pas de trade. C'est la bonne décision.</div>
+    <div class="d">Fin de mois chargée (−3 261 $ sur août). Observer sans agir, c'est aussi du trading. Une journée à 0 $ vaut mieux qu'une journée à −200 $ sur un setup douteux en fin de mois.</div>
+  </div>
+  <div class="big" style="border-color:rgba(91,157,249,.3);margin-top:20px">
+    <div class="l">Bilan août 2026</div>
+    <div class="t">12 sessions journalisées · −3 261 $ net · premier mois complet de suivi.</div>
+    <div class="d"><strong>Ce qui progresse :</strong> Setups nommés avec critères précis. Le 26/08 est un exemple de bonne lecture.<br><br><strong>À corriger en septembre :</strong> Biais persistant après 2 stops consécutifs. Sorties anticipées sur positions valides. R:R trop faible sur les scalps.<br><br><strong>Objectif :</strong> Checklist complète avant chaque entrée. Après 2 stops dans le même sens → pause obligatoire.</div>
+  </div>
+  <p class="foot">Séance journalisée le 01/09/2026 · Aucun trade · Plan respecté.</p>
+</section>
+
 <section class="view" id="view-s0828" data-journal-date="2026-08-28">
 <div style="margin-bottom:24px"><a href="#" data-goto="dashboard" style="color:var(--muted);font-weight:600;font-size:.88rem;text-decoration:none">← Journal</a></div>
   <p class="eyebrow">Journal de suivi &middot; Futures</p>
@@ -2728,45 +2901,6 @@ Parfois il faut attendre plus de 50 minutes avant de rentrer.</textarea>
   </div>
 </section>
 
-<section class="view" id="view-s0828" data-journal-date="2026-08-28">
-<div style="margin-bottom:24px"><a href="#" data-goto="dashboard" style="color:var(--muted);font-weight:600;font-size:.88rem;text-decoration:none">← Journal</a></div>
-  <p class="eyebrow">Journal de suivi &middot; Futures</p>
-  <h1>Vendredi 28 août 2026</h1>
-  <p class="sub">Session à documenter — données à ajouter après la clôture du marché.</p>
-
-  <div class="kpis">
-    <div class="kpi"><div class="lbl">P&amp;L journée</div><div class="val neu">—</div><div class="note">À remplir</div></div>
-    <div class="kpi"><div class="lbl">Trades</div><div class="val neu">—</div><div class="note">À documenter</div></div>
-    <div class="kpi"><div class="lbl">Compte 06</div><div class="val neu">—</div><div class="note">En attente</div></div>
-    <div class="kpi"><div class="lbl">Compte 02</div><div class="val neu">—</div><div class="note">En attente</div></div>
-  </div>
-
-  <div class="big" style="margin-top:32px;border-color:rgba(120,120,120,.3)">
-    <div class="l">Session à venir</div>
-    <div class="t">Envoie les exports Tradovate (Performance CSV + info compte) après la clôture pour que je remplisse cette page.</div>
-    <div class="d">Fichiers utiles : Performance.csv (par compte), ordrestout.csv, infoducompte.csv. Exporter depuis chaque compte actif séparément pour identification correcte.</div>
-  </div>
-</section>
-
-<section class="view" id="view-s0831" data-journal-date="2026-08-31">
-<div style="margin-bottom:24px"><a href="#" data-goto="dashboard" style="color:var(--muted);font-weight:600;font-size:.88rem;text-decoration:none">← Journal</a></div>
-  <p class="eyebrow">Journal de suivi &middot; Futures</p>
-  <h1>Lundi 31 août 2026</h1>
-  <p class="sub">Session à documenter — données à ajouter après la clôture du marché.</p>
-
-  <div class="kpis">
-    <div class="kpi"><div class="lbl">P&amp;L journée</div><div class="val neu">—</div><div class="note">À remplir</div></div>
-    <div class="kpi"><div class="lbl">Trades</div><div class="val neu">—</div><div class="note">À documenter</div></div>
-    <div class="kpi"><div class="lbl">Compte 06</div><div class="val neu">—</div><div class="note">En attente</div></div>
-    <div class="kpi"><div class="lbl">Compte 02</div><div class="val neu">—</div><div class="note">En attente</div></div>
-  </div>
-
-  <div class="big" style="margin-top:32px;border-color:rgba(120,120,120,.3)">
-    <div class="l">Session à venir</div>
-    <div class="t">Envoie les exports Tradovate (Performance CSV + info compte) après la clôture pour que je remplisse cette page.</div>
-    <div class="d">Fichiers utiles : Performance.csv (par compte), ordrestout.csv, infoducompte.csv. Exporter depuis chaque compte actif séparément pour identification correcte.</div>
-  </div>
-</section>
 
 </div>
 <script>/* ============================================================
@@ -3083,7 +3217,11 @@ window.TRADES = [
 ];
 
 window.SESSIONS = [
-  { jour:"31/08", label:"Lundi 31 août",    fichier:"2026-08-31-lundi.html",    pnl:null, trades:0, gagnants:0, neutres:0, note:"À documenter." },
+  { jour:"04/09", label:"Vendredi 4 sept.", fichier:"2026-09-04-vendredi.html", pnl:null, trades:0, gagnants:0, neutres:0, note:"À documenter." },
+  { jour:"03/09", label:"Jeudi 3 sept.",    fichier:"2026-09-03-jeudi.html",    pnl:-586.5, trades:8, gagnants:1, neutres:0, note:"2 comptes · 3 shorts consécutifs · même pattern 28/08." },
+  { jour:"02/09", label:"Mercredi 2 sept.", fichier:"2026-09-02-mercredi.html", pnl:750, trades:15, gagnants:10, neutres:0, note:"3 comptes · stop ouverture → retournement short → long final +550 $." },
+  { jour:"01/09", label:"Mardi 1er sept.",  fichier:"2026-09-01-mardi.html",    pnl:721.50, trades:2, gagnants:2, neutres:0, note:"…006 · 2 longs MNQU6 · +6 $ (scalp) + 715,50 $ (43 min, +119 pts) · net +718 $." },
+  { jour:"31/08", label:"Lundi 31 août",    fichier:"2026-08-31-lundi.html",    pnl:0, trades:0, gagnants:0, neutres:0, note:"Aucun trade. Plan respecté — pas de setup valable. Dernier jour d'août." },
   { jour:"28/08", label:"Vendredi 28 août", fichier:"2026-08-28-vendredi.html", pnl:-167.00, trades:6, gagnants:2, neutres:1, note:"Compte …006 −298 $ (3 shorts consécutifs contre tendance) · Compte …00? +131 $ (3 longs) · net −167 $." },
   { jour:"27/08", label:"Jeudi 27 août",    fichier:"2026-08-27-jeudi.html",    pnl:-79.00, trades:5, gagnants:4, neutres:0, note:"…006 · 5 scalps MNQU6 · 4 gagnants (+3, +5, +8,50, +2 $) · 1 stop −90,50 $ en 52 s · net −79 $." },
   { jour:"26/08", label:"Mercredi 26 août", fichier:"2026-08-26-mercredi.html", pnl:151.30, trades:6, gagnants:5, neutres:0, note:"MGCZ6 +127 $ (2 shorts) · MNQU6 −179 $ (sweep trop petit) · MNQU6 +212,50 $ (long BPR+FVG+SMT+MSS) · net +151,30 $." },
@@ -3243,9 +3381,12 @@ window.SESSIONS = [
     var seuil = 100 / (1 + rrMoy);
 
     var h = '<div class="kpis" style="margin-top:0">'
-      + kpi('R:R planifié moyen', rrMoy.toFixed(2) + ' : 1', rows.length + ' trades documentés')
-      + kpi('R cumulé réalisé', (rTot >= 0 ? '+' : '−') + Math.abs(rTot).toFixed(2) + 'R',
-            'Moyenne ' + (rTot/rows.length >= 0 ? '+' : '−') + Math.abs(rTot/rows.length).toFixed(2) + 'R par trade',
+      + kpi('R:R planifié moyen',
+            rrMoy.toFixed(2) + ' : 1',
+            rows.length + ' trades documentés')
+      + kpi('R cumulé réalisé',
+            (rTot >= 0 ? '+' : '−') + Math.abs(rTot).toFixed(2) + 'R',
+            'Moy. ' + (rTot/rows.length >= 0 ? '+' : '−') + Math.abs(rTot/rows.length).toFixed(2) + 'R / trade',
             rTot >= 0 ? 'pos' : 'neg')
       + kpi('Réussite nécessaire', seuil.toFixed(0) + ' %', 'Pour être à l\'équilibre à ce R:R')
       + kpi('Risque max engagé', fmt(Math.max.apply(null, rows.map(function(x){ return x.riskUsd; })), 0) + ' $',
@@ -3268,7 +3409,7 @@ window.SESSIONS = [
         + '<td>' + t.jour + '</td>'
         + '<td class="fill">' + t.instrument + '</td>'
         + '<td class="fill">' + t.compte + '</td>'
-        + '<td><span class="tag ' + (t.sens === 'Long' ? 'l' : 's') + '">' + t.sens.toUpperCase() + '</span></td>'
+        + '<td class="fill" style="text-align:center"><span class="tag ' + (t.sens === 'Long' ? 'l' : 's') + '">' + t.sens.toUpperCase() + '</span></td>'
         + '<td class="fill">' + t.qte + '</td>'
         + '<td class="fill">' + fmt(t.entree, dc) + '</td>'
         + '<td class="fill">' + fmt(t.stop, dc) + '</td>'
@@ -3300,7 +3441,345 @@ window.SESSIONS = [
          + '<div class="note">' + note + '</div></div>';
   }
 
-  document.addEventListener('DOMContentLoaded', function(){ comptes(); risque(); });
+  /* ---------- Données & Analyse ---------- */
+  function analyse(){
+    var host = document.getElementById('analyse-section');
+    if(!host || !window.SESSIONS) return;
+
+    // Sessions with real P&L, sorted oldest→newest
+    var sessions = window.SESSIONS.slice().reverse().filter(function(s){ return s.pnl !== null; });
+
+    // ── Equity curve data ──
+    var cum = 0;
+    var equity = sessions.map(function(s){ cum += s.pnl; return { jour: s.jour, label: s.label, pnl: s.pnl, cum: cum }; });
+
+    // ── Stats globales ──
+    var positives = sessions.filter(function(s){ return s.pnl > 0; }).length;
+    var winRate   = sessions.length ? Math.round(positives / sessions.length * 100) : 0;
+    var best      = sessions.reduce(function(a,b){ return b.pnl > a.pnl ? b : a; }, sessions[0]);
+    var worst     = sessions.reduce(function(a,b){ return b.pnl < a.pnl ? b : a; }, sessions[0]);
+
+    // ── Streak ── (sessions with pnl > 0 from most recent backward)
+    var revSessions = sessions.slice().reverse();
+    var streak = 0;
+    for(var i=0; i<revSessions.length; i++){
+      if(revSessions[i].pnl > 0) streak++;
+      else break;
+    }
+    // Also compute losing streak
+    var loseStreak = 0;
+    for(var i=0; i<revSessions.length; i++){
+      if(revSessions[i].pnl < 0) loseStreak++;
+      else break;
+    }
+
+    // ── Discipline notes ── sessions with rule violations
+    var violations = sessions.filter(function(s){
+      return s.note && (s.note.indexOf('consécutif') !== -1 || s.note.indexOf('règle') !== -1 || s.note.indexOf('pattern') !== -1);
+    });
+    var cleanDays = sessions.length - violations.length;
+
+    // ── P&L by month ──
+    var byMonth = {};
+    sessions.forEach(function(s){
+      var m = s.jour.slice(3); // "08" or "09"
+      if(!byMonth[m]) byMonth[m] = { total: 0, count: 0 };
+      byMonth[m].total += s.pnl;
+      byMonth[m].count++;
+    });
+
+    var h = '';
+
+    // ── Stats rapides (4 KPIs) ──
+    h += '<div class="kpis" style="margin-top:0">';
+    h += kpi('Win rate sessions', winRate + ' %', positives + ' positives · ' + (sessions.length - positives) + ' négatives sur ' + sessions.length, winRate >= 50 ? 'pos' : 'neg');
+    if(streak > 0)
+      h += kpi('Streak actuel', '+' + streak + ' session' + (streak>1?'s':''), 'Séances consécutives positives ↑', 'pos');
+    else if(loseStreak > 0)
+      h += kpi('Streak actuel', loseStreak + ' session' + (loseStreak>1?'s':''), 'Séances consécutives négatives ↓', 'neg');
+    else
+      h += kpi('Streak actuel', '—', 'Aucune série en cours', '');
+    h += kpi('Meilleure séance', (best.pnl >= 0 ? '+' : '') + fmt(best.pnl, 2) + ' $', best.jour, 'pos');
+    h += kpi('Pire séance', fmt(worst.pnl, 2) + ' $', worst.jour, 'neg');
+    h += '</div>';
+
+    // ── Discipline tracker ──
+    h += '<div class="big" style="margin-top:20px;border-color:' + (violations.length === 0 ? 'rgba(60,180,100,.4)' : 'rgba(220,60,60,.4)') + '">';
+    h += '<div class="l">Discipline</div>';
+    h += '<div class="t">' + cleanDays + ' / ' + sessions.length + ' séances sans violation de règle documentée</div>';
+    h += '<div class="d">';
+    if(violations.length === 0){
+      h += 'Aucune violation identifiée dans les notes de séance.';
+    } else {
+      h += '<strong>Violations détectées (' + violations.length + ') :</strong><br>';
+      violations.forEach(function(s){
+        h += '· <strong>' + s.jour + '</strong> — ' + s.note + '<br>';
+      });
+    }
+    h += '</div></div>';
+
+    // ── Equity curve (canvas) ──
+    h += '<div style="margin-top:24px">';
+    h += '<p style="color:var(--muted);font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;margin:0 0 10px">Courbe d\'équité cumulée</p>';
+    h += '<canvas id="equity-canvas" style="width:100%;height:180px;border-radius:12px;background:var(--panel)"></canvas>';
+    h += '</div>';
+
+    // ── Calendar heatmap ──
+    h += '<div style="margin-top:24px">';
+    h += '<p style="color:var(--muted);font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;margin:0 0 10px">Heatmap P&amp;L</p>';
+    h += buildHeatmap(sessions);
+    h += '</div>';
+
+    host.innerHTML = h;
+
+    // Draw equity curve after DOM insert
+    requestAnimationFrame(function(){ drawEquity(equity); });
+  }
+
+  function buildHeatmap(sessions){
+    // Group by month/day
+    var dayMap = {};
+    sessions.forEach(function(s){
+      var parts = s.jour.split('/');
+      var key = parts[1] + '-' + parts[0]; // "08-13"
+      dayMap[key] = s.pnl;
+    });
+
+    var months = [
+      { key: '08', name: 'Août 2026',      days: 31 },
+      { key: '09', name: 'Septembre 2026', days: 30 }
+    ];
+
+    var html = '<div style="display:flex;flex-direction:column;gap:16px">';
+    months.forEach(function(m){
+      html += '<div>';
+      html += '<div style="font-size:12px;font-weight:700;color:var(--sub);letter-spacing:.06em;text-transform:uppercase;margin-bottom:8px">' + m.name + '</div>';
+      html += '<div style="display:flex;flex-wrap:wrap;gap:4px">';
+      for(var d=1; d<=m.days; d++){
+        var dd = d < 10 ? '0'+d : ''+d;
+        var key = m.key + '-' + dd;
+        var pnl = dayMap[key];
+        var bg, title;
+        if(pnl === undefined){
+          bg = 'var(--panel)';
+          title = dd + '/' + m.key + ' — pas de séance';
+        } else if(pnl === 0){
+          bg = 'rgba(150,150,150,.25)';
+          title = dd + '/' + m.key + ' — 0 $';
+        } else if(pnl > 0){
+          var intensity = Math.min(1, pnl / 1000);
+          bg = 'rgba(60,180,100,' + (0.3 + intensity * 0.65) + ')';
+          title = dd + '/' + m.key + ' — +' + pnl.toFixed(2) + ' $';
+        } else {
+          var intensity = Math.min(1, Math.abs(pnl) / 1000);
+          bg = 'rgba(220,60,60,' + (0.3 + intensity * 0.65) + ')';
+          title = dd + '/' + m.key + ' — ' + pnl.toFixed(2) + ' $';
+        }
+        html += '<div title="' + title + '" style="width:28px;height:28px;border-radius:4px;background:' + bg + ';cursor:default;display:flex;align-items:center;justify-content:center">';
+        html += '<span style="font-size:9px;color:var(--txt);opacity:.6">' + d + '</span>';
+        html += '</div>';
+      }
+      html += '</div></div>';
+    });
+    html += '</div>';
+    return html;
+  }
+
+  function drawEquity(equity){
+    var canvas = document.getElementById('equity-canvas');
+    if(!canvas) return;
+    var dpr = window.devicePixelRatio || 1;
+    var rect = canvas.getBoundingClientRect();
+    canvas.width  = rect.width  * dpr;
+    canvas.height = rect.height * dpr;
+    var ctx = canvas.getContext('2d');
+    ctx.scale(dpr, dpr);
+    var W = rect.width, H = rect.height;
+    var pad = { t: 20, b: 30, l: 60, r: 20 };
+    var cw = W - pad.l - pad.r, ch = H - pad.t - pad.b;
+
+    if(!equity.length) return;
+    var vals  = equity.map(function(e){ return e.cum; });
+    var minV  = Math.min(0, Math.min.apply(null, vals));
+    var maxV  = Math.max(0, Math.max.apply(null, vals));
+    var range = maxV - minV || 1;
+
+    // compute style from CSS variables
+    var style   = getComputedStyle(document.documentElement);
+    var txtCol  = style.getPropertyValue('--txt').trim()  || '#ddd';
+    var dimCol  = style.getPropertyValue('--dim').trim()  || '#555';
+    var greenCol= style.getPropertyValue('--green').trim()|| '#4db37c';
+    var redCol  = style.getPropertyValue('--red').trim()  || '#e05555';
+
+    function xPos(i){ return pad.l + (i / (equity.length - 1)) * cw; }
+    function yPos(v){ return pad.t + ch - (v - minV) / range * ch; }
+
+    // Gridlines
+    ctx.strokeStyle = 'rgba(128,128,128,.15)';
+    ctx.lineWidth = 1;
+    [minV, (minV+maxV)/2, maxV].forEach(function(v){
+      var y = yPos(v);
+      ctx.beginPath(); ctx.moveTo(pad.l, y); ctx.lineTo(W - pad.r, y); ctx.stroke();
+      ctx.fillStyle = dimCol;
+      ctx.font = '11px system-ui';
+      ctx.textAlign = 'right';
+      ctx.fillText((v >= 0 ? (v > 0 ? '+' : '') : '') + Math.round(v) + '$', pad.l - 6, y + 4);
+    });
+
+    // Zero line
+    var y0 = yPos(0);
+    ctx.strokeStyle = 'rgba(128,128,128,.35)';
+    ctx.setLineDash([4, 3]);
+    ctx.beginPath(); ctx.moveTo(pad.l, y0); ctx.lineTo(W - pad.r, y0); ctx.stroke();
+    ctx.setLineDash([]);
+
+    // Fill area under curve
+    var grad = ctx.createLinearGradient(0, pad.t, 0, H - pad.b);
+    if(vals[vals.length-1] >= 0){
+      grad.addColorStop(0, 'rgba(60,180,100,.35)');
+      grad.addColorStop(1, 'rgba(60,180,100,.02)');
+    } else {
+      grad.addColorStop(0, 'rgba(220,60,60,.02)');
+      grad.addColorStop(1, 'rgba(220,60,60,.35)');
+    }
+    ctx.beginPath();
+    ctx.moveTo(xPos(0), yPos(equity[0].cum));
+    for(var i=1; i<equity.length; i++) ctx.lineTo(xPos(i), yPos(equity[i].cum));
+    ctx.lineTo(xPos(equity.length-1), H - pad.b);
+    ctx.lineTo(xPos(0), H - pad.b);
+    ctx.closePath();
+    ctx.fillStyle = grad;
+    ctx.fill();
+
+    // Line
+    var lineCol = equity[equity.length-1].cum >= 0 ? greenCol : redCol;
+    ctx.strokeStyle = lineCol;
+    ctx.lineWidth = 2.5;
+    ctx.lineJoin = 'round';
+    ctx.beginPath();
+    ctx.moveTo(xPos(0), yPos(equity[0].cum));
+    for(var i=1; i<equity.length; i++) ctx.lineTo(xPos(i), yPos(equity[i].cum));
+    ctx.stroke();
+
+    // Dots
+    equity.forEach(function(e, i){
+      var col = e.pnl > 0 ? greenCol : (e.pnl < 0 ? redCol : dimCol);
+      ctx.beginPath();
+      ctx.arc(xPos(i), yPos(e.cum), 4, 0, Math.PI*2);
+      ctx.fillStyle = col;
+      ctx.fill();
+    });
+
+    // X labels (every 3rd session)
+    ctx.fillStyle = dimCol;
+    ctx.font = '10px system-ui';
+    ctx.textAlign = 'center';
+    equity.forEach(function(e, i){
+      if(i % 3 === 0 || i === equity.length-1){
+        ctx.fillText(e.jour, xPos(i), H - 8);
+      }
+    });
+  }
+
+  /* ---------- Sessions feed compact ---------- */
+  var MONTH_NAMES = {'01':'Janv.','02':'Fév.','03':'Mars','04':'Avr.','05':'Mai','06':'Juin',
+    '07':'Juil.','08':'Août','09':'Sept.','10':'Oct.','11':'Nov.','12':'Déc.'};
+  var MONTH_FULL  = {'08':'Août 2026','09':'Septembre 2026'};
+  var DAY_NAMES   = ['Dim.','Lun.','Mar.','Mer.','Jeu.','Ven.','Sam.'];
+
+  function parseJour(jour){
+    if(!jour) return null;
+    var p = jour.split('/');
+    return { d:parseInt(p[0]), m:parseInt(p[1]), y: p[2] ? parseInt(p[2]) : 2026 };
+  }
+
+  function jourLabel(jour){
+    var p = parseJour(jour);
+    if(!p) return jour;
+    var dt = new Date(p.y, p.m - 1, p.d);
+    return DAY_NAMES[dt.getDay()] + ' ' + p.d + ' ' + MONTH_NAMES[jour.split('/')[1]];
+  }
+
+  function renderSessions(){
+    var host = document.getElementById('sessions-feed');
+    if(!host || !window.SESSIONS) return;
+
+    // Group by month, maintain order
+    var months = [], monthMap = {};
+    window.SESSIONS.forEach(function(s){
+      var m = s.jour ? s.jour.slice(3) : '??';
+      if(!monthMap[m]){ monthMap[m] = []; months.push(m); }
+      monthMap[m].push(s);
+    });
+
+    var h = '';
+    months.forEach(function(m){
+      var sessions = monthMap[m];
+      var mTotal = sessions.reduce(function(a,s){ return s.pnl !== null ? a + s.pnl : a; }, 0);
+      var label = MONTH_FULL[m] || m;
+      var sumCls = mTotal > 0 ? 'pos' : (mTotal < 0 ? 'neg' : '');
+      var sumStr = mTotal > 0 ? ('+' + Math.round(mTotal) + ' $') : (Math.round(mTotal) + ' $');
+
+      h += '<div class="sf-mh">'
+         + '<span class="sf-mh-name">' + label + '</span>'
+         + '<span class="sf-mh-line"></span>'
+         + '<span class="sf-mh-sum ' + sumCls + '">' + sumStr + '</span>'
+         + '</div>';
+
+      h += '<div class="sf">';
+      sessions.forEach(function(s){
+        var isPending = s.pnl === null;
+        var winRate = s.trades > 0 ? Math.round(s.gagnants / s.trades * 100) : 0;
+        var cls = isPending ? 'flat pending' : (s.pnl > 0 ? 'win' : (s.pnl < 0 ? 'lose' : 'flat'));
+        var href = s.fichier ? 'sessions/' + s.fichier : null;
+        var tag = href ? 'a' : 'div';
+        var attrs = href ? ' href="' + href + '"' : '';
+
+        h += '<' + tag + ' class="sr ' + cls + '"' + attrs + '>';
+
+        // Date
+        h += '<div class="sr-date">' + jourLabel(s.jour) + '</div>';
+
+        // Win dots (up to 10, proportional)
+        h += '<div class="sr-dots">';
+        if(s.trades > 0){
+          var show = Math.min(s.trades, 10);
+          var wins = Math.round(s.gagnants / s.trades * show);
+          var losses = show - wins;
+          for(var i=0; i<wins; i++) h += '<span class="sr-dot w"></span>';
+          for(var i=0; i<losses; i++) h += '<span class="sr-dot l"></span>';
+        } else {
+          h += '<span style="color:var(--dim);font-size:11px">—</span>';
+        }
+        h += '</div>';
+
+        // P&L
+        if(isPending){
+          h += '<div class="sr-pnl" style="color:var(--dim)">—</div>';
+        } else {
+          var pnlStr = (s.pnl > 0 ? '+' : '') + s.pnl.toFixed(0) + ' $';
+          h += '<div class="sr-pnl ' + (s.pnl > 0 ? 'pos' : (s.pnl < 0 ? 'neg' : '')) + '">' + pnlStr + '</div>';
+        }
+
+        // Stats
+        if(s.trades > 0){
+          h += '<div class="sr-stats">' + s.trades + 'T&nbsp;·&nbsp;' + winRate + '%</div>';
+        } else {
+          h += '<div class="sr-stats" style="color:var(--dim)">—</div>';
+        }
+
+        // Note
+        h += '<div class="sr-note">' + (s.note || '') + '</div>';
+
+        h += '</' + tag + '>';
+      });
+      h += '</div>';
+    });
+
+    host.innerHTML = h;
+  }
+
+  document.addEventListener('DOMContentLoaded', function(){ analyse(); renderSessions(); comptes(); risque(); });
 })();
 </script>
 <script>/* Journal de trading — enregistrement automatique, multi-séances.
