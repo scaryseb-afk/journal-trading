@@ -45,7 +45,7 @@
 <body>
 <div class="wrap">
 
-<a href="../" class="sp-back">← Journal</a>
+<a href="../#sessions" class="sp-back">← Journal</a>
 
 <div class="sp-header">
   <h1 class="sp-title">Mercredi 2 sept.</h1>
@@ -139,7 +139,8 @@ function readCSV(file){
 function parseCSV(text){
   var lines = text.replace(/
 /g,'
-').replace(//g,'
+').replace(/
+/g,'
 ').split('
 ').filter(function(l){return l.trim();});
   if(lines.length<2){alert('CSV vide ou invalide.');return;}

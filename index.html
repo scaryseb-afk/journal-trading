@@ -150,7 +150,7 @@ textarea::placeholder{color:#4A566A}
 .sr.win{border-left-color:var(--green)}
 .sr.lose{border-left-color:var(--red)}
 .sr.flat{border-left-color:var(--dim)}
-.sr.pending{opacity:.4;pointer-events:none;border-left-style:dashed}
+.sr.pending{opacity:.5;border-left-style:dashed}
 .sr-date{font-size:13.5px;font-weight:600;color:var(--txt)}
 .sr-pnl{font-size:14px;font-weight:700;font-variant-numeric:tabular-nums;text-align:right;white-space:nowrap}
 .sr-wr{font-size:12px;color:var(--dim);text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
@@ -348,7 +348,7 @@ textarea::placeholder{color:#4A566A}
   <p class="sub">Calculé uniquement sur les trades dont le stop initial est connu.</p>
   <div id="rr"></div>
 
-  <h2>Sessions</h2>
+  <h2 id="sessions">Sessions</h2>
   <div id="sessions-feed"></div>
 
   <h2>Ce qui revient</h2>
@@ -3764,7 +3764,16 @@ window.SESSIONS = [
     host.innerHTML = h;
   }
 
-  document.addEventListener('DOMContentLoaded', function(){ analyse(); renderSessions(); comptes(); risque(); });
+  document.addEventListener('DOMContentLoaded', function(){
+    analyse(); renderSessions(); comptes(); risque();
+    // Si on revient d'une page session via #sessions, scroller jusqu'aux sessions
+    if(window.location.hash === '#sessions'){
+      setTimeout(function(){
+        var el = document.getElementById('sessions');
+        if(el) el.scrollIntoView({behavior:'smooth', block:'start'});
+      }, 150);
+    }
+  });
 })();
 </script>
 <script>/* Journal de trading — enregistrement automatique, multi-séances.
