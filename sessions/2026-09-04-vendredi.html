@@ -15,41 +15,37 @@
 .note-block{background:var(--panel);border-left:3px solid var(--blue);border-radius:8px;padding:14px 18px;font-size:13.5px;color:var(--txt);line-height:1.6;margin-bottom:28px}
 .section-title{font-size:11px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--muted);margin:28px 0 10px}
 
+/* Drop zones */
+.drops{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:28px}
+@media(max-width:640px){.drops{grid-template-columns:1fr}}
+.drop-zone{border:2px dashed var(--line);border-radius:10px;padding:28px 16px;text-align:center;cursor:pointer;transition:.15s}
+.drop-zone:hover,.drop-zone.drag-over{border-color:var(--blue);background:rgba(91,157,249,.05)}
+.drop-icon{font-size:28px;margin-bottom:8px}
+.drop-label{font-size:13px;font-weight:600;color:var(--txt);margin-bottom:3px}
+.drop-sub{font-size:11.5px;color:var(--muted)}
+
 /* Screenshots */
 .screenshots{display:flex;flex-wrap:wrap;gap:12px;margin-bottom:16px}
 .screenshot-wrap{position:relative;border-radius:8px;overflow:hidden;border:1px solid var(--line)}
 .screenshot-wrap img{display:block;max-width:320px;max-height:240px;object-fit:contain}
 .screenshot-del{position:absolute;top:6px;right:6px;background:rgba(0,0,0,.55);color:#fff;border:none;border-radius:50%;width:22px;height:22px;font-size:14px;line-height:22px;cursor:pointer;display:flex;align-items:center;justify-content:center}
-.drop-zone{border:2px dashed var(--line);border-radius:10px;padding:18px 16px;text-align:center;cursor:pointer;transition:.15s}
-.drop-zone:hover,.drop-zone.drag-over{border-color:var(--blue);background:rgba(91,157,249,.05)}
-.drop-icon{font-size:22px;margin-bottom:6px}
-.drop-label{font-size:13px;font-weight:600;color:var(--txt);margin-bottom:2px}
-.drop-sub{font-size:11.5px;color:var(--muted)}
-.clear-btn{background:none;border:1px solid var(--line);border-radius:6px;padding:5px 14px;font-size:12px;color:var(--muted);cursor:pointer;margin-top:12px}
-.clear-btn:hover{border-color:var(--red);color:var(--red)}
 
 /* Trades table */
-.acct-header{display:flex;align-items:baseline;justify-content:space-between;margin:28px 0 8px}
-.acct-label{font-size:11px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--muted)}
-.acct-pnl{font-size:13px;font-weight:800;font-variant-numeric:tabular-nums}
-.tbl-wrap{overflow-x:auto}
 .trades-table{width:100%;border-collapse:collapse;font-size:13.5px}
 .trades-table th{text-align:left;padding:7px 12px;font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);border-bottom:1px solid var(--line)}
 .trades-table td{padding:9px 12px;border-bottom:1px solid var(--line);font-variant-numeric:tabular-nums}
+.trades-table tr:last-child td{border-bottom:none}
 .trades-table tr:hover td{background:rgba(91,157,249,.04)}
 .td-pnl{font-weight:700;text-align:right}
-.td-w{color:var(--green)}.td-l{color:var(--red)}
+.td-w{color:var(--green)} .td-l{color:var(--red)}
+.clear-btn{background:none;border:1px solid var(--line);border-radius:6px;padding:5px 14px;font-size:12px;color:var(--muted);cursor:pointer;margin-top:12px}
+.clear-btn:hover{border-color:var(--red);color:var(--red)}
 
-/* Per-trade notes */
+/* Trade notes */
 .note-row td{padding:4px 12px 10px;border-bottom:1px solid var(--line)}
-.trade-note{width:100%;min-height:48px;resize:vertical;border:1px solid var(--line);border-radius:6px;background:var(--bg);color:var(--txt);font-size:12.5px;font-family:inherit;padding:7px 10px;box-sizing:border-box;outline:none;transition:.15s}
+.trade-note{width:100%;min-height:52px;resize:vertical;border:1px solid var(--line);border-radius:6px;background:var(--bg);color:var(--txt);font-size:12.5px;font-family:inherit;padding:8px 10px;box-sizing:border-box;outline:none;transition:.15s}
 .trade-note:focus{border-color:var(--blue);background:var(--panel)}
 .trade-note::placeholder{color:var(--muted);opacity:.7}
-
-/* Total bar */
-.total-bar{display:flex;align-items:center;justify-content:space-between;background:var(--panel);border-radius:8px;padding:12px 18px;margin:28px 0 8px}
-.total-label{font-size:12px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--muted)}
-.total-val{font-size:18px;font-weight:900;font-variant-numeric:tabular-nums;color:var(--red)}
 </style>
 </head>
 <body>
@@ -59,201 +55,239 @@
 
 <div class="sp-header">
   <h1 class="sp-title">Vendredi 4 sept.</h1>
-  <span class="sp-pnl td-l">−1 155,50 $</span>
+  <span class="sp-pnl ">—</span>
 </div>
-<div class="sp-meta">4 comptes · 31 positions &nbsp;·&nbsp; TraderSyncer ×4</div>
+<div class="sp-meta">Aucun trade &nbsp;·&nbsp; Taux de réussite&nbsp;: <strong>—</strong></div>
 
 <div class="note-block">
-  <strong>Pire journée — −1 155,50 $ sur 4 comptes.</strong> TraderSyncer actif : les 4 comptes ont copié exactement les mêmes trades simultanément. −290 $ (006) · −290 $ (001) · −281,50 $ (002) · −294 $ (004). Ce qui était une erreur sur un compte est devenu une erreur ×4.<br><br>
+  <strong>Pire journée — −1 155,50 $ sur 4 comptes.</strong> TraderSyncer actif : les 4 comptes ont copié exactement les mêmes trades simultanément. −290 $ (006) · −290 $ (001) · −281,50 $ (002) · −294 $ (4e compte). Ce qui était une erreur sur un compte est devenu une erreur ×4.<br><br>
   Chiffres du chômage américain à 16h30 — position ouverte au moment de l'annonce. Spike injouable. La liquidité HTF n'avait pas été touchée → biais short sur toute la session. Aucun long n'était valide — tous les trades allaient contre ce biais.<br><br>
   <strong>Décisions actées :</strong> TraderSyncer supprimé définitivement de tous les comptes. Règle 3 étendue aux chiffres du chômage. Règle 8 ajoutée : jamais de copy trading, sans exception.
 </div>
 
-<!-- Screenshots -->
-<div class="section-title">📸 Captures d'écran</div>
-<div id="img-zone" class="drop-zone" onclick="document.getElementById('img-input').click()" style="max-width:320px">
-  <input type="file" id="img-input" accept="image/*" multiple style="display:none">
-  <div class="drop-icon">🖼️</div>
-  <div class="drop-label">Ajouter des captures</div>
-  <div class="drop-sub">PNG, JPG</div>
-</div>
-<div id="screenshots" class="screenshots" style="margin-top:12px"></div>
-<div id="img-clear-wrap" style="display:none">
-  <button class="clear-btn" onclick="clearScreenshots()">Effacer les captures</button>
-</div>
-
-<!-- Trades hardcodés -->
-<div id="trades-section">
-
-  <!-- Compte 006 -->
-  <div class="acct-header">
-    <span class="acct-label">Compte 006 — …4680006</span>
-    <span class="acct-pnl td-l">−290,00 $</span>
-  </div>
-  <div class="tbl-wrap">
-    <table class="trades-table">
-      <thead><tr><th>#</th><th>Contrat</th><th>Sens</th><th>Qté</th><th>Entrée</th><th>Sortie</th><th>Heure</th><th>P&amp;L</th></tr></thead>
-      <tbody id="body-006"></tbody>
-    </table>
+<!-- Drop zones -->
+<div class="drops">
+  <div>
+    <div class="section-title">📊 Trades CSV</div>
+    <div id="csv-zone" class="drop-zone" onclick="document.getElementById('csv-input').click()">
+      <input type="file" id="csv-input" accept=".csv" style="display:none">
+      <div class="drop-icon">📂</div>
+      <div class="drop-label">Glisse le CSV Tradovate</div>
+      <div class="drop-sub">Performance Report ou Fills</div>
+    </div>
+    <div id="trades-container" style="display:none">
+      <div class="tbl-wrap">
+        <table class="trades-table">
+          <thead><tr><th>#</th><th>Compte</th><th>Contrat</th><th>Sens</th><th>Qté</th><th>Entrée</th><th>Sortie</th><th>Heure</th><th>P&amp;L</th></tr></thead>
+          <tbody id="trades-body"></tbody>
+        </table>
+      </div>
+      <button class="clear-btn" onclick="clearTrades()">Effacer les trades</button>
+    </div>
   </div>
 
-  <!-- Compte 001 -->
-  <div class="acct-header">
-    <span class="acct-label">Compte 001 — …4680001</span>
-    <span class="acct-pnl td-l">−290,00 $</span>
+  <div>
+    <div class="section-title">📸 Captures d'écran</div>
+    <div id="img-zone" class="drop-zone" onclick="document.getElementById('img-input').click()">
+      <input type="file" id="img-input" accept="image/*" multiple style="display:none">
+      <div class="drop-icon">🖼️</div>
+      <div class="drop-label">Glisse tes captures ici</div>
+      <div class="drop-sub">PNG, JPG — plusieurs à la fois</div>
+    </div>
+    <div id="screenshots" class="screenshots"></div>
+    <div id="img-clear-wrap" style="display:none">
+      <button class="clear-btn" onclick="clearScreenshots()">Effacer les captures</button>
+    </div>
   </div>
-  <div class="tbl-wrap">
-    <table class="trades-table">
-      <thead><tr><th>#</th><th>Contrat</th><th>Sens</th><th>Qté</th><th>Entrée</th><th>Sortie</th><th>Heure</th><th>P&amp;L</th></tr></thead>
-      <tbody id="body-001"></tbody>
-    </table>
-  </div>
-
-  <!-- Compte 002 -->
-  <div class="acct-header">
-    <span class="acct-label">Compte 002 — …4680002</span>
-    <span class="acct-pnl td-l">−281,50 $</span>
-  </div>
-  <div class="tbl-wrap">
-    <table class="trades-table">
-      <thead><tr><th>#</th><th>Contrat</th><th>Sens</th><th>Qté</th><th>Entrée</th><th>Sortie</th><th>Heure</th><th>P&amp;L</th></tr></thead>
-      <tbody id="body-002"></tbody>
-    </table>
-  </div>
-
-  <!-- Compte 004 -->
-  <div class="acct-header">
-    <span class="acct-label">Compte 004 — …4680004</span>
-    <span class="acct-pnl td-l">−294,00 $</span>
-  </div>
-  <div class="tbl-wrap">
-    <table class="trades-table">
-      <thead><tr><th>#</th><th>Contrat</th><th>Sens</th><th>Qté</th><th>Entrée</th><th>Sortie</th><th>Heure</th><th>P&amp;L</th></tr></thead>
-      <tbody id="body-004"></tbody>
-    </table>
-  </div>
-
-  <div class="total-bar">
-    <span class="total-label">Total journée — 4 comptes</span>
-    <span class="total-val">−1 155,50 $</span>
-  </div>
-
 </div>
 
 </div>
 
 <script>
-var KEY_IMGS  = 'imgs_2026_09_04_vendredi';
-var KEY_NOTES = 'notes_2026_09_04_vendredi';
-
-/* ── Trades hardcodés ── */
-var ACCTS = {
-  '006': [
-    {n:1,  contract:'MNQ', side:'Long',  qty:'4', entry:'20158.25', exit:'20143.25', time:'16:28', pnl:-120.00},
-    {n:2,  contract:'MNQ', side:'Long',  qty:'4', entry:'20161.00', exit:'20166.00', time:'16:31', pnl:  40.00},
-    {n:3,  contract:'MNQ', side:'Long',  qty:'2', entry:'20168.50', exit:'20158.50', time:'16:33', pnl: -40.00},
-    {n:4,  contract:'MNQ', side:'Short', qty:'2', entry:'20172.75', exit:'20187.75', time:'16:35', pnl: -60.00},
-    {n:5,  contract:'MNQ', side:'Short', qty:'2', entry:'20185.00', exit:'20177.50', time:'16:37', pnl:  30.00},
-    {n:6,  contract:'MNQ', side:'Long',  qty:'2', entry:'20163.25', exit:'20150.75', time:'16:39', pnl: -50.00},
-    {n:7,  contract:'MNQ', side:'Long',  qty:'2', entry:'20148.00', exit:'20138.00', time:'16:41', pnl: -40.00},
-    {n:8,  contract:'MNQ', side:'Short', qty:'2', entry:'20142.50', exit:'20150.00', time:'16:43', pnl: -30.00},
-    {n:9,  contract:'MNQ', side:'Short', qty:'3', entry:'20138.25', exit:'20141.58', time:'16:45', pnl: -20.00}
-  ],
-  '001': [
-    {n:1,  contract:'MNQ', side:'Long',  qty:'4', entry:'20158.25', exit:'20143.25', time:'16:28', pnl:-120.00},
-    {n:2,  contract:'MNQ', side:'Long',  qty:'4', entry:'20161.00', exit:'20166.00', time:'16:31', pnl:  40.00},
-    {n:3,  contract:'MNQ', side:'Long',  qty:'2', entry:'20168.50', exit:'20158.50', time:'16:33', pnl: -40.00},
-    {n:4,  contract:'MNQ', side:'Short', qty:'2', entry:'20172.75', exit:'20187.75', time:'16:35', pnl: -60.00},
-    {n:5,  contract:'MNQ', side:'Short', qty:'2', entry:'20185.00', exit:'20177.50', time:'16:37', pnl:  30.00},
-    {n:6,  contract:'MNQ', side:'Long',  qty:'2', entry:'20163.25', exit:'20150.75', time:'16:39', pnl: -50.00},
-    {n:7,  contract:'MNQ', side:'Long',  qty:'2', entry:'20148.00', exit:'20138.00', time:'16:41', pnl: -40.00},
-    {n:8,  contract:'MNQ', side:'Short', qty:'2', entry:'20142.50', exit:'20150.00', time:'16:43', pnl: -30.00},
-    {n:9,  contract:'MNQ', side:'Short', qty:'3', entry:'20138.25', exit:'20141.58', time:'16:45', pnl: -20.00}
-  ],
-  '002': [
-    {n:1,  contract:'MNQ', side:'Long',  qty:'4', entry:'20158.50', exit:'20144.50', time:'16:28', pnl:-112.00},
-    {n:2,  contract:'MNQ', side:'Long',  qty:'4', entry:'20161.25', exit:'20166.50', time:'16:31', pnl:  42.00},
-    {n:3,  contract:'MNQ', side:'Long',  qty:'2', entry:'20168.75', exit:'20158.75', time:'16:33', pnl: -40.00},
-    {n:4,  contract:'MNQ', side:'Short', qty:'2', entry:'20173.00', exit:'20187.25', time:'16:35', pnl: -57.00},
-    {n:5,  contract:'MNQ', side:'Short', qty:'2', entry:'20185.25', exit:'20177.75', time:'16:37', pnl:  30.00},
-    {n:6,  contract:'MNQ', side:'Long',  qty:'2', entry:'20163.50', exit:'20151.50', time:'16:39', pnl: -48.00},
-    {n:7,  contract:'MNQ', side:'Long',  qty:'2', entry:'20148.25', exit:'20138.50', time:'16:41', pnl: -39.00},
-    {n:8,  contract:'MNQ', side:'Short', qty:'2', entry:'20142.75', exit:'20149.50', time:'16:43', pnl: -27.00},
-    {n:9,  contract:'MNQ', side:'Short', qty:'3', entry:'20138.50', exit:'20141.50', time:'16:45', pnl: -30.50}
-  ],
-  '004': [
-    {n:1,  contract:'MNQ', side:'Long',  qty:'3', entry:'20158.25', exit:'20138.25', time:'16:29', pnl:-120.00},
-    {n:2,  contract:'MNQ', side:'Long',  qty:'3', entry:'20161.00', exit:'20166.00', time:'16:32', pnl:  30.00},
-    {n:3,  contract:'MNQ', side:'Short', qty:'3', entry:'20172.75', exit:'20186.75', time:'16:36', pnl: -84.00},
-    {n:4,  contract:'MNQ', side:'Short', qty:'3', entry:'20142.50', exit:'20162.50', time:'16:44', pnl:-120.00}
-  ]
-};
-
-function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
-
-function loadNotes(){try{return JSON.parse(localStorage.getItem(KEY_NOTES)||'{}');}catch(e){return{};}}
-function saveNote(el){
-  var key=el.getAttribute('data-key');
-  var notes=loadNotes();
-  var val=el.value.trim();
-  if(val) notes[key]=val; else delete notes[key];
-  try{localStorage.setItem(KEY_NOTES,JSON.stringify(notes));}catch(e){}
-}
-
-function renderAcct(acctId, bodyId){
-  var notes=loadNotes();
-  var trades=ACCTS[acctId];
-  var html='';
-  trades.forEach(function(t){
-    var ps=(t.pnl>=0?'+':'')+t.pnl.toFixed(2)+' $';
-    var pc=t.pnl>=0?'td-w':'td-l';
-    var key=acctId+'_'+t.n;
-    var note=notes[key]||'';
-    html+='<tr class="trade-row">'
-      +'<td>'+t.n+'</td>'
-      +'<td><strong>'+esc(t.contract)+'</strong></td>'
-      +'<td>'+esc(t.side)+'</td>'
-      +'<td>'+esc(t.qty)+'</td>'
-      +'<td>'+esc(t.entry)+'</td>'
-      +'<td>'+esc(t.exit)+'</td>'
-      +'<td style="color:var(--muted);font-size:12px">'+esc(t.time)+'</td>'
-      +'<td class="td-pnl '+pc+'">'+ps+'</td>'
-      +'</tr>'
-      +'<tr class="note-row"><td colspan="8">'
-      +'<textarea class="trade-note" placeholder="Setup, raison du trade, erreurs…" data-key="'+key+'" onblur="saveNote(this)">'
-      +(note?note.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'):'')
-      +'</textarea></td></tr>';
-  });
-  document.getElementById(bodyId).innerHTML=html;
-}
+var KEY_TRADES = 'trades_2026_09_04_vendredi';
+var KEY_IMGS   = 'imgs_2026_09_04_vendredi';
+var KEY_NOTES  = 'notes_2026_09_04_vendredi';
 
 window.addEventListener('DOMContentLoaded', function(){
-  renderAcct('006','body-006');
-  renderAcct('001','body-001');
-  renderAcct('002','body-002');
-  renderAcct('004','body-004');
-
-  // Images
+  // Restore saved data
   try{
-    var imgs=JSON.parse(localStorage.getItem(KEY_IMGS)||'[]');
+    var t = localStorage.getItem(KEY_TRADES);
+    if(t) renderTrades(JSON.parse(t));
+    var imgs = JSON.parse(localStorage.getItem(KEY_IMGS)||'[]');
     if(imgs.length) renderScreenshots(imgs);
   }catch(e){}
 
-  setupDrop('img-zone','img-input',function(f){
+  // CSV drop
+  setupDrop('csv-zone', 'csv-input', function(f){
+    if(f.name.toLowerCase().endsWith('.csv')) readCSV(f);
+  }, false);
+
+  // Image drop
+  setupDrop('img-zone', 'img-input', function(f){
     if(f.type.startsWith('image/')) readImage(f);
-  },true);
+  }, true);
 });
 
-/* ── Images ── */
-function setupDrop(zoneId,inputId,handler,multi){
-  var dz=document.getElementById(zoneId);
-  var fi=document.getElementById(inputId);
-  if(!dz||!fi) return;
-  dz.addEventListener('dragover',function(e){e.preventDefault();dz.classList.add('drag-over');});
-  dz.addEventListener('dragleave',function(){dz.classList.remove('drag-over');});
-  dz.addEventListener('drop',function(e){e.preventDefault();dz.classList.remove('drag-over');Array.from(e.dataTransfer.files).forEach(handler);});
-  fi.addEventListener('change',function(){Array.from(fi.files).forEach(handler);});
+function setupDrop(zoneId, inputId, handler, multi){
+  var dz = document.getElementById(zoneId);
+  var fi = document.getElementById(inputId);
+  dz.addEventListener('dragover', function(e){ e.preventDefault(); dz.classList.add('drag-over'); });
+  dz.addEventListener('dragleave', function(){ dz.classList.remove('drag-over'); });
+  dz.addEventListener('drop', function(e){
+    e.preventDefault(); dz.classList.remove('drag-over');
+    Array.from(e.dataTransfer.files).forEach(handler);
+  });
+  fi.addEventListener('change', function(){ Array.from(fi.files).forEach(handler); });
 }
+
+/* ── CSV ── */
+function readCSV(file){
+  var r = new FileReader();
+  r.onload = function(e){ parseCSV(e.target.result); };
+  r.readAsText(file, 'UTF-8');
+}
+
+function parseCSV(text){
+  var lines = text.replace(/\r\n/g,'\n').replace(/\r/g,'\n').split('\n').filter(function(l){return l.trim();});
+  if(lines.length<2){alert('CSV vide ou invalide.');return;}
+  var header = splitCSV(lines[0]);
+  var col={};
+  header.forEach(function(h,i){col[h.trim().toLowerCase()]=i;});
+
+  var isPerf    = 'gain/loss' in col || ('p&l' in col && !('buyprice' in col));
+  var isMatched = 'buyprice' in col && 'sellprice' in col && 'pnl' in col;
+  var trades=[];
+
+  if(isPerf){
+    var ca=firstCol(col,['account']),cs=firstCol(col,['symbol','contract','instrument']),
+        cb=firstCol(col,['b/s','side','direction']),cq=firstCol(col,['qty','quantity']),
+        ce=firstCol(col,['avg entry price','entry price','entry']),
+        cx=firstCol(col,['avg exit price','exit price','exit']),
+        cp=firstCol(col,['gain/loss','p&l','profit','net p&l']),
+        ct=firstCol(col,['entry time','time','bought timestamp','date/time']);
+    for(var i=1;i<lines.length;i++){
+      var row=splitCSV(lines[i]);
+      if(row.length<3) continue;
+      var pnl=parseFloat((row[cp]||'').replace(/[$,\s]/g,''));
+      trades.push({n:trades.length+1,account:(row[ca]||'').trim(),contract:(row[cs]||'').trim(),
+        side:(row[cb]||'').trim(),qty:(row[cq]||'').trim(),entry:(row[ce]||'').trim(),
+        exit:cx!==undefined?(row[cx]||'').trim():'\u2014',time:(row[ct]||'').trim(),pnl:isNaN(pnl)?null:pnl});
+    }
+
+  } else if(isMatched){
+    // Format Tradovate matched trades: symbol,qty,buyPrice,sellPrice,pnl,boughtTimestamp,soldTimestamp
+    var cs=firstCol(col,['symbol','contract']),
+        cq=firstCol(col,['qty','quantity']),
+        cbp=col['buyprice'],csp=col['sellprice'],
+        cp2=col['pnl'],
+        cbt=firstCol(col,['boughttimestamp','bought timestamp','entry time','date/time']),
+        cst=firstCol(col,['soldtimestamp','sold timestamp']);
+    for(var i=1;i<lines.length;i++){
+      var row=splitCSV(lines[i]);
+      if(row.length<3) continue;
+      var sym=(row[cs]||'').trim(); if(!sym) continue;
+      var qty=(row[cq]||'').trim();
+      var bp=parseFloat((row[cbp]||'').replace(/[,\s]/g,''));
+      var sp=parseFloat((row[csp]||'').replace(/[,\s]/g,''));
+      var pnlRaw=(row[cp2]||'').trim();
+      var isNeg=/\(/.test(pnlRaw);
+      var pnl=parseFloat(pnlRaw.replace(/[\$(),\s]/g,''));
+      if(isNeg) pnl=-pnl;
+      var time=(cbt!==undefined?(row[cbt]||'').trim():'');
+      var exit_=(cst!==undefined?(row[cst]||'').trim():'');
+      trades.push({n:trades.length+1,account:'',contract:sym,
+        side:'Long',qty:qty,entry:isNaN(bp)?'':bp.toFixed(2),exit:exit_||'\u2014',time:time,pnl:isNaN(pnl)?null:pnl});
+    }
+
+  } else {
+    var ca=firstCol(col,['account','accountid']),cs=firstCol(col,['symbol','contract','instrument']),
+        cb=firstCol(col,['buy/sell','side','b/s','action']),cq=firstCol(col,['qty','quantity','filled qty']),
+        cp3=firstCol(col,['price','avg price','fill price']),
+        ct=firstCol(col,['bought timestamp','sold timestamp','time','fill time','timestamp']);
+    var groups={};
+    for(var i=1;i<lines.length;i++){
+      var row=splitCSV(lines[i]);
+      if(row.length<3) continue;
+      var acct=(row[ca]||'').trim(),sym=(row[cs]||'').trim(),side=(row[cb]||'').trim();
+      var qty=parseFloat((row[cq]||'').replace(/[,\s]/g,''))||0;
+      var price=parseFloat((row[cp3]||'').replace(/[,\s]/g,''))||0;
+      var ts=(row[ct]||'').trim();
+      var key=acct+'|'+sym+'|'+side+'|'+ts.substring(0,16);
+      if(!groups[key]) groups[key]={account:acct,contract:sym,side:side,qty:0,price:0,fills:0,time:ts};
+      groups[key].qty+=qty; groups[key].price+=price*qty; groups[key].fills++;
+    }
+    var byAs={};
+    Object.keys(groups).forEach(function(k){
+      var g=groups[k],as=g.account+'|'+g.contract;
+      if(!byAs[as]) byAs[as]=[];
+      byAs[as].push(g);
+    });
+    Object.keys(byAs).forEach(function(as){
+      var fills=byAs[as];
+      var buys=fills.filter(function(f){return /buy|long|B/i.test(f.side);});
+      var sells=fills.filter(function(f){return /sell|short|S/i.test(f.side);});
+      var n=Math.max(buys.length,sells.length);
+      for(var i=0;i<n;i++){
+        var b=buys[i],s=sells[i],entry=b||s,ex=b?s:b;
+        var ep=entry&&entry.qty>0?entry.price/entry.qty:0;
+        var xp=ex&&ex.qty>0?ex.price/ex.qty:0;
+        trades.push({n:trades.length+1,account:entry.account,contract:entry.contract,
+          side:entry.side,qty:Math.min(entry.qty,ex?ex.qty:entry.qty).toFixed(0),
+          entry:ep.toFixed(2),exit:xp>0?xp.toFixed(2):'\u2014',time:entry.time,pnl:null});
+      }
+    });
+  }
+
+  if(!trades.length){alert('Aucun trade trouv\u00e9. V\u00e9rifie que le bon fichier Tradovate est d\u00e9pos\u00e9.');return;}
+  try{localStorage.setItem(KEY_TRADES,JSON.stringify(trades));}catch(e){}
+  renderTrades(trades);
+}
+function firstCol(col,keys){for(var i=0;i<keys.length;i++) if(keys[i] in col) return col[keys[i]]; return undefined;}
+function splitCSV(line){
+  var result=[],cur='',inQ=false;
+  for(var i=0;i<line.length;i++){
+    var c=line[i];
+    if(c==='"') inQ=!inQ;
+    else if(c===','&&!inQ){result.push(cur);cur='';}
+    else cur+=c;
+  }
+  result.push(cur); return result;
+}
+function renderTrades(trades){
+  var notes=loadNotes();
+  var body=document.getElementById('trades-body'),html='';
+  trades.forEach(function(t){
+    var ps=t.pnl!==null?((t.pnl>=0?'+':'')+t.pnl.toFixed(2)+' $'):'—';
+    var pc=t.pnl===null?'':(t.pnl>=0?'td-w':'td-l');
+    var note=notes[t.n]||'';
+    html+='<tr class="trade-row"><td>'+t.n+'</td><td>'+esc(t.account)+'</td><td><strong>'+esc(t.contract)+'</strong></td>'
+      +'<td>'+esc(t.side)+'</td><td>'+esc(t.qty)+'</td><td>'+esc(t.entry)+'</td><td>'+esc(t.exit||'—')+'</td>'
+      +'<td style="color:var(--muted);font-size:12px">'+esc(t.time)+'</td>'
+      +'<td class="td-pnl '+pc+'">'+ps+'</td></tr>'
+      +'<tr class="note-row"><td colspan="9">'
+      +'<textarea class="trade-note" placeholder="Setup, raison du trade, erreurs…" data-n="'+t.n+'" onblur="saveNote(this)">'
+      +(note?note.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'):'')
+      +'</textarea></td></tr>';
+  });
+  document.getElementById('trades-body').innerHTML=html;
+  document.getElementById('trades-container').style.display='block';
+  document.getElementById('csv-zone').style.display='none';
+}
+function loadNotes(){try{return JSON.parse(localStorage.getItem(KEY_NOTES)||'{}');}catch(e){return{};}}
+function saveNote(el){
+  var n=el.getAttribute('data-n');
+  var notes=loadNotes();
+  var val=el.value.trim();
+  if(val) notes[n]=val; else delete notes[n];
+  try{localStorage.setItem(KEY_NOTES,JSON.stringify(notes));}catch(e){}
+}
+function clearTrades(){
+  try{localStorage.removeItem(KEY_TRADES);localStorage.removeItem(KEY_NOTES);}catch(e){}
+  document.getElementById('trades-container').style.display='none';
+  document.getElementById('csv-zone').style.display='block';
+}
+
+/* ── Images ── */
 function readImage(file){
   var r=new FileReader();
   r.onload=function(e){
@@ -268,25 +302,32 @@ function readImage(file){
   r.readAsDataURL(file);
 }
 function renderScreenshots(imgs){
-  var c=document.getElementById('screenshots');
-  c.innerHTML=imgs.map(function(src,i){
-    return '<div class="screenshot-wrap"><img src="'+src+'"><button class="screenshot-del" onclick="delShot('+i+')">×</button></div>';
-  }).join('');
-  document.getElementById('img-clear-wrap').style.display='block';
+  var wrap=document.getElementById('screenshots'),html='';
+  imgs.forEach(function(src,i){
+    html+='<div class="screenshot-wrap">'
+      +'<img src="'+src+'" alt="Capture '+i+'">'
+      +'<button class="screenshot-del" onclick="delScreenshot('+i+')" title="Supprimer">×</button>'
+      +'</div>';
+  });
+  wrap.innerHTML=html;
+  document.getElementById('img-clear-wrap').style.display=imgs.length?'block':'none';
+  document.getElementById('img-zone').style.display=imgs.length?'none':'block';
 }
-function delShot(i){
+function delScreenshot(idx){
   var imgs=[];
   try{imgs=JSON.parse(localStorage.getItem(KEY_IMGS)||'[]');}catch(e){}
-  imgs.splice(i,1);
+  imgs.splice(idx,1);
   try{localStorage.setItem(KEY_IMGS,JSON.stringify(imgs));}catch(e){}
   renderScreenshots(imgs);
-  if(!imgs.length) document.getElementById('img-clear-wrap').style.display='none';
+  if(!imgs.length) document.getElementById('img-zone').style.display='block';
 }
 function clearScreenshots(){
   try{localStorage.removeItem(KEY_IMGS);}catch(e){}
   document.getElementById('screenshots').innerHTML='';
   document.getElementById('img-clear-wrap').style.display='none';
+  document.getElementById('img-zone').style.display='block';
 }
+function esc(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
 </script>
 </body>
 </html>
