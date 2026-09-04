@@ -137,12 +137,7 @@ function readCSV(file){
 }
 
 function parseCSV(text){
-  var lines = text.replace(/
-/g,'
-').replace(/
-/g,'
-').split('
-').filter(function(l){return l.trim();});
+  var lines = text.replace(/\r\n/g,'\n').replace(/\r/g,'\n').split('\n').filter(function(l){return l.trim();});
   if(lines.length<2){alert('CSV vide ou invalide.');return;}
   var header = splitCSV(lines[0]);
   var col={};
