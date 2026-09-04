@@ -4,6 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Journal de trading — Viale</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📈</text></svg>">
 <style>:root{
   --bg:#0A0D13; --panel:#131820; --panel2:#1A212C; --line:#242D3A;
   --txt:#EAF0F8; --muted:#8FA0B6; --dim:#5D6C82;
@@ -37,14 +38,25 @@ h3{font-size:19px;font-weight:600;margin:0 0 4px}
 .eyebrow{color:var(--gold);font-size:13px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;margin:0 0 12px}
 .pos{color:var(--green)} .neg{color:var(--red)}
 
-.nav{display:flex;flex-wrap:wrap;gap:18px;align-items:center;padding-bottom:20px;margin-bottom:26px;
-  border-bottom:1px solid var(--line);font-size:15px}
+.nav{display:flex;flex-wrap:wrap;gap:18px;align-items:center;padding:12px 32px;
+  border-bottom:1px solid var(--line);font-size:15px;position:sticky;top:0;z-index:100;
+  background:rgba(var(--bg-rgb,10,13,19),.92);backdrop-filter:blur(12px);
+  margin:0 -32px 26px;width:calc(100% + 64px)}
+@media(prefers-color-scheme:light){:root:not([data-theme="dark"]) .nav{background:rgba(245,246,248,.92)}}
+:root[data-theme="dark"] .nav{background:rgba(10,13,19,.92)}
+:root[data-theme="light"] .nav{background:rgba(245,246,248,.92)}
 .nav a{color:var(--muted);font-weight:600}
 .nav a:hover{color:var(--txt);text-decoration:none}
 .nav .here{color:var(--gold);font-weight:650}
 
 .kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:18px;margin-top:36px}
-.kpi{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:24px 26px}
+@keyframes kpi-in{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.kpi{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:24px 26px;
+  animation:kpi-in .35s ease both}
+.kpi:nth-child(1){animation-delay:.05s}.kpi:nth-child(2){animation-delay:.10s}
+.kpi:nth-child(3){animation-delay:.15s}.kpi:nth-child(4){animation-delay:.20s}
+.kpi:nth-child(5){animation-delay:.25s}
+@media(prefers-reduced-motion:reduce){.kpi{animation:none}}
 .kpi .lbl{color:var(--muted);font-size:13px;font-weight:600;letter-spacing:.09em;text-transform:uppercase;margin-bottom:12px}
 .kpi .val{font-size:33px;font-weight:680;letter-spacing:-.02em;font-variant-numeric:tabular-nums;line-height:1.15}
 .kpi .note{color:var(--dim);font-size:14px;margin-top:8px}
@@ -137,6 +149,20 @@ textarea::placeholder{color:#4A566A}
 .saveline.ok{color:var(--green);border-color:rgba(61,214,140,.35)}
 .saveline.err{color:var(--red);border-color:rgba(242,85,90,.5)}
 
+/* session filter pills */
+.sf-filters{display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap}
+.sf-filter{border:1px solid var(--line);background:var(--panel2);color:var(--muted);
+  border-radius:999px;padding:6px 16px;font:inherit;font-size:13px;font-weight:650;
+  cursor:pointer;transition:.12s}
+.sf-filter:hover{border-color:var(--blue);color:var(--txt)}
+.sf-filter.active{background:var(--blue);border-color:var(--blue);color:#fff}
+.sf-filter.active.win{background:var(--green);border-color:var(--green)}
+.sf-filter.active.lose{background:var(--red);border-color:var(--red)}
+/* session badge today/tomorrow */
+.sr-badge{display:inline-block;padding:2px 8px;border-radius:4px;font-size:10px;
+  font-weight:700;letter-spacing:.07em;text-transform:uppercase;margin-left:6px;vertical-align:middle}
+.sr-badge.today{background:rgba(91,157,249,.2);color:#9CC4FF;border:1px solid rgba(91,157,249,.4)}
+.sr-badge.next{background:rgba(212,166,60,.15);color:var(--gold);border:1px solid rgba(212,166,60,.35)}
 /* index — sessions feed compact */
 .sf{display:flex;flex-direction:column;gap:4px;margin-top:4px;margin-bottom:28px}
 .sf-mh{display:flex;align-items:center;gap:14px;margin:24px 0 8px}
@@ -201,6 +227,11 @@ textarea::placeholder{color:#4A566A}
 .big .t{font-size:27px;font-weight:650;line-height:1.35;letter-spacing:-.01em}
 .big .d{color:var(--muted);font-size:16.5px;margin-top:12px}
 
+.rr-tip{position:relative;cursor:help}
+.rr-tip::after{content:attr(data-tip);position:absolute;bottom:calc(100% + 6px);left:50%;transform:translateX(-50%);
+  white-space:nowrap;background:#1A212C;border:1px solid var(--line);border-radius:6px;padding:5px 10px;
+  font-size:12px;color:var(--txt);pointer-events:none;opacity:0;transition:.15s;z-index:99}
+.rr-tip:hover::after{opacity:1}
 .foot{color:var(--dim);font-size:14.5px;text-align:center;margin-top:56px;line-height:1.7}
 @media print{.saveline{display:none}}
 
@@ -233,6 +264,13 @@ textarea::placeholder{color:#4A566A}
 .ar-sub b{font-weight:650}
 .ar-note{color:var(--muted);font-size:13.5px;line-height:1.55;margin-top:10px;
   padding-top:10px;border-top:1px solid var(--line);overflow-wrap:anywhere}
+.ar-buf{margin:10px 0 4px}
+.ar-buf-label{display:flex;justify-content:space-between;font-size:12px;color:var(--dim);margin-bottom:4px}
+.ar-buf-track{height:6px;background:var(--panel2);border-radius:999px;overflow:hidden}
+.ar-buf-fill{height:100%;border-radius:999px;transition:width .4s ease}
+.ar-buf-fill.safe{background:var(--green)}
+.ar-buf-fill.warn{background:var(--gold)}
+.ar-buf-fill.crit{background:var(--red)}
 .ar-ask{color:#9CC4FF;font-size:13px;line-height:1.55;margin-top:9px;
   background:rgba(91,157,249,.09);border:1px solid rgba(91,157,249,.25);border-radius:8px;
   padding:9px 13px;overflow-wrap:anywhere}
@@ -3356,6 +3394,17 @@ window.SESSIONS = [
       if(c.maxContrats) subBits.push('max ' + c.maxContrats);
       h += '<div class="ar-sub">' + subBits.join(' · ') + '</div>';
 
+      // Buffer bar
+      if(c.buffer !== undefined && c.seuil !== undefined){
+        var buf = c.buffer;
+        var maxBuf = 2600; // max buffer reference (~biggest account above threshold)
+        var pct = Math.min(100, Math.max(0, buf / maxBuf * 100));
+        var barCls = buf < 500 ? 'crit' : (buf < 1200 ? 'warn' : 'safe');
+        h += '<div class="ar-buf">';
+        h += '<div class="ar-buf-label"><span>Buffer avant clôture ($' + fmt(c.seuil,0) + ')</span><span class="' + (barCls==='crit'?'neg':barCls==='warn'?'':'pos') + '">' + (buf>=0?'+':'') + fmt(buf,0) + ' $</span></div>';
+        h += '<div class="ar-buf-track"><div class="ar-buf-fill ' + barCls + '" style="width:' + pct.toFixed(1) + '%"></div></div>';
+        h += '</div>';
+      }
       if(c.verrouille) h += '<div class="ar-ask" style="background:rgba(242,85,90,.10);border-color:rgba(242,85,90,.35);color:#FFB6B8">🔒 ' + c.verrouille + '</div>';
       if(c.note)        h += '<div class="ar-note">' + c.note + '</div>';
       if(c.aConfirmer)  h += '<div class="ar-ask">À me confirmer : ' + c.aConfirmer + '</div>';
@@ -3423,7 +3472,7 @@ window.SESSIONS = [
         + '<td class="fill">' + fmt(t.objectif, dc) + '</td>'
         + '<td class="fill">' + fmt(x.riskUsd, 0) + ' $</td>'
         + '<td><span class="rr ' + rrCls + '">' + x.rr.toFixed(2) + ':1</span></td>'
-        + '<td class="' + rCls + '">' + (x.r >= 0 ? '+' : '−') + Math.abs(x.r).toFixed(2) + 'R</td>'
+        + '<td class="' + rCls + '"><span class="rr-tip" data-tip="≈ ' + (x.r >= 0 ? '+' : '−') + Math.round(Math.abs(x.r) * x.riskUsd) + ' $ / compte (50 k)">' + (x.r >= 0 ? '+' : '−') + Math.abs(x.r).toFixed(2) + 'R</span></td>'
         + '</tr>';
     });
 
@@ -3707,71 +3756,114 @@ window.SESSIONS = [
     return DAY_NAMES[dt.getDay()] + ' ' + p.d + ' ' + MONTH_NAMES[jour.split('/')[1]];
   }
 
+  // ── Sparkline SVG inline ──────────────────────────────────────
+  function sparkline(sessions, w, h){
+    var cum = []; var acc = 0;
+    sessions.forEach(function(s){ acc += (s.pnl||0); cum.push(acc); });
+    if(cum.length < 2) return '';
+    var minV = Math.min.apply(null,cum), maxV = Math.max.apply(null,cum);
+    var range = maxV - minV || 1;
+    var pad = 3;
+    function sx(i){ return pad + (i/(cum.length-1))*(w-pad*2); }
+    function sy(v){ return pad + (1-(v-minV)/range)*(h-pad*2); }
+    var pts = cum.map(function(v,i){ return sx(i).toFixed(1)+','+sy(v).toFixed(1); }).join(' ');
+    var col = cum[cum.length-1] >= 0 ? 'var(--green)' : 'var(--red)';
+    return '<svg width="'+w+'" height="'+h+'" viewBox="0 0 '+w+' '+h+'" style="overflow:visible;flex-shrink:0">'
+      +'<polyline points="'+pts+'" fill="none" stroke="'+col+'" stroke-width="1.5" stroke-linejoin="round"/>'
+      +'<circle cx="'+sx(cum.length-1).toFixed(1)+'" cy="'+sy(cum[cum.length-1]).toFixed(1)+'" r="2.5" fill="'+col+'"/>'
+      +'</svg>';
+  }
+
   function renderSessions(){
     var host = document.getElementById('sessions-feed');
     if(!host || !window.SESSIONS) return;
 
-    // Group by month, maintain order
-    var months = [], monthMap = {};
-    window.SESSIONS.forEach(function(s){
-      var m = s.jour ? s.jour.slice(3) : '??';
-      if(!monthMap[m]){ monthMap[m] = []; months.push(m); }
-      monthMap[m].push(s);
-    });
+    // Today & next trading day
+    var now = new Date();
+    var todayStr = ('0'+now.getDate()).slice(-2)+'/'+('0'+(now.getMonth()+1)).slice(-2);
+    var nextDate = new Date(now); nextDate.setDate(nextDate.getDate()+1);
+    while(nextDate.getDay()===0||nextDate.getDay()===6) nextDate.setDate(nextDate.getDate()+1);
+    var nextStr = ('0'+nextDate.getDate()).slice(-2)+'/'+('0'+(nextDate.getMonth()+1)).slice(-2);
 
-    var h = '';
-    months.forEach(function(m){
-      var sessions = monthMap[m];
-      var mTotal = sessions.reduce(function(a,s){ return s.pnl !== null ? a + s.pnl : a; }, 0);
-      var label = MONTH_FULL[m] || m;
-      var sumCls = mTotal > 0 ? 'pos' : (mTotal < 0 ? 'neg' : '');
-      var sumStr = mTotal > 0 ? ('+' + Math.round(mTotal) + ' $') : (Math.round(mTotal) + ' $');
+    var activeFilter = 'all';
+    function matches(s){
+      if(activeFilter==='win')  return s.pnl !== null && s.pnl > 0;
+      if(activeFilter==='lose') return s.pnl !== null && s.pnl < 0;
+      return true;
+    }
 
-      h += '<div class="sf-mh">'
-         + '<span class="sf-mh-name">' + label + '</span>'
-         + '<span class="sf-mh-line"></span>'
-         + '<span class="sf-mh-sum ' + sumCls + '">' + sumStr + '</span>'
-         + '</div>';
-
-      h += '<div class="sf">';
-      sessions.forEach(function(s){
-        var isPending = s.pnl === null;
-        var winRate = s.trades > 0 ? Math.round(s.gagnants / s.trades * 100) : 0;
-        var cls = isPending ? 'flat pending' : (s.pnl > 0 ? 'win' : (s.pnl < 0 ? 'lose' : 'flat'));
-        var href = s.fichier ? 'sessions/' + s.fichier : null;
-        var tag = href ? 'a' : 'div';
-        var attrs = href ? ' href="' + href + '"' : '';
-
-        h += '<' + tag + ' class="sr ' + cls + '"' + attrs + '>';
-
-        // Date
-        h += '<div class="sr-date">' + jourLabel(s.jour) + '</div>';
-
-        // P&L
-        if(isPending){
-          h += '<div class="sr-pnl" style="color:var(--dim)">—</div>';
-        } else {
-          var pnlStr = (s.pnl > 0 ? '+' : '') + s.pnl.toFixed(0) + ' $';
-          h += '<div class="sr-pnl ' + (s.pnl > 0 ? 'pos' : (s.pnl < 0 ? 'neg' : '')) + '">' + pnlStr + '</div>';
-        }
-
-        // Win rate
-        if(s.trades > 0){
-          h += '<div class="sr-wr">' + winRate + '%</div>';
-        } else {
-          h += '<div class="sr-wr">—</div>';
-        }
-
-        // Note
-        // Note
-        h += '<div class="sr-note">' + (s.note || '') + '</div>';
-
-        h += '</' + tag + '>';
+    function buildFeed(){
+      var months = [], monthMap = {};
+      window.SESSIONS.forEach(function(s){
+        var m = s.jour ? s.jour.slice(3) : '??';
+        if(!monthMap[m]){ monthMap[m] = []; months.push(m); }
+        monthMap[m].push(s);
       });
-      h += '</div>';
-    });
 
-    host.innerHTML = h;
+      var h = '<div class="sf-filters">';
+      h += '<button class="sf-filter'+(activeFilter==='all'?' active':'')+'" data-filter="all">Toutes</button>';
+      h += '<button class="sf-filter'+(activeFilter==='win'?' active win':'')+'" data-filter="win">Gagnantes ✓</button>';
+      h += '<button class="sf-filter'+(activeFilter==='lose'?' active lose':'')+'" data-filter="lose">Perdantes ✗</button>';
+      h += '</div>';
+
+      months.forEach(function(m){
+        var allSessions = monthMap[m];
+        var filtered = allSessions.filter(matches);
+        if(!filtered.length) return;
+        var mTotal = allSessions.reduce(function(a,s){ return s.pnl !== null ? a + s.pnl : a; }, 0);
+        var sessWithPnl = allSessions.filter(function(s){ return s.pnl !== null; }).slice().reverse();
+        var label = MONTH_FULL[m] || m;
+        var sumCls = mTotal > 0 ? 'pos' : (mTotal < 0 ? 'neg' : '');
+        var sumStr = mTotal > 0 ? ('+' + Math.round(mTotal) + ' $') : (Math.round(mTotal) + ' $');
+
+        h += '<div class="sf-mh">'
+           + '<span class="sf-mh-name">' + label + '</span>'
+           + (sessWithPnl.length >= 2 ? '<span style="margin-left:6px;display:inline-flex;align-items:center">'+sparkline(sessWithPnl,52,20)+'</span>' : '')
+           + '<span class="sf-mh-line"></span>'
+           + '<span class="sf-mh-sum ' + sumCls + '">' + sumStr + '</span>'
+           + '</div>';
+
+        h += '<div class="sf">';
+        filtered.forEach(function(s){
+          var isPending = s.pnl === null;
+          var winRate = s.trades > 0 ? Math.round(s.gagnants / s.trades * 100) : 0;
+          var cls = isPending ? 'flat pending' : (s.pnl > 0 ? 'win' : (s.pnl < 0 ? 'lose' : 'flat'));
+          var href = s.fichier ? 'sessions/' + s.fichier : null;
+          var tag = href ? 'a' : 'div';
+          var attrs = href ? ' href="' + href + '"' : '';
+          var isToday = s.jour && s.jour.slice(0,5) === todayStr;
+          var isNext  = !isToday && s.jour && s.jour.slice(0,5) === nextStr && isPending;
+
+          h += '<' + tag + ' class="sr ' + cls + '"' + attrs + '>';
+          h += '<div class="sr-date">' + jourLabel(s.jour);
+          if(isToday) h += '<span class="sr-badge today">Auj.</span>';
+          else if(isNext) h += '<span class="sr-badge next">Prochaine</span>';
+          h += '</div>';
+
+          if(isPending){
+            h += '<div class="sr-pnl" style="color:var(--dim)">—</div>';
+          } else {
+            var pnlStr = (s.pnl > 0 ? '+' : '') + s.pnl.toFixed(0) + ' $';
+            h += '<div class="sr-pnl ' + (s.pnl > 0 ? 'pos' : (s.pnl < 0 ? 'neg' : '')) + '">' + pnlStr + '</div>';
+          }
+
+          h += s.trades > 0 ? '<div class="sr-wr">'+winRate+'%</div>' : '<div class="sr-wr">—</div>';
+          h += '<div class="sr-note">' + (s.note || '') + '</div>';
+          h += '</' + tag + '>';
+        });
+        h += '</div>';
+      });
+
+      host.innerHTML = h;
+      host.querySelectorAll('.sf-filter').forEach(function(btn){
+        btn.addEventListener('click', function(){
+          activeFilter = this.dataset.filter;
+          buildFeed();
+        });
+      });
+    }
+
+    buildFeed();
   }
 
   document.addEventListener('DOMContentLoaded', function(){
