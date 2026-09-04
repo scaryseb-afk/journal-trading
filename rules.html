@@ -3,21 +3,54 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap">
 <style>
-  /* Single dark theme — trading terminal, committed */
+  /* Dark theme (default) */
   :root {
-    --bg:      #090b0e;
-    --surface: #111418;
-    --border:  #1c2028;
-    --txt:     #c9cdd4;
-    --head:    #e8eaed;
-    --muted:   #4f5666;
-    --red:     #e84040;
-    --red-dim: rgba(232,64,64,.12);
-    --amber:   #f5a623;
+    --bg:        #090b0e;
+    --surface:   #111418;
+    --border:    #1c2028;
+    --txt:       #c9cdd4;
+    --head:      #e8eaed;
+    --muted:     #4f5666;
+    --red:       #e84040;
+    --red-dim:   rgba(232,64,64,.12);
+    --amber:     #f5a623;
     --amber-dim: rgba(245,166,35,.10);
-    --green:   #4ade80;
+    --green:     #4ade80;
     --green-dim: rgba(74,222,128,.10);
     --white-dim: rgba(255,255,255,.05);
+  }
+  /* Light theme (system auto) */
+  @media (prefers-color-scheme: light) {
+    :root:not([data-theme="dark"]) {
+      --bg:        #f4f5f7;
+      --surface:   #ffffff;
+      --border:    #dde1e8;
+      --txt:       #2c3140;
+      --head:      #0d111c;
+      --muted:     #7a8499;
+      --red:       #c9202a;
+      --red-dim:   rgba(201,32,42,.10);
+      --amber:     #9a6a00;
+      --amber-dim: rgba(154,106,0,.10);
+      --green:     #168044;
+      --green-dim: rgba(22,128,68,.10);
+      --white-dim: rgba(0,0,0,.04);
+    }
+  }
+  :root[data-theme="light"] {
+    --bg:        #f4f5f7;
+    --surface:   #ffffff;
+    --border:    #dde1e8;
+    --txt:       #2c3140;
+    --head:      #0d111c;
+    --muted:     #7a8499;
+    --red:       #c9202a;
+    --red-dim:   rgba(201,32,42,.10);
+    --amber:     #9a6a00;
+    --amber-dim: rgba(154,106,0,.10);
+    --green:     #168044;
+    --green-dim: rgba(22,128,68,.10);
+    --white-dim: rgba(0,0,0,.04);
   }
 
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -264,7 +297,10 @@
       <div class="hdr-label">Lucid Trading · Journal MNQ</div>
       <h1 class="hdr-title">Règles actives</h1>
     </div>
-    <div class="hdr-date" id="js-date">—</div>
+    <div style="display:flex;align-items:center;gap:12px">
+      <div class="hdr-date" id="js-date">—</div>
+      <button id="theme-btn" onclick="toggleTheme()" style="background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:5px 10px;font-size:13px;cursor:pointer;color:var(--muted);line-height:1" title="Basculer jour/nuit">☀︎</button>
+    </div>
   </header>
 
   <!-- Rules -->
@@ -374,6 +410,36 @@
       <div>
         <div style="font-size:14px;font-weight:600;color:var(--head);margin-bottom:4px;">Confirmation SMT + BPR</div>
         <div style="font-size:12.5px;color:var(--muted);line-height:1.6;"><strong style="color:var(--txt);">SMT</strong> (Smart Money Technique) : divergence entre deux instruments corrélés (ex. MNQ vs NQ) — l'un fait un nouveau high/low, pas l'autre. Signal de retournement. <strong style="color:var(--txt);">BPR</strong> (Balanced Price Range) : zone entre deux FVG opposées — point d'entrée précis dans la direction confirmée.</div>
+      </div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:28px 1fr;gap:12px;align-items:start;padding:16px;background:var(--surface);border:1px solid var(--border);border-radius:6px;">
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:13px;font-weight:700;color:var(--amber);padding-top:1px;">4</div>
+      <div>
+        <div style="font-size:14px;font-weight:600;color:var(--head);margin-bottom:8px;">Setup SMT Baissier en M5</div>
+        <div style="display:flex;flex-direction:column;gap:6px;margin-bottom:10px;">
+          <div style="display:flex;align-items:baseline;gap:8px;font-size:12.5px;">
+            <span style="font-family:'IBM Plex Mono',monospace;color:var(--amber);font-weight:700;min-width:14px;">·</span>
+            <span style="color:var(--muted);">SMT baissier confirmé en M5 — MNQ fait un nouveau high, NQ ne le confirme pas (ou inversement).</span>
+          </div>
+          <div style="display:flex;align-items:baseline;gap:8px;font-size:12.5px;">
+            <span style="font-family:'IBM Plex Mono',monospace;color:var(--amber);font-weight:700;min-width:14px;">·</span>
+            <span style="color:var(--muted);">La liquidité côté hausse <strong style="color:var(--txt);">n'a pas été prise</strong> sur une bougie baissière — le sweep n'est pas épuisé.</span>
+          </div>
+          <div style="display:flex;align-items:baseline;gap:8px;font-size:12.5px;">
+            <span style="font-family:'IBM Plex Mono',monospace;color:var(--amber);font-weight:700;min-width:14px;">·</span>
+            <span style="color:var(--muted);"><strong style="color:var(--txt);">iFVG M5</strong> identifié dans la direction baissière — zone d'inefficacité inversée = point d'entrée.</span>
+          </div>
+          <div style="display:flex;align-items:baseline;gap:8px;font-size:12.5px;">
+            <span style="font-family:'IBM Plex Mono',monospace;color:var(--amber);font-weight:700;min-width:14px;">·</span>
+            <span style="color:var(--muted);">Cible : liquidité <strong style="color:var(--txt);">opposée à la baisse</strong> (BSL/lows structurels sous le prix).</span>
+          </div>
+        </div>
+        <div style="display:inline-flex;align-items:center;gap:8px;background:var(--amber-dim);border:1px solid var(--amber);border-radius:5px;padding:5px 12px;">
+          <span style="font-family:'IBM Plex Mono',monospace;font-size:11px;font-weight:700;color:var(--amber);">TP</span>
+          <span style="font-size:12.5px;color:var(--txt);">RR minimum <strong>3:1</strong> — ne pas sortir avant.</span>
+        </div>
+      </div>
       </div>
     </div>
 
@@ -514,6 +580,28 @@
     document.getElementById('js-date').textContent =
       days[d.getDay()] + ' ' + d.getDate() + ' ' + months[d.getMonth()] + ' ' + d.getFullYear();
   })();
+
+  // Theme toggle
+  (function(){
+    var saved = localStorage.getItem('rules_theme');
+    if(saved) document.documentElement.setAttribute('data-theme', saved);
+    updateThemeBtn();
+  })();
+  function toggleTheme(){
+    var current = document.documentElement.getAttribute('data-theme');
+    var isDark = current === 'dark' || (!current && window.matchMedia('(prefers-color-scheme: dark)').matches);
+    var next = isDark ? 'light' : 'dark';
+    document.documentElement.setAttribute('data-theme', next);
+    try{ localStorage.setItem('rules_theme', next); }catch(e){}
+    updateThemeBtn();
+  }
+  function updateThemeBtn(){
+    var btn = document.getElementById('theme-btn');
+    if(!btn) return;
+    var current = document.documentElement.getAttribute('data-theme');
+    var isDark = current === 'dark' || (!current && window.matchMedia('(prefers-color-scheme: dark)').matches);
+    btn.textContent = isDark ? '☀︎' : '☾';
+  }
 
   // Checklist
   function toggle(el){
