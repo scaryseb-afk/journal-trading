@@ -40,6 +40,12 @@
 .td-w{color:var(--green)} .td-l{color:var(--red)}
 .clear-btn{background:none;border:1px solid var(--line);border-radius:6px;padding:5px 14px;font-size:12px;color:var(--muted);cursor:pointer;margin-top:12px}
 .clear-btn:hover{border-color:var(--red);color:var(--red)}
+
+/* Trade notes */
+.note-row td{padding:4px 12px 10px;border-bottom:1px solid var(--line)}
+.trade-note{width:100%;min-height:52px;resize:vertical;border:1px solid var(--line);border-radius:6px;background:var(--bg);color:var(--txt);font-size:12.5px;font-family:inherit;padding:8px 10px;box-sizing:border-box;outline:none;transition:.15s}
+.trade-note:focus{border-color:var(--blue);background:var(--panel)}
+.trade-note::placeholder{color:var(--muted);opacity:.7}
 </style>
 </head>
 <body>
@@ -96,6 +102,7 @@
 <script>
 var KEY_TRADES = 'trades_2026_08_26_mercredi';
 var KEY_IMGS   = 'imgs_2026_08_26_mercredi';
+var KEY_NOTES  = 'notes_2026_08_26_mercredi';
 
 window.addEventListener('DOMContentLoaded', function(){
   // Restore saved data
@@ -243,21 +250,35 @@ function splitCSV(line){
   result.push(cur); return result;
 }
 function renderTrades(trades){
+  var notes=loadNotes();
   var body=document.getElementById('trades-body'),html='';
   trades.forEach(function(t){
     var ps=t.pnl!==null?((t.pnl>=0?'+':'')+t.pnl.toFixed(2)+' $'):'—';
     var pc=t.pnl===null?'':(t.pnl>=0?'td-w':'td-l');
-    html+='<tr><td>'+t.n+'</td><td>'+esc(t.account)+'</td><td><strong>'+esc(t.contract)+'</strong></td>'
+    var note=notes[t.n]||'';
+    html+='<tr class="trade-row"><td>'+t.n+'</td><td>'+esc(t.account)+'</td><td><strong>'+esc(t.contract)+'</strong></td>'
       +'<td>'+esc(t.side)+'</td><td>'+esc(t.qty)+'</td><td>'+esc(t.entry)+'</td><td>'+esc(t.exit||'—')+'</td>'
       +'<td style="color:var(--muted);font-size:12px">'+esc(t.time)+'</td>'
-      +'<td class="td-pnl '+pc+'">'+ps+'</td></tr>';
+      +'<td class="td-pnl '+pc+'">'+ps+'</td></tr>'
+      +'<tr class="note-row"><td colspan="9">'
+      +'<textarea class="trade-note" placeholder="Setup, raison du trade, erreurs…" data-n="'+t.n+'" onblur="saveNote(this)">'
+      +(note?note.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'):'')
+      +'</textarea></td></tr>';
   });
   document.getElementById('trades-body').innerHTML=html;
   document.getElementById('trades-container').style.display='block';
   document.getElementById('csv-zone').style.display='none';
 }
+function loadNotes(){try{return JSON.parse(localStorage.getItem(KEY_NOTES)||'{}');}catch(e){return{};}}
+function saveNote(el){
+  var n=el.getAttribute('data-n');
+  var notes=loadNotes();
+  var val=el.value.trim();
+  if(val) notes[n]=val; else delete notes[n];
+  try{localStorage.setItem(KEY_NOTES,JSON.stringify(notes));}catch(e){}
+}
 function clearTrades(){
-  try{localStorage.removeItem(KEY_TRADES);}catch(e){}
+  try{localStorage.removeItem(KEY_TRADES);localStorage.removeItem(KEY_NOTES);}catch(e){}
   document.getElementById('trades-container').style.display='none';
   document.getElementById('csv-zone').style.display='block';
 }
