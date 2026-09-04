@@ -15,9 +15,6 @@
 .note-block{background:var(--panel);border-left:3px solid var(--blue);border-radius:8px;padding:14px 18px;font-size:13.5px;color:var(--txt);line-height:1.6;margin-bottom:28px}
 .section-title{font-size:11px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--muted);margin:28px 0 10px}
 
-/* Drop zones */
-.drops{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:28px}
-@media(max-width:640px){.drops{grid-template-columns:1fr}}
 .drop-zone{border:2px dashed var(--line);border-radius:10px;padding:28px 16px;text-align:center;cursor:pointer;transition:.15s}
 .drop-zone:hover,.drop-zone.drag-over{border-color:var(--blue);background:rgba(91,157,249,.05)}
 .drop-icon{font-size:28px;margin-bottom:8px}
@@ -61,40 +58,27 @@
 
 <div class="note-block">−1 340 $ net sur 4 comptes. 18 trades via Performance CSV.</div>
 
-<!-- Drop zones -->
-<div class="drops">
-  <div>
-    <div class="section-title">📊 Trades CSV</div>
-    <div id="csv-zone" class="drop-zone" onclick="document.getElementById('csv-input').click()">
-      <input type="file" id="csv-input" accept=".csv" style="display:none">
-      <div class="drop-icon">📂</div>
-      <div class="drop-label">Glisse le CSV Tradovate</div>
-      <div class="drop-sub">Performance Report ou Fills</div>
-    </div>
-    <div id="trades-container" style="display:none">
-      <div class="tbl-wrap">
-        <table class="trades-table">
-          <thead><tr><th>#</th><th>Compte</th><th>Contrat</th><th>Sens</th><th>Qté</th><th>Entrée</th><th>Sortie</th><th>Heure</th><th>P&amp;L</th></tr></thead>
-          <tbody id="trades-body"></tbody>
-        </table>
-      </div>
-      <button class="clear-btn" onclick="clearTrades()">Effacer les trades</button>
-    </div>
+<div id="trades-container" style="display:none">
+  <div class="section-title">📊 Trades</div>
+  <div class="tbl-wrap">
+    <table class="trades-table">
+      <thead><tr><th>#</th><th>Compte</th><th>Contrat</th><th>Sens</th><th>Qté</th><th>Entrée</th><th>Sortie</th><th>Heure</th><th>P&amp;L</th></tr></thead>
+      <tbody id="trades-body"></tbody>
+    </table>
   </div>
+  <button class="clear-btn" onclick="clearTrades()">Effacer les trades</button>
+</div>
 
-  <div>
-    <div class="section-title">📸 Captures d'écran</div>
-    <div id="img-zone" class="drop-zone" onclick="document.getElementById('img-input').click()">
-      <input type="file" id="img-input" accept="image/*" multiple style="display:none">
-      <div class="drop-icon">🖼️</div>
-      <div class="drop-label">Glisse tes captures ici</div>
-      <div class="drop-sub">PNG, JPG — plusieurs à la fois</div>
-    </div>
-    <div id="screenshots" class="screenshots"></div>
-    <div id="img-clear-wrap" style="display:none">
-      <button class="clear-btn" onclick="clearScreenshots()">Effacer les captures</button>
-    </div>
-  </div>
+<div class="section-title">📸 Captures d'écran</div>
+<div id="img-zone" class="drop-zone" style="max-width:340px" onclick="document.getElementById('img-input').click()">
+  <input type="file" id="img-input" accept="image/*" multiple style="display:none">
+  <div class="drop-icon">🖼️</div>
+  <div class="drop-label">Ajouter des captures</div>
+  <div class="drop-sub">PNG, JPG</div>
+</div>
+<div id="screenshots" class="screenshots" style="margin-top:12px"></div>
+<div id="img-clear-wrap" style="display:none">
+  <button class="clear-btn" onclick="clearScreenshots()">Effacer les captures</button>
 </div>
 
 </div>
@@ -112,11 +96,6 @@ window.addEventListener('DOMContentLoaded', function(){
     var imgs = JSON.parse(localStorage.getItem(KEY_IMGS)||'[]');
     if(imgs.length) renderScreenshots(imgs);
   }catch(e){}
-
-  // CSV drop
-  setupDrop('csv-zone', 'csv-input', function(f){
-    if(f.name.toLowerCase().endsWith('.csv')) readCSV(f);
-  }, false);
 
   // Image drop
   setupDrop('img-zone', 'img-input', function(f){
@@ -136,119 +115,7 @@ function setupDrop(zoneId, inputId, handler, multi){
   fi.addEventListener('change', function(){ Array.from(fi.files).forEach(handler); });
 }
 
-/* ── CSV ── */
-function readCSV(file){
-  var r = new FileReader();
-  r.onload = function(e){ parseCSV(e.target.result); };
-  r.readAsText(file, 'UTF-8');
-}
 
-function parseCSV(text){
-  var lines = text.replace(/\r\n/g,'\n').replace(/\r/g,'\n').split('\n').filter(function(l){return l.trim();});
-  if(lines.length<2){alert('CSV vide ou invalide.');return;}
-  var header = splitCSV(lines[0]);
-  var col={};
-  header.forEach(function(h,i){col[h.trim().toLowerCase()]=i;});
-
-  var isPerf    = 'gain/loss' in col || ('p&l' in col && !('buyprice' in col));
-  var isMatched = 'buyprice' in col && 'sellprice' in col && 'pnl' in col;
-  var trades=[];
-
-  if(isPerf){
-    var ca=firstCol(col,['account']),cs=firstCol(col,['symbol','contract','instrument']),
-        cb=firstCol(col,['b/s','side','direction']),cq=firstCol(col,['qty','quantity']),
-        ce=firstCol(col,['avg entry price','entry price','entry']),
-        cx=firstCol(col,['avg exit price','exit price','exit']),
-        cp=firstCol(col,['gain/loss','p&l','profit','net p&l']),
-        ct=firstCol(col,['entry time','time','bought timestamp','date/time']);
-    for(var i=1;i<lines.length;i++){
-      var row=splitCSV(lines[i]);
-      if(row.length<3) continue;
-      var pnl=parseFloat((row[cp]||'').replace(/[$,\s]/g,''));
-      trades.push({n:trades.length+1,account:(row[ca]||'').trim(),contract:(row[cs]||'').trim(),
-        side:(row[cb]||'').trim(),qty:(row[cq]||'').trim(),entry:(row[ce]||'').trim(),
-        exit:cx!==undefined?(row[cx]||'').trim():'\u2014',time:(row[ct]||'').trim(),pnl:isNaN(pnl)?null:pnl});
-    }
-
-  } else if(isMatched){
-    // Format Tradovate matched trades: symbol,qty,buyPrice,sellPrice,pnl,boughtTimestamp,soldTimestamp
-    var cs=firstCol(col,['symbol','contract']),
-        cq=firstCol(col,['qty','quantity']),
-        cbp=col['buyprice'],csp=col['sellprice'],
-        cp2=col['pnl'],
-        cbt=firstCol(col,['boughttimestamp','bought timestamp','entry time','date/time']),
-        cst=firstCol(col,['soldtimestamp','sold timestamp']);
-    for(var i=1;i<lines.length;i++){
-      var row=splitCSV(lines[i]);
-      if(row.length<3) continue;
-      var sym=(row[cs]||'').trim(); if(!sym) continue;
-      var qty=(row[cq]||'').trim();
-      var bp=parseFloat((row[cbp]||'').replace(/[,\s]/g,''));
-      var sp=parseFloat((row[csp]||'').replace(/[,\s]/g,''));
-      var pnlRaw=(row[cp2]||'').trim();
-      var isNeg=/\(/.test(pnlRaw);
-      var pnl=parseFloat(pnlRaw.replace(/[\$(),\s]/g,''));
-      if(isNeg) pnl=-pnl;
-      var time=(cbt!==undefined?(row[cbt]||'').trim():'');
-      var exit_=(cst!==undefined?(row[cst]||'').trim():'');
-      trades.push({n:trades.length+1,account:'',contract:sym,
-        side:'Long',qty:qty,entry:isNaN(bp)?'':bp.toFixed(2),exit:exit_||'\u2014',time:time,pnl:isNaN(pnl)?null:pnl});
-    }
-
-  } else {
-    var ca=firstCol(col,['account','accountid']),cs=firstCol(col,['symbol','contract','instrument']),
-        cb=firstCol(col,['buy/sell','side','b/s','action']),cq=firstCol(col,['qty','quantity','filled qty']),
-        cp3=firstCol(col,['price','avg price','fill price']),
-        ct=firstCol(col,['bought timestamp','sold timestamp','time','fill time','timestamp']);
-    var groups={};
-    for(var i=1;i<lines.length;i++){
-      var row=splitCSV(lines[i]);
-      if(row.length<3) continue;
-      var acct=(row[ca]||'').trim(),sym=(row[cs]||'').trim(),side=(row[cb]||'').trim();
-      var qty=parseFloat((row[cq]||'').replace(/[,\s]/g,''))||0;
-      var price=parseFloat((row[cp3]||'').replace(/[,\s]/g,''))||0;
-      var ts=(row[ct]||'').trim();
-      var key=acct+'|'+sym+'|'+side+'|'+ts.substring(0,16);
-      if(!groups[key]) groups[key]={account:acct,contract:sym,side:side,qty:0,price:0,fills:0,time:ts};
-      groups[key].qty+=qty; groups[key].price+=price*qty; groups[key].fills++;
-    }
-    var byAs={};
-    Object.keys(groups).forEach(function(k){
-      var g=groups[k],as=g.account+'|'+g.contract;
-      if(!byAs[as]) byAs[as]=[];
-      byAs[as].push(g);
-    });
-    Object.keys(byAs).forEach(function(as){
-      var fills=byAs[as];
-      var buys=fills.filter(function(f){return /buy|long|B/i.test(f.side);});
-      var sells=fills.filter(function(f){return /sell|short|S/i.test(f.side);});
-      var n=Math.max(buys.length,sells.length);
-      for(var i=0;i<n;i++){
-        var b=buys[i],s=sells[i],entry=b||s,ex=b?s:b;
-        var ep=entry&&entry.qty>0?entry.price/entry.qty:0;
-        var xp=ex&&ex.qty>0?ex.price/ex.qty:0;
-        trades.push({n:trades.length+1,account:entry.account,contract:entry.contract,
-          side:entry.side,qty:Math.min(entry.qty,ex?ex.qty:entry.qty).toFixed(0),
-          entry:ep.toFixed(2),exit:xp>0?xp.toFixed(2):'\u2014',time:entry.time,pnl:null});
-      }
-    });
-  }
-
-  if(!trades.length){alert('Aucun trade trouv\u00e9. V\u00e9rifie que le bon fichier Tradovate est d\u00e9pos\u00e9.');return;}
-  try{localStorage.setItem(KEY_TRADES,JSON.stringify(trades));}catch(e){}
-  renderTrades(trades);
-}
-function firstCol(col,keys){for(var i=0;i<keys.length;i++) if(keys[i] in col) return col[keys[i]]; return undefined;}
-function splitCSV(line){
-  var result=[],cur='',inQ=false;
-  for(var i=0;i<line.length;i++){
-    var c=line[i];
-    if(c==='"') inQ=!inQ;
-    else if(c===','&&!inQ){result.push(cur);cur='';}
-    else cur+=c;
-  }
-  result.push(cur); return result;
-}
 function renderTrades(trades){
   var notes=loadNotes();
   var body=document.getElementById('trades-body'),html='';
@@ -267,7 +134,6 @@ function renderTrades(trades){
   });
   document.getElementById('trades-body').innerHTML=html;
   document.getElementById('trades-container').style.display='block';
-  document.getElementById('csv-zone').style.display='none';
 }
 function loadNotes(){try{return JSON.parse(localStorage.getItem(KEY_NOTES)||'{}');}catch(e){return{};}}
 function saveNote(el){
@@ -280,7 +146,6 @@ function saveNote(el){
 function clearTrades(){
   try{localStorage.removeItem(KEY_TRADES);localStorage.removeItem(KEY_NOTES);}catch(e){}
   document.getElementById('trades-container').style.display='none';
-  document.getElementById('csv-zone').style.display='block';
 }
 
 /* ── Images ── */
