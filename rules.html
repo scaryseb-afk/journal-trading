@@ -1,0 +1,539 @@
+<title>Règles de Trading</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap">
+<style>
+  /* Single dark theme — trading terminal, committed */
+  :root {
+    --bg:      #090b0e;
+    --surface: #111418;
+    --border:  #1c2028;
+    --txt:     #c9cdd4;
+    --head:    #e8eaed;
+    --muted:   #4f5666;
+    --red:     #e84040;
+    --red-dim: rgba(232,64,64,.12);
+    --amber:   #f5a623;
+    --amber-dim: rgba(245,166,35,.10);
+    --green:   #4ade80;
+    --green-dim: rgba(74,222,128,.10);
+    --white-dim: rgba(255,255,255,.05);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--txt);
+    font-family: 'IBM Plex Sans', system-ui, sans-serif;
+    font-size: 15px;
+    line-height: 1.6;
+    padding: 48px 24px 80px;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .page { max-width: 720px; margin: 0 auto; }
+
+  /* Header */
+  .hdr {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 28px;
+    margin-bottom: 40px;
+    gap: 16px;
+  }
+  .hdr-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 8px;
+  }
+  .hdr-title {
+    font-size: 26px;
+    font-weight: 700;
+    color: var(--head);
+    line-height: 1.2;
+  }
+  .hdr-date {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12px;
+    color: var(--muted);
+    text-align: right;
+    white-space: nowrap;
+    padding-top: 4px;
+  }
+
+  /* Rule row */
+  .rule {
+    display: grid;
+    grid-template-columns: 44px 1fr;
+    gap: 0 24px;
+    border-bottom: 1px solid var(--border);
+    padding: 22px 0;
+    position: relative;
+  }
+  .rule:first-of-type { border-top: 1px solid var(--border); }
+
+  .rule-num {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--border);
+    line-height: 1;
+    padding-top: 4px;
+    user-select: none;
+  }
+
+  .rule-body {}
+  .rule-tag {
+    display: inline-block;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 9.5px;
+    font-weight: 700;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    padding: 2px 8px;
+    border-radius: 3px;
+    margin-bottom: 8px;
+  }
+  .tag-stop  { background: var(--red-dim);   color: var(--red);   }
+  .tag-warn  { background: var(--amber-dim); color: var(--amber); }
+  .tag-proc  { background: var(--white-dim); color: var(--muted); }
+
+  .rule-stmt {
+    font-size: 17px;
+    font-weight: 600;
+    color: var(--head);
+    line-height: 1.35;
+    margin-bottom: 7px;
+    text-wrap: balance;
+  }
+  .rule-detail {
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.65;
+  }
+  .rule-detail strong { color: var(--txt); font-weight: 600; }
+
+  /* Accent left bar on rule type */
+  .rule.stop  { border-left: 2px solid var(--red);   padding-left: 16px; }
+  .rule.warn  { border-left: 2px solid var(--amber); padding-left: 16px; }
+  .rule.proc  { }
+  .rule.stop .rule-num { color: rgba(232,64,64,.18); }
+  .rule.warn .rule-num { color: rgba(245,166,35,.18); }
+
+  /* Prohibition callout */
+  .prohibition {
+    background: var(--red-dim);
+    border: 1px solid rgba(232,64,64,.25);
+    border-radius: 6px;
+    padding: 16px 20px;
+    margin: 32px 0 0;
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+  }
+  .prohibition-icon {
+    font-size: 18px;
+    flex-shrink: 0;
+    padding-top: 1px;
+  }
+  .prohibition-text {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 13px;
+    color: var(--red);
+    line-height: 1.6;
+  }
+  .prohibition-text strong { font-weight: 700; }
+
+  /* Divider */
+  .section-divider {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin: 48px 0 32px;
+  }
+  .section-divider span {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--muted);
+    white-space: nowrap;
+  }
+  .section-divider::before, .section-divider::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  /* Checklist */
+  .checklist { display: flex; flex-direction: column; gap: 8px; }
+  .check-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    padding: 14px 16px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    cursor: pointer;
+    transition: border-color .12s, background .12s;
+    user-select: none;
+  }
+  .check-item:hover { border-color: #2a3040; background: #141820; }
+  .check-item input[type="checkbox"] { display: none; }
+  .check-box {
+    width: 18px; height: 18px; min-width: 18px;
+    border: 1.5px solid var(--muted);
+    border-radius: 4px;
+    display: flex; align-items: center; justify-content: center;
+    transition: border-color .12s, background .12s;
+    margin-top: 1px;
+  }
+  .check-box svg { opacity: 0; transition: opacity .1s; }
+  .check-item.checked .check-box {
+    background: var(--green);
+    border-color: var(--green);
+  }
+  .check-item.checked .check-box svg { opacity: 1; }
+  .check-item.checked .check-label { text-decoration: line-through; color: var(--muted); }
+  .check-label {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--txt);
+    line-height: 1.5;
+    transition: color .12s;
+  }
+  .check-sub {
+    font-size: 12px;
+    color: var(--muted);
+    margin-top: 2px;
+    font-weight: 400;
+  }
+
+  /* Reset checklist */
+  .reset-btn {
+    background: none;
+    border: 1px solid var(--border);
+    color: var(--muted);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    padding: 6px 14px;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 16px;
+    transition: border-color .12s, color .12s;
+  }
+  .reset-btn:hover { border-color: var(--muted); color: var(--txt); }
+
+  /* Footer */
+  .footer {
+    margin-top: 56px;
+    padding-top: 20px;
+    border-top: 1px solid var(--border);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    color: var(--muted);
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+
+  @media (max-width: 520px) {
+    .rule { grid-template-columns: 36px 1fr; gap: 0 16px; }
+    .rule-num { font-size: 22px; }
+    .rule-stmt { font-size: 15px; }
+    .hdr { flex-direction: column; }
+    .hdr-date { text-align: left; }
+  }
+</style>
+
+<div class="page">
+
+  <header class="hdr">
+    <div>
+      <div class="hdr-label">Lucid Trading · Journal MNQ</div>
+      <h1 class="hdr-title">Règles actives</h1>
+    </div>
+    <div class="hdr-date" id="js-date">—</div>
+  </header>
+
+  <!-- Rules -->
+  <div class="rules-list">
+
+    <div class="rule stop">
+      <div class="rule-num">1</div>
+      <div class="rule-body">
+        <span class="rule-tag tag-stop">Taille</span>
+        <div class="rule-stmt">264 $ de risque maximum — tous comptes, tous instruments confondus.</div>
+        <div class="rule-detail">Sur MNQ : 4 contrats micro, 33 pts de stop, 2 lots par position. Si tu changes d'instrument, recalcule — <strong>1 tick de 6E = 12,5 ticks MNQ micro</strong>. C'est le dollar qui compte, jamais le nombre de contrats.</div>
+      </div>
+    </div>
+
+    <div class="rule proc">
+      <div class="rule-num">2</div>
+      <div class="rule-body">
+        <span class="rule-tag tag-proc">Exécution</span>
+        <div class="rule-stmt">Relire le bracket avant d'envoyer l'ordre.</div>
+        <div class="rule-detail">Quantité, stop en points, objectif en points, ratio ≥ 2:1. <strong>Lire à voix haute.</strong> Le 18/08 : 14 lots au lieu de 2 parce que la lecture n'a pas eu lieu — 959 $ d'exposition évitables.</div>
+      </div>
+    </div>
+
+    <div class="rule warn">
+      <div class="rule-num">3</div>
+      <div class="rule-body">
+        <span class="rule-tag tag-warn">Annonces macro</span>
+        <div class="rule-stmt">CPI, NFP, FOMC, chiffres du chômage : 1–2 contrats ou rien. Jamais en position au moment de l'annonce.</div>
+        <div class="rule-detail">Fermer toutes positions <strong>5 min avant</strong> le release. Pas d'entrée dans les <strong>10 min qui suivent</strong>. Le spike est injouable. Le 4 septembre : −290 $ sur chiffres du chômage avec TraderSyncer actif sur 4 comptes simultanément.</div>
+      </div>
+    </div>
+
+    <div class="rule warn">
+      <div class="rule-num">4</div>
+      <div class="rule-body">
+        <span class="rule-tag tag-warn">Biais</span>
+        <div class="rule-stmt">Ton biais est le tien. Un avis entendu ne le remplace pas.</div>
+        <div class="rule-detail">Si tu ne peux pas nommer la phase AMD et le niveau que tu joues en une phrase, tu n'entres pas. Si tu as un biais, tu le suis ou tu ne trades pas — tu ne prends jamais le sens inverse parce que quelqu'un d'autre le voit autrement. <strong>Deux occurrences, 1 210 $.</strong></div>
+      </div>
+    </div>
+
+    <div class="rule stop">
+      <div class="rule-num">5</div>
+      <div class="rule-body">
+        <span class="rule-tag tag-stop">Ordres</span>
+        <div class="rule-stmt">Aucune modification d'ordre en position, dans aucun sens.</div>
+        <div class="rule-detail">L'élargir transforme une perte définie en perte ouverte (−165 $, 18/08). Le resserrer te sort d'un gagnant (19/08). Seule exception : une règle de déplacement écrite <strong>avant</strong> l'entrée, appliquée mécaniquement, sans improvisation.</div>
+      </div>
+    </div>
+
+    <div class="rule proc">
+      <div class="rule-num">6</div>
+      <div class="rule-body">
+        <span class="rule-tag tag-proc">Délai</span>
+        <div class="rule-stmt">Pas de nouvelle entrée dans les 10 minutes qui suivent une perte.</div>
+        <div class="rule-detail">La montre décide, pas toi. Coût de la règle ignorée : 144 $ le 18/08 (retournement 33 secondes après un stop-out), l'essentiel des 587 $ du 14/08. Deux occurrences suffisaient.</div>
+      </div>
+    </div>
+
+    <div class="rule stop">
+      <div class="rule-num">7</div>
+      <div class="rule-body">
+        <span class="rule-tag tag-stop">Environnement</span>
+        <div class="rule-stmt">Pas de trade sur téléphone. Pas de trade avec quelqu'un à côté de toi.</div>
+        <div class="rule-detail">Le téléphone retire la précision d'exécution et le contrôle du bracket. La présence d'un tiers crée une pression sociale qui biaise l'entrée, la taille, ou la sortie. Les deux conditions interdisent toute ouverture — <strong>sans exception.</strong></div>
+      </div>
+    </div>
+
+    <div class="rule stop">
+      <div class="rule-num">8</div>
+      <div class="rule-body">
+        <span class="rule-tag tag-stop">Copie</span>
+        <div class="rule-stmt">Jamais de copy trading. Aucun copieur sur aucun compte.</div>
+        <div class="rule-detail">TraderSyncer, ou tout outil similaire, est interdit. Le 4/09 : 4 comptes ont copié les mêmes mauvaises positions en même temps. Ce qui était une erreur est devenu une erreur ×4. <strong>Définitif.</strong></div>
+      </div>
+    </div>
+
+  </div>
+
+  </div><!-- end rules-list -->
+
+  <!-- Plan type -->
+  <div class="section-divider">
+    <span>Plan type — lecture avant entrée</span>
+  </div>
+
+  <div style="display:flex;flex-direction:column;gap:10px;margin-bottom:32px;">
+
+    <div style="display:grid;grid-template-columns:28px 1fr;gap:12px;align-items:start;padding:16px;background:var(--surface);border:1px solid var(--border);border-radius:6px;">
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:13px;font-weight:700;color:var(--amber);padding-top:1px;">1</div>
+      <div>
+        <div style="font-size:14px;font-weight:600;color:var(--head);margin-bottom:4px;">La liquidité HTF est-elle touchée ?</div>
+        <div style="font-size:12.5px;color:var(--muted);line-height:1.6;">Identifier le niveau de liquidité (high/low structurel, BSL/SSL) sur le timeframe de référence. Si elle est sweepée → chercher un retournement. Si elle <strong style="color:var(--txt);">n'est pas touchée</strong> → le marché cherche encore à l'atteindre : biais dans cette direction.</div>
+      </div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:28px 1fr;gap:12px;align-items:start;padding:16px;background:var(--surface);border:1px solid var(--border);border-radius:6px;">
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:13px;font-weight:700;color:var(--amber);padding-top:1px;">2</div>
+      <div>
+        <div style="font-size:14px;font-weight:600;color:var(--head);margin-bottom:4px;">Si non touchée → descendre en M5</div>
+        <div style="font-size:12.5px;color:var(--muted);line-height:1.6;">Le M5 affine l'entrée dans la direction du biais HTF. Ne pas chercher de setup contre la liquidité non sweepée. <strong style="color:var(--txt);">04/09 :</strong> liquidité HTF intacte → marché short-biased toute la session. Aucun long n'était valide.</div>
+      </div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:28px 1fr;gap:12px;align-items:start;padding:16px;background:var(--surface);border:1px solid var(--border);border-radius:6px;">
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:13px;font-weight:700;color:var(--amber);padding-top:1px;">3</div>
+      <div>
+        <div style="font-size:14px;font-weight:600;color:var(--head);margin-bottom:4px;">Confirmation SMT + BPR</div>
+        <div style="font-size:12.5px;color:var(--muted);line-height:1.6;"><strong style="color:var(--txt);">SMT</strong> (Smart Money Technique) : divergence entre deux instruments corrélés (ex. MNQ vs NQ) — l'un fait un nouveau high/low, pas l'autre. Signal de retournement. <strong style="color:var(--txt);">BPR</strong> (Balanced Price Range) : zone entre deux FVG opposées — point d'entrée précis dans la direction confirmée.</div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="prohibition">
+    <div class="prohibition-icon">⛔</div>
+    <div class="prohibition-text">
+      <strong>Jamais TraderSyncer.</strong> Jamais sur un chiffre macro sans avoir fermé les positions 5 min avant.<br>
+      Ces deux règles n'ont pas de seuil, pas d'exception, pas de "juste cette fois".
+    </div>
+  </div>
+
+  <!-- CL plan -->
+  <div class="section-divider">
+    <span>CL — Crude Oil · plan séparé</span>
+  </div>
+
+  <div style="background:var(--surface);border:1px solid var(--border);border-radius:8px;overflow:hidden;margin-bottom:32px;">
+    <div style="padding:14px 20px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px;">
+      <span style="font-family:'IBM Plex Mono',monospace;font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;background:rgba(74,222,128,.12);color:#4ade80;padding:3px 10px;border-radius:3px;">MCL / CL</span>
+      <span style="font-size:13px;color:var(--muted);">Approche différente du MNQ — mécanique, pas directionnelle</span>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:0;border-bottom:1px solid var(--border);">
+      <div style="padding:16px 20px;border-right:1px solid var(--border);">
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:8px;">Timeframe</div>
+        <div style="font-size:22px;font-weight:700;color:var(--head);">M15</div>
+      </div>
+      <div style="padding:16px 20px;">
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:8px;">Direction</div>
+        <div style="font-size:22px;font-weight:700;color:var(--head);">Fade le sweep</div>
+      </div>
+    </div>
+    <div style="padding:20px;">
+      <div style="display:flex;flex-direction:column;gap:10px;">
+        <div style="display:flex;align-items:flex-start;gap:12px;">
+          <div style="width:20px;height:20px;min-width:20px;border-radius:50%;background:rgba(74,222,128,.15);display:flex;align-items:center;justify-content:center;margin-top:1px;">
+            <span style="font-family:'IBM Plex Mono',monospace;font-size:10px;font-weight:700;color:#4ade80;">1</span>
+          </div>
+          <div>
+            <div style="font-size:14px;font-weight:600;color:var(--head);margin-bottom:3px;">Identifier les niveaux de liquidité en M15</div>
+            <div style="font-size:12.5px;color:var(--muted);line-height:1.6;">Highs et lows structurels récents, zones de BSL/SSL visibles sur le chart M15. Placer des alertes sur ces niveaux — tu n'as pas besoin de surveiller en continu.</div>
+          </div>
+        </div>
+        <div style="display:flex;align-items:flex-start;gap:12px;">
+          <div style="width:20px;height:20px;min-width:20px;border-radius:50%;background:rgba(74,222,128,.15);display:flex;align-items:center;justify-content:center;margin-top:1px;">
+            <span style="font-family:'IBM Plex Mono',monospace;font-size:10px;font-weight:700;color:#4ade80;">2</span>
+          </div>
+          <div>
+            <div style="font-size:14px;font-weight:600;color:var(--head);margin-bottom:3px;">Alerte déclenchée → regarder le toucher</div>
+            <div style="font-size:12.5px;color:var(--muted);line-height:1.6;">Le prix atteint le niveau. Observer le comportement : est-ce un vrai sweep suivi d'un rejet ? Un engulf de bougie, une mèche longue, un retour rapide dans la range sont des signaux de retournement.</div>
+          </div>
+        </div>
+        <div style="display:flex;align-items:flex-start;gap:12px;">
+          <div style="width:20px;height:20px;min-width:20px;border-radius:50%;background:rgba(74,222,128,.15);display:flex;align-items:center;justify-content:center;margin-top:1px;">
+            <span style="font-family:'IBM Plex Mono',monospace;font-size:10px;font-weight:700;color:#4ade80;">3</span>
+          </div>
+          <div>
+            <div style="font-size:14px;font-weight:600;color:var(--head);margin-bottom:3px;">Entrée à l'inverse du sweep</div>
+            <div style="font-size:12.5px;color:var(--muted);line-height:1.6;">Si le sweep est confirmé, entrer dans la direction opposée. Stop au-delà du niveau sweepé. Les règles de taille, de bracket et de délai s'appliquent identiquement au MNQ.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Pre-session checklist -->
+  <div class="section-divider">
+    <span>Checklist avant d'entrer</span>
+  </div>
+
+  <div class="checklist" id="checklist">
+    <label class="check-item" onclick="toggle(this)">
+      <input type="checkbox">
+      <div class="check-box"><svg width="10" height="8" viewBox="0 0 10 8" fill="none"><path d="M1 4l3 3 5-6" stroke="#090b0e" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+      <div>
+        <div class="check-label">Suis-je en état de trader là, maintenant ?</div>
+        <div class="check-sub">Si non, fermer la plateforme. Rien d'autre sur cette liste ne sert ce jour-là.</div>
+      </div>
+    </label>
+    <label class="check-item" onclick="toggle(this)">
+      <input type="checkbox">
+      <div class="check-box"><svg width="10" height="8" viewBox="0 0 10 8" fill="none"><path d="M1 4l3 3 5-6" stroke="#090b0e" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+      <div>
+        <div class="check-label">Y a-t-il une annonce macro dans la prochaine heure ?</div>
+        <div class="check-sub">Vérifier l'agenda (chômage, NFP, CPI, FOMC). Si oui, règle 3 s'applique.</div>
+      </div>
+    </label>
+    <label class="check-item" onclick="toggle(this)">
+      <input type="checkbox">
+      <div class="check-box"><svg width="10" height="8" viewBox="0 0 10 8" fill="none"><path d="M1 4l3 3 5-6" stroke="#090b0e" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+      <div>
+        <div class="check-label">Quelle phase AMD suis-je en train de jouer ?</div>
+        <div class="check-sub">Si tu ne peux pas répondre en une phrase, tu n'entres pas.</div>
+      </div>
+    </label>
+    <label class="check-item" onclick="toggle(this)">
+      <input type="checkbox">
+      <div class="check-box"><svg width="10" height="8" viewBox="0 0 10 8" fill="none"><path d="M1 4l3 3 5-6" stroke="#090b0e" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+      <div>
+        <div class="check-label">Est-ce mon biais, ou celui de quelqu'un d'autre ?</div>
+        <div class="check-sub">Mets un nom dessus. Si c'est le leur, tu attends le tien.</div>
+      </div>
+    </label>
+    <label class="check-item" onclick="toggle(this)">
+      <input type="checkbox">
+      <div class="check-box"><svg width="10" height="8" viewBox="0 0 10 8" fill="none"><path d="M1 4l3 3 5-6" stroke="#090b0e" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+      <div>
+        <div class="check-label">Combien de contrats au total ? Je les compte à voix haute.</div>
+        <div class="check-sub">4 maximum, 2 par position, 264 $ de risque plafond tous comptes confondus.</div>
+      </div>
+    </label>
+    <label class="check-item" onclick="toggle(this)">
+      <input type="checkbox">
+      <div class="check-box"><svg width="10" height="8" viewBox="0 0 10 8" fill="none"><path d="M1 4l3 3 5-6" stroke="#090b0e" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+      <div>
+        <div class="check-label">J'ai relu le bracket — quantité, stop, objectif, ratio.</div>
+        <div class="check-sub">Je l'envoie seulement après cette lecture. Pas d'exception.</div>
+      </div>
+    </label>
+  </div>
+
+  <button class="reset-btn" onclick="resetChecklist()">↺ Réinitialiser la checklist</button>
+
+  <div class="footer">
+    <span>Règles en vigueur au 4 septembre 2026</span>
+    <span>Lucid Trading · Micro Nasdaq · MNQ</span>
+  </div>
+
+</div>
+
+<script>
+  // Date
+  (function(){
+    var d = new Date();
+    var days = ['Dim','Lun','Mar','Mer','Jeu','Ven','Sam'];
+    var months = ['jan','fév','mar','avr','mai','juin','juil','août','sept','oct','nov','déc'];
+    document.getElementById('js-date').textContent =
+      days[d.getDay()] + ' ' + d.getDate() + ' ' + months[d.getMonth()] + ' ' + d.getFullYear();
+  })();
+
+  // Checklist
+  function toggle(el){
+    el.classList.toggle('checked');
+    saveChecklist();
+  }
+  function saveChecklist(){
+    var items = document.querySelectorAll('.check-item');
+    var state = Array.from(items).map(function(el){ return el.classList.contains('checked'); });
+    try{ localStorage.setItem('trading_checklist', JSON.stringify(state)); }catch(e){}
+  }
+  function resetChecklist(){
+    document.querySelectorAll('.check-item').forEach(function(el){ el.classList.remove('checked'); });
+    try{ localStorage.removeItem('trading_checklist'); }catch(e){}
+  }
+  (function(){
+    try{
+      var state = JSON.parse(localStorage.getItem('trading_checklist')||'[]');
+      var items = document.querySelectorAll('.check-item');
+      state.forEach(function(checked, i){ if(checked && items[i]) items[i].classList.add('checked'); });
+    }catch(e){}
+  })();
+</script>
