@@ -15,7 +15,7 @@
 .note-block{background:var(--panel);border-left:3px solid var(--blue);border-radius:8px;padding:14px 18px;font-size:13.5px;color:var(--txt);line-height:1.6;margin-bottom:28px}
 .section-title{font-size:11px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--muted);margin:28px 0 10px}
 
-.drop-zone{border:2px dashed var(--line);border-radius:10px;padding:28px 16px;text-align:center;cursor:pointer;transition:.15s}
+.drop-zone{border:2px dashed var(--line);border-radius:10px;padding:10px 14px;text-align:center;cursor:pointer;transition:.15s}
 .drop-zone:hover,.drop-zone.drag-over{border-color:var(--blue);background:rgba(91,157,249,.05)}
 .drop-icon{font-size:28px;margin-bottom:8px}
 .drop-label{font-size:13px;font-weight:600;color:var(--txt);margin-bottom:3px}
@@ -43,6 +43,14 @@
 .trade-note{width:100%;min-height:52px;resize:vertical;border:1px solid var(--line);border-radius:6px;background:var(--bg);color:var(--txt);font-size:12.5px;font-family:inherit;padding:8px 10px;box-sizing:border-box;outline:none;transition:.15s}
 .trade-note:focus{border-color:var(--blue);background:var(--panel)}
 .trade-note::placeholder{color:var(--muted);opacity:.7}
+
+/* Lightbox */
+.lb-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.88);z-index:9999;align-items:center;justify-content:center;cursor:zoom-out}
+.lb-overlay.open{display:flex}
+.lb-overlay img{max-width:94vw;max-height:92vh;object-fit:contain;border-radius:6px;box-shadow:0 8px 40px rgba(0,0,0,.6);cursor:default}
+.lb-close{position:fixed;top:16px;right:20px;font-size:28px;color:#fff;cursor:pointer;line-height:1;opacity:.7}
+.lb-close:hover{opacity:1}
+.screenshot-wrap img{cursor:zoom-in}
 </style>
 </head>
 <body>
@@ -70,17 +78,20 @@
 </div>
 
 <div class="section-title">📸 Captures d'écran</div>
-<div id="img-zone" class="drop-zone" style="max-width:340px" onclick="document.getElementById('img-input').click()">
+<div id="img-zone" class="drop-zone" style="max-width:220px" onclick="document.getElementById('img-input').click()">
   <input type="file" id="img-input" accept="image/*" multiple style="display:none">
-  <div class="drop-icon">🖼️</div>
-  <div class="drop-label">Ajouter des captures</div>
-  <div class="drop-sub">PNG, JPG</div>
+  <div style="font-size:16px">🖼️ <span style="font-size:12px;font-weight:600">Ajouter</span></div>
 </div>
 <div id="screenshots" class="screenshots" style="margin-top:12px"></div>
 <div id="img-clear-wrap" style="display:none">
   <button class="clear-btn" onclick="clearScreenshots()">Effacer les captures</button>
 </div>
 
+</div>
+<!-- Lightbox -->
+<div class="lb-overlay" id="lb" onclick="closeLB(event)">
+  <span class="lb-close" onclick="document.getElementById('lb').classList.remove('open')">×</span>
+  <img id="lb-img" src="" alt="">
 </div>
 
 <script>
@@ -189,6 +200,16 @@ function clearScreenshots(){
   document.getElementById('img-zone').style.display='block';
 }
 function esc(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+
+function openLB(src){
+  document.getElementById('lb-img').src=src;
+  document.getElementById('lb').classList.add('open');
+}
+function closeLB(e){
+  if(e.target===document.getElementById('lb')) document.getElementById('lb').classList.remove('open');
+}
+document.addEventListener('keydown',function(e){if(e.key==='Escape') document.getElementById('lb').classList.remove('open');});
+
 </script>
 </body>
 </html>

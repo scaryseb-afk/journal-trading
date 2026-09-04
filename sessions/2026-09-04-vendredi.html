@@ -50,6 +50,14 @@
 .total-bar{display:flex;align-items:center;justify-content:space-between;background:var(--panel);border-radius:8px;padding:12px 18px;margin:28px 0 8px}
 .total-label{font-size:12px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--muted)}
 .total-val{font-size:18px;font-weight:900;font-variant-numeric:tabular-nums;color:var(--red)}
+
+/* Lightbox */
+.lb-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.88);z-index:9999;align-items:center;justify-content:center;cursor:zoom-out}
+.lb-overlay.open{display:flex}
+.lb-overlay img{max-width:94vw;max-height:92vh;object-fit:contain;border-radius:6px;box-shadow:0 8px 40px rgba(0,0,0,.6);cursor:default}
+.lb-close{position:fixed;top:16px;right:20px;font-size:28px;color:#fff;cursor:pointer;line-height:1;opacity:.7}
+.lb-close:hover{opacity:1}
+.screenshot-wrap img{cursor:zoom-in}
 </style>
 </head>
 <body>
@@ -61,7 +69,7 @@
   <h1 class="sp-title">Vendredi 4 sept.</h1>
   <span class="sp-pnl td-l">−1 155,50 $</span>
 </div>
-<div class="sp-meta">4 comptes · 36 positions &nbsp;·&nbsp; TraderSyncer ×4</div>
+<div class="sp-meta">4 comptes · TraderSyncer ×4</div>
 
 <div class="note-block">
   <strong>Pire journée — −1 155,50 $ sur 4 comptes.</strong> TraderSyncer actif : les 4 comptes ont copié exactement les mêmes trades simultanément. −290 $ (006) · −290 $ (001) · −281,50 $ (002) · −294 $ (004). Ce qui était une erreur sur un compte est devenu une erreur ×4.<br><br>
@@ -73,9 +81,7 @@
 <div class="section-title">📸 Captures d'écran</div>
 <div id="img-zone" class="drop-zone" onclick="document.getElementById('img-input').click()" style="max-width:320px">
   <input type="file" id="img-input" accept="image/*" multiple style="display:none">
-  <div class="drop-icon">🖼️</div>
-  <div class="drop-label">Ajouter des captures</div>
-  <div class="drop-sub">PNG, JPG</div>
+  <div style="font-size:16px">🖼️ <span style="font-size:12px;font-weight:600">Ajouter</span></div>
 </div>
 <div id="screenshots" class="screenshots" style="margin-top:12px"></div>
 <div id="img-clear-wrap" style="display:none">
@@ -140,6 +146,11 @@
 
 </div>
 
+</div>
+<!-- Lightbox -->
+<div class="lb-overlay" id="lb" onclick="closeLB(event)">
+  <span class="lb-close" onclick="document.getElementById('lb').classList.remove('open')">×</span>
+  <img id="lb-img" src="" alt="">
 </div>
 
 <script>
@@ -275,7 +286,7 @@ function readImage(file){
 function renderScreenshots(imgs){
   var c=document.getElementById('screenshots');
   c.innerHTML=imgs.map(function(src,i){
-    return '<div class="screenshot-wrap"><img src="'+src+'"><button class="screenshot-del" onclick="delShot('+i+')">×</button></div>';
+    return '<div class="screenshot-wrap"><img src="'+src+'" onclick="openLB(this.src)"><button class="screenshot-del" onclick="delShot('+i+')">×</button></div>';
   }).join('');
   document.getElementById('img-clear-wrap').style.display='block';
 }
@@ -292,6 +303,16 @@ function clearScreenshots(){
   document.getElementById('screenshots').innerHTML='';
   document.getElementById('img-clear-wrap').style.display='none';
 }
+
+function openLB(src){
+  document.getElementById('lb-img').src=src;
+  document.getElementById('lb').classList.add('open');
+}
+function closeLB(e){
+  if(e.target===document.getElementById('lb')) document.getElementById('lb').classList.remove('open');
+}
+document.addEventListener('keydown',function(e){if(e.key==='Escape') document.getElementById('lb').classList.remove('open');});
+
 </script>
 </body>
 </html>
