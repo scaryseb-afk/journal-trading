@@ -288,9 +288,160 @@
     .hdr { flex-direction: column; }
     .hdr-date { text-align: left; }
   }
+
+  /* ── Tools panel ───────────────────────────────────────────── */
+  .tools-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 40px;
+  }
+  @media (max-width: 520px) { .tools-grid { grid-template-columns: 1fr; } }
+
+  .tool-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 18px 20px;
+  }
+  .tool-card-title {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: .13em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 12px;
+  }
+
+  /* Mini stats */
+  .stat-row { display: flex; flex-direction: column; gap: 8px; }
+  .stat-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 8px;
+    font-size: 12.5px;
+  }
+  .stat-label { color: var(--muted); }
+  .stat-val { font-family: 'IBM Plex Mono', monospace; font-size: 13px; font-weight: 700; color: var(--head); }
+  .stat-val.neg { color: var(--red); }
+  .stat-val.pos { color: var(--green); }
+
+  /* Pause timer */
+  .timer-display {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 40px;
+    font-weight: 700;
+    color: var(--head);
+    text-align: center;
+    line-height: 1;
+    margin: 8px 0 14px;
+    letter-spacing: .04em;
+  }
+  .timer-display.running { color: var(--amber); }
+  .timer-display.done { color: var(--green); }
+  .timer-btn {
+    width: 100%;
+    padding: 10px;
+    border-radius: 6px;
+    border: none;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: opacity .12s;
+  }
+  .timer-btn:hover { opacity: .85; }
+  .timer-btn.start { background: var(--amber); color: #0d111c; }
+  .timer-btn.cancel { background: var(--surface); border: 1px solid var(--border); color: var(--muted); margin-top: 6px; }
+
+  /* Streak */
+  .streak-num {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 52px;
+    font-weight: 700;
+    color: var(--green);
+    text-align: center;
+    line-height: 1;
+    margin: 4px 0 4px;
+  }
+  .streak-label {
+    font-size: 11px;
+    color: var(--muted);
+    text-align: center;
+    margin-bottom: 14px;
+  }
+  .streak-btns { display: flex; gap: 8px; }
+  .streak-btn {
+    flex: 1;
+    padding: 9px;
+    border-radius: 6px;
+    border: 1px solid var(--border);
+    background: var(--surface);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12px;
+    font-weight: 700;
+    cursor: pointer;
+    color: var(--txt);
+    transition: border-color .12s;
+  }
+  .streak-btn:hover { border-color: var(--muted); }
+  .streak-btn.add { color: var(--green); border-color: rgba(74,222,128,.3); }
+  .streak-btn.add:hover { border-color: var(--green); }
+  .streak-btn.reset { color: var(--red); border-color: rgba(232,64,64,.25); }
+  .streak-btn.reset:hover { border-color: var(--red); }
+
+  /* Violations log */
+  .viol-form { display: flex; gap: 8px; margin-bottom: 12px; }
+  .viol-select {
+    flex: 1;
+    padding: 8px 10px;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 5px;
+    color: var(--txt);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12px;
+    cursor: pointer;
+  }
+  .viol-add {
+    padding: 8px 14px;
+    background: var(--red-dim);
+    border: 1px solid rgba(232,64,64,.35);
+    border-radius: 5px;
+    color: var(--red);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12px;
+    font-weight: 700;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: opacity .12s;
+  }
+  .viol-add:hover { opacity: .8; }
+  .viol-list { display: flex; flex-direction: column; gap: 5px; max-height: 140px; overflow-y: auto; }
+  .viol-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 12px;
+    padding: 5px 0;
+    border-bottom: 1px solid var(--border);
+    gap: 8px;
+  }
+  .viol-item:last-child { border-bottom: none; }
+  .viol-date { font-family: 'IBM Plex Mono', monospace; color: var(--muted); font-size: 11px; }
+  .viol-rule { color: var(--red); font-weight: 600; }
+  .viol-del { background:none;border:none;color:var(--border);cursor:pointer;font-size:14px;line-height:1;padding:0 2px; }
+  .viol-del:hover { color: var(--muted); }
+  .viol-empty { font-size:12px;color:var(--muted);text-align:center;padding:12px 0; }
 </style>
 
 <div class="page">
+
+  <a href="https://scaryseb-afk.github.io/journal-trading/" onclick="if(document.referrer){history.back();return false;}" style="color:var(--muted);font-weight:600;font-size:.85rem;text-decoration:none;display:inline-flex;align-items:center;gap:6px;margin-bottom:20px">← Journal</a>
 
   <header class="hdr">
     <div>
@@ -302,6 +453,112 @@
       <button id="theme-btn" onclick="toggleTheme()" style="background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:5px 10px;font-size:13px;cursor:pointer;color:var(--muted);line-height:1" title="Basculer jour/nuit">☀︎</button>
     </div>
   </header>
+
+  <!-- Tools panel -->
+  <div class="tools-grid">
+
+    <!-- Mini stats -->
+    <div class="tool-card">
+      <div class="tool-card-title">📊 Statistiques</div>
+      <div class="stat-row">
+        <div class="stat-item">
+          <span class="stat-label">Total PnL</span>
+          <span class="stat-val neg">−1 310,95 $</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-label">Win rate</span>
+          <span class="stat-val">37% <span style="font-size:10px;color:var(--muted);font-weight:400">(53/142)</span></span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-label">Meilleur jour</span>
+          <span class="stat-val pos">+2 472 $ <span style="font-size:10px;color:var(--muted);font-weight:400">13/08</span></span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-label">Pire jour</span>
+          <span class="stat-val neg">−1 340 $ <span style="font-size:10px;color:var(--muted);font-weight:400">21/08</span></span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Streak -->
+    <div class="tool-card">
+      <div class="tool-card-title">🔥 Streak sans violation</div>
+      <div class="streak-num" id="streak-num">0</div>
+      <div class="streak-label">jours consécutifs</div>
+      <div class="streak-btns">
+        <button class="streak-btn add" onclick="streakAdd()">+1 jour ✓</button>
+        <button class="streak-btn reset" onclick="streakReset()">Violation ✗</button>
+      </div>
+    </div>
+
+    <!-- Pause timer (full width) -->
+    <div class="tool-card" style="grid-column:1/-1">
+      <div class="tool-card-title">⏱ Pause obligatoire après une perte</div>
+      <div class="timer-display" id="timer-display">10:00</div>
+      <button class="timer-btn start" id="timer-start-btn" onclick="timerStart()">Je veux trader après une perte — démarre le compte</button>
+      <button class="timer-btn cancel" id="timer-cancel-btn" style="display:none" onclick="timerCancel()">Annuler</button>
+    </div>
+
+    <!-- Checklist avant d'entrer (full width, compact) -->
+    <div class="tool-card" style="grid-column:1/-1">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;">
+        <div class="tool-card-title" style="margin-bottom:0">✅ Checklist avant d'entrer</div>
+        <button class="reset-btn" onclick="resetChecklist()" style="margin-top:0;font-size:10px;padding:4px 10px">↺ Reset</button>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;" id="checklist">
+        <label class="check-item" onclick="toggle(this)" style="padding:10px 12px">
+          <input type="checkbox">
+          <div class="check-box"><svg width="10" height="8" viewBox="0 0 10 8" fill="none"><path d="M1 4l3 3 5-6" stroke="#090b0e" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <div class="check-label" style="font-size:12.5px">Je suis en état de trader</div>
+        </label>
+        <label class="check-item" onclick="toggle(this)" style="padding:10px 12px">
+          <input type="checkbox">
+          <div class="check-box"><svg width="10" height="8" viewBox="0 0 10 8" fill="none"><path d="M1 4l3 3 5-6" stroke="#090b0e" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <div class="check-label" style="font-size:12.5px">Pas d'annonce macro dans 1h</div>
+        </label>
+        <label class="check-item" onclick="toggle(this)" style="padding:10px 12px">
+          <input type="checkbox">
+          <div class="check-box"><svg width="10" height="8" viewBox="0 0 10 8" fill="none"><path d="M1 4l3 3 5-6" stroke="#090b0e" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <div class="check-label" style="font-size:12.5px">Phase AMD identifiée</div>
+        </label>
+        <label class="check-item" onclick="toggle(this)" style="padding:10px 12px">
+          <input type="checkbox">
+          <div class="check-box"><svg width="10" height="8" viewBox="0 0 10 8" fill="none"><path d="M1 4l3 3 5-6" stroke="#090b0e" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <div class="check-label" style="font-size:12.5px">Biais = le mien</div>
+        </label>
+        <label class="check-item" onclick="toggle(this)" style="padding:10px 12px">
+          <input type="checkbox">
+          <div class="check-box"><svg width="10" height="8" viewBox="0 0 10 8" fill="none"><path d="M1 4l3 3 5-6" stroke="#090b0e" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <div class="check-label" style="font-size:12.5px">Taille comptée à voix haute</div>
+        </label>
+        <label class="check-item" onclick="toggle(this)" style="padding:10px 12px">
+          <input type="checkbox">
+          <div class="check-box"><svg width="10" height="8" viewBox="0 0 10 8" fill="none"><path d="M1 4l3 3 5-6" stroke="#090b0e" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <div class="check-label" style="font-size:12.5px">Bracket relu — qty, stop, ratio</div>
+        </label>
+      </div>
+    </div>
+
+    <!-- Violations log (full width) -->
+    <div class="tool-card" style="grid-column:1/-1">
+      <div class="tool-card-title">🚫 Journal des violations</div>
+      <div class="viol-form">
+        <select class="viol-select" id="viol-select">
+          <option value="1">Règle 1 — Taille</option>
+          <option value="2">Règle 2 — Bracket</option>
+          <option value="3">Règle 3 — Macro</option>
+          <option value="4">Règle 4 — Biais</option>
+          <option value="5">Règle 5 — Ordre modifié</option>
+          <option value="6">Règle 6 — Délai 10 min</option>
+          <option value="7">Règle 7 — Téléphone/tiers</option>
+          <option value="8">Règle 8 — Copy trading</option>
+        </select>
+        <button class="viol-add" onclick="violAdd()">+ Enregistrer</button>
+      </div>
+      <div class="viol-list" id="viol-list"></div>
+    </div>
+
+  </div>
 
   <!-- Rules -->
   <div class="rules-list">
@@ -506,64 +763,6 @@
     </div>
   </div>
 
-  <!-- Pre-session checklist -->
-  <div class="section-divider">
-    <span>Checklist avant d'entrer</span>
-  </div>
-
-  <div class="checklist" id="checklist">
-    <label class="check-item" onclick="toggle(this)">
-      <input type="checkbox">
-      <div class="check-box"><svg width="10" height="8" viewBox="0 0 10 8" fill="none"><path d="M1 4l3 3 5-6" stroke="#090b0e" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-      <div>
-        <div class="check-label">Suis-je en état de trader là, maintenant ?</div>
-        <div class="check-sub">Si non, fermer la plateforme. Rien d'autre sur cette liste ne sert ce jour-là.</div>
-      </div>
-    </label>
-    <label class="check-item" onclick="toggle(this)">
-      <input type="checkbox">
-      <div class="check-box"><svg width="10" height="8" viewBox="0 0 10 8" fill="none"><path d="M1 4l3 3 5-6" stroke="#090b0e" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-      <div>
-        <div class="check-label">Y a-t-il une annonce macro dans la prochaine heure ?</div>
-        <div class="check-sub">Vérifier l'agenda (chômage, NFP, CPI, FOMC). Si oui, règle 3 s'applique.</div>
-      </div>
-    </label>
-    <label class="check-item" onclick="toggle(this)">
-      <input type="checkbox">
-      <div class="check-box"><svg width="10" height="8" viewBox="0 0 10 8" fill="none"><path d="M1 4l3 3 5-6" stroke="#090b0e" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-      <div>
-        <div class="check-label">Quelle phase AMD suis-je en train de jouer ?</div>
-        <div class="check-sub">Si tu ne peux pas répondre en une phrase, tu n'entres pas.</div>
-      </div>
-    </label>
-    <label class="check-item" onclick="toggle(this)">
-      <input type="checkbox">
-      <div class="check-box"><svg width="10" height="8" viewBox="0 0 10 8" fill="none"><path d="M1 4l3 3 5-6" stroke="#090b0e" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-      <div>
-        <div class="check-label">Est-ce mon biais, ou celui de quelqu'un d'autre ?</div>
-        <div class="check-sub">Mets un nom dessus. Si c'est le leur, tu attends le tien.</div>
-      </div>
-    </label>
-    <label class="check-item" onclick="toggle(this)">
-      <input type="checkbox">
-      <div class="check-box"><svg width="10" height="8" viewBox="0 0 10 8" fill="none"><path d="M1 4l3 3 5-6" stroke="#090b0e" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-      <div>
-        <div class="check-label">Combien de contrats au total ? Je les compte à voix haute.</div>
-        <div class="check-sub">4 maximum, 2 par position, 264 $ de risque plafond tous comptes confondus.</div>
-      </div>
-    </label>
-    <label class="check-item" onclick="toggle(this)">
-      <input type="checkbox">
-      <div class="check-box"><svg width="10" height="8" viewBox="0 0 10 8" fill="none"><path d="M1 4l3 3 5-6" stroke="#090b0e" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-      <div>
-        <div class="check-label">J'ai relu le bracket — quantité, stop, objectif, ratio.</div>
-        <div class="check-sub">Je l'envoie seulement après cette lecture. Pas d'exception.</div>
-      </div>
-    </label>
-  </div>
-
-  <button class="reset-btn" onclick="resetChecklist()">↺ Réinitialiser la checklist</button>
-
   <div class="footer">
     <span>Règles en vigueur au 4 septembre 2026</span>
     <span>Lucid Trading · Micro Nasdaq · MNQ</span>
@@ -602,6 +801,128 @@
     var isDark = current === 'dark' || (!current && window.matchMedia('(prefers-color-scheme: dark)').matches);
     btn.textContent = isDark ? '☀︎' : '☾';
   }
+
+  // ── Pause timer ─────────────────────────────────────────────
+  var timerInterval = null;
+  var timerEnd = null;
+  (function(){
+    try{
+      var saved = parseInt(localStorage.getItem('pause_timer_end')||'0',10);
+      if(saved && Date.now() < saved){
+        timerEnd = saved;
+        timerInterval = setInterval(timerTick, 500);
+        timerTick();
+      } else {
+        localStorage.removeItem('pause_timer_end');
+      }
+    }catch(e){}
+  })();
+  function timerStart(){
+    timerEnd = Date.now() + 10 * 60 * 1000;
+    try{ localStorage.setItem('pause_timer_end', timerEnd); }catch(e){}
+    if(timerInterval) clearInterval(timerInterval);
+    timerInterval = setInterval(timerTick, 500);
+    timerTick();
+    document.getElementById('timer-start-btn').style.display = 'none';
+    document.getElementById('timer-cancel-btn').style.display = 'block';
+  }
+  function timerCancel(){
+    clearInterval(timerInterval); timerInterval = null; timerEnd = null;
+    try{ localStorage.removeItem('pause_timer_end'); }catch(e){}
+    var d = document.getElementById('timer-display');
+    d.textContent = '10:00';
+    d.className = 'timer-display';
+    document.getElementById('timer-start-btn').style.display = 'block';
+    document.getElementById('timer-cancel-btn').style.display = 'none';
+  }
+  function timerTick(){
+    var remaining = timerEnd - Date.now();
+    var d = document.getElementById('timer-display');
+    var startBtn = document.getElementById('timer-start-btn');
+    var cancelBtn = document.getElementById('timer-cancel-btn');
+    if(remaining <= 0){
+      clearInterval(timerInterval); timerInterval = null;
+      try{ localStorage.removeItem('pause_timer_end'); }catch(e){}
+      d.textContent = '00:00';
+      d.className = 'timer-display done';
+      startBtn.textContent = 'Temps écoulé — tu peux trader';
+      startBtn.style.background = 'var(--green)';
+      startBtn.style.display = 'block';
+      cancelBtn.style.display = 'none';
+      setTimeout(function(){
+        d.textContent = '10:00';
+        d.className = 'timer-display';
+        startBtn.textContent = 'Je veux trader après une perte — démarre le compte';
+        startBtn.style.background = 'var(--amber)';
+      }, 4000);
+      return;
+    }
+    var mins = Math.floor(remaining / 60000);
+    var secs = Math.floor((remaining % 60000) / 1000);
+    d.textContent = (mins < 10 ? '0'+mins : mins) + ':' + (secs < 10 ? '0'+secs : secs);
+    d.className = 'timer-display running';
+  }
+
+  // ── Streak ───────────────────────────────────────────────────
+  function streakLoad(){
+    try{ return parseInt(localStorage.getItem('trading_streak')||'0',10); }catch(e){ return 0; }
+  }
+  function streakSave(v){ try{ localStorage.setItem('trading_streak', v); }catch(e){} }
+  function streakRender(){
+    document.getElementById('streak-num').textContent = streakLoad();
+  }
+  function streakAdd(){
+    var v = streakLoad() + 1;
+    streakSave(v);
+    streakRender();
+  }
+  function streakReset(){
+    if(!confirm('Marquer une violation et remettre le streak à zéro ?')) return;
+    streakSave(0);
+    streakRender();
+  }
+  streakRender();
+
+  // ── Violations log ───────────────────────────────────────────
+  var VIOL_KEY = 'trading_violations';
+  function violLoad(){
+    try{ return JSON.parse(localStorage.getItem(VIOL_KEY)||'[]'); }catch(e){ return []; }
+  }
+  function violSave(arr){ try{ localStorage.setItem(VIOL_KEY, JSON.stringify(arr)); }catch(e){} }
+  function violRender(){
+    var arr = violLoad();
+    var list = document.getElementById('viol-list');
+    if(!arr.length){
+      list.innerHTML = '<div class="viol-empty">Aucune violation enregistrée</div>';
+      return;
+    }
+    list.innerHTML = arr.slice(-10).reverse().map(function(v, i, a){
+      var realIdx = arr.length - 1 - i;
+      return '<div class="viol-item">'+
+        '<span class="viol-date">'+v.date+'</span>'+
+        '<span class="viol-rule">Règle '+v.rule+'</span>'+
+        '<button class="viol-del" onclick="violDel('+realIdx+')" title="Supprimer">×</button>'+
+        '</div>';
+    }).join('');
+  }
+  function violAdd(){
+    var sel = document.getElementById('viol-select');
+    var rule = sel.value;
+    var d = new Date();
+    var pad = function(n){ return n < 10 ? '0'+n : n; };
+    var date = pad(d.getDate())+'/'+pad(d.getMonth()+1)+'/'+d.getFullYear()+' '+pad(d.getHours())+':'+pad(d.getMinutes());
+    var arr = violLoad();
+    arr.push({date: date, rule: rule});
+    violSave(arr);
+    violRender();
+  }
+  function violDel(idx){
+    var arr = violLoad();
+    arr.splice(idx, 1);
+    violSave(arr);
+    violRender();
+  }
+  violRender();
 
   // Checklist
   function toggle(el){
