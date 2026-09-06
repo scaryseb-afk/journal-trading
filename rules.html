@@ -1,55 +1,57 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
 <title>Règles de Trading</title>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap">
 <style>
-  /* Dark theme (default) */
+  /* Dark theme (default) — mêmes tokens que le journal (index.html) */
   :root {
-    --bg:        #090b0e;
-    --surface:   #111418;
-    --border:    #1c2028;
-    --txt:       #c9cdd4;
-    --head:      #e8eaed;
-    --muted:     #4f5666;
-    --red:       #e84040;
-    --red-dim:   rgba(232,64,64,.12);
-    --amber:     #f5a623;
-    --amber-dim: rgba(245,166,35,.10);
-    --green:     #4ade80;
-    --green-dim: rgba(74,222,128,.10);
+    --bg:        #0A0D13;
+    --surface:   #131820;
+    --border:    #242D3A;
+    --txt:       #EAF0F8;
+    --head:      #EAF0F8;
+    --muted:     #8FA0B6;
+    --red:       #F2555A;
+    --red-dim:   rgba(242,85,90,.12);
+    --amber:     #D4A63C;
+    --amber-dim: rgba(212,166,60,.10);
+    --green:     #3DD68C;
+    --green-dim: rgba(61,214,140,.10);
     --white-dim: rgba(255,255,255,.05);
   }
   /* Light theme (system auto) */
   @media (prefers-color-scheme: light) {
     :root:not([data-theme="dark"]) {
-      --bg:        #f4f5f7;
-      --surface:   #ffffff;
-      --border:    #dde1e8;
-      --txt:       #2c3140;
-      --head:      #0d111c;
-      --muted:     #7a8499;
-      --red:       #c9202a;
-      --red-dim:   rgba(201,32,42,.10);
-      --amber:     #9a6a00;
-      --amber-dim: rgba(154,106,0,.10);
-      --green:     #168044;
-      --green-dim: rgba(22,128,68,.10);
+      --bg:        #F5F6F8;
+      --surface:   #FFFFFF;
+      --border:    #D8DCE4;
+      --txt:       #111827;
+      --head:      #111827;
+      --muted:     #556070;
+      --red:       #C8282D;
+      --red-dim:   rgba(200,40,45,.10);
+      --amber:     #9A6F10;
+      --amber-dim: rgba(154,111,16,.10);
+      --green:     #16864D;
+      --green-dim: rgba(22,134,77,.10);
       --white-dim: rgba(0,0,0,.04);
     }
   }
   :root[data-theme="light"] {
-    --bg:        #f4f5f7;
-    --surface:   #ffffff;
-    --border:    #dde1e8;
-    --txt:       #2c3140;
-    --head:      #0d111c;
-    --muted:     #7a8499;
-    --red:       #c9202a;
-    --red-dim:   rgba(201,32,42,.10);
-    --amber:     #9a6a00;
-    --amber-dim: rgba(154,106,0,.10);
-    --green:     #168044;
-    --green-dim: rgba(22,128,68,.10);
+    --bg:        #F5F6F8;
+    --surface:   #FFFFFF;
+    --border:    #D8DCE4;
+    --txt:       #111827;
+    --head:      #111827;
+    --muted:     #556070;
+    --red:       #C8282D;
+    --red-dim:   rgba(200,40,45,.10);
+    --amber:     #9A6F10;
+    --amber-dim: rgba(154,111,16,.10);
+    --green:     #16864D;
+    --green-dim: rgba(22,134,77,.10);
     --white-dim: rgba(0,0,0,.04);
   }
 
@@ -58,40 +60,43 @@
   body {
     background: var(--bg);
     color: var(--txt);
-    font-family: 'IBM Plex Sans', system-ui, sans-serif;
+    font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Helvetica,Arial,sans-serif;
     font-size: 15px;
     line-height: 1.6;
-    padding: 48px 24px 80px;
+    padding: 0 24px 80px;
     -webkit-font-smoothing: antialiased;
   }
 
   .page { max-width: 720px; margin: 0 auto; }
 
+  /* Nav — identique à index.html */
+  .nav{display:flex;flex-wrap:wrap;gap:18px;align-items:center;padding:12px 32px;
+    border-bottom:1px solid var(--border);font-size:15px;position:sticky;top:0;z-index:100;
+    background:rgba(10,13,19,.92);backdrop-filter:blur(12px);
+    margin:0 calc(-50vw + 50%) 26px;width:100vw}
+  @media(prefers-color-scheme:light){:root:not([data-theme="dark"]) .nav{background:rgba(245,246,248,.92)}}
+  :root[data-theme="dark"] .nav{background:rgba(10,13,19,.92)}
+  :root[data-theme="light"] .nav{background:rgba(245,246,248,.92)}
+  .nav a{color:var(--muted);font-weight:600;text-decoration:none;font-family:inherit;letter-spacing:normal;text-transform:none}
+  .nav a:hover{color:var(--txt);text-decoration:none}
+  .nav a.on{color:var(--amber);font-weight:650}
+
   /* Header */
   .hdr {
     margin-bottom: 36px;
+    padding-top: 32px;
   }
   .hdr-top {
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: flex-end;
     margin-bottom: 16px;
   }
-  .hdr-back {
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 11px;
-    font-weight: 600;
-    letter-spacing: .08em;
-    color: var(--muted);
-    text-decoration: none;
-    transition: color .12s;
-  }
-  .hdr-back:hover { color: var(--txt); }
   .hdr-controls { display: flex; align-items: center; gap: 10px; }
   .hdr-date {
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 11px;
+    font-size: 13px;
     color: var(--muted);
+    font-variant-numeric: tabular-nums;
   }
   .hdr-title {
     font-size: 22px;
@@ -441,12 +446,17 @@
   .viol-del:hover { color: var(--muted); }
   .viol-empty { font-size:12px;color:var(--muted);text-align:center;padding:12px 0; }
 </style>
-
+</head>
+<body>
+<nav class="nav">
+  <a href="index.html">Tableau de bord</a>
+  <a href="index.html">Brief séance</a>
+  <a href="rules.html" class="on" style="margin-left:auto">⛔ Règles</a>
+</nav>
 <div class="page">
 
   <header class="hdr">
     <div class="hdr-top">
-      <a class="hdr-back" href="https://scaryseb-afk.github.io/journal-trading/" onclick="if(document.referrer){history.back();return false;}">← Journal</a>
       <div class="hdr-controls">
         <span class="hdr-date" id="js-date">—</span>
         <button id="theme-btn" onclick="toggleTheme()" style="background:none;border:1px solid var(--border);border-radius:5px;padding:4px 9px;font-size:12px;cursor:pointer;color:var(--muted);line-height:1" title="Basculer jour/nuit">☀︎</button>
@@ -468,7 +478,8 @@
         </div>
         <div class="stat-item">
           <span class="stat-label">Win rate</span>
-          <span class="stat-val">37% <span style="font-size:10px;color:var(--muted);font-weight:400">(53/142)</span></span>
+          <span class="stat-val">37% <span style="font-size:10px;color:var(--muted);font-weight:400">(40/107)</span></span>
+          <div style="font-size:10px;color:var(--muted);margin-top:2px">5 comptes actifs, dédupliqué · TopstepX (clôturé) exclu — plus de données</div>
         </div>
         <div class="stat-item">
           <span class="stat-label">Meilleur jour</span>
@@ -783,8 +794,10 @@
 
   // Theme toggle
   (function(){
-    var saved = localStorage.getItem('rules_theme');
-    if(saved) document.documentElement.setAttribute('data-theme', saved);
+    try{
+      var saved = localStorage.getItem('rules_theme');
+      if(saved) document.documentElement.setAttribute('data-theme', saved);
+    }catch(e){}
     updateThemeBtn();
   })();
   function toggleTheme(){
@@ -947,3 +960,5 @@
     }catch(e){}
   })();
 </script>
+</body>
+</html>

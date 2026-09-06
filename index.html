@@ -47,7 +47,7 @@ h3{font-size:19px;font-weight:600;margin:0 0 4px}
 :root[data-theme="light"] .nav{background:rgba(245,246,248,.92)}
 .nav a{color:var(--muted);font-weight:600}
 .nav a:hover{color:var(--txt);text-decoration:none}
-.nav .here{color:var(--gold);font-weight:650}
+.nav a.on{color:var(--gold);font-weight:650}
 
 .kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:18px;margin-top:36px}
 @keyframes kpi-in{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
@@ -165,6 +165,11 @@ textarea::placeholder{color:#4A566A}
 .sr-badge.next{background:rgba(212,166,60,.15);color:var(--gold);border:1px solid rgba(212,166,60,.35)}
 /* index — sessions feed compact */
 .sf{display:flex;flex-direction:column;gap:4px;margin-top:4px;margin-bottom:28px}
+.sf-month summary{list-style:none;cursor:pointer}
+.sf-month summary::-webkit-details-marker{display:none}
+.sf-month summary::marker{content:''}
+.sf-arrow{font-size:10px;color:var(--dim);transition:.15s;display:inline-block}
+.sf-month[open] .sf-arrow{transform:rotate(90deg)}
 .sf-mh{display:flex;align-items:center;gap:14px;margin:24px 0 8px}
 .sf-mh-name{color:var(--muted);font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;white-space:nowrap}
 .sf-mh-sum{font-size:12px;font-weight:700;white-space:nowrap}
@@ -211,8 +216,14 @@ textarea::placeholder{color:#4A566A}
 .r .t{font-size:18px;font-weight:650;margin-bottom:5px}
 .r .d{color:var(--muted);font-size:15.5px}
 .r.pending{opacity:.72}.r.pending .n{color:var(--blue)}
+.rules.oks .r .n{color:var(--green);font-size:16px}
 
 /* brief */
+#view-brief .d-clamp{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+#view-brief .d-clamp.d-open{display:block;-webkit-line-clamp:unset}
+#view-brief .d-toggle{display:inline-block;margin-top:10px;background:none;border:none;padding:0;
+  color:var(--blue);font:inherit;font-size:13.5px;font-weight:650;cursor:pointer}
+#view-brief .d-toggle:hover{text-decoration:underline}
 .dont{background:var(--panel);border:1px solid var(--line);border-left:5px solid var(--red);
   border-radius:12px;padding:26px 30px;margin-top:16px;display:flex;gap:22px;align-items:flex-start}
 .dont .no{font-size:34px;line-height:1;color:var(--red);font-weight:700;min-width:38px}
@@ -349,7 +360,7 @@ textarea::placeholder{color:#4A566A}
 <body>
 <div class="wrap">
 <nav class="nav">
-  <a href="#" data-goto="dashboard" class="here">Tableau de bord</a>
+  <a href="#" data-goto="dashboard">Tableau de bord</a>
   <a href="#" data-goto="brief">Brief séance</a>
   <a href="rules.html" style="margin-left:auto">⛔ Règles</a>
 </nav>
@@ -504,10 +515,11 @@ textarea::placeholder{color:#4A566A}
   <h1>Ta prochaine séance</h1>
   <p class="sub">Ce qu'il faut faire, ce qu'il ne faut pas faire. Construit uniquement à partir de tes journaux.</p>
 
+  <h2 id="brief-consignes" style="margin-top:40px">Les cinq consignes de la semaine</h2>
   <div class="big" style="border-color:rgba(242,85,90,.6)">
     <div class="l">La consigne n°1</div>
-    <div class="t">Avant d ouvrir la plateforme, une seule question : suis-je en état de trader, là, maintenant ?</div>
-    <div class="d">Jeudi 20 : « J ai vraiment déconné ce matin à garder les filles à la maison, j ai craqué, et je sais même pas combien de trades j ai pris. » Six trades pris avant l ouverture de New York, cinq perdants, aucun tenu plus d une heure trente-trois — <strong>−740,40 $, la pire séance du journal.</strong> Ce n est pas une règle de marché qui a manqué ce jour-là, c est l état dans lequel la séance a commencé.<br><br><strong>Si la réponse est non, tu ne trades pas.</strong> Pas de compromis, pas de « juste un petit trade pour voir » — c est exactement ce schéma qui a coûté 740 $ aujourd hui.</div>
+    <div class="t">Avant d'ouvrir la plateforme, une seule question : suis-je en état de trader, là, maintenant ?</div>
+    <div class="d">Jeudi 20 : « J'ai vraiment déconné ce matin à garder les filles à la maison, j'ai craqué, et je sais même pas combien de trades j'ai pris. » Six trades pris avant l'ouverture de New York, cinq perdants, aucun tenu plus d'une heure trente-trois — <strong>−740,40 $, la pire séance du journal.</strong> Ce n'est pas une règle de marché qui a manqué ce jour-là, c'est l'état dans lequel la séance a commencé.<br><br><strong>Si la réponse est non, tu ne trades pas.</strong> Pas de compromis, pas de « juste un petit trade pour voir » — c'est exactement ce schéma qui a coûté 740 $ aujourd'hui.</div>
   </div>
 
   <div class="big" style="border-color:rgba(242,85,90,.5)">
@@ -534,7 +546,7 @@ textarea::placeholder{color:#4A566A}
     <div class="d">Trois trades tenus longtemps, trois gagnants : or 4 h 19 (+215 $), or 2 h 30 (+502 $), euro 5 h 07 (+202 $). Tes pertes durent toutes entre 3 et 24 minutes, et toutes sur MNQ à l'ouverture de New York. Ce n'est pas une question de lecture du marché — c'est le temps que tu accordes au trade.</div>
   </div>
 
-  <h2>Les sept actions de la prochaine séance</h2>
+  <h2 id="brief-actions">Les sept actions de la prochaine séance</h2>
 
   <div class="dont do" style="border-left-color:var(--gold)">
     <div class="no" style="color:var(--gold)">1</div>
@@ -609,7 +621,7 @@ textarea::placeholder{color:#4A566A}
     </div>
   </div>
 
-  <h2>Les six interdits</h2>
+  <h2 id="brief-interdits">Les six interdits</h2>
 
   <div class="dont">
     <div class="no">1</div>
@@ -665,65 +677,47 @@ textarea::placeholder{color:#4A566A}
     </div>
   </div>
 
-  <h2>Ce qui marche, quand tu le fais</h2>
+  <h2 id="brief-ok">Ce qui marche, quand tu le fais</h2>
 
-  <div class="dont do">
-    <div class="no">✓</div>
-    <div>
+  <div class="rules oks">
+    <div class="r">
+      <div class="n">✓</div>
       <div class="t">Laisser le temps au trade</div>
       <div class="d">Or 4 h 19, or 2 h 30, euro 5 h 07 : trois tenues longues, trois gagnants, 919 $ à eux trois. Sur MNQ, tes positions durent 3 à 24 minutes et te coûtent de l'argent. La durée n'est pas un détail d'exécution, c'est ton edge.</div>
     </div>
-  </div>
-
-  <div class="dont do">
-    <div class="no">✓</div>
-    <div>
+    <div class="r">
+      <div class="n">✓</div>
       <div class="t">Décrire tes entrées par des conditions, pas par une impression</div>
       <div class="d">Mercredi tu as écrit : prise de liquidité sur l'Asian Low, clôture au-dessus de la FVG baissière, clôture au-dessus du MOS, création d'un OB haussier en M1. Ce sont des conditions vérifiables — donc répétables, donc mesurables. Et tu as ajouté « parfois il faut attendre plus de 50 minutes avant de rentrer ». C'est le contraire exact de mardi.</div>
     </div>
-  </div>
-
-  <div class="dont do">
-    <div class="no">✓</div>
-    <div>
+    <div class="r">
+      <div class="n">✓</div>
       <div class="t">Ta lecture du marché est bonne — c'est le reste qui coûte</div>
       <div class="d">Le 13/08 tu as lu l'AMD en direct et gagné 2 468 $. Le 18/08 ton biais baissier était exact au dixième de pourcent. Sur cinq séances, aucune de tes pertes ne vient d'une mauvaise analyse : elles viennent d'ordres déplacés, de tailles erronées, de réactions à chaud, et d'avis extérieurs. <strong>Tu n'as pas un problème de trading, tu as un problème d'exécution.</strong> C'est une bien meilleure nouvelle.</div>
     </div>
-  </div>
-
-  <div class="dont do">
-    <div class="no">✓</div>
-    <div>
+    <div class="r">
+      <div class="n">✓</div>
       <div class="t">Corriger une erreur immédiatement, sans négocier</div>
       <div class="d">Mardi, 14 lots au lieu de 2 : entrée à 15:32:22, sortie au marché à 15:32:24. Deux secondes pour éteindre 959 $ d'exposition, pour 119 $. Tu n'as pas espéré, tu n'as pas « laissé courir puisque c'est en place ». C'est ce réflexe-là qui empêche une erreur de saisie de devenir une catastrophe.</div>
     </div>
-  </div>
-
-  <div class="dont do">
-    <div class="no">✓</div>
-    <div>
+    <div class="r">
+      <div class="n">✓</div>
       <div class="t">Dimensionner ton risque avant d'entrer</div>
       <div class="d">Sur le 6E lundi : 125 $ de risque sur un plafond de 264 $, soit 6 % de ta marge Topstep — sur un instrument nouveau et à fort levier. Moins de la moitié de ton budget. C'est exactement le bon réflexe, garde-le.</div>
     </div>
-  </div>
-
-  <div class="dont do">
-    <div class="no">✓</div>
-    <div>
+    <div class="r">
+      <div class="n">✓</div>
       <div class="t">Protéger la position plutôt qu'espérer</div>
       <div class="d">Lundi, stop remonté 2 points au-dessus de l'entrée : à partir de là, le pire scénario était l'équilibre. C'est ce geste-là qui a transformé un scénario raté en journée neutre.</div>
     </div>
-  </div>
-
-  <div class="dont do">
-    <div class="no">✓</div>
-    <div>
+    <div class="r">
+      <div class="n">✓</div>
       <div class="t">T'arrêter quand la séance ne va pas</div>
       <div class="d">Vendredi tu as activé ton lockout personnel après la série de pertes, au lieu de chercher à te refaire. Refais-le sans hésiter.</div>
     </div>
   </div>
 
-  <h2>Les sept questions avant d'appuyer</h2>
+  <h2 id="brief-questions">Les sept questions avant d'appuyer</h2>
   <div class="rules">
     <div class="r" style="border-color:rgba(242,85,90,.4)"><div class="n">0</div><div class="t">Suis-je en état de trader, là, maintenant ?</div><div class="d">La question du 20/08. Si non, tu fermes la plateforme — tout le reste de cette liste ne sert à rien ce jour-là.</div></div>
     <div class="r"><div class="n">1</div><div class="t">Quelle phase AMD suis-je en train de jouer ?</div><div class="d">Si tu ne peux pas répondre en une phrase, tu ne rentres pas.</div></div>
@@ -734,14 +728,9 @@ textarea::placeholder{color:#4A566A}
     <div class="r"><div class="n">6</div><div class="t">Ma dernière perte date de plus de 10 minutes ?</div><div class="d">Sinon, tu attends. La montre décide, pas toi.</div></div>
   </div>
 
-  <h2>Où en sont tes comptes</h2>
+  <h2 id="brief-comptes">Où en sont tes comptes</h2>
   <p class="sub">Cinq comptes désormais, tous identifiés — le …0002 est le 5e, découvert le 21/08.</p>
   <div class="rules">
-    <div class="r">
-      <div class="n">TopstepX — Combine 50K · clôturé</div>
-      <div class="t">50 672,67 $ · compte clôturé le 20/08</div>
-      <div class="d">Relevé confirmé à 14h49. Ce compte ne fait plus partie du suivi actif.</div>
-    </div>
     <div class="r">
       <div class="n">Compte …4680004 — Tradovate / Lucid</div>
       <div class="t">49 984,00 $ · <span style="color:var(--red)">−16 $ depuis le départ</span></div>
@@ -763,6 +752,17 @@ textarea::placeholder{color:#4A566A}
       <div class="d">5e compte, identifié le 21/08. Un trade visible : long 1 MNQU6, entrée 29 486,75, sorti au marché à 29 451 (−71,50 $). Ce seul trade n'explique pas les −398,30 $ affichés : au moins un autre trade a eu lieu, non capturé.</div>
     </div>
   </div>
+
+  <details style="margin-top:12px">
+    <summary style="cursor:pointer;color:var(--dim);font-size:13px;font-weight:650;letter-spacing:.04em;padding:6px 0;list-style:none">▶ Comptes clôturés (1)</summary>
+    <div class="rules" style="margin-top:10px;opacity:.7">
+      <div class="r">
+        <div class="n">TopstepX — Combine 50K · clôturé</div>
+        <div class="t">50 672,67 $ au 20/08 — compte cramé et clôturé</div>
+        <div class="d">Plus aucune donnée disponible sur ce compte (archivé à ta demande). Son historique de trades reste utilisé pour les règles du journal (durée de tenue, etc.) mais il n'apparaît plus dans le suivi actif ni dans les totaux de comptes.</div>
+      </div>
+    </div>
+  </details>
 
 </section>
 
@@ -2786,7 +2786,7 @@ Parfois il faut attendre plus de 50 minutes avant de rentrer.</textarea>
     <div class="kpi"><div class="lbl">P&amp;L journée</div><div class="val neg">−79 $</div><div class="note">Net après frais (−7 $) · brut −72 $</div></div>
     <div class="kpi"><div class="lbl">Trades</div><div class="val">5</div><div class="note">4 gagnants · 1 perdant · 80 %</div></div>
     <div class="kpi"><div class="lbl">Meilleur trade</div><div class="val pos">+8,50 $</div><div class="note">15h50 · 5 min 08 s · re-entrée après stop</div></div>
-    <div class="kpi"><div class="lbl">Pire trade</div><div class="val neg">−90,50 $</div><div class="note">15h48 · 52 s · stop atteint</td></div>
+    <div class="kpi"><div class="lbl">Pire trade</div><div class="val neg">−90,50 $</div><div class="note">15h48 · 52 s · stop atteint</div></div>
   </div>
 
   <div class="big" style="margin-top:32px;border-color:rgba(220,60,60,.4)">
@@ -2921,27 +2921,6 @@ Parfois il faut attendre plus de 50 minutes avant de rentrer.</textarea>
     <div class="d">Sur le Short : le sweep trop petit n'est pas une impression — c'est une règle. Si la prise de liquidité n'atteint pas un niveau significatif, le setup n'est pas valable. Rentrer quand même, c'est payer pour tester. −179 $ pour apprendre que le critère n'est pas négociable.<br><br>Sur le Buy : le trade était juste. +210,50 $ brut sur les deux sorties le confirment. La troisième entrée était aussi valide — sortir en BE par peur revient à appliquer la règle 5 à l'envers : modifier l'ordre en position, dans le mauvais sens, pour de mauvaises raisons.</div>
   </div>
 </section>
-
-<section class="view" id="view-s0827" data-journal-date="2026-08-27">
-<div style="margin-bottom:24px"><a href="#" data-goto="dashboard" style="color:var(--muted);font-weight:600;font-size:.88rem;text-decoration:none">← Journal</a></div>
-  <p class="eyebrow">Journal de suivi &middot; Futures</p>
-  <h1>Jeudi 27 août 2026</h1>
-  <p class="sub">Session à documenter — données à ajouter après la clôture du marché.</p>
-
-  <div class="kpis">
-    <div class="kpi"><div class="lbl">P&amp;L journée</div><div class="val neu">—</div><div class="note">À remplir</div></div>
-    <div class="kpi"><div class="lbl">Trades</div><div class="val neu">—</div><div class="note">À documenter</div></div>
-    <div class="kpi"><div class="lbl">Compte 06</div><div class="val neu">—</div><div class="note">En attente</div></div>
-    <div class="kpi"><div class="lbl">Compte 02</div><div class="val neu">—</div><div class="note">En attente</div></div>
-  </div>
-
-  <div class="big" style="margin-top:32px;border-color:rgba(120,120,120,.3)">
-    <div class="l">Session à venir</div>
-    <div class="t">Envoie les exports Tradovate (Performance CSV + info compte) après la clôture pour que je remplisse cette page.</div>
-    <div class="d">Fichiers utiles : Performance.csv (par compte), ordrestout.csv, infoducompte.csv. Exporter depuis chaque compte actif séparément pour identification correcte.</div>
-  </div>
-</section>
-
 
 </div>
 <script>/* ============================================================
@@ -3358,6 +3337,33 @@ window.SESSIONS = [
   });
 })();
 </script>
+<script>/* Brief séance : replie les paragraphes longs derrière "Voir le détail" */
+(function(){
+  document.addEventListener('DOMContentLoaded', function(){
+    var host = document.getElementById('view-brief');
+    if(!host) return;
+    var targets = host.querySelectorAll('.big .d, .dont .d');
+    targets.forEach(function(el){ el.classList.add('d-clamp'); });
+    requestAnimationFrame(function(){
+      targets.forEach(function(el){
+        if(el.scrollHeight - el.clientHeight > 4){
+          var btn = document.createElement('button');
+          btn.type = 'button';
+          btn.className = 'd-toggle';
+          btn.textContent = 'Voir le détail ↓';
+          btn.addEventListener('click', function(){
+            var open = el.classList.toggle('d-open');
+            btn.textContent = open ? 'Réduire ↑' : 'Voir le détail ↓';
+          });
+          el.insertAdjacentElement('afterend', btn);
+        } else {
+          el.classList.remove('d-clamp');
+        }
+      });
+    });
+  });
+})();
+</script>
 <script>/* Rendu des sections « Comptes » et « Risque / R:R » à partir de donnees.js */
 (function(){
   function fmt(n, d){
@@ -3456,6 +3462,9 @@ window.SESSIONS = [
     var rrMoy = rows.reduce(function(a,x){ return a + x.rr; }, 0) / rows.length;
     var rTot  = rows.reduce(function(a,x){ return a + x.r; }, 0);
     var seuil = 100 / (1 + rrMoy);
+    var gagnants = rows.filter(function(x){ return x.r > 0; }).length;
+    var winReel  = rows.length ? (gagnants / rows.length * 100) : 0;
+    var ecart    = winReel - seuil;
 
     var h = '<div class="kpis" style="margin-top:0">'
       + kpi('R:R planifié moyen',
@@ -3466,6 +3475,9 @@ window.SESSIONS = [
             'Moy. ' + (rTot/rows.length >= 0 ? '+' : '−') + Math.abs(rTot/rows.length).toFixed(2) + 'R / trade',
             rTot >= 0 ? 'pos' : 'neg')
       + kpi('Réussite nécessaire', seuil.toFixed(0) + ' %', 'Pour être à l\'équilibre à ce R:R')
+      + kpi('Winrate réel', winReel.toFixed(0) + ' %',
+            (ecart >= 0 ? '+' : '−') + Math.abs(ecart).toFixed(0) + ' pt vs seuil requis · ' + gagnants + '/' + rows.length,
+            ecart >= 0 ? 'pos' : 'neg')
       + kpi('Risque max engagé', fmt(Math.max.apply(null, rows.map(function(x){ return x.riskUsd; })), 0) + ' $',
             'Soit ' + (Math.max.apply(null, rows.map(function(x){ return x.riskUsd; })) / 500).toFixed(2) + ' % d\'un compte 50 k')
       + '</div>';
@@ -3598,7 +3610,11 @@ window.SESSIONS = [
     // ── Equity curve (canvas) ──
     h += '<div style="margin-top:24px">';
     h += '<p style="color:var(--muted);font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;margin:0 0 10px">Courbe d\'équité cumulée</p>';
-    h += '<canvas id="equity-canvas" style="width:100%;height:180px;border-radius:12px;background:var(--panel)"></canvas>';
+    h += '<div style="position:relative">';
+    h += '<canvas id="equity-canvas" style="width:100%;height:180px;border-radius:12px;background:var(--panel);cursor:crosshair"></canvas>';
+    h += '<div id="equity-tip" style="position:absolute;display:none;pointer-events:none;background:var(--panel2);border:1px solid var(--line);'
+       + 'border-radius:8px;padding:6px 10px;font-size:12.5px;color:var(--txt);white-space:nowrap;transform:translate(-50%,-100%);top:0;left:0;z-index:5"></div>';
+    h += '</div>';
     h += '</div>';
 
     // ── Calendar heatmap ──
@@ -3609,8 +3625,14 @@ window.SESSIONS = [
 
     host.innerHTML = h;
 
-    // Draw equity curve after DOM insert
+    // Draw equity curve after DOM insert. Le canvas peut être caché (onglet
+    // non actif) au moment du premier rendu — un ResizeObserver le redessine
+    // dès qu'il obtient une vraie taille (ex. quand on revient sur Tableau de bord).
     requestAnimationFrame(function(){ drawEquity(equity); });
+    var equityCanvas = document.getElementById('equity-canvas');
+    if(equityCanvas && window.ResizeObserver){
+      new ResizeObserver(function(){ drawEquity(equity); }).observe(equityCanvas);
+    }
   }
 
   function buildHeatmap(sessions){
@@ -3667,6 +3689,7 @@ window.SESSIONS = [
     if(!canvas) return;
     var dpr = window.devicePixelRatio || 1;
     var rect = canvas.getBoundingClientRect();
+    if(!rect.width || !rect.height) return; // caché (onglet inactif) : le ResizeObserver rappellera au retour
     canvas.width  = rect.width  * dpr;
     canvas.height = rect.height * dpr;
     var ctx = canvas.getContext('2d');
@@ -3756,6 +3779,31 @@ window.SESSIONS = [
         ctx.fillText(e.jour, xPos(i), H - 8);
       }
     });
+
+    // ── Survol : infobulle avec le montant du jour ──
+    var tip = document.getElementById('equity-tip');
+    if(tip && !canvas._tipBound){
+      canvas._tipBound = true;
+      canvas.addEventListener('mousemove', function(ev){
+        var pts = canvas._equityPts;
+        if(!pts || !pts.length) return;
+        var r = canvas.getBoundingClientRect();
+        var mx = ev.clientX - r.left;
+        var nearest = 0, best = Infinity;
+        pts.forEach(function(p, i){
+          var d = Math.abs(p.x - mx);
+          if(d < best){ best = d; nearest = i; }
+        });
+        var e = pts[nearest];
+        tip.style.left = e.x + 'px';
+        tip.style.top  = (e.y - 10) + 'px';
+        tip.innerHTML = '<strong>' + e.jour + '</strong> · cumul ' + (e.cum >= 0 ? '+' : '−') + Math.abs(Math.round(e.cum)) + ' $'
+          + '<br><span style="color:var(--muted)">' + (e.pnl >= 0 ? '+' : '−') + Math.abs(Math.round(e.pnl)) + ' $ ce jour</span>';
+        tip.style.display = 'block';
+      });
+      canvas.addEventListener('mouseleave', function(){ tip.style.display = 'none'; });
+    }
+    canvas._equityPts = equity.map(function(e, i){ return { x: xPos(i), y: yPos(e.cum), jour: e.jour, cum: e.cum, pnl: e.pnl }; });
   }
 
   /* ---------- Sessions feed compact ---------- */
@@ -3820,6 +3868,7 @@ window.SESSIONS = [
         if(!monthMap[m]){ monthMap[m] = []; months.push(m); }
         monthMap[m].push(s);
       });
+      var currentMonthKey = ('0'+(new Date().getMonth()+1)).slice(-2);
 
       var h = '<div class="sf-filters">';
       h += '<button class="sf-filter'+(activeFilter==='all'?' active':'')+'" data-filter="all">Toutes</button>';
@@ -3836,13 +3885,16 @@ window.SESSIONS = [
         var label = MONTH_FULL[m] || m;
         var sumCls = mTotal > 0 ? 'pos' : (mTotal < 0 ? 'neg' : '');
         var sumStr = mTotal > 0 ? ('+' + Math.round(mTotal) + ' $') : (Math.round(mTotal) + ' $');
+        var isOpen = (m === currentMonthKey);
 
-        h += '<div class="sf-mh">'
+        h += '<details class="sf-month"' + (isOpen ? ' open' : '') + '>';
+        h += '<summary class="sf-mh">'
+           + '<span class="sf-arrow">▶</span>'
            + '<span class="sf-mh-name">' + label + '</span>'
            + (sessWithPnl.length >= 2 ? '<span style="margin-left:6px;display:inline-flex;align-items:center">'+sparkline(sessWithPnl,52,20)+'</span>' : '')
            + '<span class="sf-mh-line"></span>'
            + '<span class="sf-mh-sum ' + sumCls + '">' + sumStr + '</span>'
-           + '</div>';
+           + '</summary>';
 
         h += '<div class="sf">';
         filtered.forEach(function(s){
@@ -3873,6 +3925,7 @@ window.SESSIONS = [
           h += '</' + tag + '>';
         });
         h += '</div>';
+        h += '</details>';
       });
 
       host.innerHTML = h;
