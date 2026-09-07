@@ -29,7 +29,7 @@ body{margin:0;background:var(--bg);color:var(--txt);
   font-size:17px;line-height:1.65;-webkit-font-smoothing:antialiased}
 a{color:var(--blue);text-decoration:none}
 a:hover{text-decoration:underline}
-.wrap{max-width:1220px;margin:0 auto;padding:32px 32px 72px;overflow-wrap:break-word}
+.wrap{max-width:980px;margin:0 auto;padding:32px 32px 72px;overflow-wrap:break-word}
 h1{font-size:38px;font-weight:650;letter-spacing:-.02em;margin:0 0 8px}
 h2{font-size:24px;font-weight:600;letter-spacing:-.01em;margin:56px 0 20px;
    padding-bottom:14px;border-bottom:1px solid var(--line)}
@@ -60,6 +60,26 @@ h3{font-size:19px;font-weight:600;margin:0 0 4px}
 .kpi .lbl{color:var(--muted);font-size:13px;font-weight:600;letter-spacing:.09em;text-transform:uppercase;margin-bottom:12px}
 .kpi .val{font-size:33px;font-weight:680;letter-spacing:-.02em;font-variant-numeric:tabular-nums;line-height:1.15}
 .kpi .note{color:var(--dim);font-size:14px;margin-top:8px}
+.kpis-rr{grid-template-columns:repeat(5,1fr);gap:10px}
+.kpis-rr .kpi{padding:16px 14px;border-radius:12px}
+.kpis-rr .lbl{font-size:11px;margin-bottom:8px}
+.kpis-rr .val{font-size:22px}
+.kpis-rr .note{font-size:12px;margin-top:6px}
+@media(max-width:900px){.kpis-rr{grid-template-columns:repeat(auto-fit,minmax(150px,1fr))}}
+
+.kpis-top{grid-template-columns:repeat(5,1fr);gap:12px;margin-top:24px}
+.kpis-top .kpi{padding:18px 16px}
+.kpis-top .val{font-size:26px}
+.kpis-top .lbl{font-size:11.5px}
+.kpis-top .note{font-size:12.5px}
+@media(max-width:900px){.kpis-top{grid-template-columns:repeat(auto-fit,minmax(160px,1fr))}}
+
+.brief-banner{display:flex;align-items:center;gap:12px;margin-top:20px;padding:12px 18px;
+  background:var(--panel);border:1px solid var(--line);border-radius:10px;text-decoration:none;transition:.12s}
+.brief-banner:hover{border-color:var(--gold);text-decoration:none}
+.brief-banner-l{color:var(--gold);font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;white-space:nowrap}
+.brief-banner-t{color:var(--txt);font-weight:650;font-size:15px;flex:1}
+.brief-banner-arrow{color:var(--muted)}
 
 .card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:28px 30px}
 .card p{margin:0 0 14px}.card p:last-child{margin-bottom:0}
@@ -217,6 +237,9 @@ textarea::placeholder{color:#4A566A}
 .r .d{color:var(--muted);font-size:15.5px}
 .r.pending{opacity:.72}.r.pending .n{color:var(--blue)}
 .rules.oks .r .n{color:var(--green);font-size:16px}
+.rules.recur .r .n{font-size:16px}
+.rules.recur .r.bad .n{color:var(--red)}
+.rules.recur .r.good .n{color:var(--green)}
 
 /* brief */
 #view-brief .d-clamp{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
@@ -372,13 +395,13 @@ textarea::placeholder{color:#4A566A}
   <h1>Journal de trading</h1>
   <p class="sub">MNQ — cinq comptes actifs Tradovate / Lucid</p>
 
-  <div class="big" style="margin-top:32px">
-    <div class="l">Avant chaque séance</div>
-    <div class="t"><a href="#" data-goto="brief" style="color:var(--txt)">Ouvrir le brief : ta prochaine séance →</a></div>
-    <div class="d">Réécrit après chaque séance journalisée, et épinglé dans ta barre latérale Claude. Cinq actions concrètes, cinq interdits, cinq questions à te poser avant d'appuyer. À lire avant l'ouverture de New York, pas après.</div>
-  </div>
+  <a href="#" data-goto="brief" class="brief-banner">
+    <span class="brief-banner-l">Avant chaque séance</span>
+    <span class="brief-banner-t">Ouvrir le brief : ta prochaine séance</span>
+    <span class="brief-banner-arrow">→</span>
+  </a>
 
-  <div class="kpis">
+  <div class="kpis kpis-top">
     <div class="kpi"><div class="lbl">Sessions journalisées</div><div class="val">16</div><div class="note">du 13/08 au 3/09</div></div>
     <div class="kpi"><div class="lbl">Cumul 5 comptes</div><div class="val neg">−2 376 $</div><div class="note">depuis le départ · août −3 261 $ · sept +885 $</div></div>
     <div class="kpi"><div class="lbl">Meilleure session</div><div class="val pos">+2 472 $</div><div class="note">13/08 — AMD MNQ</div></div>
@@ -402,64 +425,64 @@ textarea::placeholder{color:#4A566A}
   <div id="sessions-feed"></div>
 
   <h2>Ce qui revient</h2>
-  <div class="watch">
-    <div class="w">
-      <div class="c">2 / 2</div>
+  <div class="rules recur">
+    <div class="r bad">
+      <div class="n">2 / 2</div>
       <div class="t">Taille au-dessus de la règle</div>
       <div class="d">8 contrats jeudi, 9 vendredi, pour une règle à 4. Coût mesuré vendredi : 326 $. Jeudi il n'a rien coûté — le marché avait raison.</div>
     </div>
-    <div class="w">
-      <div class="c">5 / 5</div>
+    <div class="r bad">
+      <div class="n">5 / 5</div>
       <div class="t">Un ordre modifié en position à chaque séance</div>
       <div class="d">13/08 quantité du TP (−322 $) · 14/08 bracket à 0,05:1 · 17/08 TP coupé avant la cible (−43,75 $) · 18/08 entrée remontée (−82 $) et stop élargi (−165 $) · 19/08 stop resserré, sorti avant un TP qui aurait été touché. <strong>Le sens du déplacement n'a aucune importance.</strong></div>
     </div>
-    <div class="w">
-      <div class="c">2 / 5</div>
+    <div class="r bad">
+      <div class="n">2 / 5</div>
       <div class="t">Trader contre son propre biais</div>
       <div class="d">14/08 : « j'ai écouté les autres, je n'avais pas de biais » → −587 $. 18/08 : « j'avais le bon biais baissier, encore une fois j'ai écouté les autres » → −623 $ sur les longs, un marché à −1,66 %. <strong>Le motif le plus coûteux du journal.</strong></div>
     </div>
-    <div class="w">
-      <div class="c">2</div>
+    <div class="r bad">
+      <div class="n">2</div>
       <div class="t">Retournement immédiat après une perte</div>
       <div class="d">14/08 : 70 secondes. 18/08 : <strong>33 secondes</strong>, et le R:R du trade de vengeance était le plus faible de la journée. Coût du dernier : 144 $.</div>
     </div>
-    <div class="w">
-      <div class="c">1</div>
+    <div class="r bad">
+      <div class="n">1</div>
       <div class="t">Stop élargi en cours de trade</div>
       <div class="d">18/08 : risque doublé 83 secondes après l'entrée, sur un trade déjà perdant. Première occurrence — celle à ne jamais laisser devenir une habitude.</div>
     </div>
-    <div class="w">
-      <div class="c">2</div>
+    <div class="r bad">
+      <div class="n">2</div>
       <div class="t">Réentrées immédiates après une perte</div>
       <div class="d">Vendredi : 70 secondes, puis 99 secondes. Lundi : aucune. Premier jour sans.</div>
     </div>
-    <div class="w ok">
-      <div class="c">3</div>
+    <div class="r good">
+      <div class="n">3</div>
       <div class="t">Entrées définies par des critères vérifiables</div>
       <div class="d">19/08 : clôture au-dessus de la FVG baissière, clôture au-dessus du MOS, OB haussier M1, prise de liquidité Asian Low. Première séance où chaque entrée s'explique par une condition, pas par une impression.</div>
     </div>
-    <div class="w ok">
-      <div class="c">4 / 4</div>
+    <div class="r good">
+      <div class="n">4 / 4</div>
       <div class="t">Les trades tenus longtemps sont gagnants</div>
       <div class="d">Or 4 h 19 (+215 $), or 2 h 30 (+502 $), euro 5 h 07 (+202 $). Tes pertes durent 3 à 24 minutes, toutes sur MNQ à l'ouverture NY. <strong>Le 20/08 confirme l'inverse :</strong> six trades entre 11 minutes et 1h33, cinq perdants — jamais dans la fourchette de tes gains.</div>
     </div>
-    <div class="w">
-      <div class="c">1</div>
+    <div class="r bad">
+      <div class="n">1</div>
       <div class="t">Une séance tradée sous tension personnelle</div>
       <div class="d">20/08 : « j'ai craqué, je sais même pas combien de trades j'ai pris ». Première fois que la cause d'une mauvaise séance n'est pas une règle de marché mais l'état dans lequel la séance a commencé. À surveiller — pas encore une règle active, une seule occurrence.</div>
     </div>
-    <div class="w">
-      <div class="c">12,5×</div>
+    <div class="r">
+      <div class="n">12,5×</div>
       <div class="t">Taille non comparable entre instruments</div>
       <div class="d">1 tick 6E = 6,25 $, 1 tick MNQ micro = 0,50 $. La règle « 4 contrats » ne veut rien dire d'un marché à l'autre — il faut raisonner en dollars de risque.</div>
     </div>
-    <div class="w ok">
-      <div class="c">1 / 1</div>
+    <div class="r good">
+      <div class="n">1 / 1</div>
       <div class="t">Séance entièrement conforme</div>
       <div class="d">Lundi 17 : taille, entrée, bracket, stop protégé, aucune reprise. La série à faire durer.</div>
     </div>
-    <div class="w ok">
-      <div class="c">1</div>
+    <div class="r good">
+      <div class="n">1</div>
       <div class="t">Arrêt volontaire</div>
       <div class="d">Lockout personnel activé vendredi après la série, au lieu de chercher la revanche. Première fois observée dans le journal.</div>
     </div>
@@ -511,39 +534,39 @@ textarea::placeholder{color:#4A566A}
 </section>
 <section class="view" id="view-brief">
   <div style="margin-bottom:24px"><a href="#" data-goto="dashboard" style="color:var(--muted);font-weight:600;font-size:.88rem;text-decoration:none">← Journal</a></div>
-  <p class="eyebrow">Mis à jour après la séance du jeudi 20 août 2026</p>
+  <p class="eyebrow">Mis à jour après la séance du vendredi 4 septembre 2026 — recalculé sur les CSV réels du 21/08 au 04/09</p>
   <h1>Ta prochaine séance</h1>
   <p class="sub">Ce qu'il faut faire, ce qu'il ne faut pas faire. Construit uniquement à partir de tes journaux.</p>
 
   <h2 id="brief-consignes" style="margin-top:40px">Les cinq consignes de la semaine</h2>
   <div class="big" style="border-color:rgba(242,85,90,.6)">
     <div class="l">La consigne n°1</div>
-    <div class="t">Avant d'ouvrir la plateforme, une seule question : suis-je en état de trader, là, maintenant ?</div>
-    <div class="d">Jeudi 20 : « J'ai vraiment déconné ce matin à garder les filles à la maison, j'ai craqué, et je sais même pas combien de trades j'ai pris. » Six trades pris avant l'ouverture de New York, cinq perdants, aucun tenu plus d'une heure trente-trois — <strong>−740,40 $, la pire séance du journal.</strong> Ce n'est pas une règle de marché qui a manqué ce jour-là, c'est l'état dans lequel la séance a commencé.<br><br><strong>Si la réponse est non, tu ne trades pas.</strong> Pas de compromis, pas de « juste un petit trade pour voir » — c'est exactement ce schéma qui a coûté 740 $ aujourd'hui.</div>
+    <div class="t">Après une perte, tu fermes la plateforme pendant 10 minutes. Sans exception, pas juste après les grosses pertes.</div>
+    <div class="d">J'ai recompté sur les CSV réels, trade par trade, du 21/08 au 04/09 : <strong>38 de tes 87 trades — 44 % — sont entrés à moins de 10 minutes de la perte précédente.</strong> Certains en quelques secondes (0 s le 04/09 à 16:14:08, 4 s le 21/08 sur le MCL). Cette règle est écrite depuis le 14/08 et elle n'a quasiment jamais été suivie depuis.<br><br><strong>Ce que ça t'a coûté, précisément :</strong> ces 38 trades totalisent <strong>−1 233,50 $</strong> (12 gagnants pour +1 285 $, 26 perdants pour −2 518,50 $) — sur une période où tu as perdu −1 529,75 $ au total. <strong>Ces ré-entrées représentent à elles seules 81 % de toutes tes pertes depuis le 21/08.</strong> Sans elles, la période serait quasiment à l'équilibre (−296,25 $ au lieu de −1 529,75 $).<br><br>Ce n'est plus une consigne, c'est un chiffre qui te dit que la règle n'existe pas encore vraiment. Montre en main, dix minutes, sur tous les comptes.</div>
   </div>
 
   <div class="big" style="border-color:rgba(242,85,90,.5)">
     <div class="l">La consigne n°2</div>
-    <div class="t">Ton biais est le tien. Si tu ne le suis pas, tu ne trades pas.</div>
-    <div class="d">Mardi tu avais raison : biais baissier, gros objectifs à la baisse, marché à <strong>−1,66 %</strong>. Tu as acheté trois fois — <strong>623 $</strong> — parce que d'autres étaient haussiers. Tes seuls trades non perdants de la journée sont tes deux shorts, c'est-à-dire ta propre lecture. <strong>C'est la deuxième fois en cinq séances que tu écris cette phrase</strong> : le 14/08, « j'ai écouté les autres, je n'avais pas de biais » avait coûté 587 $. Total : 1 210 $ pour avoir suivi l'avis de quelqu'un d'autre.<br><br>Prendre le sens inverse de ton analyse n'est pas de la prudence, c'est abandonner la seule chose qui t'appartient. Si tu doutes de ton biais, tu restes à plat — tu ne prends pas celui des autres.</div>
+    <div class="t">Après deux shorts perdants d'affilée dans un marché qui monte, tu arrêtes de shorter — tu ne rajoutes pas un troisième.</div>
+    <div class="d">Deux fois le même schéma exact : le <strong>28/08</strong>, le compte 006 prend trois shorts consécutifs contre la tendance (−101 $, −152 $, −45 $), avant qu'un compte passe enfin long et gagne aussitôt (+84 $, +48 $). Le <strong>03/09</strong>, mêmes comptes (001/005), même schéma : quatre shorts d'affilée, presque tous perdants (−153 $, −54 $, −9 $, −60 $), pendant qu'une seule tentative en sens inverse (+1,50 $ à 16:36) montrait déjà que le marché ne coopérait pas. Deux séances, un mois d'écart, exactement la même erreur.<br><br><strong>Le marché te donne la réponse après le deuxième stop.</strong> Un troisième trade dans le même sens n'est pas une conviction, c'est de l'obstination.</div>
   </div>
 
   <div class="big" style="margin-top:16px">
     <div class="l">La consigne n°3</div>
-    <div class="t">Aucune modification d'ordre une fois en position. Ni dans un sens, ni dans l'autre.</div>
-    <div class="d">Cinq séances, cinq modifications, cinq fois un coût : quantité du TP le 13/08 (−322 $), bracket à 0,05:1 le 14/08, TP coupé avant la cible le 17/08 (−43,75 $), entrée remontée (−82 $) et stop élargi (−165 $) le 18/08, et mercredi <strong>le stop resserré, qui t'a sorti d'un trade qui allait chercher ton objectif</strong>.<br><br>Je t'avais dit « le stop ne se déplace que vers le profit ». <strong>C'était trop étroit</strong> : mercredi tu l'as déplacé exactement dans ce sens-là et ça t'a coûté un gagnant. Le sens n'a aucune importance — c'est le fait de toucher à un ordre déjà en place, en réaction au prix, qui coûte à chaque fois.<br><br><strong>La seule modification autorisée est celle décidée avant l'entrée</strong> : par exemple « stop à l'équilibre uniquement après avoir encaissé la sortie partielle à 1,7R ». Écrite avant, appliquée mécaniquement. Tout le reste, tu n'y touches pas.</div>
+    <div class="t">Jamais deux comptes (ou plus) sur le même trade. Le copy trading n'est pas une diversification, c'est une seule erreur payée plusieurs fois.</div>
+    <div class="d">Le 09/04, TraderSyncer a copié le même trade perdant sur 4 comptes en même temps : −290 $, −290 $, −281,50 $, −294 $, soit <strong>−1 155,50 $ pour une seule mauvaise décision.</strong> Mais ce n'était pas la première fois : le 09/02 et le 09/03, les mêmes trades apparaissent déjà, identiques à la seconde près, sur 2 à 3 comptes. TraderSyncer a été supprimé et la règle 8 ajoutée après le 04/09 — <strong>elle tient, à condition de ne jamais la contourner « juste pour cette fois ».</strong></div>
   </div>
 
   <div class="big" style="margin-top:16px;border-color:rgba(242,85,90,.45)">
     <div class="l">La consigne n°4</div>
-    <div class="t">Après une perte, tu fermes la plateforme pendant 10 minutes.</div>
-    <div class="d">Mardi : stoppé à 16:05:59, short au marché à <strong>16:06:32</strong>. Trente-trois secondes pour retourner complètement ton biais, avec le plus mauvais R:R de la journée (1,72 contre 2,87 pour le trade que tu venais de perdre) — <strong>−144 $</strong>. C'était déjà arrivé le 14/08, en 70 secondes. <strong>Et cette fois, la plateforme a fini par te verrouiller les deux comptes Tradovate.</strong> Le coupe-circuit existe, mais il arrive après les dégâts : celui qui compte reste le tien, ces dix minutes.</div>
+    <div class="t">4 contrats maximum, tous comptes confondus — y compris sur un instrument que tu ne connais pas encore bien.</div>
+    <div class="d">Le 21/08, sur le compte 005, une série de trades MCL est montée à <strong>6, puis 11, 11 et encore 11 contrats</strong> en 11 minutes, chaque fois en réaction à la perte précédente — quatre trades pour −352 $ au total, sur un instrument (pétrole micro) rarement tradé. Ce n'est pas un excès isolé : c'est le même réflexe qu'ailleurs dans le journal — augmenter la taille pour se refaire au lieu de s'arrêter.</div>
   </div>
 
   <div class="big" style="margin-top:16px;border-color:rgba(61,214,140,.3)">
     <div class="l">La consigne n°5</div>
-    <div class="t">Tu gagnes quand tu tiens. Tu perds quand tu scalpes le Nasdaq à l'ouverture.</div>
-    <div class="d">Trois trades tenus longtemps, trois gagnants : or 4 h 19 (+215 $), or 2 h 30 (+502 $), euro 5 h 07 (+202 $). Tes pertes durent toutes entre 3 et 24 minutes, et toutes sur MNQ à l'ouverture de New York. Ce n'est pas une question de lecture du marché — c'est le temps que tu accordes au trade.</div>
+    <div class="t">Ta meilleure séance récente n'a demandé que deux trades et de la patience — pas plus d'activité.</div>
+    <div class="d">Le <strong>01/09</strong> : deux trades seulement, +6 $ puis <strong>+715,50 $</strong> sur une position tenue 43 minutes. Total +721,50 $, la meilleure séance depuis le 21/08 — et la plus calme. À l'inverse, les journées à 10-15 trades dispersés sur plusieurs comptes (21/08, 24/08, 04/09) sont toutes négatives. Le nombre de trades n'est pas un signe d'activité productive, c'est souvent un signe que tu ne laisses rien se développer.</div>
   </div>
 
   <h2 id="brief-actions">Les sept actions de la prochaine séance</h2>
@@ -3466,7 +3489,7 @@ window.SESSIONS = [
     var winReel  = rows.length ? (gagnants / rows.length * 100) : 0;
     var ecart    = winReel - seuil;
 
-    var h = '<div class="kpis" style="margin-top:0">'
+    var h = '<div class="kpis kpis-rr" style="margin-top:0">'
       + kpi('R:R planifié moyen',
             rrMoy.toFixed(2) + ' : 1',
             rows.length + ' trades documentés')

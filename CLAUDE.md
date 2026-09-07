@@ -24,6 +24,24 @@ Quand l'utilisateur envoie des exports Tradovate (CSV), toujours :
 4. Signaler à l'utilisateur toute incohérence détectée (ex. nombre de trades
    ou de lots qui semble anormal) plutôt que de la lisser silencieusement.
 
+## Pages de session (`sessions/*.html`)
+
+Nouvelle session → partir de [sessions/_template.html](sessions/_template.html), jamais
+d'un ancien fichier copié-collé. Le template s'appuie sur `_systeme/style.css`
+et `_systeme/session.js` (logique partagée : captures d'écran, notes par
+trade, relecture) — ne pas dupliquer ce CSS/JS dans le fichier de session.
+
+- Captures d'écran : redimensionnées et compressées côté navigateur avant
+  stockage (voir `SJ_IMG_MAX_WIDTH`/`SJ_IMG_QUALITY` dans `session.js`) pour
+  éviter de saturer le quota localStorage. Stockage 100% local au navigateur
+  — invisible pour Claude, donc ne pas s'appuyer dessus pour les calculs.
+- Relecture ("Erreur commise" / "Ce que j'aurais dû faire" / "Ce qui a bien
+  fonctionné") : à remplir par Sébastien après la séance, bouton "Copier
+  pour Claude" pour recopier ces notes dans le chat — c'est comme ça
+  qu'elles remontent jusqu'à la session suivante et nourrissent le Brief
+  séance. Sans ce copier-coller, Claude ne les voit jamais (localStorage
+  n'est lisible que dans le navigateur de l'utilisateur).
+
 ## Avant de commiter/pousser
 
 Les changements sur `index.html`/`rules.html` sont visibles immédiatement

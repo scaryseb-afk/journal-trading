@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Jeudi 3 sept. — Journal</title>
+<title>[Jour] [date courte] — Journal</title>
 <link rel="stylesheet" href="../_systeme/style.css">
 </head>
 <body>
@@ -12,15 +12,18 @@
 <a href="https://scaryseb-afk.github.io/journal-trading/#sessions" onclick="if(document.referrer){history.back();return false;}" class="sp-back">← Journal</a>
 
 <div class="sp-header">
-  <h1 class="sp-title">Jeudi 3 sept.</h1>
-  <span class="sp-pnl td-l">−586,50 $</span>
+  <h1 class="sp-title">[Jour complet, ex. Vendredi 5 sept.]</h1>
+  <span class="sp-pnl td-l">[P&amp;L total] $</span>
 </div>
-<div class="sp-meta">8 trades &nbsp;·&nbsp; 2 comptes</div>
+<div class="sp-meta">[nombre] comptes · [note courte, ex. "TraderSyncer ×4" ou vide]</div>
 
+<!-- Résumé écrit par Claude à partir des CSV + du contexte de la séance -->
 <div class="note-block">
-  Comptes 001 et 005, copiés trade pour trade : quatre shorts consécutifs sur MNQ, presque tous perdants (−153 $/−163,50 $, −54 $/−58,50 $, −9 $ sur 005 seul), avant un dernier long tardif à 17h29 encore perdant. <strong>Même schéma que le 28/08</strong> — shorter dans un marché qui ne coopère pas, sans jamais tester le sens inverse tôt. C'est le deuxième exemple derrière la consigne n°2 du brief.
+  <strong>[Titre court de la journée — ce qui compte le plus.]</strong> [Contexte : marché, macro, biais.]<br><br>
+  <strong>Décisions actées :</strong> [Ce qui a été décidé/changé suite à cette séance, s'il y a lieu.]
 </div>
 
+<!-- Captures d'écran -->
 <div class="section-title">📸 Captures d'écran</div>
 <div id="img-zone" class="drop-zone">
   <input type="file" id="img-input" accept="image/*" multiple style="display:none">
@@ -32,36 +35,28 @@
   <button class="clear-btn" onclick="sjClearScreenshots()">Effacer les captures</button>
 </div>
 
+<!-- Trades par compte — dupliquer ce bloc pour chaque compte actif -->
 <div id="trades-section">
 
   <div class="acct-header">
-    <span class="acct-label">Compte 001 — …4680001</span>
-    <span class="acct-pnl td-l">−295,50 $</span>
+    <span class="acct-label">Compte [XXX] — …[numéro complet]</span>
+    <span class="acct-pnl td-l">[P&amp;L compte] $</span>
   </div>
   <div class="tbl-wrap">
     <table class="trades-table">
       <thead><tr><th>#</th><th>Contrat</th><th>Sens</th><th>Qté</th><th>Entrée</th><th>Sortie</th><th>Heure</th><th>P&amp;L</th></tr></thead>
-      <tbody id="body-001"></tbody>
-    </table>
-  </div>
-  <div class="acct-header">
-    <span class="acct-label">Compte 005 — …4680005</span>
-    <span class="acct-pnl td-l">−291,00 $</span>
-  </div>
-  <div class="tbl-wrap">
-    <table class="trades-table">
-      <thead><tr><th>#</th><th>Contrat</th><th>Sens</th><th>Qté</th><th>Entrée</th><th>Sortie</th><th>Heure</th><th>P&amp;L</th></tr></thead>
-      <tbody id="body-005"></tbody>
+      <tbody id="body-XXX"></tbody>
     </table>
   </div>
 
   <div class="total-bar">
-    <span class="total-label">Total journée — 2 comptes</span>
-    <span class="total-val " style="color:var(--red)">−586,50 $</span>
+    <span class="total-label">Total journée — [nombre] compte(s)</span>
+    <span class="total-val">[P&amp;L total] $</span>
   </div>
 
 </div>
 
+<!-- Relecture — à remplir par Sébastien, sert à améliorer les séances suivantes -->
 <div class="section-title">🪞 Ta relecture</div>
 <div class="reflect-grid">
   <div class="reflect-item err">
@@ -83,26 +78,19 @@
 </div>
 
 </div>
+<!-- Lightbox -->
 <div class="lb-overlay" id="lb" onclick="sjCloseLB(event)">
   <span class="lb-close" onclick="document.getElementById('lb').classList.remove('open')">×</span>
   <img id="lb-img" src="" alt="">
 </div>
 
 <script>
-var SESSION_KEY = '2026_09_03_jeudi';
+var SESSION_KEY = '[AAAA-MM-JJ-jour]'; // ex. '2026-09-05-samedi' — doit matcher le nom du fichier
 
+/* Trades hardcodés — un tableau par compte, rempli depuis les CSV */
 var ACCTS = {
-  '001': [
-    {n:1, contract:'MNQ', side:'Short', qty:'3', entry:'29280.25', exit:'29305.75', time:'16:01', pnl: -153.00},
-    {n:2, contract:'MNQ', side:'Short', qty:'3', entry:'29302.00', exit:'29311.00', time:'16:35', pnl: -54.00},
-    {n:3, contract:'MNQ', side:'Short', qty:'3', entry:'29308.50', exit:'29308.25', time:'16:36', pnl: 1.50},
-    {n:4, contract:'MNQ', side:'Long', qty:'3', entry:'29531.00', exit:'29516.00', time:'17:29', pnl: -90.00}
-  ],
-  '005': [
-    {n:1, contract:'MNQ', side:'Short', qty:'3', entry:'29280.25', exit:'29307.50', time:'16:01', pnl: -163.50},
-    {n:2, contract:'MNQ', side:'Short', qty:'3', entry:'29301.25', exit:'29311.00', time:'16:35', pnl: -58.50},
-    {n:3, contract:'MNQ', side:'Short', qty:'3', entry:'29308.00', exit:'29309.50', time:'16:36', pnl: -9.00},
-    {n:4, contract:'MNQ', side:'Long', qty:'3', entry:'29532.00', exit:'29522.00', time:'17:29', pnl: -60.00}
+  'XXX': [
+    // {n:1, contract:'MNQ', side:'Long', qty:'2', entry:'29900.00', exit:'29920.00', time:'16:05', pnl: 40.00},
   ]
 };
 
@@ -134,8 +122,8 @@ function renderAcct(acctId, bodyId){
 }
 
 window.addEventListener('DOMContentLoaded', function(){
-  renderAcct('001', 'body-001');
-  renderAcct('005', 'body-005');
+  renderAcct('XXX', 'body-XXX');
+  // Ajouter un appel renderAcct(...) par compte actif ce jour-là.
 });
 </script>
 <script src="../_systeme/session.js"></script>
