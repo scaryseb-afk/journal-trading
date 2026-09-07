@@ -402,10 +402,10 @@ textarea::placeholder{color:#4A566A}
   </a>
 
   <div class="kpis kpis-top">
-    <div class="kpi"><div class="lbl">Sessions journalisées</div><div class="val">16</div><div class="note">du 13/08 au 3/09</div></div>
-    <div class="kpi"><div class="lbl">Cumul 5 comptes</div><div class="val neg">−2 376 $</div><div class="note">depuis le départ · août −3 261 $ · sept +885 $</div></div>
+    <div class="kpi"><div class="lbl">Sessions journalisées</div><div class="val">18</div><div class="note">du 13/08 au 7/09</div></div>
+    <div class="kpi"><div class="lbl">Cumul 5 comptes</div><div class="val neg">−157 $</div><div class="note">recalculé sur CSV réels · août −779 $ · sept +623 $</div></div>
     <div class="kpi"><div class="lbl">Meilleure session</div><div class="val pos">+2 472 $</div><div class="note">13/08 — AMD MNQ</div></div>
-    <div class="kpi"><div class="lbl">Pire session</div><div class="val neg">−1 340 $</div><div class="note">21/08 — 5 comptes</div></div>
+    <div class="kpi"><div class="lbl">Pire session</div><div class="val neg">−1 156 $</div><div class="note">04/09 — TraderSyncer, 4 comptes</div></div>
     <div class="kpi"><div class="lbl">Compte …002</div><div class="val neg">−701 $</div><div class="note">49 299 $ · était à +593 avant le 25/08</div></div>
   </div>
 
@@ -3270,20 +3270,21 @@ window.TRADES = [
 ];
 
 window.SESSIONS = [
+  { jour:"07/09", label:"Lundi 7 sept.",    fichier:"2026-09-07-lundi.html",    pnl:893.00, trades:4, gagnants:3, neutres:0, note:"Compte 001 seul reçu · long CL (taille standard, ≈10× un MCL) tenu 2h54 → +840 $ · autres comptes non transmis." },
   { jour:"04/09", label:"Vendredi 4 sept.", fichier:"2026-09-04-vendredi.html", pnl:-1155.50, trades:36, gagnants:8, neutres:0, note:"4 comptes × 9 trades MNQ · TraderSyncer — même erreur ×4 · 006 −290$ · 001 −290$ · 002 −281,50$ · 004 −294$ · Total −1 155,50$. Chômage + copy trading = règles 3 et 8 ajoutées." },
   { jour:"03/09", label:"Jeudi 3 sept.",    fichier:"2026-09-03-jeudi.html",    pnl:-586.5, trades:8, gagnants:1, neutres:0, note:"2 comptes · 3 shorts consécutifs · même pattern 28/08." },
   { jour:"02/09", label:"Mercredi 2 sept.", fichier:"2026-09-02-mercredi.html", pnl:750, trades:15, gagnants:10, neutres:0, note:"3 comptes · stop ouverture → retournement short → long final +550 $." },
   { jour:"01/09", label:"Mardi 1er sept.",  fichier:"2026-09-01-mardi.html",    pnl:721.50, trades:2, gagnants:2, neutres:0, note:"…006 · 2 longs MNQU6 · +6 $ (scalp) + 715,50 $ (43 min, +119 pts) · net +718 $." },
   { jour:"31/08", label:"Lundi 31 août",    fichier:"2026-08-31-lundi.html",    pnl:0, trades:0, gagnants:0, neutres:0, note:"Aucun trade. Plan respecté — pas de setup valable. Dernier jour d'août." },
-  { jour:"28/08", label:"Vendredi 28 août", fichier:"2026-08-28-vendredi.html", pnl:-167.00, trades:6, gagnants:2, neutres:1, note:"Compte …006 −298 $ (3 shorts consécutifs contre tendance) · Compte …00? +131 $ (3 longs) · net −167 $." },
-  { jour:"27/08", label:"Jeudi 27 août",    fichier:"2026-08-27-jeudi.html",    pnl:-79.00, trades:5, gagnants:4, neutres:0, note:"…006 · 5 scalps MNQU6 · 4 gagnants (+3, +5, +8,50, +2 $) · 1 stop −90,50 $ en 52 s · net −79 $." },
-  { jour:"26/08", label:"Mercredi 26 août", fichier:"2026-08-26-mercredi.html", pnl:151.30, trades:6, gagnants:5, neutres:0, note:"MGCZ6 +127 $ (2 shorts) · MNQU6 −179 $ (sweep trop petit) · MNQU6 +212,50 $ (long BPR+FVG+SMT+MSS) · net +151,30 $." },
-  { jour:"25/08", label:"Mardi 25 août", fichier:"2026-08-25-mardi.html", pnl:-475.00, trades:11, gagnants:5, neutres:0,
-    note:"02 −305 · 06 −170 · 04/01/05 inactifs. 11 trades MNQU6 (4 sur C02 + 7 sur C06). C06 : −248 $ en ouverture (2 longs consécutifs perdants)." },
-  { jour:"24/08", label:"Lundi 24 août", fichier:"2026-08-24-lundi.html", pnl:-427.15, trades:9, gagnants:3, neutres:0,
-    note:"04 −380 · 01 −525,15 · 06 +478. B et D inactifs. Nouveau instrument 6EU6 (EUR/USD futures) sur C. 9 trades documentés (+ trades antérieurs non capturés sur C et E)." },
-  { jour:"21/08", label:"Vendredi 21 août", fichier:"2026-08-21-vendredi.html", pnl:-1340.10, trades:18, gagnants:4, neutres:0,
-    note:"−1 463,10 $ sur les 4 comptes confirmés + 06 +123 $ brut ≈ −1 340 $ net. 18 trades documentés via Performance CSV." },
+  { jour:"28/08", label:"Vendredi 28 août", fichier:"2026-08-28-vendredi.html", pnl:-167.00, trades:6, gagnants:2, neutres:1, note:"Compte …006 −298 $ (3 shorts consécutifs contre tendance) · Compte …001 +131 $ (3 longs) · net −167 $." },
+  { jour:"27/08", label:"Jeudi 27 août",    fichier:"2026-08-27-jeudi.html",    pnl:-72.00, trades:5, gagnants:4, neutres:0, note:"…006 · 5 scalps MNQU6 · 4 gagnants (+3, +5, +8,50, +2 $) · 1 stop −90,50 $ en 52 s · net −72 $." },
+  { jour:"26/08", label:"Mercredi 26 août", fichier:"2026-08-26-mercredi.html", pnl:160.50, trades:6, gagnants:5, neutres:0, note:"…006 · 2 scalps or +127 $ · 1 short MNQ −179 $ · 3 longs MNQ +212,50 $ · net +160,50 $." },
+  { jour:"25/08", label:"Mardi 25 août", fichier:"2026-08-25-mardi.html", pnl:-457.00, trades:9, gagnants:4, neutres:0,
+    note:"004 −301 $ (2 trades) · 006 −156 $ (7 trades, 4 réentrées <10 min). Recalculé sur CSV réel : 9 trades, pas 11." },
+  { jour:"24/08", label:"Lundi 24 août", fichier:"2026-08-24-lundi.html", pnl:-398.75, trades:10, gagnants:2, neutres:0,
+    note:"001 −506,75 $ · 002 +484 $ (2 longs gagnants) · 004 −376 $. Recalculé sur CSV réel : 10 trades." },
+  { jour:"21/08", label:"Vendredi 21 août", fichier:"2026-08-21-vendredi.html", pnl:-1141.50, trades:20, gagnants:4, neutres:0,
+    note:"4 comptes actifs · MCL monté à 11 contrats en 11 min sur le 005 (−352 $). Recalculé sur CSV réel : −1 141,50 $, 20 trades." },
   { jour:"20/08", label:"Jeudi 20 août",    fichier:"2026-08-20-jeudi.html",    pnl:-740.40,  trades:9, gagnants:2, neutres:1 },
   { jour:"19/08", label:"Mercredi 19 août", fichier:"2026-08-19-mercredi.html", pnl:384.16,   trades:4, gagnants:1, neutres:0 },
   { jour:"18/08", label:"Mardi 18 août",    fichier:"2026-08-18-mardi.html",    pnl:-761.94,  trades:5, gagnants:1, neutres:0 },
