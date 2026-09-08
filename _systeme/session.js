@@ -28,18 +28,24 @@ var SJ_REFLECT_FIELDS = [
   { key:'reflect_correction', label:"Ce que j'aurais dû faire" },
   { key:'reflect_ok', label:"Ce qui a bien fonctionné" }
 ];
+function sjReflectValue(key){
+  // Priorité au texte affiché dans le champ (localStorage restauré, ou pré-rempli en dur
+  // dans la page) plutôt qu'au localStorage seul — sinon un texte pré-rempli par Claude
+  // dans le HTML n'active pas le bouton "Copier" tant qu'il n'a pas été ré-enregistré.
+  var ta = document.querySelector('.reflect-note[data-key="' + key + '"]');
+  return ta ? ta.value.trim() : '';
+}
 function sjUpdateCopyState(){
   var btn = document.getElementById('reflect-copy-btn');
   if(!btn) return;
-  var notes = sjLoadNotes();
-  var hasContent = SJ_REFLECT_FIELDS.some(function(f){ return notes[f.key]; });
+  var hasContent = SJ_REFLECT_FIELDS.some(function(f){ return sjReflectValue(f.key); });
   btn.disabled = !hasContent;
 }
 function sjCopyReflect(){
-  var notes = sjLoadNotes();
   var lines = ['Relecture — ' + SESSION_KEY];
   SJ_REFLECT_FIELDS.forEach(function(f){
-    if(notes[f.key]) lines.push(f.label + ' : ' + notes[f.key]);
+    var v = sjReflectValue(f.key);
+    if(v) lines.push(f.label + ' : ' + v);
   });
   var text = lines.join('\n');
   var btn = document.getElementById('reflect-copy-btn');
@@ -58,8 +64,9 @@ function sjInitReflect(){
   var notes = sjLoadNotes();
   document.querySelectorAll('.reflect-note').forEach(function(ta){
     var key = ta.getAttribute('data-key');
-    if(notes[key]) ta.value = notes[key];
+    if(notes[key]) ta.value = notes[key]; // un texte déjà en localStorage écrase un pré-remplissage HTML
     ta.addEventListener('blur', function(){ sjSaveNote(ta); });
+    ta.addEventListener('input', sjUpdateCopyState);
   });
   sjUpdateCopyState();
 }

@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Lundi 7 sept. — Journal</title>
+<title>Mardi 8 sept. — Journal</title>
 <link rel="stylesheet" href="../_systeme/style.css">
 </head>
 <body>
@@ -12,14 +12,15 @@
 <a href="https://scaryseb-afk.github.io/journal-trading/#sessions" onclick="if(document.referrer){history.back();return false;}" class="sp-back">← Journal</a>
 
 <div class="sp-header">
-  <h1 class="sp-title">Lundi 7 sept.</h1>
-  <span class="sp-pnl td-w">+893,00 $</span>
+  <h1 class="sp-title">Mardi 8 sept.</h1>
+  <span class="sp-pnl td-w">+1 686,00 $</span>
 </div>
-<div class="sp-meta">4 trades &nbsp;·&nbsp; 1 compte reçu (001) — comptes 002/004/005/006 non transmis</div>
+<div class="sp-meta">2 trades &nbsp;·&nbsp; 2 comptes reçus (001, 005) — comptes 002/004/006 non transmis</div>
 
 <div class="note-block">
-  Compte 001 seul reçu pour l'instant (les autres comptes n'ont pas encore été envoyés). +893 $ sur 4 trades, portés par un long CL tenu 2h54 (+840 $) — même schéma gagnant que le 01/09 : peu de trades, position tenue longtemps.<br><br>
-<strong>Point d'attention :</strong> le trade à +840 $ est sur <strong>CL (pétrole taille standard)</strong>, pas MCL (micro) comme d'habitude. 1 contrat CL vaut environ <strong>10 contrats MCL</strong> en risque (tick à 10 $ contre 1 $) — la règle des 4 contrats, calibrée sur les micros, ne veut plus rien dire ici. Ce trade a gagné, mais la taille réelle engagée était très au-dessus du plafond habituel. Même remarque que pour le 6E le 21/08 (règle du brief : raisonner en dollars de risque, pas en nombre de contrats).
+  Un seul trade par compte reçu (001 et 005), <strong>le même signal, à la seconde près</strong> — comme le 09/02, 09/03 et 09/04 avant l'interdiction du copy trading (règle 8). Il a gagné (+844,50 $ / +841,50 $), mais c'est la même mécanique qu'on a vue coûter −1 155,50 $ le 04/09 : une seule décision, dupliquée sur plusieurs comptes sans que ce soit délibéré.<br><br>
+<strong>Ce qui a marché, dans tes mots :</strong> attendre qu'un support soit venu chercher, laisser remonter un peu avant d'entrer plutôt que de sauter dessus tout de suite — exactement le short tenu 12 min qui a fait ce résultat. C'est la même logique de patience que le 01/09 (+715,50 $ sur une position tenue 43 min).<br><br>
+Autres comptes (002/004/006) non transmis pour cette séance.
 </div>
 
 <div class="section-title">📸 Captures d'écran</div>
@@ -37,7 +38,7 @@
 
   <div class="acct-header">
     <span class="acct-label">Compte 001 — …4680001</span>
-    <span class="acct-pnl td-w">+893,00 $</span>
+    <span class="acct-pnl td-w">+844,50 $</span>
   </div>
   <div class="tbl-wrap">
     <table class="trades-table">
@@ -45,10 +46,20 @@
       <tbody id="body-001"></tbody>
     </table>
   </div>
+  <div class="acct-header">
+    <span class="acct-label">Compte 005 — …4680005</span>
+    <span class="acct-pnl td-w">+841,50 $</span>
+  </div>
+  <div class="tbl-wrap">
+    <table class="trades-table">
+      <thead><tr><th>#</th><th>Contrat</th><th>Sens</th><th>Qté</th><th>Entrée</th><th>Sortie</th><th>Heure</th><th>P&amp;L</th></tr></thead>
+      <tbody id="body-005"></tbody>
+    </table>
+  </div>
 
   <div class="total-bar">
-    <span class="total-label">Total journée — 1 compte</span>
-    <span class="total-val pos" style="color:var(--green)">+893,00 $</span>
+    <span class="total-label">Total journée — 2 comptes</span>
+    <span class="total-val pos" style="color:var(--green)">+1 686,00 $</span>
   </div>
 
 </div>
@@ -57,15 +68,15 @@
 <div class="reflect-grid">
   <div class="reflect-item err">
     <label>Erreur commise</label>
-    <textarea class="reflect-note" data-key="reflect_erreur" placeholder="Qu'est-ce qui a foiré aujourd'hui, concrètement ?">Trop de trade</textarea>
+    <textarea class="reflect-note" data-key="reflect_erreur" placeholder="Qu'est-ce qui a foiré aujourd'hui, concrètement ?"></textarea>
   </div>
   <div class="reflect-item fix">
     <label>Ce que j'aurais dû faire</label>
-    <textarea class="reflect-note" data-key="reflect_correction" placeholder="La version correcte de la décision">Bien vérifier les contrats MCL ou CL</textarea>
+    <textarea class="reflect-note" data-key="reflect_correction" placeholder="La version correcte de la décision"></textarea>
   </div>
   <div class="reflect-item ok">
     <label>Ce qui a bien fonctionné</label>
-    <textarea class="reflect-note" data-key="reflect_ok" placeholder="À garder, à répéter">Attendre qu'on vienne chercher un support et attendre un peu que ça remonte avant de rentrer. Mettre des alertes pour savoir quand rentrer.</textarea>
+    <textarea class="reflect-note" data-key="reflect_ok" placeholder="À garder, à répéter"></textarea>
   </div>
 </div>
 <div class="reflect-copy">
@@ -80,14 +91,14 @@
 </div>
 
 <script>
-var SESSION_KEY = '2026_09_07_lundi';
+var SESSION_KEY = '2026_09_08_mardi';
 
 var ACCTS = {
   '001': [
-    {n:1, contract:'MCL', side:'Short', qty:'4', entry:'92.13', exit:'91.98', time:'09:06', pnl: 60.00},
-    {n:2, contract:'MCL', side:'Short', qty:'4', entry:'91.95', exit:'92.01', time:'09:13', pnl: -24.00},
-    {n:3, contract:'MGC', side:'Long', qty:'1', entry:'4458.1', exit:'4459.8', time:'10:02', pnl: 17.00},
-    {n:4, contract:'CL', side:'Long', qty:'1', entry:'91.57', exit:'92.41', time:'11:11', pnl: 840.00}
+    {n:1, contract:'MNQ', side:'Short', qty:'3', entry:'29620.50', exit:'29479.75', time:'15:32', pnl: 844.50}
+  ],
+  '005': [
+    {n:1, contract:'MNQ', side:'Short', qty:'3', entry:'29620.00', exit:'29479.75', time:'15:32', pnl: 841.50}
   ]
 };
 
@@ -120,6 +131,7 @@ function renderAcct(acctId, bodyId){
 
 window.addEventListener('DOMContentLoaded', function(){
   renderAcct('001', 'body-001');
+  renderAcct('005', 'body-005');
 });
 </script>
 <script src="../_systeme/session.js"></script>
