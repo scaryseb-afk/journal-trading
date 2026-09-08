@@ -5,53 +5,6 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Mardi 18 août — Journal</title>
 <link rel="stylesheet" href="../_systeme/style.css">
-<style>
-.sp-back{color:var(--muted);font-weight:600;font-size:.88rem;text-decoration:none;display:inline-flex;align-items:center;gap:6px;margin-bottom:24px}
-.sp-back:hover{color:var(--blue)}
-.sp-header{display:flex;align-items:baseline;gap:20px;margin-bottom:6px;flex-wrap:wrap}
-.sp-title{font-size:22px;font-weight:700;margin:0}
-.sp-pnl{font-size:22px;font-weight:800;font-variant-numeric:tabular-nums}
-.sp-meta{color:var(--muted);font-size:13.5px;margin-bottom:24px}
-.note-block{background:var(--panel);border-left:3px solid var(--blue);border-radius:8px;padding:14px 18px;font-size:13.5px;color:var(--txt);line-height:1.6;margin-bottom:28px}
-.section-title{font-size:11px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--muted);margin:28px 0 10px}
-
-.drop-zone{border:2px dashed var(--line);border-radius:10px;padding:10px 14px;text-align:center;cursor:pointer;transition:.15s}
-.drop-zone:hover,.drop-zone.drag-over{border-color:var(--blue);background:rgba(91,157,249,.05)}
-.drop-icon{font-size:28px;margin-bottom:8px}
-.drop-label{font-size:13px;font-weight:600;color:var(--txt);margin-bottom:3px}
-.drop-sub{font-size:11.5px;color:var(--muted)}
-
-/* Screenshots */
-.screenshots{display:flex;flex-wrap:wrap;gap:12px;margin-bottom:16px}
-.screenshot-wrap{position:relative;border-radius:8px;overflow:hidden;border:1px solid var(--line)}
-.screenshot-wrap img{display:block;max-width:480px;max-height:360px;object-fit:contain}
-.screenshot-del{position:absolute;top:6px;right:6px;background:rgba(0,0,0,.55);color:#fff;border:none;border-radius:50%;width:22px;height:22px;font-size:14px;line-height:22px;cursor:pointer;display:flex;align-items:center;justify-content:center}
-
-/* Trades table */
-.trades-table{width:100%;border-collapse:collapse;font-size:13.5px}
-.trades-table th{text-align:left;padding:7px 12px;font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);border-bottom:1px solid var(--line)}
-.trades-table td{padding:9px 12px;border-bottom:1px solid var(--line);font-variant-numeric:tabular-nums}
-.trades-table tr:last-child td{border-bottom:none}
-.trades-table tr:hover td{background:rgba(91,157,249,.04)}
-.td-pnl{font-weight:700;text-align:right}
-.td-w{color:var(--green)} .td-l{color:var(--red)}
-.clear-btn{background:none;border:1px solid var(--line);border-radius:6px;padding:5px 14px;font-size:12px;color:var(--muted);cursor:pointer;margin-top:12px}
-.clear-btn:hover{border-color:var(--red);color:var(--red)}
-
-/* Trade notes */
-.note-row td{padding:4px 12px 10px;border-bottom:1px solid var(--line)}
-.trade-note{width:100%;min-height:52px;resize:vertical;border:1px solid var(--line);border-radius:6px;background:var(--bg);color:var(--txt);font-size:12.5px;font-family:inherit;padding:8px 10px;box-sizing:border-box;outline:none;transition:.15s}
-.trade-note:focus{border-color:var(--blue);background:var(--panel)}
-.trade-note::placeholder{color:var(--muted);opacity:.7}
-
-/* Lightbox */
-.lb-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.88);z-index:9999;align-items:center;justify-content:center;cursor:zoom-out}
-.lb-overlay.open{display:flex}
-.lb-overlay img{max-width:94vw;max-height:92vh;object-fit:contain;border-radius:6px;box-shadow:0 8px 40px rgba(0,0,0,.6);cursor:default}
-.lb-close{position:fixed;top:16px;right:20px;font-size:28px;color:#fff;cursor:pointer;line-height:1;opacity:.7}
-.lb-close:hover{opacity:1}
-.screenshot-wrap img{cursor:zoom-in}
-</style>
 </head>
 <body>
 <div class="wrap">
@@ -78,9 +31,10 @@
 </div>
 
 <div class="section-title">📸 Captures d'écran</div>
-<div id="img-zone" class="drop-zone" style="max-width:220px" onclick="document.getElementById('img-input').click()">
+<div id="img-zone" class="drop-zone">
   <input type="file" id="img-input" accept="image/*" multiple style="display:none">
-  <div style="font-size:16px">🖼️ <span style="font-size:12px;font-weight:600">Ajouter</span></div>
+  <div style="font-size:16px">🖼️ <span style="font-size:12px;font-weight:600">Glisser une image, cliquer, ou coller (Ctrl+V)</span></div>
+  <div class="drop-sub">Redimensionnée et compressée automatiquement avant stockage</div>
 </div>
 <div id="screenshots" class="screenshots" style="margin-top:12px"></div>
 <div id="img-clear-wrap" style="display:none">
@@ -89,7 +43,7 @@
 
 </div>
 <!-- Lightbox -->
-<div class="lb-overlay" id="lb" onclick="closeLB(event)">
+<div class="lb-overlay" id="lb" onclick="sjCloseLB(event)">
   <span class="lb-close" onclick="document.getElementById('lb').classList.remove('open')">×</span>
   <img id="lb-img" src="" alt="">
 </div>
@@ -98,34 +52,15 @@
 var KEY_TRADES = 'trades_2026_08_18_mardi';
 var KEY_IMGS   = 'imgs_2026_08_18_mardi';
 var KEY_NOTES  = 'notes_2026_08_18_mardi';
+var SESSION_KEY = '2026_08_18_mardi';
 
 window.addEventListener('DOMContentLoaded', function(){
   // Restore saved data
   try{
     var t = localStorage.getItem(KEY_TRADES);
     if(t) renderTrades(JSON.parse(t));
-    var imgs = JSON.parse(localStorage.getItem(KEY_IMGS)||'[]');
-    if(imgs.length) renderScreenshots(imgs);
   }catch(e){}
-
-  // Image drop
-  setupDrop('img-zone', 'img-input', function(f){
-    if(f.type.startsWith('image/')) readImage(f);
-  }, true);
 });
-
-function setupDrop(zoneId, inputId, handler, multi){
-  var dz = document.getElementById(zoneId);
-  var fi = document.getElementById(inputId);
-  dz.addEventListener('dragover', function(e){ e.preventDefault(); dz.classList.add('drag-over'); });
-  dz.addEventListener('dragleave', function(){ dz.classList.remove('drag-over'); });
-  dz.addEventListener('drop', function(e){
-    e.preventDefault(); dz.classList.remove('drag-over');
-    Array.from(e.dataTransfer.files).forEach(handler);
-  });
-  fi.addEventListener('change', function(){ Array.from(fi.files).forEach(handler); });
-}
-
 
 function renderTrades(trades){
   var notes=loadNotes();
@@ -159,57 +94,9 @@ function clearTrades(){
   document.getElementById('trades-container').style.display='none';
 }
 
-/* ── Images ── */
-function readImage(file){
-  var r=new FileReader();
-  r.onload=function(e){
-    var imgs=[];
-    try{imgs=JSON.parse(localStorage.getItem(KEY_IMGS)||'[]');}catch(x){}
-    imgs.push(e.target.result);
-    try{localStorage.setItem(KEY_IMGS,JSON.stringify(imgs));}catch(x){
-      alert('Image trop lourde pour le stockage navigateur — essaie une capture plus petite.');return;
-    }
-    renderScreenshots(imgs);
-  };
-  r.readAsDataURL(file);
-}
-function renderScreenshots(imgs){
-  var wrap=document.getElementById('screenshots'),html='';
-  imgs.forEach(function(src,i){
-    html+='<div class="screenshot-wrap">'
-      +'<img src="'+src+'" alt="Capture '+i+'">'
-      +'<button class="screenshot-del" onclick="delScreenshot('+i+')" title="Supprimer">×</button>'
-      +'</div>';
-  });
-  wrap.innerHTML=html;
-  document.getElementById('img-clear-wrap').style.display=imgs.length?'block':'none';
-  document.getElementById('img-zone').style.display=imgs.length?'none':'block';
-}
-function delScreenshot(idx){
-  var imgs=[];
-  try{imgs=JSON.parse(localStorage.getItem(KEY_IMGS)||'[]');}catch(e){}
-  imgs.splice(idx,1);
-  try{localStorage.setItem(KEY_IMGS,JSON.stringify(imgs));}catch(e){}
-  renderScreenshots(imgs);
-  if(!imgs.length) document.getElementById('img-zone').style.display='block';
-}
-function clearScreenshots(){
-  try{localStorage.removeItem(KEY_IMGS);}catch(e){}
-  document.getElementById('screenshots').innerHTML='';
-  document.getElementById('img-clear-wrap').style.display='none';
-  document.getElementById('img-zone').style.display='block';
-}
 function esc(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
 
-function openLB(src){
-  document.getElementById('lb-img').src=src;
-  document.getElementById('lb').classList.add('open');
-}
-function closeLB(e){
-  if(e.target===document.getElementById('lb')) document.getElementById('lb').classList.remove('open');
-}
-document.addEventListener('keydown',function(e){if(e.key==='Escape') document.getElementById('lb').classList.remove('open');});
-
 </script>
+<script src="../_systeme/session.js"></script>
 </body>
 </html>

@@ -79,6 +79,7 @@ function sjSetupDrop(zoneId, inputId, handler){
   var dz = document.getElementById(zoneId);
   var fi = document.getElementById(inputId);
   if(!dz || !fi) return;
+  dz.addEventListener('click', function(e){ if(e.target !== fi) fi.click(); });
   dz.addEventListener('dragover', function(e){ e.preventDefault(); dz.classList.add('drag-over'); });
   dz.addEventListener('dragleave', function(){ dz.classList.remove('drag-over'); });
   dz.addEventListener('drop', function(e){
@@ -169,9 +170,25 @@ document.addEventListener('keydown', function(e){
   }
 });
 
+/* ---------- Coller une capture (Ctrl+V / Cmd+V) directement dans la page ---------- */
+function sjInitPaste(){
+  document.addEventListener('paste', function(e){
+    var items = (e.clipboardData && e.clipboardData.items) || [];
+    var used = false;
+    for(var i = 0; i < items.length; i++){
+      if(items[i].type && items[i].type.indexOf('image/') === 0){
+        var file = items[i].getAsFile();
+        if(file){ sjReadImage(file); used = true; }
+      }
+    }
+    if(used) e.preventDefault(); // n'empêche le collage normal que si une image a été trouvée
+  });
+}
+
 /* ---------- Point d'entrée ---------- */
 function initSessionPage(){
   sjInitImages();
   sjInitReflect();
+  sjInitPaste();
 }
 window.addEventListener('DOMContentLoaded', initSessionPage);
