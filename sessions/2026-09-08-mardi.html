@@ -13,14 +13,15 @@
 
 <div class="sp-header">
   <h1 class="sp-title">Mardi 8 sept.</h1>
-  <span class="sp-pnl td-w">+1 686,00 $</span>
+  <span class="sp-pnl td-w">+2 529,00 $</span>
 </div>
-<div class="sp-meta">2 trades &nbsp;·&nbsp; 2 comptes reçus (001, 005) — comptes 002/004/006 non transmis</div>
+<div class="sp-meta">3 trades &nbsp;·&nbsp; 3 comptes (001, 002, 005) — TraderSyncer, comptes 004/006 non concernés</div>
 
 <div class="note-block">
-  Un seul trade par compte reçu (001 et 005), <strong>le même signal, à la seconde près</strong> — comme le 09/02, 09/03 et 09/04 avant l'interdiction du copy trading (règle 8). Il a gagné (+844,50 $ / +841,50 $), mais c'est la même mécanique qu'on a vue coûter −1 155,50 $ le 04/09 : une seule décision, dupliquée sur plusieurs comptes sans que ce soit délibéré.<br><br>
-<strong>Ce qui a marché, dans tes mots :</strong> attendre qu'un support soit venu chercher, laisser remonter un peu avant d'entrer plutôt que de sauter dessus tout de suite — exactement le short tenu 12 min qui a fait ce résultat. C'est la même logique de patience que le 01/09 (+715,50 $ sur une position tenue 43 min).<br><br>
-Autres comptes (002/004/006) non transmis pour cette séance.
+  <strong>TraderSyncer était de retour ce jour-là</strong> — le même short MNQ, à la seconde et au contrat près, sur <strong>3 comptes</strong> (001, 002, 005), pas 2 comme noté d'abord (le compte 002 manquait). Confirmé directement : la règle 8 ("jamais de copy trading, sans exception") n'a pas tenu.<br><br>
+Cette fois le trade a gagné sur les trois comptes (+844,50 $ / +843 $ / +841,50 $, total +2 529 $) — mais le 04/09, la même mécanique avait perdu −1 155,50 $ sur 4 comptes. <strong>Le résultat d'un jour ne dit rien sur si la pratique est justifiée</strong> : le risque réel ce jour-là était 3× plus élevé que ce que montre un seul compte, il se trouve juste que ça a été payant. Un échantillon de deux résultats (−1 155,50 $ puis +2 529 $) ne prouve rien dans un sens ou dans l'autre — le vrai test, c'est de refaire 20 fois ce trade sur un seul compte à la bonne taille, pas 3 fois la même décision.<br><br>
+<strong>Ce qui a marché</strong>, dans les mots de Sébastien (relecture du 07/09) : attendre qu'un support soit venu chercher, laisser remonter un peu avant d'entrer. C'est ce short-là, tenu 12 minutes.<br><br>
+Compte 006 non transmis pour cette séance ; 004 inactif ce jour selon les exports reçus.
 </div>
 
 <div class="section-title">📸 Captures d'écran</div>
@@ -47,6 +48,16 @@ Autres comptes (002/004/006) non transmis pour cette séance.
     </table>
   </div>
   <div class="acct-header">
+    <span class="acct-label">Compte 002 — …4680002</span>
+    <span class="acct-pnl td-w">+843,00 $</span>
+  </div>
+  <div class="tbl-wrap">
+    <table class="trades-table">
+      <thead><tr><th>#</th><th>Contrat</th><th>Sens</th><th>Qté</th><th>Entrée</th><th>Sortie</th><th>Heure</th><th>P&amp;L</th></tr></thead>
+      <tbody id="body-002"></tbody>
+    </table>
+  </div>
+  <div class="acct-header">
     <span class="acct-label">Compte 005 — …4680005</span>
     <span class="acct-pnl td-w">+841,50 $</span>
   </div>
@@ -58,8 +69,8 @@ Autres comptes (002/004/006) non transmis pour cette séance.
   </div>
 
   <div class="total-bar">
-    <span class="total-label">Total journée — 2 comptes</span>
-    <span class="total-val pos" style="color:var(--green)">+1 686,00 $</span>
+    <span class="total-label">Total journée — 3 comptes</span>
+    <span class="total-val pos" style="color:var(--green)">+2 529,00 $</span>
   </div>
 
 </div>
@@ -97,6 +108,9 @@ var ACCTS = {
   '001': [
     {n:1, contract:'MNQ', side:'Short', qty:'3', entry:'29620.50', exit:'29479.75', time:'15:32', pnl: 844.50}
   ],
+  '002': [
+    {n:1, contract:'MNQ', side:'Short', qty:'3', entry:'29620.25', exit:'29479.75', time:'15:32', pnl: 843.00}
+  ],
   '005': [
     {n:1, contract:'MNQ', side:'Short', qty:'3', entry:'29620.00', exit:'29479.75', time:'15:32', pnl: 841.50}
   ]
@@ -131,6 +145,7 @@ function renderAcct(acctId, bodyId){
 
 window.addEventListener('DOMContentLoaded', function(){
   renderAcct('001', 'body-001');
+  renderAcct('002', 'body-002');
   renderAcct('005', 'body-005');
 });
 </script>
