@@ -41,6 +41,15 @@ trade, relecture) — ne pas dupliquer ce CSS/JS dans le fichier de session.
   qu'elles remontent jusqu'à la session suivante et nourrissent le Brief
   séance. Sans ce copier-coller, Claude ne les voit jamais (localStorage
   n'est lisible que dans le navigateur de l'utilisateur).
+- Import CSV (bloc "📤 Importer un CSV") : calcule tout dans le navigateur
+  dès qu'un export Tradovate est déposé — compte détecté via
+  `SJ_ACCOUNT_PREFIXES` dans `session.js` (8 premiers chiffres du
+  `buyFillId`, mêmes plages que `csv/README.md`), P&L, dédoublonnage exact.
+  Le R:R ne peut pas être déduit du CSV (Tradovate n'exporte ni stop ni
+  objectif) — l'utilisateur les saisit dans les champs à côté de chaque
+  trade, le R:R se recalcule alors tout seul. **100% local au navigateur**,
+  ne modifie jamais `index.html`/la page de session tant que Claude n'a pas
+  relu et validé — ne pas considérer ce contenu comme publié.
 
 ## Avant de commiter/pousser
 

@@ -35,6 +35,15 @@ Compte 006 non transmis pour cette séance ; 004 inactif ce jour selon les expor
   <button class="clear-btn" onclick="sjClearScreenshots()">Effacer les captures</button>
 </div>
 
+<!-- Import CSV — calcul instantané dans le navigateur (compte, P&L, R:R si tu remplis stop/objectif) -->
+<div class="section-title">📤 Importer un CSV (aperçu local, non publié)</div>
+<div id="csv-zone" class="drop-zone">
+  <input type="file" id="csv-input" accept=".csv" multiple style="display:none">
+  <div style="font-size:16px">📄 <span style="font-size:12px;font-weight:600">Glisser un export Tradovate (.csv) ou cliquer</span></div>
+  <div class="drop-sub">Compte détecté automatiquement, P&L calculé, R:R dès que tu remplis stop/objectif — reste dans ton navigateur, ne modifie pas la page tant que ce n'est pas relu.</div>
+</div>
+<div id="csv-import-result"></div>
+
 <div id="trades-section">
 
   <div class="acct-header">

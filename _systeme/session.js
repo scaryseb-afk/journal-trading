@@ -185,10 +185,249 @@ function sjInitPaste(){
   });
 }
 
+/* ============================================================
+   Import CSV — calcule tout dans le navigateur dès qu'un export
+   Tradovate est déposé : compte (par plage d'ID de fill), sens,
+   entrée/sortie, P&L, dédoublonnage inter-comptes. Le R:R se calcule
+   dès que tu remplis le stop et l'objectif d'un trade (pas dans le
+   CSV — Tradovate n'exporte pas le stop prévu).
+   Reste 100% local à ce navigateur : rien n'est publié tout seul.
+   ============================================================ */
+var SJ_ACCOUNT_PREFIXES = {
+  '63005715': '001',
+  '63115902': '002',
+  '61958986': '004',
+  '62052092': '005',
+  '63088436': '006'
+};
+function sjKeyCsv(){ return 'csvimport_' + SESSION_KEY; }
+
+function sjGuessAccount(fillId){
+  var prefix = String(fillId).slice(0, 8);
+  return SJ_ACCOUNT_PREFIXES[prefix] || null;
+}
+
+/* Parseur CSV minimal — gère les champs entre guillemets avec virgule, suffisant pour un export Tradovate */
+function sjParseCsv(text){
+  var lines = text.replace(/\r\n/g, '\n').split('\n').filter(function(l){ return l.trim().length; });
+  if(!lines.length) return [];
+  function splitLine(line){
+    var out = [], cur = '', inQ = false;
+    for(var i = 0; i < line.length; i++){
+      var c = line[i];
+      if(c === '"'){ inQ = !inQ; }
+      else if(c === ',' && !inQ){ out.push(cur); cur = ''; }
+      else cur += c;
+    }
+    out.push(cur);
+    return out;
+  }
+  var headers = splitLine(lines[0]);
+  return lines.slice(1).map(function(line){
+    var cells = splitLine(line);
+    var row = {};
+    headers.forEach(function(h, i){ row[h] = cells[i]; });
+    return row;
+  });
+}
+
+function sjParsePnl(s){
+  if(!s) return 0;
+  s = s.replace(/\$/g, '').replace(/,/g, '').trim();
+  var neg = s.indexOf('(') === 0;
+  s = s.replace(/[()]/g, '');
+  var v = parseFloat(s) || 0;
+  return neg ? -v : v;
+}
+
+function sjParseTradovateDate(s){
+  // "09/08/2026 15:44:39" → Date
+  var m = /(\d\d)\/(\d\d)\/(\d{4})\s+(\d\d):(\d\d):(\d\d)/.exec(s || '');
+  if(!m) return null;
+  return new Date(+m[3], +m[1]-1, +m[2], +m[4], +m[5], +m[6]);
+}
+
+function sjShortSymbol(sym){
+  if(!sym) return sym;
+  if(sym.indexOf('MNQ') === 0) return 'MNQ';
+  if(sym.indexOf('MGC') === 0) return 'MGC';
+  if(sym.indexOf('MCL') === 0) return 'MCL';
+  if(sym.indexOf('CL') === 0)  return 'CL';
+  if(sym.indexOf('6E') === 0)  return '6E';
+  return sym;
+}
+
+function sjRowsToTrades(rows, fallbackAcct){
+  var seen = {}, trades = [];
+  rows.forEach(function(r){
+    if(!r.symbol) return;
+    var b = sjParseTradovateDate(r.boughtTimestamp);
+    var s = sjParseTradovateDate(r.soldTimestamp);
+    if(!b || !s) return;
+    var side, entryP, exitP, entryT;
+    if(b < s){ side = 'Long'; entryP = r.buyPrice; exitP = r.sellPrice; entryT = b; }
+    else     { side = 'Short'; entryP = r.sellPrice; exitP = r.buyPrice; entryT = s; }
+    var pnl = sjParsePnl(r.pnl);
+    var acct = sjGuessAccount(r.buyFillId) || fallbackAcct || '???';
+    var dupKey = acct + '|' + r.symbol + '|' + side + '|' + r.qty + '|' + entryP + '|' + exitP + '|' + entryT.getTime();
+    if(seen[dupKey]) return; // doublon d'export exact (même compte, même ligne)
+    seen[dupKey] = true;
+    trades.push({
+      acct: acct, symbol: sjShortSymbol(r.symbol), side: side, qty: r.qty,
+      entry: entryP, exit: exitP, time: entryT, pnl: pnl,
+      signalKey: r.symbol + '|' + r.boughtTimestamp + '|' + r.soldTimestamp
+    });
+  });
+  trades.sort(function(a, b){ return a.time - b.time; });
+  return trades;
+}
+
+function sjLoadCsvState(){ try{ return JSON.parse(localStorage.getItem(sjKeyCsv()) || '{}'); }catch(e){ return {}; } }
+function sjSaveCsvState(state){ try{ localStorage.setItem(sjKeyCsv(), JSON.stringify(state)); }catch(e){} }
+
+function sjFmtMoney(v){
+  var s = Math.abs(v).toLocaleString('fr-FR', {minimumFractionDigits:2, maximumFractionDigits:2});
+  return (v >= 0 ? '+' : '−') + s + ' $';
+}
+
+function sjRenderCsvImport(){
+  var host = document.getElementById('csv-import-result');
+  if(!host) return;
+  var state = sjLoadCsvState();
+  var trades = state.trades || [];
+  if(!trades.length){ host.innerHTML = ''; return; }
+  trades.forEach(function(t){ if(typeof t.time === 'string') t.time = new Date(t.time); }); // survit au round-trip JSON
+
+  // Dédoublonnage inter-comptes pour le décompte de "signaux" (mêmes trades copiés sur plusieurs comptes)
+  var bySignal = {};
+  trades.forEach(function(t){ (bySignal[t.signalKey] = bySignal[t.signalKey] || []).push(t); });
+  var uniqueSignals = Object.keys(bySignal).length;
+
+  var byAcct = {};
+  trades.forEach(function(t){ (byAcct[t.acct] = byAcct[t.acct] || []).push(t); });
+
+  var totalPnl = trades.reduce(function(a, t){ return a + t.pnl; }, 0);
+  var h = '<div class="kpis" style="margin-top:16px">'
+    + '<div class="kpi"><div class="lbl">Total (tous comptes)</div><div class="val ' + (totalPnl>=0?'pos':'neg') + '">' + sjFmtMoney(totalPnl) + '</div><div class="note">' + trades.length + ' lignes CSV</div></div>'
+    + '<div class="kpi"><div class="lbl">Comptes détectés</div><div class="val">' + Object.keys(byAcct).length + '</div><div class="note">' + Object.keys(byAcct).sort().join(', ') + '</div></div>'
+    + '<div class="kpi"><div class="lbl">Signaux uniques</div><div class="val">' + uniqueSignals + '</div><div class="note">' + (trades.length - uniqueSignals) + ' doublon(s) inter-comptes</div></div>'
+    + '</div>';
+
+  Object.keys(byAcct).sort().forEach(function(acct){
+    var accTrades = byAcct[acct];
+    var accTotal = accTrades.reduce(function(a, t){ return a + t.pnl; }, 0);
+    h += '<div class="acct-header" style="margin-top:24px">'
+      + '<span class="acct-label">' + (acct === '???' ? 'Compte non identifié' : 'Compte ' + acct) + '</span>'
+      + '<span class="acct-pnl ' + (accTotal>=0?'td-w':'td-l') + '">' + sjFmtMoney(accTotal) + '</span></div>';
+    h += '<div class="tbl-wrap"><table class="trades-table"><thead><tr>'
+      + '<th>#</th><th>Contrat</th><th>Sens</th><th>Qté</th><th>Entrée</th><th>Sortie</th><th>Heure</th><th>P&amp;L</th>'
+      + '<th>Stop</th><th>Objectif</th><th>R:R</th></tr></thead><tbody>';
+    accTrades.forEach(function(t, i){
+      var rid = acct + '_' + i;
+      var rr = sjComputeRR(t, state.rr && state.rr[rid]);
+      h += '<tr>'
+        + '<td>' + (i+1) + '</td>'
+        + '<td><strong>' + sjEsc(t.symbol) + '</strong></td>'
+        + '<td>' + sjEsc(t.side) + '</td>'
+        + '<td>' + sjEsc(t.qty) + '</td>'
+        + '<td>' + sjEsc(t.entry) + '</td>'
+        + '<td>' + sjEsc(t.exit) + '</td>'
+        + '<td style="color:var(--muted);font-size:12px">' + t.time.toTimeString().slice(0,5) + '</td>'
+        + '<td class="td-pnl ' + (t.pnl>=0?'td-w':'td-l') + '">' + (t.pnl>=0?'+':'') + t.pnl.toFixed(2) + ' $</td>'
+        + '<td><input type="text" inputmode="decimal" class="csv-rr-input" data-rid="' + rid + '" data-field="stop" value="' + (state.rr && state.rr[rid] && state.rr[rid].stop || '') + '" placeholder="—" style="width:64px"></td>'
+        + '<td><input type="text" inputmode="decimal" class="csv-rr-input" data-rid="' + rid + '" data-field="objectif" value="' + (state.rr && state.rr[rid] && state.rr[rid].objectif || '') + '" placeholder="—" style="width:64px"></td>'
+        + '<td class="csv-rr-out" data-rid="' + rid + '">' + rr + '</td>'
+        + '</tr>';
+    });
+    h += '</tbody></table></div>';
+  });
+
+  h += '<button class="clear-btn" style="margin-top:16px" onclick="sjClearCsvImport()">Effacer cet import</button>';
+  host.innerHTML = h;
+
+  host.querySelectorAll('.csv-rr-input').forEach(function(inp){
+    inp.addEventListener('input', function(){
+      var st = sjLoadCsvState();
+      st.rr = st.rr || {};
+      var rid = inp.getAttribute('data-rid');
+      st.rr[rid] = st.rr[rid] || {};
+      st.rr[rid][inp.getAttribute('data-field')] = inp.value;
+      sjSaveCsvState(st);
+      var t = sjFindTradeByRid(st, rid);
+      var out = host.querySelector('.csv-rr-out[data-rid="' + rid + '"]');
+      if(out && t) out.textContent = sjComputeRR(t, st.rr[rid]);
+    });
+  });
+}
+
+function sjFindTradeByRid(state, rid){
+  var parts = rid.split('_'); var acct = parts[0], idx = +parts[1];
+  var accTrades = (state.trades || []).filter(function(t){ return t.acct === acct; });
+  return accTrades[idx];
+}
+
+function sjComputeRR(t, rr){
+  if(!rr || !rr.stop || !rr.objectif) return '—';
+  var entry = parseFloat(t.entry), stop = parseFloat(rr.stop), obj = parseFloat(rr.objectif);
+  if(!isFinite(entry) || !isFinite(stop) || !isFinite(obj)) return '—';
+  var risk = Math.abs(entry - stop);
+  if(risk === 0) return '—';
+  var reward = Math.abs(obj - entry);
+  return (reward / risk).toFixed(2) + ':1';
+}
+
+function sjHandleCsvFile(file){
+  var reader = new FileReader();
+  reader.onload = function(e){
+    var rows = sjParseCsv(e.target.result);
+    var parsed = sjRowsToTrades(rows);
+    var state = sjLoadCsvState();
+    state.trades = (state.trades || []).concat(parsed);
+    // re-sort et re-dédoublonne l'ensemble (imports cumulés)
+    var seen = {}, merged = [];
+    state.trades.sort(function(a,b){ return new Date(a.time) - new Date(b.time); });
+    state.trades.forEach(function(t){
+      var k = t.acct + '|' + t.signalKey;
+      if(seen[k]) return;
+      seen[k] = true;
+      merged.push(t);
+    });
+    state.trades = merged;
+    sjSaveCsvState(state);
+    sjRenderCsvImport();
+  };
+  reader.readAsText(file);
+}
+
+function sjClearCsvImport(){
+  if(!confirm("Effacer les trades importés depuis un CSV sur cette page ?")) return;
+  try{ localStorage.removeItem(sjKeyCsv()); }catch(e){}
+  sjRenderCsvImport();
+}
+
+function sjInitCsvImport(){
+  var input = document.getElementById('csv-input');
+  var zone = document.getElementById('csv-zone');
+  if(!input || !zone) return;
+  zone.addEventListener('click', function(e){ if(e.target !== input) input.click(); });
+  zone.addEventListener('dragover', function(e){ e.preventDefault(); zone.classList.add('drag-over'); });
+  zone.addEventListener('dragleave', function(){ zone.classList.remove('drag-over'); });
+  zone.addEventListener('drop', function(e){
+    e.preventDefault(); zone.classList.remove('drag-over');
+    Array.from(e.dataTransfer.files).forEach(function(f){ if(/\.csv$/i.test(f.name)) sjHandleCsvFile(f); });
+  });
+  input.addEventListener('change', function(){
+    Array.from(input.files).forEach(sjHandleCsvFile);
+    input.value = '';
+  });
+  sjRenderCsvImport();
+}
+
 /* ---------- Point d'entrée ---------- */
 function initSessionPage(){
   sjInitImages();
   sjInitReflect();
   sjInitPaste();
+  sjInitCsvImport();
 }
 window.addEventListener('DOMContentLoaded', initSessionPage);
