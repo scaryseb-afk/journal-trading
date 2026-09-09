@@ -402,8 +402,8 @@ textarea::placeholder{color:#4A566A}
   </a>
 
   <div class="kpis kpis-top">
-    <div class="kpi"><div class="lbl">Sessions journalisées</div><div class="val">19</div><div class="note">du 13/08 au 8/09</div></div>
-    <div class="kpi"><div class="lbl">Cumul 5 comptes</div><div class="val pos">+2 372 $</div><div class="note">recalculé sur CSV réels · août −779 $ · sept +3 152 $</div></div>
+    <div class="kpi"><div class="lbl">Sessions journalisées</div><div class="val">20</div><div class="note">du 13/08 au 9/09</div></div>
+    <div class="kpi"><div class="lbl">Cumul 5 comptes</div><div class="val pos">+2 966 $</div><div class="note">recalculé sur CSV réels · août −779 $ · sept +3 746 $</div></div>
     <div class="kpi"><div class="lbl">Meilleure session</div><div class="val pos">+2 529 $</div><div class="note">08/09 — TraderSyncer, 3 comptes</div></div>
     <div class="kpi"><div class="lbl">Pire session</div><div class="val neg">−1 156 $</div><div class="note">04/09 — TraderSyncer, 4 comptes</div></div>
     <div class="kpi"><div class="lbl">Compte …002</div><div class="val pos">+1 155 $</div><div class="note">51 154,50 $ · repassé positif après le 08/09</div></div>
@@ -3001,15 +3001,15 @@ window.COMPTES = [
     statutLabel: "Évaluation",
     devise: "$",
     depart: 50000,
-    solde: 50626.50,
-    soldeDate: "08/09/2026",
+    solde: 51220.50,
+    soldeDate: "09/09/2026",
     seuil: 48000,
-    buffer: 2626.50,
+    buffer: 3220.50,
     reference: "LTE05085004680001",
     objectif: null,
     mll: 48000,
     maxContrats: null,
-    note: "Buffer : +2 626,50 $ — repassé au-dessus du seuil de départ. +893 $ le 07/09 (long CL, taille hors gabarit — voir brief) puis +844,50 $ le 08/09 (TraderSyncer).",
+    note: "Buffer : +3 220,50 $. +893 $ le 07/09 (long CL, taille hors gabarit — voir brief), +844,50 $ le 08/09 (TraderSyncer), +594 $ le 09/09 (short MNQ, 9 min).",
     aConfirmer: null
   },
   {
@@ -3270,6 +3270,7 @@ window.TRADES = [
 ];
 
 window.SESSIONS = [
+  { jour:"09/09", label:"Mercredi 9 sept.", fichier:"2026-09-09-mercredi.html", pnl:594.00, trades:1, gagnants:1, neutres:0, note:"Compte 001 seul reçu · un seul short MNQ tenu 9 min, +594 $ · autres comptes non transmis." },
   { jour:"08/09", label:"Mardi 8 sept.",    fichier:"2026-09-08-mardi.html",    pnl:2529.00, trades:3, gagnants:3, neutres:0, note:"TraderSyncer de retour : 001 +844,50 $ · 002 +843 $ · 005 +841,50 $, même short MNQ dupliqué sur 3 comptes malgré la règle 8. Gagnant cette fois — ne prouve rien après le −1 155,50 $ du 04/09." },
   { jour:"07/09", label:"Lundi 7 sept.",    fichier:"2026-09-07-lundi.html",    pnl:893.00, trades:4, gagnants:3, neutres:0, note:"Compte 001 seul reçu · long CL (taille standard, ≈10× un MCL) tenu 2h54 → +840 $ · autres comptes non transmis." },
   { jour:"04/09", label:"Vendredi 4 sept.", fichier:"2026-09-04-vendredi.html", pnl:-1155.50, trades:36, gagnants:8, neutres:0, note:"4 comptes × 9 trades MNQ · TraderSyncer — même erreur ×4 · 006 −290$ · 001 −290$ · 002 −281,50$ · 004 −294$ · Total −1 155,50$. Chômage + copy trading = règles 3 et 8 ajoutées." },
