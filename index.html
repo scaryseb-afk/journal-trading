@@ -3410,11 +3410,41 @@ window.SESSIONS = [
   }
 
   /* ---------- Comptes (lignes compactes) ---------- */
+  var COMPTES_SORT = 'gain';
+  try{ COMPTES_SORT = localStorage.getItem('journal-comptes-sort') || 'gain'; }catch(e){}
+
+  function sortedComptes(){
+    var arr = window.COMPTES.slice();
+    if(COMPTES_SORT === 'num'){
+      arr.sort(function(a,b){
+        var na = parseInt((a.ref||'').replace(/\D/g,''), 10) || 0;
+        var nb = parseInt((b.ref||'').replace(/\D/g,''), 10) || 0;
+        return na - nb;
+      });
+    } else {
+      arr.sort(function(a,b){
+        var ga = (a.solde !== null && a.depart !== null) ? a.solde - a.depart : -Infinity;
+        var gb = (b.solde !== null && b.depart !== null) ? b.solde - b.depart : -Infinity;
+        return gb - ga;
+      });
+    }
+    return arr;
+  }
+  function setComptesSort(mode){
+    COMPTES_SORT = mode;
+    try{ localStorage.setItem('journal-comptes-sort', mode); }catch(e){}
+    comptes();
+  }
+
   function comptes(){
     var host = document.getElementById('comptes');
     if(!host || !window.COMPTES) return;
-    var h = '<div class="acct-list">';
-    window.COMPTES.forEach(function(c){
+    var h = '<div class="sf-filters">'
+      + '<button class="sf-filter' + (COMPTES_SORT==='gain'?' active':'') + '" data-sort="gain">Par gain</button>'
+      + '<button class="sf-filter' + (COMPTES_SORT==='num'?' active':'') + '" data-sort="num">Par numéro</button>'
+      + '</div>';
+    h += '<div class="acct-list">';
+    sortedComptes().forEach(function(c){
       var badge, cls;
       if(c.statut === 'funded'){ badge = 'Financé'; cls = 'pos'; }
       else if(c.statut === 'evaluation'){ badge = c.statutLabel; cls = 'gold'; }
@@ -3473,6 +3503,9 @@ window.SESSIONS = [
     });
     h += '</div>';
     host.innerHTML = h;
+    host.querySelectorAll('.sf-filter').forEach(function(btn){
+      btn.addEventListener('click', function(){ setComptesSort(btn.dataset.sort); });
+    });
   }
 
   /* ---------- Risque / R:R ---------- */
