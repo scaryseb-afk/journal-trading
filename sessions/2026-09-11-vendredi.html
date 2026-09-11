@@ -13,15 +13,15 @@
 
 <div class="sp-header">
   <h1 class="sp-title">Vendredi 11 sept.</h1>
-  <span class="sp-pnl td-l">−248,50 $</span>
+  <span class="sp-pnl td-l">−275,50 $</span>
 </div>
-<div class="sp-meta">6 trades &nbsp;·&nbsp; 4 comptes (002, 005, 006, 006b) — 001 non transmis</div>
+<div class="sp-meta">14 trades &nbsp;·&nbsp; 4 comptes (002, 005, 006, 006b) — 001 non transmis</div>
 
 <div class="note-block">
-  <strong>−248,50 $ net</strong>, mais le détail compte plus que le total.<br><br>
-<strong>1. Copy trading encore une fois</strong> : le short MNQ de 16h04-16h10 sur 006 (−186 $) et sur 005 (−178,50 $) sont le même signal, entrée à un tick près (29391,00 / 29391,25). Même mécanique que le 04/09, 08/09 et 10/09.<br><br>
-<strong>2. Compte 002 — trois réentrées en moins d'une minute</strong> : 16h11:33 (−7,50 $), puis 16h11:50 (15 s après, −28,50 $), puis 16h12:26 (34 s après, −276 $, le plus gros de la journée). Trois tentatives sur le même signal en 53 secondes, chacune plus grosse que la précédente.<br><br>
-<strong>Seul point positif</strong> : le compte 006b (short CL du matin, +560 $) a porté toute la séance à lui seul — sans lui, la journée était à −808,50 $.
+  <strong>−275,50 $ net.</strong> Mais le vrai sujet du 11/09, c'est le compte 005 en fin d'après-midi.<br><br>
+<strong>Après le signal copié perdant de 16h04 (−178,50 $), le compte 005 a enchaîné 6 trades entre 17h26 et 18h04</strong> — deux gagnants qui ont limité la casse (+86 $, +35 $), puis quatre entrées rapprochées, certaines à moins d'une minute d'écart (17h36:40 → 17h37:23, 43 secondes), qui ont fini de creuser le compte (−13 $, −19,50 $, −94 $, −38 $).<br><br>
+<strong>Copy trading toujours présent</strong> : le short de 16h04 sur 005 (−178,50 $) et sur 006 (−186 $) sont le même signal, à un tick près.<br><br>
+<strong>Seul point positif</strong> : le compte 006b (short CL du matin, +560 $) a de nouveau porté toute la séance — sans lui, la journée était à −835,50 $.
 </div>
 
 <div class="section-title">📸 Captures d'écran</div>
@@ -57,7 +57,7 @@
   </div>
   <div class="acct-header">
     <span class="acct-label">Compte 005 — …4680005</span>
-    <span class="acct-pnl td-l">−178,50 $</span>
+    <span class="acct-pnl td-l">−205,50 $</span>
   </div>
   <div class="tbl-wrap">
     <table class="trades-table">
@@ -88,7 +88,7 @@
 
   <div class="total-bar">
     <span class="total-label">Total journée — 4 comptes</span>
-    <span class="total-val " style="color:var(--red)">−248,50 $</span>
+    <span class="total-val " style="color:var(--red)">−275,50 $</span>
   </div>
 
 </div>
@@ -129,7 +129,14 @@ var ACCTS = {
     {n:3, contract:'MNQ', side:'Short', qty:'3', entry:'29384.50', exit:'29430.50', time:'16:12', pnl: -276.00}
   ],
   '005': [
-    {n:1, contract:'MNQ', side:'Short', qty:'3', entry:'29391.25', exit:'29421.00', time:'16:04', pnl: -178.50}
+    {n:1, contract:'MNQ', side:'Short', qty:'3', entry:'29391.25', exit:'29421.00', time:'16:04', pnl: -178.50},
+    {n:2, contract:'MNQ', side:'Short', qty:'2', entry:'29488.50', exit:'29467.00', time:'17:26', pnl: 86.00},
+    {n:3, contract:'MNQ', side:'Short', qty:'1', entry:'29488.50', exit:'29471.00', time:'17:26', pnl: 35.00},
+    {n:4, contract:'MNQ', side:'Long', qty:'1', entry:'29474.75', exit:'29483.00', time:'17:35', pnl: 16.50},
+    {n:5, contract:'MNQ', side:'Long', qty:'1', entry:'29474.75', exit:'29468.25', time:'17:36', pnl: -13.00},
+    {n:6, contract:'MNQ', side:'Long', qty:'1', entry:'29478.00', exit:'29468.25', time:'17:37', pnl: -19.50},
+    {n:7, contract:'MNQ', side:'Short', qty:'4', entry:'29465.25', exit:'29477.00', time:'17:38', pnl: -94.00},
+    {n:8, contract:'MNQ', side:'Short', qty:'4', entry:'29470.00', exit:'29474.75', time:'17:40', pnl: -38.00}
   ],
   '006': [
     {n:1, contract:'MNQ', side:'Short', qty:'3', entry:'29407.50', exit:'29429.50', time:'15:39', pnl: -132.00},
