@@ -402,8 +402,8 @@ textarea::placeholder{color:#4A566A}
   </a>
 
   <div class="kpis kpis-top">
-    <div class="kpi"><div class="lbl">Sessions journalisées</div><div class="val">21</div><div class="note">du 13/08 au 10/09</div></div>
-    <div class="kpi"><div class="lbl">Cumul 4 comptes</div><div class="val pos">+1 563 $</div><div class="note">recalculé sur CSV réels · août −779 $ · sept +2 343 $ · hors compte 006b (nouveau)</div></div>
+    <div class="kpi"><div class="lbl">Sessions journalisées</div><div class="val">22</div><div class="note">du 13/08 au 11/09</div></div>
+    <div class="kpi"><div class="lbl">Cumul 4 comptes</div><div class="val pos">+2 123 $</div><div class="note">recalculé sur CSV réels · août −779 $ · sept +2 903 $ · inclut le 006b (numéro à confirmer)</div></div>
     <div class="kpi"><div class="lbl">Meilleure session</div><div class="val pos">+2 529 $</div><div class="note">08/09 — TraderSyncer, 3 comptes</div></div>
     <div class="kpi"><div class="lbl">Pire session</div><div class="val neg">−1 403 $</div><div class="note">10/09 — copy trading + réentrées + nouveau compte hors gabarit</div></div>
     <div class="kpi"><div class="lbl">Compte …002</div><div class="val pos">+927 $</div><div class="note">50 926,50 $ · −228 $ le 10/09 (copy trading avec 001)</div></div>
@@ -414,21 +414,21 @@ textarea::placeholder{color:#4A566A}
   <div class="kpis" style="margin-top:0;grid-template-columns:repeat(auto-fit,minmax(320px,1fr))">
     <div class="kpi">
       <div class="lbl">Objectif +12 000 $</div>
-      <div class="val pos">+1 563 $</div>
+      <div class="val pos">+2 123 $</div>
       <div class="ar-buf" style="margin:10px 0 4px">
-        <div class="ar-buf-label"><span>13,0 %</span><span>12 000 $</span></div>
-        <div class="ar-buf-track"><div class="ar-buf-fill safe" style="width:13.0%"></div></div>
+        <div class="ar-buf-label"><span>17,7 %</span><span>12 000 $</span></div>
+        <div class="ar-buf-track"><div class="ar-buf-fill safe" style="width:17.7%"></div></div>
       </div>
-      <div class="note">Reste 10 437 $ à faire, cumul 4 comptes depuis le 13/08</div>
+      <div class="note">Reste 9 877 $ à faire, cumul 4 comptes depuis le 13/08</div>
     </div>
     <div class="kpi">
       <div class="lbl">Drawdown max −8 000 $</div>
-      <div class="val neg">−584 $</div>
+      <div class="val neg">−24 $</div>
       <div class="ar-buf" style="margin:10px 0 4px">
-        <div class="ar-buf-label"><span>7,3 % de la limite</span><span>−8 000 $</span></div>
-        <div class="ar-buf-track"><div class="ar-buf-fill safe" style="width:7.3%"></div></div>
+        <div class="ar-buf-label"><span>0,3 % de la limite</span><span>−8 000 $</span></div>
+        <div class="ar-buf-track"><div class="ar-buf-fill safe" style="width:0.3%"></div></div>
       </div>
-      <div class="note">Depuis le repère du 10/09 (+2 147 $, clôture du compte 004) — première baisse : −584 $ le jour même, une fois les 4 CSV complets reçus</div>
+      <div class="note">Depuis le repère du 10/09 (+2 147 $) — le +560 $ du 006b le 11/09 a presque tout effacé</div>
     </div>
   </div>
 
@@ -3326,6 +3326,7 @@ window.TRADES = [
 ];
 
 window.SESSIONS = [
+  { jour:"11/09", label:"Vendredi 11 sept.", fichier:"2026-09-11-vendredi.html", pnl:560.00, trades:1, gagnants:1, neutres:0, note:"Compte 006b seul reçu · short CL tenu 1h40 · +560 $. Même remarque que le 07/09 : taille CL, pas MCL, hors gabarit habituel. Autres comptes non transmis." },
   { jour:"10/09", label:"Jeudi 10 sept.", fichier:"2026-09-10-jeudi.html", pnl:-1403.00, trades:17, gagnants:4, neutres:0, note:"Copy trading (001/002) · 006 : 3 entrées en 51 s sur position perdante · 005 : réentrée 7 s après clôture · nouveau compte « 006b » repris et tradé le jour même (MCL à 10 contrats). 004 clôturé." },
   { jour:"09/09", label:"Mercredi 9 sept.", fichier:"2026-09-09-mercredi.html", pnl:594.00, trades:1, gagnants:1, neutres:0, note:"Compte 001 seul reçu · un seul short MNQ tenu 9 min, +594 $ · autres comptes non transmis." },
   { jour:"08/09", label:"Mardi 8 sept.",    fichier:"2026-09-08-mardi.html",    pnl:2529.00, trades:3, gagnants:3, neutres:0, note:"TraderSyncer de retour : 001 +844,50 $ · 002 +843 $ · 005 +841,50 $, même short MNQ dupliqué sur 3 comptes malgré la règle 8. Gagnant cette fois — ne prouve rien après le −1 155,50 $ du 04/09." },
