@@ -13,12 +13,12 @@
 
 <div class="sp-header">
   <h1 class="sp-title">Vendredi 21 août</h1>
-  <span class="sp-pnl td-l">−1 141,50 $</span>
+  <span class="sp-pnl td-l">−1 255,50 $</span>
 </div>
-<div class="sp-meta">20 trades &nbsp;·&nbsp; 4 comptes</div>
+<div class="sp-meta">21 trades &nbsp;·&nbsp; 4 comptes</div>
 
 <div class="note-block">
-  Journée dispersée sur 4 comptes, −1 141,50 $ au total. Le plus marquant : sur le compte 005, une série sur le pétrole (MCL) a vu la taille grimper de <strong>6 à 11 contrats en 11 minutes</strong> (6 → 11 → 11 → 11), chaque ré-entrée arrivant en quelques secondes après la perte précédente — 4 trades pour −352 $. Même réflexe sur les comptes 001 et 006 (or), avec des ré-entrées à 12-13 secondes d'une perte. Seule ligne positive : le compte 002 a fini à +123 $ en laissant courir ses deux derniers longs (+165 $, +133 $) au lieu de couper vite.
+  Journée dispersée sur 4 comptes, −1 255,50 $ au total (corrigé : le compte 001 avait deux trades MGC identiques en apparence — même prix, même heure — pris pour un doublon d'export à tort ; ce sont deux positions distinctes, closes par le même ordre de vente). Le plus marquant : sur le compte 005, une série sur le pétrole (MCL) a vu la taille grimper de <strong>6 à 11 contrats en 11 minutes</strong> (6 → 11 → 11 → 11), chaque ré-entrée arrivant en quelques secondes après la perte précédente — 4 trades pour −352 $. Même réflexe sur les comptes 001 et 006 (or), avec des ré-entrées à 12-13 secondes d'une perte. Seule ligne positive : le compte 002 a fini à +123 $ en laissant courir ses deux derniers longs (+165 $, +133 $) au lieu de couper vite.
 </div>
 
 <div class="section-title">📸 Captures d'écran</div>
@@ -45,7 +45,7 @@
 
   <div class="acct-header">
     <span class="acct-label">Compte 001 — …4680001</span>
-    <span class="acct-pnl td-l">−393,00 $</span>
+    <span class="acct-pnl td-l">−507,00 $</span>
   </div>
   <div class="tbl-wrap">
     <table class="trades-table">
@@ -86,7 +86,7 @@
 
   <div class="total-bar">
     <span class="total-label">Total journée — 4 comptes</span>
-    <span class="total-val " style="color:var(--red)">−1 141,50 $</span>
+    <span class="total-val " style="color:var(--red)">−1 255,50 $</span>
   </div>
 
 </div>
@@ -123,10 +123,11 @@ var SESSION_KEY = '2026_08_21_vendredi';
 var ACCTS = {
   '001': [
     {n:1, contract:'MGC', side:'Short', qty:'1', entry:'4594.1', exit:'4605.5', time:'07:04', pnl: -114.00},
-    {n:2, contract:'MGC', side:'Short', qty:'2', entry:'4602.4', exit:'4609.1', time:'08:11', pnl: -134.00},
-    {n:3, contract:'MGC', side:'Long', qty:'4', entry:'4608.8', exit:'4611.4', time:'08:15', pnl: 104.00},
-    {n:4, contract:'MCL', side:'Long', qty:'4', entry:'86.35', exit:'86.13', time:'08:26', pnl: -88.00},
-    {n:5, contract:'MCL', side:'Long', qty:'7', entry:'86.35', exit:'86.12', time:'08:26', pnl: -161.00}
+    {n:2, contract:'MGC', side:'Short', qty:'1', entry:'4594.1', exit:'4605.5', time:'07:04', pnl: -114.00},
+    {n:3, contract:'MGC', side:'Short', qty:'2', entry:'4602.4', exit:'4609.1', time:'08:11', pnl: -134.00},
+    {n:4, contract:'MGC', side:'Long', qty:'4', entry:'4608.8', exit:'4611.4', time:'08:15', pnl: 104.00},
+    {n:5, contract:'MCL', side:'Long', qty:'4', entry:'86.35', exit:'86.13', time:'08:26', pnl: -88.00},
+    {n:6, contract:'MCL', side:'Long', qty:'7', entry:'86.35', exit:'86.12', time:'08:26', pnl: -161.00}
   ],
   '002': [
     {n:1, contract:'MNQ', side:'Short', qty:'2', entry:'29334.00', exit:'29330.00', time:'15:51', pnl: 16.00},

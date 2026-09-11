@@ -13,13 +13,15 @@
 
 <div class="sp-header">
   <h1 class="sp-title">Vendredi 11 sept.</h1>
-  <span class="sp-pnl td-w">+560,00 $</span>
+  <span class="sp-pnl td-l">−248,50 $</span>
 </div>
-<div class="sp-meta">1 trade &nbsp;·&nbsp; 1 compte reçu (006b) — autres comptes non transmis</div>
+<div class="sp-meta">6 trades &nbsp;·&nbsp; 4 comptes (002, 005, 006, 006b) — 001 non transmis</div>
 
 <div class="note-block">
-  Compte 006b seul reçu (numéro Tradovate complet toujours à confirmer). Un seul trade : short CL (pétrole taille standard, pas MCL) tenu 1 h 40, +560 $. Même schéma gagnant que le 01/09 et le 07/09 — peu de trades, tenus longtemps.<br><br>
-<strong>Même remarque que le 07/09</strong> : c'est encore un contrat CL, pas MCL — la taille réelle engagée (≈10 MCL en risque) dépasse largement le plafond habituel de 4 contrats, même si un seul contrat est affiché. Le trade a gagné, ce qui ne rend pas la taille moins hors gabarit. Autres comptes (001, 002, 005, 006) non transmis pour cette séance.
+  <strong>−248,50 $ net</strong>, mais le détail compte plus que le total.<br><br>
+<strong>1. Copy trading encore une fois</strong> : le short MNQ de 16h04-16h10 sur 006 (−186 $) et sur 005 (−178,50 $) sont le même signal, entrée à un tick près (29391,00 / 29391,25). Même mécanique que le 04/09, 08/09 et 10/09.<br><br>
+<strong>2. Compte 002 — trois réentrées en moins d'une minute</strong> : 16h11:33 (−7,50 $), puis 16h11:50 (15 s après, −28,50 $), puis 16h12:26 (34 s après, −276 $, le plus gros de la journée). Trois tentatives sur le même signal en 53 secondes, chacune plus grosse que la précédente.<br><br>
+<strong>Seul point positif</strong> : le compte 006b (short CL du matin, +560 $) a porté toute la séance à lui seul — sans lui, la journée était à −808,50 $.
 </div>
 
 <div class="section-title">📸 Captures d'écran</div>
@@ -44,6 +46,36 @@
 <div id="trades-section">
 
   <div class="acct-header">
+    <span class="acct-label">Compte 002 — …4680002</span>
+    <span class="acct-pnl td-l">−312,00 $</span>
+  </div>
+  <div class="tbl-wrap">
+    <table class="trades-table">
+      <thead><tr><th>#</th><th>Contrat</th><th>Sens</th><th>Qté</th><th>Entrée</th><th>Sortie</th><th>Heure</th><th>P&amp;L</th></tr></thead>
+      <tbody id="body-002"></tbody>
+    </table>
+  </div>
+  <div class="acct-header">
+    <span class="acct-label">Compte 005 — …4680005</span>
+    <span class="acct-pnl td-l">−178,50 $</span>
+  </div>
+  <div class="tbl-wrap">
+    <table class="trades-table">
+      <thead><tr><th>#</th><th>Contrat</th><th>Sens</th><th>Qté</th><th>Entrée</th><th>Sortie</th><th>Heure</th><th>P&amp;L</th></tr></thead>
+      <tbody id="body-005"></tbody>
+    </table>
+  </div>
+  <div class="acct-header">
+    <span class="acct-label">Compte 006 — …4680006</span>
+    <span class="acct-pnl td-l">−318,00 $</span>
+  </div>
+  <div class="tbl-wrap">
+    <table class="trades-table">
+      <thead><tr><th>#</th><th>Contrat</th><th>Sens</th><th>Qté</th><th>Entrée</th><th>Sortie</th><th>Heure</th><th>P&amp;L</th></tr></thead>
+      <tbody id="body-006"></tbody>
+    </table>
+  </div>
+  <div class="acct-header">
     <span class="acct-label">Compte 006b — …???? (à confirmer)</span>
     <span class="acct-pnl td-w">+560,00 $</span>
   </div>
@@ -55,8 +87,8 @@
   </div>
 
   <div class="total-bar">
-    <span class="total-label">Total journée — 1 compte</span>
-    <span class="total-val pos" style="color:var(--green)">+560,00 $</span>
+    <span class="total-label">Total journée — 4 comptes</span>
+    <span class="total-val " style="color:var(--red)">−248,50 $</span>
   </div>
 
 </div>
@@ -91,6 +123,18 @@
 var SESSION_KEY = '2026_09_11_vendredi';
 
 var ACCTS = {
+  '002': [
+    {n:1, contract:'MNQ', side:'Short', qty:'3', entry:'29392.50', exit:'29393.75', time:'16:11', pnl: -7.50},
+    {n:2, contract:'MNQ', side:'Short', qty:'3', entry:'29391.75', exit:'29396.50', time:'16:11', pnl: -28.50},
+    {n:3, contract:'MNQ', side:'Short', qty:'3', entry:'29384.50', exit:'29430.50', time:'16:12', pnl: -276.00}
+  ],
+  '005': [
+    {n:1, contract:'MNQ', side:'Short', qty:'3', entry:'29391.25', exit:'29421.00', time:'16:04', pnl: -178.50}
+  ],
+  '006': [
+    {n:1, contract:'MNQ', side:'Short', qty:'3', entry:'29407.50', exit:'29429.50', time:'15:39', pnl: -132.00},
+    {n:2, contract:'MNQ', side:'Short', qty:'3', entry:'29391.00', exit:'29422.00', time:'16:04', pnl: -186.00}
+  ],
   '006b': [
     {n:1, contract:'CL', side:'Short', qty:'1', entry:'101.23', exit:'100.67', time:'07:37', pnl: 560.00}
   ]
@@ -124,6 +168,9 @@ function renderAcct(acctId, bodyId){
 }
 
 window.addEventListener('DOMContentLoaded', function(){
+  renderAcct('002', 'body-002');
+  renderAcct('005', 'body-005');
+  renderAcct('006', 'body-006');
   renderAcct('006b', 'body-006b');
 });
 </script>
