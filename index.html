@@ -561,6 +561,15 @@ textarea::placeholder{color:#4A566A}
   <h1>Ta prochaine séance</h1>
   <p class="sub">Ce qu'il faut faire, ce qu'il ne faut pas faire. Construit uniquement à partir de tes journaux.</p>
 
+  <h2 style="margin-top:40px">🚨 Le calcul qui tue</h2>
+  <div class="obs warn">
+    <div class="t">« Je place un stop à −300, mais je crame les 5, ça fait −1 500 »</div>
+    <div class="d">Ça veut dire : ton stop −300 $ est calculé pour 2-3 contrats, mais tu entres avec 5. Résultat :<br><br>
+    <code>Stop −300 ÷ 5 contrats = −60 $/contrat = 120 ticks (trop serré)</code><br>
+    <code>Stop −300 ÷ 2 contrats = −150 $/contrat = 300 ticks (bon)</code><br><br>
+    À chaque trade, un stop trop serré te sort trop tôt → plus de stop-loss → frustration → revenge → tu rentres 5 au lieu de 2 → −1 500. <strong>Ce n'est pas un problème de psycho, c'est un bug d'exécution.</strong></div>
+  </div>
+
   <h2 style="margin-top:40px">✅ Les bons ratios</h2>
   <div class="rules">
     <div class="r">
