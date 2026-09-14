@@ -15,14 +15,14 @@
   <h1 class="sp-title">Jeudi 10 sept.</h1>
   <span class="sp-pnl td-l">−1 403,00 $</span>
 </div>
-<div class="sp-meta">17 trades &nbsp;·&nbsp; 5 comptes (001, 002, 005, 006, 006b — nouveau) — 004 clôturé</div>
+<div class="sp-meta">17 trades &nbsp;·&nbsp; 5 comptes (001, 002, 005, 006, 003 — nouveau) — 004 clôturé</div>
 
 <div class="note-block">
   <strong>−1 403 $ sur 5 comptes — journée catastrophe, avec un nouveau compte repris en cours de route.</strong><br><br>
 <strong>1. Copy trading toujours présent</strong> (001/002, 15h36 et 15h56, déjà signalé).<br><br>
 <strong>2. Compte 006 — 3 entrées en 51 secondes sur une position perdante</strong> (déjà signalé).<br><br>
 <strong>3. Compte 005 — deux trades supplémentaires en fin d'après-midi, encore perdants</strong> : short MNQ −292 $ à 16h29, puis un long ouvert 7 secondes après sa clôture (−26 $). Même réflexe de réentrée immédiate que 001/006 plus tôt dans la journée.<br><br>
-<strong>4. Un nouveau compte ("006b", numéro à confirmer) repris et tradé le jour même</strong> : 6 trades, dont des <strong>MCL à 10 contrats</strong> — largement au-dessus de la règle des 4 contrats, sur un compte tout juste récupéré. −266 $ au total, sauvé en partie par un dernier trade à +400 $. Aucune règle de taille appliquée dès le premier jour.
+<strong>4. Un nouveau compte ("003", numéro à confirmer) repris et tradé le jour même</strong> : 6 trades, dont des <strong>MCL à 10 contrats</strong> — largement au-dessus de la règle des 4 contrats, sur un compte tout juste récupéré. −266 $ au total, sauvé en partie par un dernier trade à +400 $. Aucune règle de taille appliquée dès le premier jour.
 </div>
 
 <div class="section-title">📸 Captures d'écran</div>
@@ -87,13 +87,13 @@
     </table>
   </div>
   <div class="acct-header">
-    <span class="acct-label">Compte 006b — …???? (à confirmer)</span>
+    <span class="acct-label">Compte 003 — …4680003</span>
     <span class="acct-pnl td-l">−266,00 $</span>
   </div>
   <div class="tbl-wrap">
     <table class="trades-table">
       <thead><tr><th>#</th><th>Contrat</th><th>Sens</th><th>Qté</th><th>Entrée</th><th>Sortie</th><th>Heure</th><th>P&amp;L</th></tr></thead>
-      <tbody id="body-006b"></tbody>
+      <tbody id="body-003"></tbody>
     </table>
   </div>
 
@@ -157,7 +157,7 @@ var ACCTS = {
     {n:3, contract:'MNQ', side:'Long', qty:'2', entry:'29148.75', exit:'29131.75', time:'16:01', pnl: -68.00},
     {n:4, contract:'MNQ', side:'Long', qty:'2', entry:'29164.25', exit:'29131.75', time:'16:02', pnl: -130.00}
   ],
-  '006b': [
+  '003': [
     {n:1, contract:'MNQ', side:'Short', qty:'2', entry:'29245.75', exit:'29216.50', time:'16:57', pnl: -117.00},
     {n:2, contract:'MNQ', side:'Short', qty:'2', entry:'29215.75', exit:'29241.75', time:'17:02', pnl: -104.00},
     {n:3, contract:'MCL', side:'Short', qty:'10', entry:'100.30', exit:'100.42', time:'17:23', pnl: -120.00},
@@ -199,7 +199,7 @@ window.addEventListener('DOMContentLoaded', function(){
   renderAcct('002', 'body-002');
   renderAcct('005', 'body-005');
   renderAcct('006', 'body-006');
-  renderAcct('006b', 'body-006b');
+  renderAcct('003', 'body-003');
 });
 </script>
 <script src="../_systeme/session.js"></script>

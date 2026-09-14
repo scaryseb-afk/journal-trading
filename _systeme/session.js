@@ -198,7 +198,8 @@ var SJ_ACCOUNT_PREFIXES = {
   '63115902': '002',
   '61958986': '004',
   '62052092': '005',
-  '63088436': '006'
+  '63088436': '006',
+  '65595938': '003'
 };
 function sjKeyCsv(){ return 'csvimport_' + SESSION_KEY; }
 

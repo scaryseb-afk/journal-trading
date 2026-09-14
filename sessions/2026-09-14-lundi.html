@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Vendredi 11 sept. — Journal</title>
+<title>Lundi 14 sept. — Journal</title>
 <link rel="stylesheet" href="../_systeme/style.css">
 </head>
 <body>
@@ -12,16 +12,15 @@
 <a href="https://scaryseb-afk.github.io/journal-trading/#sessions" onclick="if(document.referrer){history.back();return false;}" class="sp-back">← Journal</a>
 
 <div class="sp-header">
-  <h1 class="sp-title">Vendredi 11 sept.</h1>
-  <span class="sp-pnl td-l">−275,50 $</span>
+  <h1 class="sp-title">Lundi 14 sept.</h1>
+  <span class="sp-pnl td-l">−1 521,00 $</span>
 </div>
-<div class="sp-meta">14 trades &nbsp;·&nbsp; 4 comptes (002, 005, 006, 003) — 001 non transmis</div>
+<div class="sp-meta">15 trades &nbsp;·&nbsp; 5 comptes (001, 002, 005, 006, 003)</div>
 
 <div class="note-block">
-  <strong>−275,50 $ net.</strong> Mais le vrai sujet du 11/09, c'est le compte 005 en fin d'après-midi.<br><br>
-<strong>Après le signal copié perdant de 16h04 (−178,50 $), le compte 005 a enchaîné 6 trades entre 17h26 et 18h04</strong> — deux gagnants qui ont limité la casse (+86 $, +35 $), puis quatre entrées rapprochées, certaines à moins d'une minute d'écart (17h36:40 → 17h37:23, 43 secondes), qui ont fini de creuser le compte (−13 $, −19,50 $, −94 $, −38 $).<br><br>
-<strong>Copy trading toujours présent</strong> : le short de 16h04 sur 005 (−178,50 $) et sur 006 (−186 $) sont le même signal, à un tick près.<br><br>
-<strong>Seul point positif</strong> : le compte 003 (short CL du matin, +560 $) a de nouveau porté toute la séance — sans lui, la journée était à −835,50 $.
+  <strong>−1 521 $ sur 5 comptes — tous perdants, aucun copy trading évident cette fois (les 5 comptes ont tradé à des horaires différents), juste une journée uniformément mauvaise.</strong><br><br>
+<strong>Point d'attention répété</strong> : sur 006 (15h40) et sur 003 (les 4 trades de l'après-midi), c'est du <strong>GC — gold taille standard, pas MGC micro</strong>. Même remarque que pour le CL sur 003 début septembre : la taille réelle engagée dépasse largement le plafond habituel, même affichée en "1 contrat". C'est la première fois que le compte 006 (pas seulement 003) prend du full-size.<br><br>
+15 trades au total — 005 a pris 3 positions en 8 minutes (16h39-16h47), la dernière quasi neutre (−7,50 $) sur un aller-retour à la même seconde bought/sold.
 </div>
 
 <div class="section-title">📸 Captures d'écran</div>
@@ -46,8 +45,18 @@
 <div id="trades-section">
 
   <div class="acct-header">
+    <span class="acct-label">Compte 001 — …4680001</span>
+    <span class="acct-pnl td-l">−319,00 $</span>
+  </div>
+  <div class="tbl-wrap">
+    <table class="trades-table">
+      <thead><tr><th>#</th><th>Contrat</th><th>Sens</th><th>Qté</th><th>Entrée</th><th>Sortie</th><th>Heure</th><th>P&amp;L</th></tr></thead>
+      <tbody id="body-001"></tbody>
+    </table>
+  </div>
+  <div class="acct-header">
     <span class="acct-label">Compte 002 — …4680002</span>
-    <span class="acct-pnl td-l">−312,00 $</span>
+    <span class="acct-pnl td-l">−292,00 $</span>
   </div>
   <div class="tbl-wrap">
     <table class="trades-table">
@@ -57,7 +66,7 @@
   </div>
   <div class="acct-header">
     <span class="acct-label">Compte 005 — …4680005</span>
-    <span class="acct-pnl td-l">−205,50 $</span>
+    <span class="acct-pnl td-l">−300,00 $</span>
   </div>
   <div class="tbl-wrap">
     <table class="trades-table">
@@ -67,7 +76,7 @@
   </div>
   <div class="acct-header">
     <span class="acct-label">Compte 006 — …4680006</span>
-    <span class="acct-pnl td-l">−318,00 $</span>
+    <span class="acct-pnl td-l">−310,00 $</span>
   </div>
   <div class="tbl-wrap">
     <table class="trades-table">
@@ -77,7 +86,7 @@
   </div>
   <div class="acct-header">
     <span class="acct-label">Compte 003 — …4680003</span>
-    <span class="acct-pnl td-w">+560,00 $</span>
+    <span class="acct-pnl td-l">−300,00 $</span>
   </div>
   <div class="tbl-wrap">
     <table class="trades-table">
@@ -87,8 +96,8 @@
   </div>
 
   <div class="total-bar">
-    <span class="total-label">Total journée — 4 comptes</span>
-    <span class="total-val " style="color:var(--red)">−275,50 $</span>
+    <span class="total-label">Total journée — 5 comptes</span>
+    <span class="total-val " style="color:var(--red)">−1 521,00 $</span>
   </div>
 
 </div>
@@ -120,30 +129,33 @@
 </div>
 
 <script>
-var SESSION_KEY = '2026_09_11_vendredi';
+var SESSION_KEY = '2026_09_14_lundi';
 
 var ACCTS = {
+  '001': [
+    {n:1, contract:'MNQ', side:'Long', qty:'2', entry:'29008.00', exit:'28979.75', time:'16:48', pnl: -113.00},
+    {n:2, contract:'MNQ', side:'Short', qty:'2', entry:'28982.00', exit:'29033.50', time:'16:53', pnl: -206.00}
+  ],
   '002': [
-    {n:1, contract:'MNQ', side:'Short', qty:'3', entry:'29392.50', exit:'29393.75', time:'16:11', pnl: -7.50},
-    {n:2, contract:'MNQ', side:'Short', qty:'3', entry:'29391.75', exit:'29396.50', time:'16:11', pnl: -28.50},
-    {n:3, contract:'MNQ', side:'Short', qty:'3', entry:'29384.50', exit:'29430.50', time:'16:12', pnl: -276.00}
+    {n:1, contract:'MGC', side:'Long', qty:'3', entry:'4314.4', exit:'4315.0', time:'15:46', pnl: 18.00},
+    {n:2, contract:'MGC', side:'Short', qty:'3', entry:'4312.7', exit:'4322.1', time:'15:54', pnl: -282.00},
+    {n:3, contract:'MCL', side:'Long', qty:'2', entry:'104.09', exit:'103.95', time:'16:20', pnl: -28.00}
   ],
   '005': [
-    {n:1, contract:'MNQ', side:'Short', qty:'3', entry:'29391.25', exit:'29421.00', time:'16:04', pnl: -178.50},
-    {n:2, contract:'MNQ', side:'Short', qty:'2', entry:'29488.50', exit:'29467.00', time:'17:26', pnl: 86.00},
-    {n:3, contract:'MNQ', side:'Short', qty:'1', entry:'29488.50', exit:'29471.00', time:'17:26', pnl: 35.00},
-    {n:4, contract:'MNQ', side:'Long', qty:'1', entry:'29474.75', exit:'29483.00', time:'17:35', pnl: 16.50},
-    {n:5, contract:'MNQ', side:'Long', qty:'1', entry:'29474.75', exit:'29468.25', time:'17:36', pnl: -13.00},
-    {n:6, contract:'MNQ', side:'Long', qty:'1', entry:'29478.00', exit:'29468.25', time:'17:37', pnl: -19.50},
-    {n:7, contract:'MNQ', side:'Short', qty:'4', entry:'29465.25', exit:'29477.00', time:'17:38', pnl: -94.00},
-    {n:8, contract:'MNQ', side:'Short', qty:'4', entry:'29470.00', exit:'29474.75', time:'17:40', pnl: -38.00}
+    {n:1, contract:'MNQ', side:'Short', qty:'3', entry:'28965.75', exit:'29006.00', time:'16:39', pnl: -241.50},
+    {n:2, contract:'MNQ', side:'Long', qty:'3', entry:'29007.50', exit:'28999.00', time:'16:45', pnl: -51.00},
+    {n:3, contract:'MNQ', side:'Long', qty:'3', entry:'28993.75', exit:'28992.50', time:'16:47', pnl: -7.50}
   ],
   '006': [
-    {n:1, contract:'MNQ', side:'Short', qty:'3', entry:'29407.50', exit:'29429.50', time:'15:39', pnl: -132.00},
-    {n:2, contract:'MNQ', side:'Short', qty:'3', entry:'29391.00', exit:'29422.00', time:'16:04', pnl: -186.00}
+    {n:1, contract:'MGC', side:'Short', qty:'2', entry:'4314.2', exit:'4313.9', time:'14:52', pnl: 6.00},
+    {n:2, contract:'MGC', side:'Long', qty:'2', entry:'4313.2', exit:'4309.4', time:'15:21', pnl: -76.00},
+    {n:3, contract:'GC', side:'Short', qty:'1', entry:'4309.5', exit:'4311.9', time:'15:40', pnl: -240.00}
   ],
   '003': [
-    {n:1, contract:'CL', side:'Short', qty:'1', entry:'101.23', exit:'100.67', time:'07:37', pnl: 560.00}
+    {n:1, contract:'GC', side:'Short', qty:'1', entry:'4328.1', exit:'4327.9', time:'13:54', pnl: 20.00},
+    {n:2, contract:'GC', side:'Short', qty:'1', entry:'4326.0', exit:'4328.6', time:'14:04', pnl: -260.00},
+    {n:3, contract:'GC', side:'Long', qty:'1', entry:'4331.9', exit:'4332.1', time:'14:08', pnl: 20.00},
+    {n:4, contract:'GC', side:'Short', qty:'1', entry:'4326.9', exit:'4327.7', time:'14:21', pnl: -80.00}
   ]
 };
 
@@ -175,6 +187,7 @@ function renderAcct(acctId, bodyId){
 }
 
 window.addEventListener('DOMContentLoaded', function(){
+  renderAcct('001', 'body-001');
   renderAcct('002', 'body-002');
   renderAcct('005', 'body-005');
   renderAcct('006', 'body-006');

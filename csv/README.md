@@ -23,6 +23,7 @@ explicite :
 | 004 | 619589860xxx |
 | 005 | 620520920xxx – 620520921xxx |
 | 006 | 630884360xxx – 630884361xxx |
+| 003 | 655959380xxx (numéro complet confirmé le 14/09 — anciennement noté « 006b » en attente) |
 
 ## Règle pour toute session Claude qui traite un CSV envoyé par l'utilisateur
 
