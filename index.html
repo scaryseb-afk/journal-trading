@@ -178,6 +178,15 @@ textarea::placeholder{color:#4A566A}
 .sf-filter.active{background:var(--blue);border-color:var(--blue);color:#fff}
 .sf-filter.active.win{background:var(--green);border-color:var(--green)}
 .sf-filter.active.lose{background:var(--red);border-color:var(--red)}
+/* sub-navigation within dashboard/brief views */
+.subnav{display:flex;gap:6px;flex-wrap:wrap;margin:20px 0 8px;padding-bottom:14px;border-bottom:1px solid var(--line)}
+.sn-btn{border:1px solid var(--line);background:var(--panel);color:var(--muted);
+  border-radius:8px;padding:8px 14px;font:inherit;font-size:13px;font-weight:650;
+  cursor:pointer;transition:.12s}
+.sn-btn:hover{border-color:var(--blue);color:var(--txt)}
+.sn-btn.active{background:var(--blue);border-color:var(--blue);color:#fff}
+.subview{display:none}
+.subview.active{display:block}
 /* session badge today/tomorrow */
 .sr-badge{display:inline-block;padding:2px 8px;border-radius:4px;font-size:10px;
   font-weight:700;letter-spacing:.07em;text-transform:uppercase;margin-left:6px;vertical-align:middle}
@@ -194,7 +203,7 @@ textarea::placeholder{color:#4A566A}
 .sf-mh-name{color:var(--muted);font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;white-space:nowrap}
 .sf-mh-sum{font-size:12px;font-weight:700;white-space:nowrap}
 .sf-mh-line{flex:1;height:1px;background:var(--line)}
-.sr{display:grid;grid-template-columns:140px 80px 52px 1fr;gap:0 16px;align-items:center;
+.sr{display:grid;grid-template-columns:140px 80px 46px 96px 1fr;gap:0 14px;align-items:center;
   background:var(--panel);border:1px solid var(--line);border-left:3px solid var(--dim);
   border-radius:8px;padding:10px 16px;transition:.1s;color:var(--txt);text-decoration:none}
 .sr:hover{border-color:var(--blue);background:var(--panel2)}
@@ -202,12 +211,14 @@ textarea::placeholder{color:#4A566A}
 .sr.lose{border-left-color:var(--red)}
 .sr.flat{border-left-color:var(--dim)}
 .sr.pending{opacity:.5;border-left-style:dashed}
-.sr-date{font-size:13.5px;font-weight:600;color:var(--txt)}
+.sr-date{font-size:13.5px;font-weight:600;color:var(--txt);display:flex;align-items:center;gap:5px}
+.sr-img{font-size:12px;opacity:.7}
 .sr-pnl{font-size:14px;font-weight:700;font-variant-numeric:tabular-nums;text-align:right;white-space:nowrap}
+.sr-trades{font-size:12px;color:var(--dim);text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
 .sr-wr{font-size:12px;color:var(--dim);text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
 .sr-note{color:var(--muted);font-size:12.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0}
 @media(max-width:700px){
-  .sr{grid-template-columns:110px 72px 44px}
+  .sr{grid-template-columns:110px 64px 40px 60px}
   .sr-note{display:none}
 }
 /* keep legacy .s/.sessions for any remaining refs */
@@ -409,6 +420,15 @@ textarea::placeholder{color:#4A566A}
     <div class="kpi"><div class="lbl">Compte …005</div><div class="val neg">🔴 +214 $</div><div class="note">48 214,00 $ · buffer critique avant le seuil de 48 000 $</div></div>
   </div>
 
+  <div class="subnav" id="dash-subnav">
+    <button class="sn-btn active" data-sub="overview">Vue d'ensemble</button>
+    <button class="sn-btn" data-sub="comptes">Comptes &amp; Analyse</button>
+    <button class="sn-btn" data-sub="risque">Risque &amp; R:R</button>
+    <button class="sn-btn" data-sub="sessions">Sessions</button>
+    <button class="sn-btn" data-sub="bilan">Bilan &amp; Règles</button>
+  </div>
+
+  <div class="subview active" data-subview="overview">
   <h2>Objectif &amp; Risque</h2>
   <p class="sub">Recalculés sur les CSV bruts des 4 comptes actifs à chaque mise à jour.</p>
   <div class="kpis" style="margin-top:0;grid-template-columns:repeat(auto-fit,minmax(320px,1fr))">
@@ -432,6 +452,9 @@ textarea::placeholder{color:#4A566A}
     </div>
   </div>
 
+  </div>
+
+  <div class="subview" data-subview="comptes">
   <h2>Données &amp; Analyse</h2>
   <div id="analyse-section"></div>
 
@@ -440,13 +463,21 @@ textarea::placeholder{color:#4A566A}
   Les relevés de comptes et d'exécutions se font toujours depuis le Mac (boutons dédiés) — cette page réunit les données déjà journalisées, consultable sans lui.</p>
   <div id="comptes"></div>
 
+  </div>
+
+  <div class="subview" data-subview="risque">
   <h2>Risque et R:R</h2>
   <p class="sub">Calculé uniquement sur les trades dont le stop initial est connu. <strong style="color:var(--gold)">S'arrête au 25/08</strong> — les trades du 21/08 au 09/09 n'ont pas de stop/objectif enregistré (le CSV Tradovate ne les contient pas). Utilise le bloc "📤 Importer un CSV" sur une page de session pour saisir stop/objectif par trade et voir le R:R se calculer — envoie-moi les valeurs si tu veux qu'elles remontent ici.</p>
   <div id="rr"></div>
 
+  </div>
+
+  <div class="subview" data-subview="sessions">
   <h2 id="sessions">Sessions</h2>
   <div id="sessions-feed"></div>
+  </div>
 
+  <div class="subview" data-subview="bilan">
   <h2>Ce qui revient</h2>
   <div class="rules recur">
     <div class="r bad">
@@ -549,6 +580,7 @@ textarea::placeholder{color:#4A566A}
       <div class="d">Ajoutée le 4 septembre 2026. Le téléphone retire la précision d'exécution et le contrôle visuel du bracket. La présence d'un tiers crée une pression sociale qui biaise l'entrée, la taille, ou la sortie. Les deux conditions réunies interdisent toute ouverture de position — sans exception.</div>
     </div>
   </div>
+  </div>
 
   <p class="foot">
     Les notes de chaque session s'enregistrent toutes seules pendant que tu écris.<br>
@@ -561,6 +593,15 @@ textarea::placeholder{color:#4A566A}
   <h1>Ta prochaine séance</h1>
   <p class="sub">Ce qu'il faut faire, ce qu'il ne faut pas faire. Construit uniquement à partir de tes journaux.</p>
 
+  <div class="subnav" id="brief-subnav">
+    <button class="sn-btn active" data-sub="essentiel">L'essentiel</button>
+    <button class="sn-btn" data-sub="consignes">Consignes &amp; actions</button>
+    <button class="sn-btn" data-sub="interdits">Interdits &amp; repères</button>
+    <button class="sn-btn" data-sub="checklist">Checklist</button>
+    <button class="sn-btn" data-sub="comptes">Comptes</button>
+  </div>
+
+  <div class="subview active" data-subview="essentiel">
   <h2 style="margin-top:40px">🚨 Le calcul qui tue</h2>
   <div class="obs warn">
     <div class="t">« Je place un stop à −300, mais je crame les 5, ça fait −1 500 »</div>
@@ -619,6 +660,9 @@ textarea::placeholder{color:#4A566A}
     <div class="d">Quand tu dis « je crame les 5 », tu les mets tous en même temps (une seule décision, copiée sur 5 comptes — le sujet du rule 8), ou tu rentres 5 fois après une perte en mode revenge (le sujet du lockout 24h) ? Ce n'est pas la même erreur, et la correction n'est pas la même.</div>
   </div>
 
+  </div>
+
+  <div class="subview" data-subview="consignes">
   <h2 id="brief-consignes" style="margin-top:40px">Les cinq consignes de la semaine</h2>
   <div class="big" style="border-color:rgba(242,85,90,.6)">
     <div class="l">La consigne n°1</div>
@@ -715,6 +759,9 @@ textarea::placeholder{color:#4A566A}
     </div>
   </div>
 
+  </div>
+
+  <div class="subview" data-subview="interdits">
   <h2 id="brief-interdits">Les six interdits</h2>
 
   <div class="dont">
@@ -811,6 +858,9 @@ textarea::placeholder{color:#4A566A}
     </div>
   </div>
 
+  </div>
+
+  <div class="subview" data-subview="checklist">
   <h2 id="brief-questions">Les sept questions avant d'appuyer</h2>
   <div class="rules">
     <div class="r" style="border-color:rgba(242,85,90,.4)"><div class="n">0</div><div class="t">Suis-je en état de trader, là, maintenant ?</div><div class="d">La question du 20/08. Si non, tu fermes la plateforme — tout le reste de cette liste ne sert à rien ce jour-là.</div></div>
@@ -822,6 +872,9 @@ textarea::placeholder{color:#4A566A}
     <div class="r"><div class="n">6</div><div class="t">Ma dernière perte date de plus de 10 minutes ?</div><div class="d">Sinon, tu attends. La montre décide, pas toi.</div></div>
   </div>
 
+  </div>
+
+  <div class="subview" data-subview="comptes">
   <h2 id="brief-comptes">Où en sont tes comptes</h2>
   <p class="sub">Cinq comptes actifs (001, 002, 003, 005, 006) — le …4680004 a été cramé et clôturé le 10/09. Soldes recalculés directement depuis les fichiers CSV bruts à chaque mise à jour. Le compte 003, tout juste identifié, n'est pas encore compté dans "Objectif &amp; Risque" ci-dessus (solde de départ supposé, pas confirmé).</p>
   <div class="obs warn" style="margin-bottom:16px">
@@ -871,6 +924,7 @@ textarea::placeholder{color:#4A566A}
       </div>
     </div>
   </details>
+  </div>
 
 </section>
 
@@ -4056,8 +4110,18 @@ window.SESSIONS = [
           var isToday = s.jour && s.jour.slice(0,5) === todayStr;
           var isNext  = !isToday && s.jour && s.jour.slice(0,5) === nextStr && isPending;
 
+          var hasImg = false;
+          if(s.fichier){
+            try{
+              var skey = s.fichier.replace(/\.html$/,'').replace(/-/g,'_');
+              var imgs = JSON.parse(localStorage.getItem('imgs_' + skey) || '[]');
+              hasImg = imgs.length > 0;
+            }catch(e){}
+          }
+
           h += '<' + tag + ' class="sr ' + cls + '"' + attrs + '>';
           h += '<div class="sr-date">' + jourLabel(s.jour);
+          if(hasImg) h += '<span class="sr-img" title="Capture(s) d\'écran enregistrée(s)">📷</span>';
           if(isToday) h += '<span class="sr-badge today">Auj.</span>';
           else if(isNext) h += '<span class="sr-badge next">Prochaine</span>';
           h += '</div>';
@@ -4069,7 +4133,8 @@ window.SESSIONS = [
             h += '<div class="sr-pnl ' + (s.pnl > 0 ? 'pos' : (s.pnl < 0 ? 'neg' : '')) + '">' + pnlStr + '</div>';
           }
 
-          h += s.trades > 0 ? '<div class="sr-wr">'+winRate+'%</div>' : '<div class="sr-wr">—</div>';
+          h += s.trades > 0 ? '<div class="sr-trades" title="Nombre de positions prises">'+s.trades+' pos.</div>' : '<div class="sr-trades">—</div>';
+          h += s.trades > 0 ? '<div class="sr-wr" title="Taux de trades gagnants">'+winRate+'% gagnants</div>' : '<div class="sr-wr">—</div>';
           h += '<div class="sr-note">' + (s.note || '') + '</div>';
           h += '</' + tag + '>';
         });
@@ -4089,10 +4154,42 @@ window.SESSIONS = [
     buildFeed();
   }
 
+  function initSubnav(navId){
+    var nav = document.getElementById(navId);
+    if(!nav) return;
+    var host = nav.parentElement;
+    nav.querySelectorAll('.sn-btn').forEach(function(btn){
+      btn.addEventListener('click', function(){
+        var sub = btn.dataset.sub;
+        nav.querySelectorAll('.sn-btn').forEach(function(b){ b.classList.toggle('active', b === btn); });
+        host.querySelectorAll(':scope > .subview').forEach(function(v){
+          v.classList.toggle('active', v.dataset.subview === sub);
+        });
+        try{ localStorage.setItem('journal-subnav-' + navId, sub); }catch(e){}
+      });
+    });
+    // Restaurer le dernier onglet choisi
+    var saved = null;
+    try{ saved = localStorage.getItem('journal-subnav-' + navId); }catch(e){}
+    if(saved && host.querySelector('.subview[data-subview="' + saved + '"]')){
+      var savedBtn = nav.querySelector('.sn-btn[data-sub="' + saved + '"]');
+      if(savedBtn) savedBtn.click();
+    }
+  }
+
+  function openSubview(navId, sub){
+    var nav = document.getElementById(navId);
+    if(!nav) return;
+    var btn = nav.querySelector('.sn-btn[data-sub="' + sub + '"]');
+    if(btn) btn.click();
+  }
+
   document.addEventListener('DOMContentLoaded', function(){
     analyse(); renderSessions(); comptes(); risque();
+    initSubnav('dash-subnav'); initSubnav('brief-subnav');
     // Si on revient d'une page session via #sessions, scroller jusqu'aux sessions
     if(window.location.hash === '#sessions'){
+      openSubview('dash-subnav', 'sessions');
       setTimeout(function(){
         var el = document.getElementById('sessions');
         if(el) el.scrollIntoView({behavior:'smooth', block:'start'});
