@@ -74,6 +74,26 @@ h3{font-size:19px;font-weight:600;margin:0 0 4px}
 .kpis-top .note{font-size:12.5px}
 @media(max-width:900px){.kpis-top{grid-template-columns:repeat(auto-fit,minmax(160px,1fr))}}
 
+.cs-widget{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-top:14px;padding:10px 16px;
+  background:var(--panel);border:1px solid var(--line);border-radius:10px}
+.cs-title{font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);white-space:nowrap}
+.cs-rows{display:flex;gap:14px;flex-wrap:wrap;flex:1}
+.cs-row{display:flex;align-items:center;gap:6px}
+.cs-row-label{font-size:11.5px;font-weight:700;color:var(--muted);min-width:30px}
+.cs-opts{display:flex;gap:4px}
+.cs-btn{border:1px solid var(--line);background:var(--panel2);color:var(--muted);
+  border-radius:5px;padding:3px 7px;font:inherit;font-size:10.5px;font-weight:650;cursor:pointer;transition:.12s}
+.cs-btn:hover{border-color:var(--gold);color:var(--txt)}
+.cs-btn.active{background:var(--gold);border-color:var(--gold);color:#0d111c}
+.cs-total{display:flex;align-items:center;gap:8px;white-space:nowrap}
+.cs-total-num{font-size:16px;font-weight:700;color:var(--txt)}
+.cs-verdict{font-size:10px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;padding:3px 9px;border-radius:999px}
+.cs-verdict.no{background:rgba(242,85,90,.12);color:var(--red)}
+.cs-verdict.yes{background:rgba(61,214,140,.12);color:var(--green)}
+.cs-reset{border:none;background:none;color:var(--muted);font-size:10px;cursor:pointer;text-decoration:underline;white-space:nowrap}
+.cs-reset:hover{color:var(--txt)}
+@media(max-width:700px){.cs-widget{flex-direction:column;align-items:stretch}.cs-rows{flex-direction:column;gap:8px}}
+
 .brief-banner{display:flex;align-items:center;gap:12px;margin-top:20px;padding:12px 18px;
   background:var(--panel);border:1px solid var(--line);border-radius:10px;text-decoration:none;transition:.12s}
 .brief-banner:hover{border-color:var(--gold);text-decoration:none}
@@ -411,6 +431,41 @@ textarea::placeholder{color:#4A566A}
     <span class="brief-banner-t">Ouvrir le brief : ta prochaine séance</span>
     <span class="brief-banner-arrow">→</span>
   </a>
+
+  <div class="cs-widget" id="cs-widget">
+    <span class="cs-title">🎯 Score de confluence</span>
+    <div class="cs-rows">
+      <div class="cs-row" data-crit="bpr">
+        <span class="cs-row-label">BPR</span>
+        <div class="cs-opts">
+          <button class="cs-btn active" data-val="0" onclick="csSet('bpr',0,this)">Aucun</button>
+          <button class="cs-btn" data-val="1" onclick="csSet('bpr',1,this)">1M</button>
+          <button class="cs-btn" data-val="5" onclick="csSet('bpr',5,this)">5M</button>
+        </div>
+      </div>
+      <div class="cs-row" data-crit="ifvg">
+        <span class="cs-row-label">IFVG</span>
+        <div class="cs-opts">
+          <button class="cs-btn active" data-val="0" onclick="csSet('ifvg',0,this)">Aucun</button>
+          <button class="cs-btn" data-val="1" onclick="csSet('ifvg',1,this)">1M</button>
+          <button class="cs-btn" data-val="5" onclick="csSet('ifvg',5,this)">5M</button>
+        </div>
+      </div>
+      <div class="cs-row" data-crit="smt">
+        <span class="cs-row-label">SMT</span>
+        <div class="cs-opts">
+          <button class="cs-btn active" data-val="0" onclick="csSet('smt',0,this)">Aucun</button>
+          <button class="cs-btn" data-val="1" onclick="csSet('smt',1,this)">1M</button>
+          <button class="cs-btn" data-val="5" onclick="csSet('smt',5,this)">5M</button>
+        </div>
+      </div>
+    </div>
+    <div class="cs-total">
+      <span class="cs-total-num" id="cs-total-num">0</span><span style="font-size:10.5px;color:var(--muted)">/9</span>
+      <span class="cs-verdict no" id="cs-verdict">Pas assez</span>
+    </div>
+    <button class="cs-reset" onclick="csReset()">↺ reset</button>
+  </div>
 
   <div class="kpis kpis-top">
     <div class="kpi"><div class="lbl">Sessions journalisées</div><div class="val">24</div><div class="note">du 13/08 au 15/09</div></div>
@@ -3443,6 +3498,59 @@ window.SESSIONS = [
   { jour:"14/08", label:"Vendredi 14 août", fichier:"2026-08-14-vendredi.html", pnl:-263.72,  trades:3, gagnants:1, neutres:0 },
   { jour:"13/08", label:"Jeudi 13 août",    fichier:"2026-08-13-jeudi.html",    pnl:2472.48,  trades:3, gagnants:3, neutres:0 }
 ];
+</script>
+<script>/* Score de confluence compact — clé localStorage partagée avec rules.html */
+(function(){
+  var csState = { bpr: 0, ifvg: 0, smt: 0 };
+
+  window.csSet = function(crit, val, btn){
+    csState[crit] = val;
+    btn.parentElement.querySelectorAll('.cs-btn').forEach(function(b){ b.classList.remove('active'); });
+    btn.classList.add('active');
+    csRender();
+    csSave();
+  };
+
+  function csRender(){
+    var total = csState.bpr + csState.ifvg + csState.smt;
+    var numEl = document.getElementById('cs-total-num');
+    var vEl = document.getElementById('cs-verdict');
+    if(!numEl || !vEl) return;
+    numEl.textContent = total;
+    if(total > 9){ vEl.textContent = 'OK'; vEl.className = 'cs-verdict yes'; }
+    else { vEl.textContent = 'Pas assez'; vEl.className = 'cs-verdict no'; }
+  }
+
+  function csSave(){
+    try{ localStorage.setItem('trading_score', JSON.stringify(csState)); }catch(e){}
+  }
+
+  window.csReset = function(){
+    csState = { bpr: 0, ifvg: 0, smt: 0 };
+    document.querySelectorAll('#cs-widget .cs-btn').forEach(function(b){
+      b.classList.toggle('active', b.dataset.val === '0');
+    });
+    csRender();
+    try{ localStorage.removeItem('trading_score'); }catch(e){}
+  };
+
+  document.addEventListener('DOMContentLoaded', function(){
+    try{
+      var saved = JSON.parse(localStorage.getItem('trading_score')||'null');
+      if(saved){
+        csState = saved;
+        ['bpr','ifvg','smt'].forEach(function(crit){
+          var row = document.querySelector('#cs-widget .cs-row[data-crit="'+crit+'"]');
+          if(!row) return;
+          row.querySelectorAll('.cs-btn').forEach(function(b){
+            b.classList.toggle('active', Number(b.dataset.val) === saved[crit]);
+          });
+        });
+      }
+    }catch(e){}
+    csRender();
+  });
+})();
 </script>
 <script>/* Bascule entre les vues (tableau de bord, brief, séances) */
 (function(){
