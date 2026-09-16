@@ -222,6 +222,9 @@ textarea::placeholder{color:#4A566A}
 .sf-mh{display:flex;align-items:center;gap:14px;margin:24px 0 8px}
 .sf-mh-name{color:var(--muted);font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;white-space:nowrap}
 .sf-mh-sum{font-size:12px;font-weight:700;white-space:nowrap}
+.sf-mh-wl{font-size:11px;font-weight:650;white-space:nowrap;font-variant-numeric:tabular-nums}
+.sf-mh-wl .pos{color:var(--green)}
+.sf-mh-wl .neg{color:var(--red)}
 .sf-mh-line{flex:1;height:1px;background:var(--line)}
 .sr{display:grid;grid-template-columns:140px 80px 46px 96px 1fr;gap:0 14px;align-items:center;
   background:var(--panel);border:1px solid var(--line);border-left:3px solid var(--dim);
@@ -4199,6 +4202,8 @@ window.SESSIONS = [
         if(!filtered.length) return;
         var mTotal = allSessions.reduce(function(a,s){ return s.pnl !== null ? a + s.pnl : a; }, 0);
         var sessWithPnl = allSessions.filter(function(s){ return s.pnl !== null; }).slice().reverse();
+        var daysWon = sessWithPnl.filter(function(s){ return s.pnl > 0; }).length;
+        var daysLost = sessWithPnl.filter(function(s){ return s.pnl < 0; }).length;
         var label = MONTH_FULL[m] || m;
         var sumCls = mTotal > 0 ? 'pos' : (mTotal < 0 ? 'neg' : '');
         var sumStr = mTotal > 0 ? ('+' + Math.round(mTotal) + ' $') : (Math.round(mTotal) + ' $');
@@ -4208,7 +4213,8 @@ window.SESSIONS = [
         h += '<summary class="sf-mh">'
            + '<span class="sf-arrow">▶</span>'
            + '<span class="sf-mh-name">' + label + '</span>'
-           + (sessWithPnl.length >= 2 ? '<span style="margin-left:6px;display:inline-flex;align-items:center">'+sparkline(sessWithPnl,52,20)+'</span>' : '')
+           + (sessWithPnl.length ? '<span class="sf-mh-wl" title="Journées gagnées / perdues"><span class="pos">'+daysWon+'✓</span> <span class="neg">'+daysLost+'✗</span></span>' : '')
+           + (sessWithPnl.length >= 2 ? '<span style="margin-left:2px;display:inline-flex;align-items:center">'+sparkline(sessWithPnl,52,20)+'</span>' : '')
            + '<span class="sf-mh-line"></span>'
            + '<span class="sf-mh-sum ' + sumCls + '">' + sumStr + '</span>'
            + '</summary>';
