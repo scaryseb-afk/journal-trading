@@ -196,10 +196,11 @@ function sjInitPaste(){
 var SJ_ACCOUNT_PREFIXES = {
   '63005715': '001',
   '63115902': '002',
-  '61958986': '004',
+  '61958986': '004a', /* ancien 004, cramé et clôturé le 10/09 */
   '62052092': '005',
   '63088436': '006',
-  '65595938': '003'
+  '65595938': '003',
+  '66467594': '004b'  /* nouveau 004, racheté le 17/09 */
 };
 function sjKeyCsv(){ return 'csvimport_' + SESSION_KEY; }
 

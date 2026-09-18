@@ -20,10 +20,11 @@ explicite :
 |---|---|
 | 001 | 630057150xxx – 630057151xxx |
 | 002 | 631159020xxx |
-| 004 | 619589860xxx |
+| 004a | 619589860xxx (ancien compte, cramé et clôturé le 10/09) |
 | 005 | 620520920xxx – 620520921xxx |
 | 006 | 630884360xxx – 630884361xxx |
 | 003 | 655959380xxx (numéro complet confirmé le 14/09 — anciennement noté « 006b » en attente) |
+| 004b | 664675940xxx (nouveau compte racheté le 17/09, remplace le 004a) |
 
 ## Règle pour toute session Claude qui traite un CSV envoyé par l'utilisateur
 
@@ -33,13 +34,14 @@ explicite :
 2. Ne jamais recopier des totaux à la main sans les avoir vérifiés en
    relisant le fichier — recalculer depuis le CSV plutôt que réutiliser un
    chiffre déjà écrit ailleurs dans le journal.
-3. **Dédoublonnage** : plusieurs comptes copient parfois exactement le même
-   trade (même symbole, mêmes horodatages d'entrée/sortie, souvent via
-   TraderSyncer). Pour tout total de "nombre de trades" ou de win rate,
-   compter chaque **signal unique une seule fois** (grouper par
-   `symbol + boughtTimestamp + soldTimestamp`), même s'il apparaît dans
-   plusieurs fichiers de compte. Le P&L, lui, reste compté par compte (c'est
-   de l'argent réel sur chaque compte).
+3. **Dédoublonnage** : plusieurs comptes copient parfois le même trade via
+   TraderSyncer, avec des horodatages/prix qui peuvent différer légèrement
+   d'un compte à l'autre (latence d'exécution). Pour tout total de "nombre
+   de trades" ou de win rate, compter chaque **signal unique une seule
+   fois** — grouper les lignes de comptes différents (jamais deux lignes
+   du même compte) par même symbole, prix d'entrée à 2-3 ticks près, et
+   horodatage d'entrée à ~20 secondes près. Le P&L, lui, reste compté par
+   compte (c'est de l'argent réel sur chaque compte).
 4. Une fois les données extraites et la page mise à jour, commiter les CSV
    en même temps que les modifications HTML.
 5. Si un total semble incohérent avec l'historique, le signaler à
