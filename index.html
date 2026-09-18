@@ -471,11 +471,11 @@ textarea::placeholder{color:#4A566A}
   </div>
 
   <div class="kpis kpis-top">
-    <div class="kpi"><div class="lbl">Sessions journalisées</div><div class="val">26</div><div class="note">du 13/08 au 17/09</div></div>
-    <div class="kpi"><div class="lbl">Cumul 4 comptes</div><div class="val neg">−3 362,25 $</div><div class="note">recalculé sur les CSV bruts · −1 080,50 $ le 17/09, copy trading 001/006 et 002/003</div></div>
+    <div class="kpi"><div class="lbl">Sessions journalisées</div><div class="val">27</div><div class="note">du 13/08 au 18/09</div></div>
+    <div class="kpi"><div class="lbl">Cumul 4 comptes</div><div class="val neg">−3 869,25 $</div><div class="note">recalculé sur les CSV bruts · −2 097,50 $ le 18/09, nouveau compte A en 8 contrats dès le 1er jour</div></div>
     <div class="kpi"><div class="lbl">Meilleure session</div><div class="val pos">+2 529 $</div><div class="note">08/09 — TraderSyncer, 3 comptes</div></div>
-    <div class="kpi"><div class="lbl">Pire session</div><div class="val neg">−1 521 $</div><div class="note">14/09 — 5 comptes tous perdants, aucun copy trading évident</div></div>
-    <div class="kpi"><div class="lbl">Compte …005</div><div class="val neg">🔴 +166 $</div><div class="note">48 166,00 $ · buffer critique avant le seuil de 48 000 $</div></div>
+    <div class="kpi"><div class="lbl">Pire session</div><div class="val neg">−2 098 $</div><div class="note">18/09 — nouveau compte A en 8 contrats dès le 1er jour, −1 176 $ à lui seul</div></div>
+    <div class="kpi"><div class="lbl">Comptes …005 / …006</div><div class="val neg">🔴 +166 $</div><div class="note">48 166,00 $ chacun · buffer critique avant le seuil de 48 000 $, sur les deux comptes</div></div>
   </div>
 
   <div class="subnav" id="dash-subnav">
@@ -492,21 +492,21 @@ textarea::placeholder{color:#4A566A}
   <div class="kpis" style="margin-top:0;grid-template-columns:repeat(auto-fit,minmax(320px,1fr))">
     <div class="kpi">
       <div class="lbl">Objectif +12 000 $</div>
-      <div class="val neg">−3 362,25 $</div>
+      <div class="val neg">−3 869,25 $</div>
       <div class="ar-buf" style="margin:10px 0 4px">
         <div class="ar-buf-label"><span>0 %</span><span>12 000 $</span></div>
         <div class="ar-buf-track"><div class="ar-buf-fill crit" style="width:0%"></div></div>
       </div>
-      <div class="note">Reste 15 362,25 $ à faire — les 4 comptes actifs se sont encore enfoncés le 17/09 (copy trading, personne n'a gagné)</div>
+      <div class="note">Reste 15 869,25 $ à faire — les 4 comptes actifs se sont encore enfoncés le 18/09</div>
     </div>
     <div class="kpi">
       <div class="lbl">Drawdown max −8 000 $</div>
-      <div class="val neg">−4 543,50 $</div>
+      <div class="val neg">−5 050,50 $</div>
       <div class="ar-buf" style="margin:10px 0 4px">
-        <div class="ar-buf-label"><span>56,8 % de la limite</span><span>−8 000 $</span></div>
-        <div class="ar-buf-track"><div class="ar-buf-fill crit" style="width:56.8%"></div></div>
+        <div class="ar-buf-label"><span>63,1 % de la limite</span><span>−8 000 $</span></div>
+        <div class="ar-buf-track"><div class="ar-buf-fill crit" style="width:63.1%"></div></div>
       </div>
-      <div class="note">🔴 Depuis le pic du 09/09 (+1 181 $) — plus de la moitié de la limite consommée, à prendre au sérieux</div>
+      <div class="note">🔴 Depuis le pic du 09/09 (+1 181 $) — près des deux tiers de la limite consommée</div>
     </div>
   </div>
 
@@ -934,30 +934,30 @@ textarea::placeholder{color:#4A566A}
 
   <div class="subview" data-subview="comptes">
   <h2 id="brief-comptes">Où en sont tes comptes</h2>
-  <p class="sub">Six comptes actifs (001, 002, 003, 004, 005, 006) — le 004 a été racheté le 17/09 après la clôture de l'ancien le 10/09. Soldes recalculés directement depuis les fichiers CSV bruts à chaque mise à jour. Les comptes 003 et 004, ouverts récemment, ne sont pas encore comptés dans "Objectif &amp; Risque" ci-dessus (soldes de départ supposés, pas confirmés).</p>
+  <p class="sub">Sept comptes actifs (001, 002, 003, 004, 005, 006, A) — le 004 a été racheté le 17/09 après la clôture de l'ancien le 10/09, le compte A ouvert le 18/09. Soldes recalculés directement depuis les fichiers CSV bruts à chaque mise à jour. Les comptes 003, 004 et A, ouverts récemment, ne sont pas encore comptés dans "Objectif &amp; Risque" ci-dessus (soldes de départ supposés, pas confirmés).</p>
   <div class="obs warn" style="margin-bottom:16px">
-    <div class="t">🔴🔴 Compte …4680005 / …4680006 : 166 $ de buffer seulement</div>
-    <div class="d">En dessous d'un trade perdant moyen de la clôture du compte (seuil à 48 000 $) — sur les deux comptes désormais. Le drawdown global a dépassé la moitié de la limite de −8 000 $. NE PAS TOUCHER avant d'en reparler ensemble.</div>
+    <div class="t">🔴🔴 Trois comptes sous les 900 $ de buffer : …4680005, …4680006 (166 $ chacun) et Compte A (824 $)</div>
+    <div class="d">005 et 006 sont en dessous d'un trade perdant moyen de la clôture (seuil à 48 000 $). Le compte A, ouvert le 18/09, a déjà perdu plus de la moitié de son buffer initial en une seule journée. Le drawdown global a dépassé 60 % de la limite de −8 000 $. NE PAS TOUCHER 005/006 avant d'en reparler ensemble.</div>
   </div>
   <div class="obs warn" style="margin-bottom:16px">
-    <div class="t">⚠️ Copy trading 001/006 et 002/003 — encore le 17/09</div>
-    <div class="d">001/006 shortent au même prix à la même seconde (15h33:30), 002/003 font l'inverse en Long au même prix (16h16), même schéma qu'à chaque fois depuis la règle 8 (04/09) — deux groupes de comptes ont pris des positions opposées sur le même mouvement, sans qu'aucun ne gagne.</div>
+    <div class="t">⚠️ Compte « A » : 8 contrats par trade dès le premier jour</div>
+    <div class="d">3 trades, tous perdants, −1 176 $ le 18/09. Chaque trade en 8 contrats MNQ — le double du plafond de 4, et plus gros encore que le 004 le jour de son ouverture (6 contrats). Ça fait trois nouveaux comptes de suite (003, 004, A) qui démarrent sans aucune règle de taille appliquée.</div>
   </div>
   <div class="rules">
     <div class="r">
       <div class="n">Compte …4680001 — Tradovate / Lucid</div>
-      <div class="t">50 276,25 $ · <span style="color:var(--green)">+276,25 $ depuis le départ</span></div>
-      <div class="d">Solde au 17/09. −298,50 $ ce jour-là — copié avec le compte 006 (short au même prix/même seconde).</div>
+      <div class="t">50 022,75 $ · <span style="color:var(--green)">+22,75 $ depuis le départ</span></div>
+      <div class="d">Solde au 18/09. −253,50 $ ce jour-là — copié avec les comptes 002/003 (Long au même prix/même seconde).</div>
     </div>
     <div class="r">
       <div class="n">Compte …4680002 — Tradovate / Lucid</div>
-      <div class="t">50 029,50 $ · <span style="color:var(--green)">+29,50 $ depuis le départ</span></div>
-      <div class="d">Solde au 17/09. −298,50 $ ce jour-là — copié avec le compte 003 (Long au même prix/même minute).</div>
+      <div class="t">49 776,00 $ · <span style="color:var(--red)">−224,00 $ depuis le départ</span></div>
+      <div class="d">Solde au 18/09. −253,50 $ ce jour-là — copié avec les comptes 001/003.</div>
     </div>
     <div class="r">
       <div class="n">Compte …4680006 — Tradovate / Lucid</div>
       <div class="t">48 166,00 $ · <span style="color:var(--red)">−1 834,00 $ depuis le départ</span></div>
-      <div class="d">Solde au 17/09. −291 $ ce jour-là — copié avec le compte 001. Buffer à +166 $ seulement, aussi critique que le 005.</div>
+      <div class="d">Solde au 17/09 (aucun trade depuis). Buffer à +166 $ seulement, aussi critique que le 005.</div>
     </div>
     <div class="r">
       <div class="n">Compte …4680005 — Tradovate / Lucid</div>
@@ -966,13 +966,18 @@ textarea::placeholder{color:#4A566A}
     </div>
     <div class="r">
       <div class="n">Compte …4680003 — Tradovate / Lucid</div>
-      <div class="t">49 460,50 $ · <span style="color:var(--red)">−539,50 $ depuis le départ (solde de 50 000 $ supposé)</span></div>
-      <div class="d">Solde au 17/09. −297,50 $ ce jour-là — copié avec le compte 002.</div>
+      <div class="t">49 319,00 $ · <span style="color:var(--red)">−681,00 $ depuis le départ (solde de 50 000 $ supposé)</span></div>
+      <div class="d">Solde au 18/09. −262,50 $ ce jour-là — copié avec les comptes 001/002.</div>
     </div>
     <div class="r">
       <div class="n">Compte …4680004 — Tradovate / Lucid (nouveau)</div>
-      <div class="t">50 105,00 $ · <span style="color:var(--green)">+105,00 $ depuis le départ (solde de 50 000 $ supposé)</span></div>
-      <div class="d">Racheté et tradé dès le 17/09 — remplace l'ancien 004 cramé le 10/09. Seul compte gagnant du jour (+105 $, 3 trades), mais en 6 contrats MNQ dès le premier jour, au-dessus du plafond de 4 — même remarque que pour le 003 en septembre.</div>
+      <div class="t">49 953,00 $ · <span style="color:var(--red)">−47,00 $ depuis le départ (solde de 50 000 $ supposé)</span></div>
+      <div class="d">Solde au 18/09. −152 $ ce jour-là (1 trade seul). Racheté et tradé dès le 17/09 — remplace l'ancien 004 cramé le 10/09.</div>
+    </div>
+    <div class="r">
+      <div class="n">Compte A — Tradovate / Lucid (nouveau)</div>
+      <div class="t">48 824,00 $ · <span style="color:var(--red)">−1 176,00 $ depuis le départ (solde de 50 000 $ supposé)</span></div>
+      <div class="d">Ouvert et tradé le 18/09. 3 trades, tous perdants, en 8 contrats MNQ — le double du plafond habituel, dès le premier jour. Buffer déjà à 824 $.</div>
     </div>
   </div>
 
@@ -3167,21 +3172,39 @@ Parfois il faut attendre plus de 50 minutes avant de rentrer.</textarea>
    solde connu 48 893 $ (04/09). Retiré du suivi actif, même traitement que TopstepX. */
 window.COMPTES = [
   {
+    nom: "Tradovate / Lucid — Compte A (nouveau)",
+    ref: "Compte A",
+    statut: "evaluation",
+    statutLabel: "Évaluation",
+    devise: "$",
+    depart: 50000,
+    solde: 48824.00,
+    soldeDate: "18/09/2026",
+    seuil: 48000,
+    buffer: 824.00,
+    reference: null,
+    objectif: null,
+    mll: 48000,
+    maxContrats: null,
+    note: "🔴 Ouvert et tradé le 18/09 : 3 trades, tous perdants, −1 176 $ dès le premier jour. Chaque trade en 8 contrats MNQ — le double du plafond de 4, et la plus grosse taille jamais vue sur un compte tout juste ouvert. Buffer déjà descendu à 824 $. Solde de départ supposé 50 000 $ — à confirmer.",
+    aConfirmer: "Le solde de départ exact (50 000 $ supposé), la référence Tradovate complète, et pourquoi ce compte trade en 8 contrats d'entrée de jeu."
+  },
+  {
     nom: "Tradovate / Lucid — …4680004 (nouveau)",
     ref: "Compte 04b",
     statut: "evaluation",
     statutLabel: "Évaluation",
     devise: "$",
     depart: 50000,
-    solde: 50105.00,
-    soldeDate: "17/09/2026",
+    solde: 49953.00,
+    soldeDate: "18/09/2026",
     seuil: 48000,
-    buffer: 2105.00,
+    buffer: 1953.00,
     reference: null,
     objectif: null,
     mll: 48000,
     maxContrats: null,
-    note: "Compte racheté et tradé dès le 17/09 — remplace l'ancien 004 cramé et clôturé le 10/09. +105 $ (3 trades), seul compte gagnant du jour. Taille en 6 contrats MNQ dès le premier jour — au-dessus du plafond de 4, même remarque que pour le 003 en septembre. Solde de départ supposé 50 000 $ — à confirmer.",
+    note: "−152 $ le 18/09 (1 trade). Racheté et tradé dès le 17/09 — remplace l'ancien 004 cramé et clôturé le 10/09. Solde de départ supposé 50 000 $ — à confirmer.",
     aConfirmer: "Le solde de départ exact (50 000 $ supposé) et la référence Tradovate complète."
   },
   {
@@ -3191,15 +3214,15 @@ window.COMPTES = [
     statutLabel: "Évaluation",
     devise: "$",
     depart: 50000,
-    solde: 49460.50,
-    soldeDate: "17/09/2026",
+    solde: 49319.00,
+    soldeDate: "18/09/2026",
     seuil: 48000,
-    buffer: 1460.50,
+    buffer: 1319.00,
     reference: null,
     objectif: null,
     mll: 48000,
     maxContrats: null,
-    note: "−297,50 $ le 17/09 — copié avec le compte 002 (Long au même prix/même minute, aller-retour perdant répété). Solde de départ supposé 50 000 $ comme les autres comptes — à confirmer.",
+    note: "−262,50 $ le 18/09 — copié avec les comptes 001/002 (Long au même prix/même seconde). Solde de départ supposé 50 000 $ comme les autres comptes — à confirmer.",
     aConfirmer: "Le solde de départ exact (50 000 $ supposé) et la référence Tradovate complète."
   },
   {
@@ -3209,15 +3232,15 @@ window.COMPTES = [
     statutLabel: "Évaluation",
     devise: "$",
     depart: 50000,
-    solde: 50029.50,
-    soldeDate: "17/09/2026",
+    solde: 49776.00,
+    soldeDate: "18/09/2026",
     seuil: 48000,
-    buffer: 2029.50,
+    buffer: 1776.00,
     reference: "LTE05085004680002",
     objectif: 53000,
     mll: 48000,
     maxContrats: null,
-    note: "Buffer : +2 029,50 $ · −298,50 $ le 17/09 — copié avec le compte 003 (Long au même prix/même minute, aller-retour perdant répété).",
+    note: "Buffer : +1 776,00 $ · −253,50 $ le 18/09 — copié avec les comptes 001/003 (Long au même prix/même seconde).",
     aConfirmer: null
   },
   {
@@ -3245,15 +3268,15 @@ window.COMPTES = [
     statutLabel: "Évaluation",
     devise: "$",
     depart: 50000,
-    solde: 50276.25,
-    soldeDate: "17/09/2026",
+    solde: 50022.75,
+    soldeDate: "18/09/2026",
     seuil: 48000,
-    buffer: 2276.25,
+    buffer: 2022.75,
     reference: "LTE05085004680001",
     objectif: null,
     mll: 48000,
     maxContrats: null,
-    note: "Buffer : +2 276,25 $ · −298,50 $ le 17/09 — copié avec le compte 006 (short au même prix/même seconde).",
+    note: "Buffer : +2 022,75 $ · −253,50 $ le 18/09 — copié avec les comptes 002/003 (Long au même prix/même seconde).",
     aConfirmer: null
   },
   {
@@ -3496,6 +3519,7 @@ window.TRADES = [
 ];
 
 window.SESSIONS = [
+  { jour:"18/09", label:"Vendredi 18 sept.", fichier:"2026-09-18-vendredi.html", pnl:-2097.50, trades:5, gagnants:0, neutres:0, note:"Nouveau compte « A » ouvert et tradé en 8 contrats dès le 1er jour — 3 trades, tous perdants, −1 176 $ à lui seul. Copy trading 001/002/003 (même prix, même seconde). Aucun trade gagnant sur toute la journée." },
   { jour:"17/09", label:"Jeudi 17 sept.", fichier:"2026-09-17-jeudi.html", pnl:-1080.50, trades:6, gagnants:1, neutres:0, note:"Nouveau compte « 004 » racheté et tradé le jour même : +105 $, seul compte gagnant, mais 6 contrats dès le 1er jour (hors gabarit). Copy trading 001/006 (short) et 002/003 (long) sur le même mouvement, en sens opposés — personne n'a gagné." },
   { jour:"16/09", label:"Mercredi 16 sept.", fichier:"2026-09-16-mercredi.html", pnl:343.50, trades:1, gagnants:1, neutres:0, note:"Nouvelle strat testée : biais haussier, 2 IFVG 5M, TP visant un R:R de 2 — même signal copié sur 001/003 (compté comme 1 trade), tenu 2h14, gagnant sur les deux. Le plan n'a pas été suivi à 100 % mais le cadre était là." },
   { jour:"15/09", label:"Mardi 15 sept.", fichier:"2026-09-15-mardi.html", pnl:-920.50, trades:11, gagnants:2, neutres:0, note:"4 comptes actifs (002 sans trade) — dédupliqué : 11 signaux uniques, dont 6 copiés entre 001/003/005 entre 17h00 et 17h34 (même prix, même minute, comptés une fois). Pas de full-size aujourd'hui (tout en MNQ micro)." },

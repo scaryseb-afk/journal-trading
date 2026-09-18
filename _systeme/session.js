@@ -200,7 +200,8 @@ var SJ_ACCOUNT_PREFIXES = {
   '62052092': '005',
   '63088436': '006',
   '65595938': '003',
-  '66467594': '004b'  /* nouveau 004, racheté le 17/09 */
+  '66467594': '004b', /* nouveau 004, racheté le 17/09 */
+  '66586596': 'A'      /* nouveau compte, ouvert le 18/09 */
 };
 function sjKeyCsv(){ return 'csvimport_' + SESSION_KEY; }
 
