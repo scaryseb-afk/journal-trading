@@ -285,6 +285,9 @@ textarea::placeholder{color:var(--dim)}
 .trade-note{width:100%;min-height:48px;resize:vertical;border:1px solid var(--line);border-radius:6px;background:var(--bg);color:var(--txt);font-size:12.5px;font-family:inherit;padding:7px 10px;box-sizing:border-box;outline:none;transition:.15s}
 .trade-note:focus{border-color:var(--blue);background:var(--panel)}
 .trade-note::placeholder{color:var(--muted);opacity:.7}
+.trade-note.missing{border-color:var(--red);background:rgba(239,68,68,.06)}
+.note-warn{display:none;color:var(--red);font-size:11px;font-weight:600;margin-top:5px}
+.note-warn.show{display:block}
 
 .total-bar{display:flex;align-items:center;justify-content:space-between;background:var(--panel);border-radius:8px;padding:12px 18px;margin:28px 0 8px}
 .total-label{font-size:12px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--muted)}

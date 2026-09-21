@@ -236,6 +236,7 @@ textarea::placeholder{color:#4A566A}
 .sr.pending{opacity:.5;border-left-style:dashed}
 .sr-date{font-size:13.5px;font-weight:600;color:var(--txt);display:flex;align-items:center;gap:5px}
 .sr-img{font-size:12px;opacity:.7}
+.sr-warn{font-size:12px}
 .sr-pnl{font-size:14px;font-weight:700;font-variant-numeric:tabular-nums;text-align:right;white-space:nowrap}
 .sr-trades{font-size:12px;color:var(--dim);text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
 .sr-wr{font-size:12px;color:var(--dim);text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
@@ -471,10 +472,10 @@ textarea::placeholder{color:#4A566A}
   </div>
 
   <div class="kpis kpis-top">
-    <div class="kpi"><div class="lbl">Sessions journalisées</div><div class="val">27</div><div class="note">du 13/08 au 18/09</div></div>
-    <div class="kpi"><div class="lbl">Cumul 4 comptes</div><div class="val neg">−3 869,25 $</div><div class="note">recalculé sur les CSV bruts · −2 097,50 $ le 18/09, nouveau compte A en 8 contrats dès le 1er jour</div></div>
+    <div class="kpi"><div class="lbl">Sessions journalisées</div><div class="val">28</div><div class="note">du 13/08 au 21/09</div></div>
+    <div class="kpi"><div class="lbl">Cumul 4 comptes</div><div class="val neg">−3 505,25 $</div><div class="note">recalculé sur les CSV bruts · +549 $ le 21/09 (compte 001, 1 trade, 2 contrats) · 2 trades de 002 (15/09) retrouvés dans un export complété</div></div>
     <div class="kpi"><div class="lbl">Meilleure session</div><div class="val pos">+2 529 $</div><div class="note">08/09 — TraderSyncer, 3 comptes</div></div>
-    <div class="kpi"><div class="lbl">Pire session</div><div class="val neg">−2 098 $</div><div class="note">18/09 — nouveau compte A en 8 contrats dès le 1er jour, −1 176 $ à lui seul</div></div>
+    <div class="kpi"><div class="lbl">Pire session</div><div class="val neg">−2 095 $</div><div class="note">18/09 — nouveau compte A en 8 contrats dès le 1er jour, −1 176 $ à lui seul</div></div>
     <div class="kpi"><div class="lbl">Comptes …005 / …006</div><div class="val neg">🔴 +166 $</div><div class="note">48 166,00 $ chacun · buffer critique avant le seuil de 48 000 $, sur les deux comptes</div></div>
   </div>
 
@@ -492,21 +493,17 @@ textarea::placeholder{color:#4A566A}
   <div class="kpis" style="margin-top:0;grid-template-columns:repeat(auto-fit,minmax(320px,1fr))">
     <div class="kpi">
       <div class="lbl">Objectif +12 000 $</div>
-      <div class="val neg">−3 869,25 $</div>
+      <div class="val neg">−3 505,25 $</div>
       <div class="ar-buf" style="margin:10px 0 4px">
         <div class="ar-buf-label"><span>0 %</span><span>12 000 $</span></div>
         <div class="ar-buf-track"><div class="ar-buf-fill crit" style="width:0%"></div></div>
       </div>
-      <div class="note">Reste 15 869,25 $ à faire — les 4 comptes actifs se sont encore enfoncés le 18/09</div>
+      <div class="note">Reste 15 505,25 $ à faire — +549 $ le 21/09 sur le compte 001, meilleure journée des comptes actifs depuis celle du 09/09 (+594 $)</div>
     </div>
     <div class="kpi">
       <div class="lbl">Drawdown max −8 000 $</div>
-      <div class="val neg">−5 050,50 $</div>
-      <div class="ar-buf" style="margin:10px 0 4px">
-        <div class="ar-buf-label"><span>63,1 % de la limite</span><span>−8 000 $</span></div>
-        <div class="ar-buf-track"><div class="ar-buf-fill crit" style="width:63.1%"></div></div>
-      </div>
-      <div class="note">🔴 Depuis le pic du 09/09 (+1 181 $) — près des deux tiers de la limite consommée</div>
+      <div class="val">—</div>
+      <div class="note">Ne se calcule qu'une fois un compte validé — aucun ne l'est pour l'instant, donc rien à suivre ici. Les seuils de 48 000 $ de chaque compte restent suivis dans « Où en sont tes comptes ».</div>
     </div>
   </div>
 
@@ -937,7 +934,7 @@ textarea::placeholder{color:#4A566A}
   <p class="sub">Sept comptes actifs (001, 002, 003, 004, 005, 006, A) — le 004 a été racheté le 17/09 après la clôture de l'ancien le 10/09, le compte A ouvert le 18/09. Soldes recalculés directement depuis les fichiers CSV bruts à chaque mise à jour. Les comptes 003, 004 et A, ouverts récemment, ne sont pas encore comptés dans "Objectif &amp; Risque" ci-dessus (soldes de départ supposés, pas confirmés).</p>
   <div class="obs warn" style="margin-bottom:16px">
     <div class="t">🔴🔴 Trois comptes sous les 900 $ de buffer : …4680005, …4680006 (166 $ chacun) et Compte A (824 $)</div>
-    <div class="d">005 et 006 sont en dessous d'un trade perdant moyen de la clôture (seuil à 48 000 $). Le compte A, ouvert le 18/09, a déjà perdu plus de la moitié de son buffer initial en une seule journée. Le drawdown global a dépassé 60 % de la limite de −8 000 $. NE PAS TOUCHER 005/006 avant d'en reparler ensemble.</div>
+    <div class="d">005 et 006 sont en dessous d'un trade perdant moyen de la clôture (seuil à 48 000 $). Le compte A, ouvert le 18/09, a déjà perdu plus de la moitié de son buffer initial en une seule journée. NE PAS TOUCHER 005/006 avant d'en reparler ensemble.</div>
   </div>
   <div class="obs warn" style="margin-bottom:16px">
     <div class="t">⚠️ Compte « A » : 8 contrats par trade dès le premier jour</div>
@@ -946,13 +943,13 @@ textarea::placeholder{color:#4A566A}
   <div class="rules">
     <div class="r">
       <div class="n">Compte …4680001 — Tradovate / Lucid</div>
-      <div class="t">50 022,75 $ · <span style="color:var(--green)">+22,75 $ depuis le départ</span></div>
-      <div class="d">Solde au 18/09. −253,50 $ ce jour-là — copié avec les comptes 002/003 (Long au même prix/même seconde).</div>
+      <div class="t">50 574,25 $ · <span style="color:var(--green)">+574,25 $ depuis le départ</span></div>
+      <div class="d">Solde au 21/09. +549 $ ce jour-là : 1 seul trade, 2 contrats (sous le plafond de 4), Long tenu 33 min — seul compte transmis. Le 18/09 : −253,50 $ copié avec 002/003, plus un scalp de +2,50 $ (1 contrat, 2 secondes).</div>
     </div>
     <div class="r">
       <div class="n">Compte …4680002 — Tradovate / Lucid</div>
-      <div class="t">49 776,00 $ · <span style="color:var(--red)">−224,00 $ depuis le départ</span></div>
-      <div class="d">Solde au 18/09. −253,50 $ ce jour-là — copié avec les comptes 001/003.</div>
+      <div class="t">49 588,50 $ · <span style="color:var(--red)">−411,50 $ depuis le départ</span></div>
+      <div class="d">Solde au 18/09 (rien transmis le 21/09). −253,50 $ le 18/09, copié avec 001/003. Ses 2 trades du 15/09 (−187,50 $) manquaient dans l'export initial.</div>
     </div>
     <div class="r">
       <div class="n">Compte …4680006 — Tradovate / Lucid</div>
@@ -3232,15 +3229,15 @@ window.COMPTES = [
     statutLabel: "Évaluation",
     devise: "$",
     depart: 50000,
-    solde: 49776.00,
+    solde: 49588.50,
     soldeDate: "18/09/2026",
     seuil: 48000,
-    buffer: 1776.00,
+    buffer: 1588.50,
     reference: "LTE05085004680002",
     objectif: 53000,
     mll: 48000,
     maxContrats: null,
-    note: "Buffer : +1 776,00 $ · −253,50 $ le 18/09 — copié avec les comptes 001/003 (Long au même prix/même seconde).",
+    note: "Buffer : +1 588,50 $ · −253,50 $ le 18/09 — copié avec les comptes 001/003 (Long, même seconde). Ses 2 trades du 15/09 (−187,50 $) manquaient dans l'export initial, ajoutés le 21/09.",
     aConfirmer: null
   },
   {
@@ -3268,15 +3265,15 @@ window.COMPTES = [
     statutLabel: "Évaluation",
     devise: "$",
     depart: 50000,
-    solde: 50022.75,
-    soldeDate: "18/09/2026",
+    solde: 50574.25,
+    soldeDate: "21/09/2026",
     seuil: 48000,
-    buffer: 2022.75,
+    buffer: 2574.25,
     reference: "LTE05085004680001",
     objectif: null,
     mll: 48000,
     maxContrats: null,
-    note: "Buffer : +2 022,75 $ · −253,50 $ le 18/09 — copié avec les comptes 002/003 (Long au même prix/même seconde).",
+    note: "Buffer : +2 574,25 $ · +549 $ le 21/09 — 1 trade, 2 contrats MNQ, Long tenu 33 min (seul compte transmis ce jour-là).",
     aConfirmer: null
   },
   {
@@ -3519,19 +3516,20 @@ window.TRADES = [
 ];
 
 window.SESSIONS = [
-  { jour:"18/09", label:"Vendredi 18 sept.", fichier:"2026-09-18-vendredi.html", pnl:-2097.50, trades:5, gagnants:0, neutres:0, note:"Nouveau compte « A » ouvert et tradé en 8 contrats dès le 1er jour — 3 trades, tous perdants, −1 176 $ à lui seul. Copy trading 001/002/003 (même prix, même seconde). Aucun trade gagnant sur toute la journée." },
-  { jour:"17/09", label:"Jeudi 17 sept.", fichier:"2026-09-17-jeudi.html", pnl:-1080.50, trades:6, gagnants:1, neutres:0, note:"Nouveau compte « 004 » racheté et tradé le jour même : +105 $, seul compte gagnant, mais 6 contrats dès le 1er jour (hors gabarit). Copy trading 001/006 (short) et 002/003 (long) sur le même mouvement, en sens opposés — personne n'a gagné." },
+  { jour:"21/09", label:"Lundi 21 sept.", fichier:"2026-09-21-lundi.html", pnl:549.00, trades:1, gagnants:1, neutres:0, note:"1 seul trade, sur le compte 001 : Long MNQ en 2 contrats (sous le plafond de 4), tenu 33 min, +549 $ — journée que tu décris comme conforme au plan. Aucun autre compte transmis." },
+  { jour:"18/09", label:"Vendredi 18 sept.", fichier:"2026-09-18-vendredi.html", pnl:-2095.00, trades:6, gagnants:1, neutres:0, note:"Nouveau compte « A » ouvert et tradé en 8 contrats dès le 1er jour — 3 trades, tous perdants, −1 176 $ à lui seul. Copy trading 001/002/003 (même seconde, même sortie, prix à 1,5 pt près). Seul trade gagnant : un scalp de +2,50 $ sur 001 (1 contrat, 2 secondes), ajouté le 21/09 après un export complété." },
+  { jour:"17/09", label:"Jeudi 17 sept.", fichier:"2026-09-17-jeudi.html", pnl:-1080.50, trades:6, gagnants:2, neutres:0, note:"Nouveau compte « 004 » racheté et tradé le jour même : +105 $ (2 trades gagnants sur 3), seul compte gagnant, mais 6 contrats dès le 1er jour (hors gabarit). Copy trading 001/006 (short) et 002/003 (long) sur le même mouvement, en sens opposés — personne n'a gagné sur ces trades-là." },
   { jour:"16/09", label:"Mercredi 16 sept.", fichier:"2026-09-16-mercredi.html", pnl:343.50, trades:1, gagnants:1, neutres:0, note:"Nouvelle strat testée : biais haussier, 2 IFVG 5M, TP visant un R:R de 2 — même signal copié sur 001/003 (compté comme 1 trade), tenu 2h14, gagnant sur les deux. Le plan n'a pas été suivi à 100 % mais le cadre était là." },
-  { jour:"15/09", label:"Mardi 15 sept.", fichier:"2026-09-15-mardi.html", pnl:-920.50, trades:11, gagnants:2, neutres:0, note:"4 comptes actifs (002 sans trade) — dédupliqué : 11 signaux uniques, dont 6 copiés entre 001/003/005 entre 17h00 et 17h34 (même prix, même minute, comptés une fois). Pas de full-size aujourd'hui (tout en MNQ micro)." },
+  { jour:"15/09", label:"Mardi 15 sept.", fichier:"2026-09-15-mardi.html", pnl:-1108.00, trades:13, gagnants:2, neutres:0, note:"5 comptes actifs — dédupliqué : 13 signaux uniques, dont 6 copiés entre 001/003/005 entre 17h00 et 17h34 (même prix, même minute, comptés une fois). 002 : 2 trades (−187,50 $, 17h41 et 18h29) absents de l'export initial, ajoutés le 21/09. Pas de full-size aujourd'hui (tout en MNQ micro)." },
   { jour:"14/09", label:"Lundi 14 sept.", fichier:"2026-09-14-lundi.html", pnl:-1521.00, trades:15, gagnants:4, neutres:0, note:"5 comptes, tous perdants — pas de copy trading évident cette fois, juste une journée uniformément mauvaise. 006 et 003 : GC (gold taille standard) au lieu de MGC, même remarque que le CL en septembre." },
   { jour:"11/09", label:"Vendredi 11 sept.", fichier:"2026-09-11-vendredi.html", pnl:-275.50, trades:13, gagnants:4, neutres:0, note:"Copy trading (005/006) · 002 : 3 réentrées en 53 s · 005 : 6 trades entre 17h26 et 18h04 après le signal copié perdant, certains à moins d'une minute d'écart. Sauvé par le 003 (+560 $) — sans lui, −835,50 $. Dédupliqué : 13 signaux uniques. 001 non transmis." },
   { jour:"10/09", label:"Jeudi 10 sept.", fichier:"2026-09-10-jeudi.html", pnl:-1403.00, trades:19, gagnants:4, neutres:0, note:"Copy trading (001/002) · 006 : 3 entrées en 51 s sur position perdante · 005 : réentrée 7 s après clôture · nouveau compte « 003 » repris et tradé le jour même (MCL à 10 contrats). Dédupliqué : 19 signaux uniques. 004 clôturé." },
   { jour:"09/09", label:"Mercredi 9 sept.", fichier:"2026-09-09-mercredi.html", pnl:594.00, trades:1, gagnants:1, neutres:0, note:"Compte 001 seul reçu · un seul short MNQ tenu 9 min, +594 $ · autres comptes non transmis." },
   { jour:"08/09", label:"Mardi 8 sept.",    fichier:"2026-09-08-mardi.html",    pnl:2529.00, trades:1, gagnants:1, neutres:0, note:"TraderSyncer de retour : 001 +844,50 $ · 002 +843 $ · 005 +841,50 $, même short MNQ dupliqué sur 3 comptes malgré la règle 8 — compté comme 1 seul trade. Gagnant cette fois — ne prouve rien après le −1 155,50 $ du 04/09." },
   { jour:"07/09", label:"Lundi 7 sept.",    fichier:"2026-09-07-lundi.html",    pnl:893.00, trades:4, gagnants:3, neutres:0, note:"Compte 001 seul reçu · long CL (taille standard, ≈10× un MCL) tenu 2h54 → +840 $ · autres comptes non transmis." },
-  { jour:"04/09", label:"Vendredi 4 sept.", fichier:"2026-09-04-vendredi.html", pnl:-1155.50, trades:15, gagnants:4, neutres:0, note:"TraderSyncer copie le même signal sur 001/002/005 toute la séance (9 trades chacun), 006 trade séparément (4 trades) · 001 −281,50$ · 002 −290$ · 005 −290$ · 006 −294$ · Total −1 155,50$. Dédupliqué : 15 signaux uniques, pas 36 — correction du 16/09, l'ancienne note attribuait à tort une partie de ces montants au compte 004 (archivé), alors qu'il n'a pas tradé ce jour-là. Chômage + copy trading = règles 3 et 8 ajoutées." },
+  { jour:"04/09", label:"Vendredi 4 sept.", fichier:"2026-09-04-vendredi.html", pnl:-1155.50, trades:12, gagnants:3, neutres:0, note:"TraderSyncer copie le même signal sur 001/002/005 toute la séance (9 trades chacun), 006 trade séparément (4 trades) · 001 −281,50$ · 002 −290$ · 005 −290$ · 006 −294$ · Total −1 155,50$. Dédupliqué : 12 signaux uniques pour 31 lignes CSV (corrigé le 21/09 : 3 copies à 4 ticks d'écart, même seconde, avaient été comptées à part ; l'ancien « 36 lignes » venait d'un tableau mal étiqueté). Chômage + copy trading = règles 3 et 8 ajoutées." },
   { jour:"03/09", label:"Jeudi 3 sept.",    fichier:"2026-09-03-jeudi.html",    pnl:-586.5, trades:5, gagnants:0, neutres:0, note:"2 comptes · 3 shorts consécutifs · même pattern 28/08. Dédupliqué : 5 signaux uniques, tous perdants (l'ancienne note comptait 8 trades et 1 gagnant)." },
-  { jour:"02/09", label:"Mercredi 2 sept.", fichier:"2026-09-02-mercredi.html", pnl:750, trades:8, gagnants:6, neutres:0, note:"3 comptes · stop ouverture → retournement short → long final +550 $. Dédupliqué : 8 signaux uniques, 6 gagnants (l'ancienne note comptait 15 trades)." },
+  { jour:"02/09", label:"Mercredi 2 sept.", fichier:"2026-09-02-mercredi.html", pnl:750, trades:6, gagnants:4, neutres:0, note:"3 comptes · stop ouverture → retournement short → long final +550 $. Dédupliqué : 6 signaux uniques, 4 gagnants (corrigé le 21/09 : 001 et 005 entrent et sortent à la même seconde, prix à 3,5 pts d'écart — un seul signal copié, pas deux)." },
   { jour:"01/09", label:"Mardi 1er sept.",  fichier:"2026-09-01-mardi.html",    pnl:721.50, trades:2, gagnants:2, neutres:0, note:"…006 · 2 longs MNQU6 · +6 $ (scalp) + 715,50 $ (43 min, +119 pts) · net +718 $." },
   { jour:"31/08", label:"Lundi 31 août",    fichier:"2026-08-31-lundi.html",    pnl:0, trades:0, gagnants:0, neutres:0, note:"Aucun trade. Plan respecté — pas de setup valable. Dernier jour d'août." },
   { jour:"28/08", label:"Vendredi 28 août", fichier:"2026-08-28-vendredi.html", pnl:-167.00, trades:6, gagnants:2, neutres:1, note:"Compte …006 −298 $ (3 shorts consécutifs contre tendance) · Compte …001 +131 $ (3 longs) · net −167 $." },
@@ -4278,18 +4276,22 @@ window.SESSIONS = [
           var isToday = s.jour && s.jour.slice(0,5) === todayStr;
           var isNext  = !isToday && s.jour && s.jour.slice(0,5) === nextStr && isPending;
 
-          var hasImg = false;
+          var hasImg = false, missingReasons = 0;
           if(s.fichier){
             try{
               var skey = s.fichier.replace(/\.html$/,'').replace(/-/g,'_');
               var imgs = JSON.parse(localStorage.getItem('imgs_' + skey) || '[]');
               hasImg = imgs.length > 0;
+              var notes = JSON.parse(localStorage.getItem('notes_' + skey) || '{}');
+              var noteCount = Object.keys(notes).filter(function(k){ return /_\d+$/.test(k); }).length;
+              if(s.trades > 0 && noteCount < s.trades) missingReasons = s.trades - noteCount;
             }catch(e){}
           }
 
           h += '<' + tag + ' class="sr ' + cls + '"' + attrs + '>';
           h += '<div class="sr-date">' + jourLabel(s.jour);
           if(hasImg) h += '<span class="sr-img" title="Capture(s) d\'écran enregistrée(s)">📷</span>';
+          if(missingReasons > 0) h += '<span class="sr-warn" title="' + missingReasons + ' trade(s) sans raison renseignée">⚠️</span>';
           if(isToday) h += '<span class="sr-badge today">Auj.</span>';
           else if(isNext) h += '<span class="sr-badge next">Prochaine</span>';
           h += '</div>';

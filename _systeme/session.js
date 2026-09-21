@@ -426,11 +426,36 @@ function sjInitCsvImport(){
   sjRenderCsvImport();
 }
 
+/* ---------- Raison du trade obligatoire : signalé en rouge si vide ---------- */
+function sjNoteWarnEl(ta){
+  var warn = ta.nextElementSibling;
+  if(!warn || !warn.classList || !warn.classList.contains('note-warn')){
+    warn = document.createElement('div');
+    warn.className = 'note-warn';
+    warn.textContent = '⚠️ Raison du trade manquante — remplis-la pour justifier la position';
+    ta.insertAdjacentElement('afterend', warn);
+  }
+  return warn;
+}
+function sjUpdateNoteState(ta){
+  var empty = !ta.value.trim();
+  ta.classList.toggle('missing', empty);
+  sjNoteWarnEl(ta).classList.toggle('show', empty);
+}
+function sjInitTradeNotes(){
+  document.querySelectorAll('.trade-note').forEach(function(ta){
+    sjUpdateNoteState(ta);
+    ta.addEventListener('input', function(){ sjUpdateNoteState(ta); });
+    ta.addEventListener('blur', function(){ sjUpdateNoteState(ta); });
+  });
+}
+
 /* ---------- Point d'entrée ---------- */
 function initSessionPage(){
   sjInitImages();
   sjInitReflect();
   sjInitPaste();
   sjInitCsvImport();
+  sjInitTradeNotes();
 }
 window.addEventListener('DOMContentLoaded', initSessionPage);

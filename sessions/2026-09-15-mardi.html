@@ -13,14 +13,14 @@
 
 <div class="sp-header">
   <h1 class="sp-title">Mardi 15 sept.</h1>
-  <span class="sp-pnl td-l">−920,50 $</span>
+  <span class="sp-pnl td-l">−1 108,00 $</span>
 </div>
-<div class="sp-meta">11 trades uniques (17 lignes CSV, dédupliqué) &nbsp;·&nbsp; 4 comptes actifs (001, 003, 005, 006) — 002 envoyé sans trade</div>
+<div class="sp-meta">13 trades uniques (19 lignes CSV, dédupliqué) &nbsp;·&nbsp; 5 comptes actifs (001, 002, 003, 005, 006)</div>
 
 <div class="note-block">
-  <strong>−920,50 $ sur 4 comptes — pas de full-size aujourd'hui (tout en MNQ micro), mais copy trading net entre 17h00 et 17h34.</strong><br><br>
+  <strong>−1 108,00 $ sur 5 comptes — pas de full-size aujourd'hui (tout en MNQ micro), mais copy trading net entre 17h00 et 17h34.</strong><br><br>
 <strong>Copy trading 001/003/005</strong> : à 17h00, les trois comptes entrent le même short au même prix (29 252,00) à la même minute — 001 −78 $, 003 −84 $, 005 −48 $. À 17h03 puis 17h07, 001 et 003 reprennent le même trade au même niveau, avec un résultat quasiment identique (+18/+22 $ puis −134 $ chacun, à l'identique au tick près sur le deuxième). Même schéma qu'avant l'ajout de la règle 8 — trois décisions séparées ne devraient jamais partager le même prix et la même minute.<br><br>
-006 et 001 (début de séance, 15h38-16h57) ont tradé seuls, à des horaires différents du bloc 17h. 002 a envoyé un export vide aujourd'hui — aucun trade, à confirmer que c'est bien volontaire.
+006 et 001 (début de séance, 15h38-16h57) ont tradé seuls, à des horaires différents du bloc 17h. 002 a tradé seul après le bloc de 17h : Long 1 contrat à 17h41 (−56,50 $, tenu 27 min) puis Long 2 contrats à 18h29 (−131,00 $, tenu 35 min), soit −187,50 $ — deux trades qui manquaient dans l'export initial (002 avait été envoyé « sans trade ») et ont été ajoutés le 21/09.
 </div>
 
 <div class="section-title">📸 Captures d'écran</div>
@@ -84,10 +84,20 @@
       <tbody id="body-003"></tbody>
     </table>
   </div>
+  <div class="acct-header">
+    <span class="acct-label">Compte 002 — …4680002</span>
+    <span class="acct-pnl td-l">−187,50 $</span>
+  </div>
+  <div class="tbl-wrap">
+    <table class="trades-table">
+      <thead><tr><th>#</th><th>Contrat</th><th>Sens</th><th>Qté</th><th>Entrée</th><th>Sortie</th><th>Heure</th><th>P&amp;L</th></tr></thead>
+      <tbody id="body-002"></tbody>
+    </table>
+  </div>
 
   <div class="total-bar">
-    <span class="total-label">Total journée — 4 comptes</span>
-    <span class="total-val " style="color:var(--red)">−920,50 $</span>
+    <span class="total-label">Total journée — 5 comptes</span>
+    <span class="total-val " style="color:var(--red)">−1 108,00 $</span>
   </div>
 
 </div>
@@ -146,6 +156,10 @@ var ACCTS = {
     {n:3, contract:'MNQ', side:'Long', qty:'4', entry:'29281.00', exit:'29264.25', time:'17:07', pnl: -134.00},
     {n:4, contract:'MNQ', side:'Short', qty:'4', entry:'29268.50', exit:'29277.25', time:'17:32', pnl: -70.00},
     {n:5, contract:'MNQ', side:'Short', qty:'4', entry:'29272.50', exit:'29275.00', time:'17:33', pnl: -20.00}
+  ],
+  '002': [
+    {n:1, contract:'MNQ', side:'Long', qty:'1', entry:'29282.00', exit:'29253.75', time:'17:41', pnl: -56.50},
+    {n:2, contract:'MNQ', side:'Long', qty:'2', entry:'29283.50', exit:'29250.75', time:'18:29', pnl: -131.00}
   ]
 };
 
@@ -181,6 +195,7 @@ window.addEventListener('DOMContentLoaded', function(){
   renderAcct('005', 'body-005');
   renderAcct('006', 'body-006');
   renderAcct('003', 'body-003');
+  renderAcct('002', 'body-002');
 });
 </script>
 <script src="../_systeme/session.js"></script>

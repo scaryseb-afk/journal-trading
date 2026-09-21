@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Vendredi 18 sept. — Journal</title>
+<title>Lundi 21 sept. — Journal</title>
 <link rel="stylesheet" href="../_systeme/style.css">
 </head>
 <body>
@@ -12,16 +12,16 @@
 <a href="https://scaryseb-afk.github.io/journal-trading/#sessions" onclick="if(document.referrer){history.back();return false;}" class="sp-back">← Journal</a>
 
 <div class="sp-header">
-  <h1 class="sp-title">Vendredi 18 sept.</h1>
-  <span class="sp-pnl td-l">−2 095,00 $</span>
+  <h1 class="sp-title">Lundi 21 sept.</h1>
+  <span class="sp-pnl td-w">+549,00 $</span>
 </div>
-<div class="sp-meta">6 trades uniques (8 lignes CSV, dédupliqué) &nbsp;·&nbsp; 5 comptes (001, 002, 003, 004, A — nouveau) — 005/006 non transmis</div>
+<div class="sp-meta">1 trade unique (1 ligne CSV) &nbsp;·&nbsp; 1 compte (001) — les autres comptes n'ont rien transmis</div>
 
 <div class="note-block">
-  <strong>−2 095,00 $ — nouveau compte « A » ouvert et tradé en 8 contrats dès le premier jour, la plus grosse taille jamais vue sur un compte neuf.</strong><br><br>
-  <strong>🔴 Compte « A »</strong> : 3 trades, tous perdants, −1 176 $ — à lui seul plus de la moitié de la perte du jour. Chaque trade est en <strong>8 contrats MNQ</strong>, deux fois la taille du 004 le jour de son ouverture (6 contrats) et le double du plafond de 4. Aucune règle de taille appliquée, comme à chaque nouvelle ouverture de compte ce mois-ci.<br><br>
-  <strong>Copy trading 001/002/003</strong> : les trois comptes entrent Long au même prix (≈29 837) à la même seconde (15h40:05) et sortent ensemble à 15h48:59 — même signal, compté une fois, perdant sur les trois (−253,50 $, −253,50 $, −262,50 $). 001 a aussi passé un scalp d'1 contrat à 16h54 (+2,50 $, tenu 2 secondes) — le seul trade gagnant de la journée, absent de l'export initial et ajouté le 21/09.<br><br>
-  004 : 1 trade seul, −152 $. 005 et 006 n'ont rien transmis aujourd'hui.
+  <strong>+549,00 $ — un seul trade, en 2 contrats, tenu 33 minutes : la journée que tu décris comme fidèle au plan.</strong><br><br>
+  Long MNQ sur 001, entrée à 15h40 à 30 302,75, sortie à 16h13 à 30 440,00 — 137,25 points captés, soit +549 $ sur 2 contrats. Un trade, sous le plafond de 3 par jour ; 2 contrats, sous le plafond de 4 ; aucune réentrée après la sortie. C'est l'inverse des journées du 14, 15 et 18/09 (15, 13 et 6 trades uniques) et des 6 à 8 contrats posés sur les comptes neufs les 17 et 18/09.<br><br>
+  <strong>Ce que le CSV confirme :</strong> nombre de trades, taille, horaire, durée. <strong>Ce qu'il ne dit pas :</strong> le stop initial et s'il a bougé, donc le R:R réel — note ton stop sur le trade ci-dessous pour qu'il se calcule.<br><br>
+  002, 003, 004, 005, 006 et A : aucun export reçu pour aujourd'hui — à confirmer qu'ils n'ont pas tradé.
 </div>
 
 <div class="section-title">📸 Captures d'écran</div>
@@ -47,7 +47,7 @@
 
   <div class="acct-header">
     <span class="acct-label">Compte 001 — …4680001</span>
-    <span class="acct-pnl td-l">−251,00 $</span>
+    <span class="acct-pnl td-w">+549,00 $</span>
   </div>
   <div class="tbl-wrap">
     <table class="trades-table">
@@ -55,50 +55,10 @@
       <tbody id="body-001"></tbody>
     </table>
   </div>
-  <div class="acct-header">
-    <span class="acct-label">Compte 002 — …4680002</span>
-    <span class="acct-pnl td-l">−253,50 $</span>
-  </div>
-  <div class="tbl-wrap">
-    <table class="trades-table">
-      <thead><tr><th>#</th><th>Contrat</th><th>Sens</th><th>Qté</th><th>Entrée</th><th>Sortie</th><th>Heure</th><th>P&amp;L</th></tr></thead>
-      <tbody id="body-002"></tbody>
-    </table>
-  </div>
-  <div class="acct-header">
-    <span class="acct-label">Compte 003 — …4680003</span>
-    <span class="acct-pnl td-l">−262,50 $</span>
-  </div>
-  <div class="tbl-wrap">
-    <table class="trades-table">
-      <thead><tr><th>#</th><th>Contrat</th><th>Sens</th><th>Qté</th><th>Entrée</th><th>Sortie</th><th>Heure</th><th>P&amp;L</th></tr></thead>
-      <tbody id="body-003"></tbody>
-    </table>
-  </div>
-  <div class="acct-header">
-    <span class="acct-label">Compte 004 — nouveau</span>
-    <span class="acct-pnl td-l">−152,00 $</span>
-  </div>
-  <div class="tbl-wrap">
-    <table class="trades-table">
-      <thead><tr><th>#</th><th>Contrat</th><th>Sens</th><th>Qté</th><th>Entrée</th><th>Sortie</th><th>Heure</th><th>P&amp;L</th></tr></thead>
-      <tbody id="body-004b"></tbody>
-    </table>
-  </div>
-  <div class="acct-header">
-    <span class="acct-label">Compte A — nouveau (8 contrats/trade)</span>
-    <span class="acct-pnl td-l">−1 176,00 $</span>
-  </div>
-  <div class="tbl-wrap">
-    <table class="trades-table">
-      <thead><tr><th>#</th><th>Contrat</th><th>Sens</th><th>Qté</th><th>Entrée</th><th>Sortie</th><th>Heure</th><th>P&amp;L</th></tr></thead>
-      <tbody id="body-A"></tbody>
-    </table>
-  </div>
 
   <div class="total-bar">
-    <span class="total-label">Total journée — 5 comptes</span>
-    <span class="total-val " style="color:var(--red)">−2 095,00 $</span>
+    <span class="total-label">Total journée — 1 compte</span>
+    <span class="total-val " style="color:var(--green)">+549,00 $</span>
   </div>
 
 </div>
@@ -130,26 +90,11 @@
 </div>
 
 <script>
-var SESSION_KEY = '2026_09_18_vendredi';
+var SESSION_KEY = '2026_09_21_lundi';
 
 var ACCTS = {
   '001': [
-    {n:1, contract:'MNQ', side:'Long', qty:'3', entry:'29836.50', exit:'29794.25', time:'15:40', pnl: -253.50},
-    {n:2, contract:'MNQ', side:'Long', qty:'1', entry:'29758.75', exit:'29760.00', time:'16:54', pnl: 2.50}
-  ],
-  '002': [
-    {n:1, contract:'MNQ', side:'Long', qty:'3', entry:'29836.50', exit:'29794.25', time:'15:40', pnl: -253.50}
-  ],
-  '003': [
-    {n:1, contract:'MNQ', side:'Long', qty:'3', entry:'29838.00', exit:'29794.25', time:'15:40', pnl: -262.50}
-  ],
-  '004b': [
-    {n:1, contract:'MNQ', side:'Long', qty:'2', entry:'29760.25', exit:'29722.25', time:'16:55', pnl: -152.00}
-  ],
-  'A': [
-    {n:1, contract:'MNQ', side:'Short', qty:'8', entry:'29712.00', exit:'29743.75', time:'16:17', pnl: -508.00},
-    {n:2, contract:'MNQ', side:'Long', qty:'8', entry:'29742.50', exit:'29710.50', time:'16:24', pnl: -512.00},
-    {n:3, contract:'MNQ', side:'Short', qty:'8', entry:'29706.75', exit:'29716.50', time:'16:42', pnl: -156.00}
+    {n:1, contract:'MNQ', side:'Long', qty:'2', entry:'30302.75', exit:'30440.00', time:'15:40', pnl: 549.00}
   ]
 };
 
@@ -182,10 +127,6 @@ function renderAcct(acctId, bodyId){
 
 window.addEventListener('DOMContentLoaded', function(){
   renderAcct('001', 'body-001');
-  renderAcct('002', 'body-002');
-  renderAcct('003', 'body-003');
-  renderAcct('004b', 'body-004b');
-  renderAcct('A', 'body-A');
 });
 </script>
 <script src="../_systeme/session.js"></script>
