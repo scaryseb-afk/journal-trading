@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Mardi 22 sept. — Journal</title>
+<link rel="stylesheet" href="../_systeme/style.css">
+</head>
+<body>
+<div class="wrap">
+
+<a href="https://scaryseb-afk.github.io/journal-trading/#sessions" onclick="if(document.referrer){history.back();return false;}" class="sp-back">← Journal</a>
+
+<div class="sp-header">
+  <h1 class="sp-title">Mardi 22 sept.</h1>
+  <span class="sp-pnl td-w">+204,00 $</span>
+</div>
+<div class="sp-meta">1 trade unique (1 ligne CSV) &nbsp;·&nbsp; 1 compte (001) — les autres comptes n'ont rien transmis</div>
+
+<div class="note-block">
+  <strong>+204,00 $ — gagnant, mais une entrée que tu remets toi-même en question : viser ~800 points était trop large.</strong><br><br>
+  Long MNQ sur 001, 1 contrat, entrée à 15h35 (30 870,25), sortie à 20h40 (30 972,25) après plus de 5 heures de hold — 102 points captés, +204 $.<br><br>
+  <strong>Ta relecture :</strong> tu n'aurais peut-être pas dû rentrer sur ce trade en visant ~800 points de cible. Tu identifies un meilleur setup que tu n'as pas pris : un deuxième IFVG, avec un risque de 150 points et un R:R de 2,5 (soit ~375 points de cible) — stop et cible bien plus resserrés, plus cohérents avec le reste du plan que de courir après un mouvement de 800 points.<br><br>
+  Aucun autre compte transmis aujourd'hui.
+</div>
+
+<div class="section-title">📸 Captures d'écran</div>
+<div id="img-zone" class="drop-zone">
+  <input type="file" id="img-input" accept="image/*" multiple style="display:none">
+  <div style="font-size:16px">🖼️ <span style="font-size:12px;font-weight:600">Glisser une image, cliquer, ou coller (Ctrl+V)</span></div>
+  <div class="drop-sub">Redimensionnée et compressée automatiquement avant stockage</div>
+</div>
+<div id="screenshots" class="screenshots" style="margin-top:12px"></div>
+<div id="img-clear-wrap" style="display:none">
+  <button class="clear-btn" onclick="sjClearScreenshots()">Effacer les captures</button>
+</div>
+
+<div class="section-title">📤 Importer un CSV (aperçu local, non publié)</div>
+<div id="csv-zone" class="drop-zone">
+  <input type="file" id="csv-input" accept=".csv" multiple style="display:none">
+  <div style="font-size:16px">📄 <span style="font-size:12px;font-weight:600">Glisser un export Tradovate (.csv) ou cliquer</span></div>
+  <div class="drop-sub">Compte détecté automatiquement, P&L calculé, R:R dès que tu remplis stop/objectif — reste dans ton navigateur, ne modifie pas la page tant que ce n'est pas relu.</div>
+</div>
+<div id="csv-import-result"></div>
+
+<div id="trades-section">
+
+  <div class="acct-header">
+    <span class="acct-label">Compte 001 — …4680001</span>
+    <span class="acct-pnl td-w">+204,00 $</span>
+  </div>
+  <div class="tbl-wrap">
+    <table class="trades-table">
+      <thead><tr><th>#</th><th>Contrat</th><th>Sens</th><th>Qté</th><th>Entrée</th><th>Sortie</th><th>Heure</th><th>P&amp;L</th></tr></thead>
+      <tbody id="body-001"></tbody>
+    </table>
+  </div>
+
+  <div class="total-bar">
+    <span class="total-label">Total journée — 1 compte</span>
+    <span class="total-val " style="color:var(--green)">+204,00 $</span>
+  </div>
+
+</div>
+
+<div class="section-title">🪞 Ta relecture</div>
+<div class="reflect-grid">
+  <div class="reflect-item err">
+    <label>Erreur commise</label>
+    <textarea class="reflect-note" data-key="reflect_erreur" placeholder="Qu'est-ce qui a foiré aujourd'hui, concrètement ?"></textarea>
+  </div>
+  <div class="reflect-item fix">
+    <label>Ce que j'aurais dû faire</label>
+    <textarea class="reflect-note" data-key="reflect_correction" placeholder="La version correcte de la décision"></textarea>
+  </div>
+  <div class="reflect-item ok">
+    <label>Ce qui a bien fonctionné</label>
+    <textarea class="reflect-note" data-key="reflect_ok" placeholder="À garder, à répéter"></textarea>
+  </div>
+</div>
+<div class="reflect-copy">
+  <button id="reflect-copy-btn" onclick="sjCopyReflect()" disabled>📋 Copier pour Claude</button>
+  <span class="hint">Colle ça dans le chat pour que ta prochaine séance en tienne compte.</span>
+</div>
+
+</div>
+<div class="lb-overlay" id="lb" onclick="sjCloseLB(event)">
+  <span class="lb-close" onclick="document.getElementById('lb').classList.remove('open')">×</span>
+  <img id="lb-img" src="" alt="">
+</div>
+
+<script>
+var SESSION_KEY = '2026_09_22_mardi';
+
+var ACCTS = {
+  '001': [
+    {n:1, contract:'MNQ', side:'Long', qty:'1', entry:'30870.25', exit:'30972.25', time:'15:35', pnl: 204.00}
+  ]
+};
+
+function renderAcct(acctId, bodyId){
+  var notes = sjLoadNotes();
+  var trades = ACCTS[acctId] || [];
+  var html = '';
+  trades.forEach(function(t){
+    var ps = (t.pnl >= 0 ? '+' : '') + t.pnl.toFixed(2) + ' $';
+    var pc = t.pnl >= 0 ? 'td-w' : 'td-l';
+    var key = acctId + '_' + t.n;
+    var note = notes[key] || '';
+    html += '<tr class="trade-row">'
+      + '<td>' + t.n + '</td>'
+      + '<td><strong>' + sjEsc(t.contract) + '</strong></td>'
+      + '<td>' + sjEsc(t.side) + '</td>'
+      + '<td>' + sjEsc(t.qty) + '</td>'
+      + '<td>' + sjEsc(t.entry) + '</td>'
+      + '<td>' + sjEsc(t.exit) + '</td>'
+      + '<td style="color:var(--muted);font-size:12px">' + sjEsc(t.time) + '</td>'
+      + '<td class="td-pnl ' + pc + '">' + ps + '</td>'
+      + '</tr>'
+      + '<tr class="note-row"><td colspan="8">'
+      + '<textarea class="trade-note" placeholder="Setup, raison du trade, erreurs…" data-key="' + key + '" onblur="sjSaveNote(this)">'
+      + sjEsc(note)
+      + '</textarea></td></tr>';
+  });
+  document.getElementById(bodyId).innerHTML = html;
+}
+
+window.addEventListener('DOMContentLoaded', function(){
+  renderAcct('001', 'body-001');
+});
+</script>
+<script src="../_systeme/session.js"></script>
+</body>
+</html>
