@@ -1,7 +1,7 @@
 # Données brutes CSV
 
 Ce dossier garde une copie **verbatim** des exports Tradovate envoyés par
-Sébastien, pour que les chiffres affichés dans `index.html`/`rules.html`
+Sébastien, pour que les chiffres affichés dans `index.html`
 (win rate, R:R, comptes, nombre de trades...) soient toujours recalculables
 depuis la donnée source — pas seulement depuis un résumé tapé à la main.
 

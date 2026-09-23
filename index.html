@@ -9,18 +9,22 @@
   --bg:#0A0D13; --panel:#131820; --panel2:#1A212C; --line:#242D3A;
   --txt:#EAF0F8; --muted:#8FA0B6; --dim:#5D6C82;
   --green:#3DD68C; --red:#F2555A; --gold:#D4A63C; --blue:#5B9DF9;
+  --surface:var(--panel); --border:var(--line); --head:var(--txt);
+  --red-dim:rgba(242,85,90,.12); --amber-dim:rgba(212,166,60,.10); --green-dim:rgba(61,214,140,.10); --white-dim:rgba(255,255,255,.05);
 }
 @media(prefers-color-scheme:light){
   :root:not([data-theme="dark"]){
     --bg:#F5F6F8; --panel:#FFFFFF; --panel2:#F0F2F5; --line:#D8DCE4;
     --txt:#111827; --muted:#556070; --dim:#8A96A6;
     --green:#16864D; --red:#C8282D; --gold:#9A6F10; --blue:#1A5FBF;
+    --red-dim:rgba(200,40,45,.10); --amber-dim:rgba(154,111,16,.10); --green-dim:rgba(22,134,77,.10); --white-dim:rgba(0,0,0,.04);
   }
 }
 :root[data-theme="light"]{
   --bg:#F5F6F8; --panel:#FFFFFF; --panel2:#F0F2F5; --line:#D8DCE4;
   --txt:#111827; --muted:#556070; --dim:#8A96A6;
   --green:#16864D; --red:#C8282D; --gold:#9A6F10; --blue:#1A5FBF;
+  --red-dim:rgba(200,40,45,.10); --amber-dim:rgba(154,111,16,.10); --green-dim:rgba(22,134,77,.10); --white-dim:rgba(0,0,0,.04);
 }
 *{box-sizing:border-box}
 .view{display:none}.view.active{display:block}
@@ -413,6 +417,110 @@ textarea::placeholder{color:#4A566A}
   /* Details summary */
   details summary{font-size:13px !important}
 }
+
+/* ── Onglet Règles (fusionné depuis rules.html) ─────────────────────── */
+.rc-rule{display:grid;grid-template-columns:44px 1fr;gap:0 24px;border-bottom:1px solid var(--border);padding:22px 0;position:relative}
+.rc-rule:first-of-type{border-top:1px solid var(--border)}
+.rc-rule-num{font-family:'IBM Plex Mono',monospace;font-size:28px;font-weight:700;color:var(--border);line-height:1;padding-top:4px;user-select:none}
+.rule-tag{display:inline-block;font-family:'IBM Plex Mono',monospace;font-size:9.5px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:2px 8px;border-radius:3px;margin-bottom:8px}
+.tag-stop{background:var(--red-dim);color:var(--red)}
+.tag-warn{background:var(--amber-dim);color:var(--gold)}
+.tag-proc{background:var(--white-dim);color:var(--muted)}
+.rule-stmt{font-size:17px;font-weight:600;color:var(--head);line-height:1.35;margin-bottom:7px;text-wrap:balance}
+.rule-detail{font-size:13px;color:var(--muted);line-height:1.65}
+.rule-detail strong{color:var(--txt);font-weight:600}
+.rc-rule.stop{border-left:2px solid var(--red);padding-left:16px}
+.rc-rule.warn{border-left:2px solid var(--gold);padding-left:16px}
+.rc-rule.stop .rc-rule-num{color:rgba(232,64,64,.18)}
+.rc-rule.warn .rc-rule-num{color:rgba(245,166,35,.18)}
+@media(max-width:520px){.rc-rule{grid-template-columns:36px 1fr;gap:0 16px}.rc-rule-num{font-size:22px}.rule-stmt{font-size:15px}}
+
+.prohibition{background:var(--red-dim);border:1px solid rgba(232,64,64,.25);border-radius:6px;padding:16px 20px;margin:32px 0 0;display:flex;align-items:flex-start;gap:14px}
+.prohibition-icon{font-size:18px;flex-shrink:0;padding-top:1px}
+.prohibition-text{font-family:'IBM Plex Mono',monospace;font-size:13px;color:var(--red);line-height:1.6}
+.prohibition-text strong{font-weight:700}
+
+.section-divider{display:flex;align-items:center;gap:16px;margin:48px 0 32px}
+.section-divider span{font-family:'IBM Plex Mono',monospace;font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);white-space:nowrap}
+.section-divider::before,.section-divider::after{content:'';flex:1;height:1px;background:var(--border)}
+
+.check-item,.viol-check{display:flex;align-items:flex-start;gap:14px;padding:14px 16px;background:var(--surface);border:1px solid var(--border);border-radius:6px;cursor:pointer;transition:border-color .12s,background .12s;user-select:none}
+.check-item input[type="checkbox"],.viol-check input[type="checkbox"]{display:none}
+.check-box{width:18px;height:18px;min-width:18px;border:1.5px solid var(--muted);border-radius:4px;display:flex;align-items:center;justify-content:center;transition:border-color .12s,background .12s;margin-top:1px}
+.check-box svg{opacity:0;transition:opacity .1s}
+.check-item.checked .check-box,.viol-check.checked .check-box{background:var(--green);border-color:var(--green)}
+.viol-check.checked .check-box{background:var(--red);border-color:var(--red)}
+.check-item.checked .check-box svg,.viol-check.checked .check-box svg{opacity:1}
+.check-item.checked .check-label{text-decoration:line-through;color:var(--muted)}
+.check-label{font-size:14px;font-weight:500;color:var(--txt);line-height:1.5;transition:color .12s}
+.viol-checks{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:8px;margin-bottom:12px}
+.viol-check{padding:10px 12px}
+.viol-check .check-label{font-size:12.5px}
+
+.score-row{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 0;border-bottom:1px solid var(--border);flex-wrap:wrap}
+.score-row:last-child{border-bottom:none}
+.score-label{font-size:13px;font-weight:650;color:var(--txt);min-width:60px}
+.score-opts{display:flex;gap:6px;flex-wrap:wrap}
+.score-btn{border:1px solid var(--border);background:var(--bg);color:var(--muted);border-radius:6px;padding:7px 12px;font:inherit;font-size:12px;font-weight:600;cursor:pointer;transition:.12s}
+.score-btn:hover{border-color:var(--muted);color:var(--txt)}
+.score-btn.active{background:var(--gold);border-color:var(--gold);color:#0d111c}
+.score-total{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;margin-top:14px;padding-top:14px;border-top:1px solid var(--border)}
+.score-total-num{font-family:'IBM Plex Mono',monospace;font-size:26px;font-weight:700;color:var(--txt)}
+.score-total-sub{font-size:12px;color:var(--muted)}
+.score-verdict{font-family:'IBM Plex Mono',monospace;font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:6px 12px;border-radius:999px}
+.score-verdict.no{background:var(--red-dim);color:var(--red)}
+.score-verdict.yes{background:var(--green-dim);color:var(--green)}
+
+.dt-lock-banner{background:var(--red-dim);border:1px solid rgba(232,64,64,.35);border-radius:6px;padding:14px 16px;margin-bottom:14px}
+.dt-lock-title{font-family:'IBM Plex Mono',monospace;font-size:13px;font-weight:700;color:var(--red);letter-spacing:.02em}
+.dt-lock-reason{font-size:12px;color:var(--red);margin-top:4px;opacity:.85}
+.disc-verdict-mid{background:var(--amber-dim);color:var(--gold)}
+
+.reset-btn{background:none;border:1px solid var(--border);color:var(--muted);font-family:'IBM Plex Mono',monospace;font-size:11px;padding:6px 14px;border-radius:4px;cursor:pointer;margin-top:16px;transition:border-color .12s,color .12s}
+.reset-btn:hover{border-color:var(--muted);color:var(--txt)}
+
+.rc-footer{margin-top:56px;padding-top:20px;border-top:1px solid var(--border);font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--muted);display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+
+.tools-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:40px}
+@media(max-width:520px){.tools-grid{grid-template-columns:1fr}}
+.tool-card{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:18px 20px}
+.tool-card-title{font-family:'IBM Plex Mono',monospace;font-size:10px;font-weight:700;letter-spacing:.13em;text-transform:uppercase;color:var(--muted);margin-bottom:12px}
+
+.stat-row{display:flex;flex-direction:column;gap:8px}
+.stat-item{display:flex;justify-content:space-between;align-items:baseline;gap:8px;font-size:12.5px}
+.stat-label{color:var(--muted)}
+.stat-val{font-family:'IBM Plex Mono',monospace;font-size:13px;font-weight:700;color:var(--head)}
+.stat-val.neg{color:var(--red)}
+.stat-val.pos{color:var(--green)}
+
+.timer-display{font-family:'IBM Plex Mono',monospace;font-size:40px;font-weight:700;color:var(--head);text-align:center;line-height:1;margin:8px 0 14px;letter-spacing:.04em}
+.timer-display.running{color:var(--gold)}
+.timer-display.done{color:var(--green)}
+.timer-btn{width:100%;padding:10px;border-radius:6px;border:none;font-family:'IBM Plex Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;transition:opacity .12s}
+.timer-btn:hover{opacity:.85}
+.timer-btn.start{background:var(--gold);color:#0d111c}
+.timer-btn.cancel{background:var(--surface);border:1px solid var(--border);color:var(--muted);margin-top:6px}
+
+.streak-num{font-family:'IBM Plex Mono',monospace;font-size:52px;font-weight:700;color:var(--green);text-align:center;line-height:1;margin:4px 0 4px}
+.streak-label{font-size:11px;color:var(--muted);text-align:center;margin-bottom:14px}
+.streak-btns{display:flex;gap:8px}
+.streak-btn{flex:1;padding:9px;border-radius:6px;border:1px solid var(--border);background:var(--surface);font-family:'IBM Plex Mono',monospace;font-size:12px;font-weight:700;cursor:pointer;color:var(--txt);transition:border-color .12s}
+.streak-btn:hover{border-color:var(--muted)}
+.streak-btn.add{color:var(--green);border-color:rgba(74,222,128,.3)}
+.streak-btn.add:hover{border-color:var(--green)}
+.streak-btn.reset{color:var(--red);border-color:rgba(232,64,64,.25)}
+.streak-btn.reset:hover{border-color:var(--red)}
+
+.viol-add{padding:8px 14px;margin-bottom:14px;background:var(--red-dim);border:1px solid rgba(232,64,64,.35);border-radius:5px;color:var(--red);font-family:inherit;font-size:12.5px;font-weight:700;cursor:pointer;white-space:nowrap;transition:opacity .12s}
+.viol-add:hover{opacity:.8}
+.viol-list{display:flex;flex-direction:column;gap:5px;max-height:140px;overflow-y:auto}
+.viol-item{display:flex;justify-content:space-between;align-items:center;font-size:12px;padding:5px 0;border-bottom:1px solid var(--border);gap:8px}
+.viol-item:last-child{border-bottom:none}
+.viol-date{font-family:'IBM Plex Mono',monospace;color:var(--muted);font-size:11px}
+.viol-rule{color:var(--red);font-weight:600}
+.viol-del{background:none;border:none;color:var(--border);cursor:pointer;font-size:14px;line-height:1;padding:0 2px}
+.viol-del:hover{color:var(--muted)}
+.viol-empty{font-size:12px;color:var(--muted);text-align:center;padding:12px 0}
 </style>
 </head>
 <body>
@@ -420,7 +528,7 @@ textarea::placeholder{color:#4A566A}
 <nav class="nav">
   <a href="#" data-goto="dashboard">Tableau de bord</a>
   <a href="#" data-goto="brief">Brief séance</a>
-  <a href="rules.html" style="margin-left:auto">⛔ Règles</a>
+  <a href="#" data-goto="regles" style="margin-left:auto">⛔ Règles</a>
 </nav>
 <section class="view" id="view-dashboard">
 <div style="display:flex;justify-content:flex-end;margin-bottom:12px">
@@ -442,25 +550,25 @@ textarea::placeholder{color:#4A566A}
       <div class="cs-row" data-crit="bpr">
         <span class="cs-row-label">BPR</span>
         <div class="cs-opts">
-          <button class="cs-btn active" data-val="0" onclick="csSet('bpr',0,this)">Aucun</button>
-          <button class="cs-btn" data-val="1" onclick="csSet('bpr',1,this)">1M</button>
-          <button class="cs-btn" data-val="5" onclick="csSet('bpr',5,this)">5M</button>
+          <button class="cs-btn active" data-val="0" onclick="confluenceSet('bpr',0,this)">Aucun</button>
+          <button class="cs-btn" data-val="1" onclick="confluenceSet('bpr',1,this)">1M</button>
+          <button class="cs-btn" data-val="5" onclick="confluenceSet('bpr',5,this)">5M</button>
         </div>
       </div>
       <div class="cs-row" data-crit="ifvg">
         <span class="cs-row-label">IFVG</span>
         <div class="cs-opts">
-          <button class="cs-btn active" data-val="0" onclick="csSet('ifvg',0,this)">Aucun</button>
-          <button class="cs-btn" data-val="1" onclick="csSet('ifvg',1,this)">1M</button>
-          <button class="cs-btn" data-val="5" onclick="csSet('ifvg',5,this)">5M</button>
+          <button class="cs-btn active" data-val="0" onclick="confluenceSet('ifvg',0,this)">Aucun</button>
+          <button class="cs-btn" data-val="1" onclick="confluenceSet('ifvg',1,this)">1M</button>
+          <button class="cs-btn" data-val="5" onclick="confluenceSet('ifvg',5,this)">5M</button>
         </div>
       </div>
       <div class="cs-row" data-crit="smt">
         <span class="cs-row-label">SMT</span>
         <div class="cs-opts">
-          <button class="cs-btn active" data-val="0" onclick="csSet('smt',0,this)">Aucun</button>
-          <button class="cs-btn" data-val="1" onclick="csSet('smt',1,this)">1M</button>
-          <button class="cs-btn" data-val="5" onclick="csSet('smt',5,this)">5M</button>
+          <button class="cs-btn active" data-val="0" onclick="confluenceSet('smt',0,this)">Aucun</button>
+          <button class="cs-btn" data-val="1" onclick="confluenceSet('smt',1,this)">1M</button>
+          <button class="cs-btn" data-val="5" onclick="confluenceSet('smt',5,this)">5M</button>
         </div>
       </div>
     </div>
@@ -468,7 +576,7 @@ textarea::placeholder{color:#4A566A}
       <span class="cs-total-num" id="cs-total-num">0</span><span style="font-size:10.5px;color:var(--muted)">/9</span>
       <span class="cs-verdict no" id="cs-verdict">Pas assez</span>
     </div>
-    <button class="cs-reset" onclick="csReset()">↺ reset</button>
+    <button class="cs-reset" onclick="confluenceReset()">↺ reset</button>
   </div>
 
   <div class="kpis kpis-top">
@@ -997,6 +1105,434 @@ textarea::placeholder{color:#4A566A}
 
 </section>
 
+<section class="view" id="view-regles">
+<h2>Règles actives</h2>
+
+<div class="tools-grid">
+
+  <div class="tool-card">
+    <div class="tool-card-title">📊 Statistiques</div>
+    <div class="stat-row">
+      <div class="stat-item">
+        <span class="stat-label">Total PnL</span>
+        <span class="stat-val neg">−5 991,25 $</span>
+        <div style="font-size:10px;color:var(--muted);margin-top:2px">Recalculé sur les CSV réels, 29 séances (13/08 → 22/09)</div>
+      </div>
+      <div class="stat-item">
+        <span class="stat-label">Win rate</span>
+        <span class="stat-val">33,3% <span style="font-size:10px;color:var(--muted);font-weight:400">(61/183)</span></span>
+        <div style="font-size:10px;color:var(--muted);margin-top:2px">8 comptes Tradovate (dont le 004 archivé), dédupliqué (copy trading compté 1 fois) · TopstepX (clôturé) exclu</div>
+      </div>
+      <div class="stat-item">
+        <span class="stat-label">Meilleur jour</span>
+        <span class="stat-val pos">+2 529 $ <span style="font-size:10px;color:var(--muted);font-weight:400">08/09</span></span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-label">Pire jour</span>
+        <span class="stat-val neg">−2 095 $ <span style="font-size:10px;color:var(--muted);font-weight:400">18/09</span></span>
+      </div>
+    </div>
+  </div>
+
+  <div class="tool-card">
+    <div class="tool-card-title">🔥 Streak sans violation</div>
+    <div class="streak-num" id="streak-num">0</div>
+    <div class="streak-label">jours écoulés depuis la dernière violation cochée ci-dessous</div>
+  </div>
+
+  <div class="tool-card" style="grid-column:1/-1">
+    <div class="tool-card-title">⏱ Pause obligatoire après une perte</div>
+    <div class="timer-display" id="timer-display">10:00</div>
+    <button class="timer-btn start" id="timer-start-btn" onclick="timerStart()">Je veux trader après une perte — démarre le compte</button>
+    <button class="timer-btn cancel" id="timer-cancel-btn" style="display:none" onclick="timerCancel()">Annuler</button>
+  </div>
+
+  <div class="tool-card" style="grid-column:1/-1">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px;">
+      <div class="tool-card-title" style="margin-bottom:0">🚦 Trades du jour</div>
+      <span style="font-size:11px;color:var(--muted)" id="dt-date">—</span>
+    </div>
+    <div style="font-size:12px;color:var(--muted);margin-bottom:12px">Verrouille après 3 trades ou 2 pertes dans la journée — la règle qui a manqué à chaque compte cramé en enchaînant après une perte.</div>
+    <div class="dt-lock-banner" id="dt-lock-banner" style="display:none">
+      <div class="dt-lock-title">🔒 STOP POUR AUJOURD'HUI</div>
+      <div class="dt-lock-reason" id="dt-lock-reason"></div>
+    </div>
+    <div class="streak-btns" id="dt-btns">
+      <button class="streak-btn add" onclick="dtLog('win')">+ Gagnant</button>
+      <button class="streak-btn reset" onclick="dtLog('loss')">+ Perdant</button>
+      <button class="streak-btn" onclick="dtLog('be')">+ Neutre</button>
+    </div>
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-top:14px;font-size:12.5px;color:var(--muted)">
+      <span id="dt-summary">0 trade · 0 perte</span>
+      <button class="reset-btn" onclick="dtReset()" style="margin-top:0;font-size:10px;padding:4px 10px">↺ Effacer aujourd'hui</button>
+    </div>
+    <div class="viol-list" id="dt-list" style="margin-top:10px"></div>
+  </div>
+
+  <div class="tool-card" style="grid-column:1/-1">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px;">
+      <div class="tool-card-title" style="margin-bottom:0">🎯 Score de confluence — BPR / IFVG / SMT</div>
+      <button class="reset-btn" onclick="confluenceReset()" style="margin-top:0;font-size:10px;padding:4px 10px">↺ Reset</button>
+    </div>
+    <div style="font-size:12px;color:var(--muted);margin-bottom:10px">5M vaut 5 points, 1M vaut 1 point — plus de 9 points pour rentrer.</div>
+    <div id="score-rows">
+      <div class="score-row" data-crit="bpr">
+        <span class="score-label">BPR</span>
+        <div class="score-opts">
+          <button class="score-btn active" data-val="0" onclick="confluenceSet('bpr',0,this)">Aucun</button>
+          <button class="score-btn" data-val="1" onclick="confluenceSet('bpr',1,this)">1M · 1 pt</button>
+          <button class="score-btn" data-val="5" onclick="confluenceSet('bpr',5,this)">5M · 5 pts</button>
+        </div>
+      </div>
+      <div class="score-row" data-crit="ifvg">
+        <span class="score-label">IFVG</span>
+        <div class="score-opts">
+          <button class="score-btn active" data-val="0" onclick="confluenceSet('ifvg',0,this)">Aucun</button>
+          <button class="score-btn" data-val="1" onclick="confluenceSet('ifvg',1,this)">1M · 1 pt</button>
+          <button class="score-btn" data-val="5" onclick="confluenceSet('ifvg',5,this)">5M · 5 pts</button>
+        </div>
+      </div>
+      <div class="score-row" data-crit="smt">
+        <span class="score-label">SMT</span>
+        <div class="score-opts">
+          <button class="score-btn active" data-val="0" onclick="confluenceSet('smt',0,this)">Aucun</button>
+          <button class="score-btn" data-val="1" onclick="confluenceSet('smt',1,this)">1M · 1 pt</button>
+          <button class="score-btn" data-val="5" onclick="confluenceSet('smt',5,this)">5M · 5 pts</button>
+        </div>
+      </div>
+    </div>
+    <div class="score-total">
+      <div>
+        <span class="score-total-num" id="score-total-num">0</span>
+        <span class="score-total-sub">/ 9 points minimum</span>
+      </div>
+      <span class="score-verdict no" id="score-verdict">Pas assez — n'entre pas</span>
+    </div>
+  </div>
+
+  <div class="tool-card" style="grid-column:1/-1">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;">
+      <div class="tool-card-title" style="margin-bottom:0">✅ Checklist avant d'entrer</div>
+      <button class="reset-btn" onclick="resetChecklist()" style="margin-top:0;font-size:10px;padding:4px 10px">↺ Reset</button>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;" id="checklist">
+      <div class="check-item" onclick="toggle(this)" style="padding:10px 12px">
+        <input type="checkbox">
+        <div class="check-box"><svg width="10" height="8" viewBox="0 0 10 8" fill="none"><path d="M1 4l3 3 5-6" stroke="#090b0e" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div class="check-label" style="font-size:12.5px">Je suis en état de trader</div>
+      </div>
+      <div class="check-item" onclick="toggle(this)" style="padding:10px 12px">
+        <input type="checkbox">
+        <div class="check-box"><svg width="10" height="8" viewBox="0 0 10 8" fill="none"><path d="M1 4l3 3 5-6" stroke="#090b0e" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div class="check-label" style="font-size:12.5px">Pas d'annonce macro dans 1h</div>
+      </div>
+      <div class="check-item" onclick="toggle(this)" style="padding:10px 12px">
+        <input type="checkbox">
+        <div class="check-box"><svg width="10" height="8" viewBox="0 0 10 8" fill="none"><path d="M1 4l3 3 5-6" stroke="#090b0e" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div class="check-label" style="font-size:12.5px">Phase AMD identifiée</div>
+      </div>
+      <div class="check-item" onclick="toggle(this)" style="padding:10px 12px">
+        <input type="checkbox">
+        <div class="check-box"><svg width="10" height="8" viewBox="0 0 10 8" fill="none"><path d="M1 4l3 3 5-6" stroke="#090b0e" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div class="check-label" style="font-size:12.5px">Biais = le mien</div>
+      </div>
+      <div class="check-item" onclick="toggle(this)" style="padding:10px 12px">
+        <input type="checkbox">
+        <div class="check-box"><svg width="10" height="8" viewBox="0 0 10 8" fill="none"><path d="M1 4l3 3 5-6" stroke="#090b0e" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div class="check-label" style="font-size:12.5px">Taille comptée à voix haute</div>
+      </div>
+      <div class="check-item" onclick="toggle(this)" style="padding:10px 12px">
+        <input type="checkbox">
+        <div class="check-box"><svg width="10" height="8" viewBox="0 0 10 8" fill="none"><path d="M1 4l3 3 5-6" stroke="#090b0e" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div class="check-label" style="font-size:12.5px">Bracket relu — qty, stop, ratio</div>
+      </div>
+      <div class="check-item" onclick="toggle(this)" style="padding:10px 12px">
+        <input type="checkbox">
+        <div class="check-box"><svg width="10" height="8" viewBox="0 0 10 8" fill="none"><path d="M1 4l3 3 5-6" stroke="#090b0e" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div class="check-label" style="font-size:12.5px">Stop ÷ contrats ≥ 80 ticks/contrat</div>
+      </div>
+      <div class="check-item" onclick="toggle(this)" style="padding:10px 12px">
+        <input type="checkbox">
+        <div class="check-box"><svg width="10" height="8" viewBox="0 0 10 8" fill="none"><path d="M1 4l3 3 5-6" stroke="#090b0e" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div class="check-label" style="font-size:12.5px">Calm (pas stressed/revenge) — sinon 1 contrat max</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="tool-card" style="grid-column:1/-1">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px;">
+      <div class="tool-card-title" style="margin-bottom:0">🌙 Score de discipline du soir</div>
+      <span style="font-size:11px;color:var(--muted)" id="disc-date">—</span>
+    </div>
+    <div style="font-size:12px;color:var(--muted);margin-bottom:12px">Note le respect des règles, pas le résultat. Une semaine à 5/5 perdante est une bonne semaine ; une semaine gagnante à 2/5 annonce le prochain compte cramé.</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;" id="disc-checks">
+      <div class="check-item" onclick="discToggle(this)" data-crit="nb" style="padding:10px 12px">
+        <input type="checkbox">
+        <div class="check-box"><svg width="10" height="8" viewBox="0 0 10 8" fill="none"><path d="M1 4l3 3 5-6" stroke="#090b0e" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div class="check-label" style="font-size:12.5px">Nombre de trades respecté</div>
+      </div>
+      <div class="check-item" onclick="discToggle(this)" data-crit="taille" style="padding:10px 12px">
+        <input type="checkbox">
+        <div class="check-box"><svg width="10" height="8" viewBox="0 0 10 8" fill="none"><path d="M1 4l3 3 5-6" stroke="#090b0e" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div class="check-label" style="font-size:12.5px">Taille correcte</div>
+      </div>
+      <div class="check-item" onclick="discToggle(this)" data-crit="horaires" style="padding:10px 12px">
+        <input type="checkbox">
+        <div class="check-box"><svg width="10" height="8" viewBox="0 0 10 8" fill="none"><path d="M1 4l3 3 5-6" stroke="#090b0e" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div class="check-label" style="font-size:12.5px">Horaires respectés</div>
+      </div>
+      <div class="check-item" onclick="discToggle(this)" data-crit="stop" style="padding:10px 12px">
+        <input type="checkbox">
+        <div class="check-box"><svg width="10" height="8" viewBox="0 0 10 8" fill="none"><path d="M1 4l3 3 5-6" stroke="#090b0e" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div class="check-label" style="font-size:12.5px">Stop non déplacé</div>
+      </div>
+      <div class="check-item" onclick="discToggle(this)" data-crit="lockout" style="padding:10px 12px">
+        <input type="checkbox">
+        <div class="check-box"><svg width="10" height="8" viewBox="0 0 10 8" fill="none"><path d="M1 4l3 3 5-6" stroke="#090b0e" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div class="check-label" style="font-size:12.5px">Lockout respecté</div>
+      </div>
+    </div>
+    <div class="score-total">
+      <div>
+        <span class="score-total-num" id="disc-total-num">0</span>
+        <span class="score-total-sub">/ 5</span>
+      </div>
+      <span class="score-verdict no" id="disc-verdict">—</span>
+    </div>
+    <div class="section-divider" style="margin:20px 0 12px"><span>7 derniers jours</span></div>
+    <div class="viol-list" id="disc-history"></div>
+  </div>
+
+  <div class="tool-card" style="grid-column:1/-1">
+    <div class="tool-card-title">🚫 Journal des violations</div>
+    <div class="viol-checks" id="viol-checks">
+      <div class="viol-check" onclick="toggleViol(this)"><input type="checkbox" value="1"><div class="check-box"><svg width="10" height="8" viewBox="0 0 10 8" fill="none"><path d="M1 4l3 3 5-6" stroke="#090b0e" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="check-label">Règle 1 — Taille</div></div>
+      <div class="viol-check" onclick="toggleViol(this)"><input type="checkbox" value="2"><div class="check-box"><svg width="10" height="8" viewBox="0 0 10 8" fill="none"><path d="M1 4l3 3 5-6" stroke="#090b0e" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="check-label">Règle 2 — Bracket</div></div>
+      <div class="viol-check" onclick="toggleViol(this)"><input type="checkbox" value="3"><div class="check-box"><svg width="10" height="8" viewBox="0 0 10 8" fill="none"><path d="M1 4l3 3 5-6" stroke="#090b0e" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="check-label">Règle 3 — Macro</div></div>
+      <div class="viol-check" onclick="toggleViol(this)"><input type="checkbox" value="4"><div class="check-box"><svg width="10" height="8" viewBox="0 0 10 8" fill="none"><path d="M1 4l3 3 5-6" stroke="#090b0e" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="check-label">Règle 4 — Biais</div></div>
+      <div class="viol-check" onclick="toggleViol(this)"><input type="checkbox" value="5"><div class="check-box"><svg width="10" height="8" viewBox="0 0 10 8" fill="none"><path d="M1 4l3 3 5-6" stroke="#090b0e" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="check-label">Règle 5 — Ordre modifié</div></div>
+      <div class="viol-check" onclick="toggleViol(this)"><input type="checkbox" value="6"><div class="check-box"><svg width="10" height="8" viewBox="0 0 10 8" fill="none"><path d="M1 4l3 3 5-6" stroke="#090b0e" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="check-label">Règle 6 — Délai 10 min</div></div>
+      <div class="viol-check" onclick="toggleViol(this)"><input type="checkbox" value="7"><div class="check-box"><svg width="10" height="8" viewBox="0 0 10 8" fill="none"><path d="M1 4l3 3 5-6" stroke="#090b0e" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="check-label">Règle 7 — Téléphone/tiers</div></div>
+      <div class="viol-check" onclick="toggleViol(this)"><input type="checkbox" value="8"><div class="check-box"><svg width="10" height="8" viewBox="0 0 10 8" fill="none"><path d="M1 4l3 3 5-6" stroke="#090b0e" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="check-label">Règle 8 — Copy trading</div></div>
+    </div>
+    <button class="viol-add" onclick="violAdd()">+ Enregistrer</button>
+    <div class="viol-list" id="viol-list"></div>
+  </div>
+
+  <div class="tool-card" style="grid-column:1/-1">
+    <div class="tool-card-title">📌 Infractions notables — règle 8 (copy trading)</div>
+    <div style="font-size:13px;color:var(--muted);line-height:1.7">
+      <strong style="color:var(--red)">04/09</strong> — TraderSyncer actif, même trade copié sur 4 comptes → <strong style="color:var(--red)">−1 155,50 $</strong>. Règle 8 ajoutée le jour même.<br>
+      <strong style="color:var(--gold)">08/09</strong> — TraderSyncer réactivé, même trade copié sur 3 comptes → <strong style="color:var(--green)">+2 529 $</strong> cette fois. Gagnant, mais même infraction : le risque réel était 3× plus élevé qu'un seul compte ne le montre.
+    </div>
+  </div>
+
+</div>
+
+<div class="rules-list">
+
+  <div class="rc-rule stop">
+    <div class="rc-rule-num">1</div>
+    <div class="rule-body">
+      <span class="rule-tag tag-stop">Taille</span>
+      <div class="rule-stmt">Budget de risque par signal, pas par compte — 250 $ (21→27/09), 300 $ (28/09→04/10), 500 $ à partir du 05/10 (à confirmer).</div>
+      <div class="rule-detail">Un signal = <strong>un seul compte à la fois</strong>, tu tournes entre les 5 comptes — jamais le même trade dupliqué sur plusieurs comptes en même temps (voir règle 8, toujours en vigueur). R:R minimum <strong>2:1</strong> sur chaque trade. C'est le budget en dollars qui fixe la taille, jamais l'inverse — recalcule les contrats depuis le stop à chaque trade. Si tu changes d'instrument, recalcule aussi : <strong>1 tick de 6E = 12,5 ticks MNQ micro</strong>.</div>
+    </div>
+  </div>
+
+  <div class="rc-rule proc">
+    <div class="rc-rule-num">2</div>
+    <div class="rule-body">
+      <span class="rule-tag tag-proc">Exécution</span>
+      <div class="rule-stmt">Relire le bracket avant d'envoyer l'ordre.</div>
+      <div class="rule-detail">Quantité, stop en points, objectif en points, ratio ≥ 2:1. <strong>Lire à voix haute.</strong> Le 18/08 : 14 lots au lieu de 2 parce que la lecture n'a pas eu lieu — 959 $ d'exposition évitables.</div>
+    </div>
+  </div>
+
+  <div class="rc-rule warn">
+    <div class="rc-rule-num">3</div>
+    <div class="rule-body">
+      <span class="rule-tag tag-warn">Annonces macro</span>
+      <div class="rule-stmt">CPI, NFP, FOMC, chiffres du chômage : 1–2 contrats ou rien. Jamais en position au moment de l'annonce.</div>
+      <div class="rule-detail">Fermer toutes positions <strong>5 min avant</strong> le release. Pas d'entrée dans les <strong>10 min qui suivent</strong>. Le spike est injouable. Le 4 septembre : −290 $ sur chiffres du chômage avec TraderSyncer actif sur 4 comptes simultanément.</div>
+    </div>
+  </div>
+
+  <div class="rc-rule warn">
+    <div class="rc-rule-num">4</div>
+    <div class="rule-body">
+      <span class="rule-tag tag-warn">Biais</span>
+      <div class="rule-stmt">Ton biais est le tien. Un avis entendu ne le remplace pas.</div>
+      <div class="rule-detail">Si tu ne peux pas nommer la phase AMD et le niveau que tu joues en une phrase, tu n'entres pas. Si tu as un biais, tu le suis ou tu ne trades pas — tu ne prends jamais le sens inverse parce que quelqu'un d'autre le voit autrement. <strong>Deux occurrences, 1 210 $.</strong></div>
+    </div>
+  </div>
+
+  <div class="rc-rule stop">
+    <div class="rc-rule-num">5</div>
+    <div class="rule-body">
+      <span class="rule-tag tag-stop">Ordres</span>
+      <div class="rule-stmt">Aucune modification d'ordre en position, dans aucun sens.</div>
+      <div class="rule-detail">L'élargir transforme une perte définie en perte ouverte (−165 $, 18/08). Le resserrer te sort d'un gagnant (19/08). Seule exception : une règle de déplacement écrite <strong>avant</strong> l'entrée, appliquée mécaniquement, sans improvisation.</div>
+    </div>
+  </div>
+
+  <div class="rc-rule proc">
+    <div class="rc-rule-num">6</div>
+    <div class="rule-body">
+      <span class="rule-tag tag-proc">Délai</span>
+      <div class="rule-stmt">Pas de nouvelle entrée dans les 10 minutes qui suivent une perte.</div>
+      <div class="rule-detail">La montre décide, pas toi. Coût de la règle ignorée : 144 $ le 18/08 (retournement 33 secondes après un stop-out), l'essentiel des 587 $ du 14/08. Deux occurrences suffisaient.</div>
+    </div>
+  </div>
+
+  <div class="rc-rule stop">
+    <div class="rc-rule-num">7</div>
+    <div class="rule-body">
+      <span class="rule-tag tag-stop">Environnement</span>
+      <div class="rule-stmt">Pas de trade sur téléphone. Pas de trade avec quelqu'un à côté de toi.</div>
+      <div class="rule-detail">Le téléphone retire la précision d'exécution et le contrôle du bracket. La présence d'un tiers crée une pression sociale qui biaise l'entrée, la taille, ou la sortie. Les deux conditions interdisent toute ouverture — <strong>sans exception.</strong></div>
+    </div>
+  </div>
+
+  <div class="rc-rule stop">
+    <div class="rc-rule-num">8</div>
+    <div class="rule-body">
+      <span class="rule-tag tag-stop">Copie</span>
+      <div class="rule-stmt">Jamais de copy trading. Aucun copieur sur aucun compte.</div>
+      <div class="rule-detail">TraderSyncer, ou tout outil similaire, est interdit. Le 4/09 : 4 comptes ont copié les mêmes mauvaises positions en même temps. Ce qui était une erreur est devenu une erreur ×4. <strong>Définitif.</strong></div>
+    </div>
+  </div>
+
+</div>
+
+<div class="section-divider">
+  <span>Plan type — lecture avant entrée</span>
+</div>
+
+<div style="display:flex;flex-direction:column;gap:10px;margin-bottom:32px;">
+
+  <div style="display:grid;grid-template-columns:28px 1fr;gap:12px;align-items:start;padding:16px;background:var(--surface);border:1px solid var(--border);border-radius:6px;">
+    <div style="font-family:'IBM Plex Mono',monospace;font-size:13px;font-weight:700;color:var(--gold);padding-top:1px;">1</div>
+    <div>
+      <div style="font-size:14px;font-weight:600;color:var(--head);margin-bottom:4px;">La liquidité HTF est-elle touchée ?</div>
+      <div style="font-size:12.5px;color:var(--muted);line-height:1.6;">Identifier le niveau de liquidité (high/low structurel, BSL/SSL) sur le timeframe de référence. Si elle est sweepée → chercher un retournement. Si elle <strong style="color:var(--txt);">n'est pas touchée</strong> → le marché cherche encore à l'atteindre : biais dans cette direction.</div>
+    </div>
+  </div>
+
+  <div style="display:grid;grid-template-columns:28px 1fr;gap:12px;align-items:start;padding:16px;background:var(--surface);border:1px solid var(--border);border-radius:6px;">
+    <div style="font-family:'IBM Plex Mono',monospace;font-size:13px;font-weight:700;color:var(--gold);padding-top:1px;">2</div>
+    <div>
+      <div style="font-size:14px;font-weight:600;color:var(--head);margin-bottom:4px;">Si non touchée → descendre en M5</div>
+      <div style="font-size:12.5px;color:var(--muted);line-height:1.6;">Le M5 affine l'entrée dans la direction du biais HTF. Ne pas chercher de setup contre la liquidité non sweepée. <strong style="color:var(--txt);">04/09 :</strong> liquidité HTF intacte → marché short-biased toute la session. Aucun long n'était valide.</div>
+    </div>
+  </div>
+
+  <div style="display:grid;grid-template-columns:28px 1fr;gap:12px;align-items:start;padding:16px;background:var(--surface);border:1px solid var(--border);border-radius:6px;">
+    <div style="font-family:'IBM Plex Mono',monospace;font-size:13px;font-weight:700;color:var(--gold);padding-top:1px;">3</div>
+    <div>
+      <div style="font-size:14px;font-weight:600;color:var(--head);margin-bottom:4px;">Confirmation SMT + BPR</div>
+      <div style="font-size:12.5px;color:var(--muted);line-height:1.6;"><strong style="color:var(--txt);">SMT</strong> (Smart Money Technique) : divergence entre deux instruments corrélés (ex. MNQ vs NQ) — l'un fait un nouveau high/low, pas l'autre. Signal de retournement. <strong style="color:var(--txt);">BPR</strong> (Balanced Price Range) : zone entre deux FVG opposées — point d'entrée précis dans la direction confirmée.</div>
+    </div>
+  </div>
+
+  <div style="display:grid;grid-template-columns:28px 1fr;gap:12px;align-items:start;padding:16px;background:var(--surface);border:1px solid var(--border);border-radius:6px;">
+    <div style="font-family:'IBM Plex Mono',monospace;font-size:13px;font-weight:700;color:var(--gold);padding-top:1px;">4</div>
+    <div>
+      <div style="font-size:14px;font-weight:600;color:var(--head);margin-bottom:8px;">Setup SMT Baissier en M5</div>
+      <div style="display:flex;flex-direction:column;gap:6px;margin-bottom:10px;">
+        <div style="display:flex;align-items:baseline;gap:8px;font-size:12.5px;">
+          <span style="font-family:'IBM Plex Mono',monospace;color:var(--gold);font-weight:700;min-width:14px;">·</span>
+          <span style="color:var(--muted);">SMT baissier confirmé en M5 — MNQ fait un nouveau high, NQ ne le confirme pas (ou inversement).</span>
+        </div>
+        <div style="display:flex;align-items:baseline;gap:8px;font-size:12.5px;">
+          <span style="font-family:'IBM Plex Mono',monospace;color:var(--gold);font-weight:700;min-width:14px;">·</span>
+          <span style="color:var(--muted);">La liquidité côté hausse <strong style="color:var(--txt);">n'a pas été prise</strong> sur une bougie baissière — le sweep n'est pas épuisé.</span>
+        </div>
+        <div style="display:flex;align-items:baseline;gap:8px;font-size:12.5px;">
+          <span style="font-family:'IBM Plex Mono',monospace;color:var(--gold);font-weight:700;min-width:14px;">·</span>
+          <span style="color:var(--muted);"><strong style="color:var(--txt);">iFVG M5</strong> identifié dans la direction baissière — zone d'inefficacité inversée = point d'entrée.</span>
+        </div>
+        <div style="display:flex;align-items:baseline;gap:8px;font-size:12.5px;">
+          <span style="font-family:'IBM Plex Mono',monospace;color:var(--gold);font-weight:700;min-width:14px;">·</span>
+          <span style="color:var(--muted);">Cible : liquidité <strong style="color:var(--txt);">opposée à la baisse</strong> (BSL/lows structurels sous le prix).</span>
+        </div>
+      </div>
+      <div style="display:inline-flex;align-items:center;gap:8px;background:var(--amber-dim);border:1px solid var(--gold);border-radius:5px;padding:5px 12px;">
+        <span style="font-family:'IBM Plex Mono',monospace;font-size:11px;font-weight:700;color:var(--gold);">TP</span>
+        <span style="font-size:12.5px;color:var(--txt);">RR minimum <strong>3:1</strong> — ne pas sortir avant.</span>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="prohibition">
+  <div class="prohibition-icon">⛔</div>
+  <div class="prohibition-text">
+    <strong>Jamais TraderSyncer.</strong> Jamais sur un chiffre macro sans avoir fermé les positions 5 min avant.<br>
+    Ces deux règles n'ont pas de seuil, pas d'exception, pas de "juste cette fois".
+  </div>
+</div>
+
+<div class="section-divider">
+  <span>CL — Crude Oil · plan séparé</span>
+</div>
+
+<div style="background:var(--surface);border:1px solid var(--border);border-radius:8px;overflow:hidden;margin-bottom:32px;">
+  <div style="padding:14px 20px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px;">
+    <span style="font-family:'IBM Plex Mono',monospace;font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;background:rgba(74,222,128,.12);color:#4ade80;padding:3px 10px;border-radius:3px;">MCL / CL</span>
+    <span style="font-size:13px;color:var(--muted);">Approche différente du MNQ — mécanique, pas directionnelle</span>
+  </div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:0;border-bottom:1px solid var(--border);">
+    <div style="padding:16px 20px;border-right:1px solid var(--border);">
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:8px;">Timeframe</div>
+      <div style="font-size:22px;font-weight:700;color:var(--head);">M15</div>
+    </div>
+    <div style="padding:16px 20px;">
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:8px;">Direction</div>
+      <div style="font-size:22px;font-weight:700;color:var(--head);">Fade le sweep</div>
+    </div>
+  </div>
+  <div style="padding:20px;">
+    <div style="display:flex;flex-direction:column;gap:10px;">
+      <div style="display:flex;align-items:flex-start;gap:12px;">
+        <div style="width:20px;height:20px;min-width:20px;border-radius:50%;background:rgba(74,222,128,.15);display:flex;align-items:center;justify-content:center;margin-top:1px;">
+          <span style="font-family:'IBM Plex Mono',monospace;font-size:10px;font-weight:700;color:#4ade80;">1</span>
+        </div>
+        <div>
+          <div style="font-size:14px;font-weight:600;color:var(--head);margin-bottom:3px;">Identifier les niveaux de liquidité en M15</div>
+          <div style="font-size:12.5px;color:var(--muted);line-height:1.6;">Highs et lows structurels récents, zones de BSL/SSL visibles sur le chart M15. Placer des alertes sur ces niveaux — tu n'as pas besoin de surveiller en continu.</div>
+        </div>
+      </div>
+      <div style="display:flex;align-items:flex-start;gap:12px;">
+        <div style="width:20px;height:20px;min-width:20px;border-radius:50%;background:rgba(74,222,128,.15);display:flex;align-items:center;justify-content:center;margin-top:1px;">
+          <span style="font-family:'IBM Plex Mono',monospace;font-size:10px;font-weight:700;color:#4ade80;">2</span>
+        </div>
+        <div>
+          <div style="font-size:14px;font-weight:600;color:var(--head);margin-bottom:3px;">Alerte déclenchée → regarder le toucher</div>
+          <div style="font-size:12.5px;color:var(--muted);line-height:1.6;">Le prix atteint le niveau. Observer le comportement : est-ce un vrai sweep suivi d'un rejet ? Un engulf de bougie, une mèche longue, un retour rapide dans la range sont des signaux de retournement.</div>
+        </div>
+      </div>
+      <div style="display:flex;align-items:flex-start;gap:12px;">
+        <div style="width:20px;height:20px;min-width:20px;border-radius:50%;background:rgba(74,222,128,.15);display:flex;align-items:center;justify-content:center;margin-top:1px;">
+          <span style="font-family:'IBM Plex Mono',monospace;font-size:10px;font-weight:700;color:#4ade80;">3</span>
+        </div>
+        <div>
+          <div style="font-size:14px;font-weight:600;color:var(--head);margin-bottom:3px;">Entrée à l'inverse du sweep</div>
+          <div style="font-size:12.5px;color:var(--muted);line-height:1.6;">Si le sweep est confirmé, entrer dans la direction opposée. Stop au-delà du niveau sweepé. Les règles de taille, de bracket et de délai s'appliquent identiquement au MNQ.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="rc-footer">
+  <span>Règles en vigueur au 4 septembre 2026</span>
+  <span>Lucid Trading · Micro Nasdaq · MNQ</span>
+</div>
+
+</section>
+
 </div>
 <script>/* ============================================================
    Journal de trading — source unique des données chiffrées.
@@ -1397,58 +1933,357 @@ window.SESSIONS = [
   { jour:"13/08", label:"Jeudi 13 août",    fichier:"2026-08-13-jeudi.html",    pnl:2472.48,  trades:3, gagnants:3, neutres:0 }
 ];
 </script>
-<script>/* Score de confluence compact — clé localStorage partagée avec rules.html */
+<script>/* Score de confluence — un seul état, deux affichages (widget compact du Dashboard + carte complète de l'onglet Règles), synchronisés en direct */
 (function(){
-  var csState = { bpr: 0, ifvg: 0, smt: 0 };
+  var confluenceState = { bpr: 0, ifvg: 0, smt: 0 };
 
-  window.csSet = function(crit, val, btn){
-    csState[crit] = val;
-    btn.parentElement.querySelectorAll('.cs-btn').forEach(function(b){ b.classList.remove('active'); });
+  window.confluenceSet = function(crit, val, btn){
+    confluenceState[crit] = val;
+    btn.parentElement.querySelectorAll('.cs-btn, .score-btn').forEach(function(b){ b.classList.remove('active'); });
     btn.classList.add('active');
-    csRender();
-    csSave();
+    confluenceRender();
+    confluenceSave();
   };
 
-  function csRender(){
-    var total = csState.bpr + csState.ifvg + csState.smt;
+  function confluenceRender(){
+    var total = confluenceState.bpr + confluenceState.ifvg + confluenceState.smt;
+    ['bpr','ifvg','smt'].forEach(function(crit){
+      document.querySelectorAll('.cs-row[data-crit="'+crit+'"] .cs-btn, .score-row[data-crit="'+crit+'"] .score-btn').forEach(function(b){
+        b.classList.toggle('active', Number(b.dataset.val) === confluenceState[crit]);
+      });
+    });
     var numEl = document.getElementById('cs-total-num');
     var vEl = document.getElementById('cs-verdict');
-    if(!numEl || !vEl) return;
-    numEl.textContent = total;
-    if(total > 9){ vEl.textContent = 'OK'; vEl.className = 'cs-verdict yes'; }
-    else { vEl.textContent = 'Pas assez'; vEl.className = 'cs-verdict no'; }
+    if(numEl && vEl){
+      numEl.textContent = total;
+      if(total > 9){ vEl.textContent = 'OK'; vEl.className = 'cs-verdict yes'; }
+      else { vEl.textContent = 'Pas assez'; vEl.className = 'cs-verdict no'; }
+    }
+    var numEl2 = document.getElementById('score-total-num');
+    var vEl2 = document.getElementById('score-verdict');
+    if(numEl2 && vEl2){
+      numEl2.textContent = total;
+      if(total > 9){ vEl2.textContent = 'OK — assez de confluence'; vEl2.className = 'score-verdict yes'; }
+      else { vEl2.textContent = "Pas assez — n'entre pas"; vEl2.className = 'score-verdict no'; }
+    }
   }
 
-  function csSave(){
-    try{ localStorage.setItem('trading_score', JSON.stringify(csState)); }catch(e){}
+  function confluenceSave(){
+    try{ localStorage.setItem('trading_score', JSON.stringify(confluenceState)); }catch(e){}
   }
 
-  window.csReset = function(){
-    csState = { bpr: 0, ifvg: 0, smt: 0 };
-    document.querySelectorAll('#cs-widget .cs-btn').forEach(function(b){
+  window.confluenceReset = function(){
+    confluenceState = { bpr: 0, ifvg: 0, smt: 0 };
+    document.querySelectorAll('.cs-btn, .score-btn').forEach(function(b){
       b.classList.toggle('active', b.dataset.val === '0');
     });
-    csRender();
+    confluenceRender();
     try{ localStorage.removeItem('trading_score'); }catch(e){}
   };
 
   document.addEventListener('DOMContentLoaded', function(){
     try{
       var saved = JSON.parse(localStorage.getItem('trading_score')||'null');
-      if(saved){
-        csState = saved;
-        ['bpr','ifvg','smt'].forEach(function(crit){
-          var row = document.querySelector('#cs-widget .cs-row[data-crit="'+crit+'"]');
-          if(!row) return;
-          row.querySelectorAll('.cs-btn').forEach(function(b){
-            b.classList.toggle('active', Number(b.dataset.val) === saved[crit]);
-          });
-        });
-      }
+      if(saved) confluenceState = saved;
     }catch(e){}
-    csRender();
+    confluenceRender();
   });
 })();
+</script>
+<script>/* Onglet Règles — outils fusionnés depuis rules.html (pause, streak, violations, checklist, trades du jour, discipline) */
+  // ── Pause timer ─────────────────────────────────────────────
+  var timerInterval = null;
+  var timerEnd = null;
+  var audioCtx = null;
+  function ensureAudio(){
+    try{
+      if(!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      if(audioCtx.state === 'suspended') audioCtx.resume();
+    }catch(e){}
+  }
+  function playChime(){
+    if(!audioCtx) return;
+    try{
+      var t = audioCtx.currentTime;
+      [880, 1174.66].forEach(function(freq, i){
+        var o = audioCtx.createOscillator();
+        var g = audioCtx.createGain();
+        o.type = 'sine';
+        o.frequency.value = freq;
+        var start = t + i * 0.16;
+        g.gain.setValueAtTime(0.0001, start);
+        g.gain.exponentialRampToValueAtTime(0.22, start + 0.02);
+        g.gain.exponentialRampToValueAtTime(0.0001, start + 0.4);
+        o.connect(g); g.connect(audioCtx.destination);
+        o.start(start); o.stop(start + 0.42);
+      });
+    }catch(e){}
+  }
+  (function(){
+    try{
+      var saved = parseInt(localStorage.getItem('pause_timer_end')||'0',10);
+      if(saved && Date.now() < saved){
+        timerEnd = saved;
+        timerInterval = setInterval(timerTick, 500);
+        timerTick();
+      } else {
+        localStorage.removeItem('pause_timer_end');
+      }
+    }catch(e){}
+  })();
+  function timerStart(){
+    ensureAudio();
+    timerEnd = Date.now() + 10 * 60 * 1000;
+    try{ localStorage.setItem('pause_timer_end', timerEnd); }catch(e){}
+    if(timerInterval) clearInterval(timerInterval);
+    timerInterval = setInterval(timerTick, 500);
+    timerTick();
+    document.getElementById('timer-start-btn').style.display = 'none';
+    document.getElementById('timer-cancel-btn').style.display = 'block';
+  }
+  function timerCancel(){
+    clearInterval(timerInterval); timerInterval = null; timerEnd = null;
+    try{ localStorage.removeItem('pause_timer_end'); }catch(e){}
+    var d = document.getElementById('timer-display');
+    d.textContent = '10:00';
+    d.className = 'timer-display';
+    document.getElementById('timer-start-btn').style.display = 'block';
+    document.getElementById('timer-cancel-btn').style.display = 'none';
+  }
+  function timerTick(){
+    var remaining = timerEnd - Date.now();
+    var d = document.getElementById('timer-display');
+    var startBtn = document.getElementById('timer-start-btn');
+    var cancelBtn = document.getElementById('timer-cancel-btn');
+    if(remaining <= 0){
+      clearInterval(timerInterval); timerInterval = null;
+      try{ localStorage.removeItem('pause_timer_end'); }catch(e){}
+      playChime();
+      d.textContent = '00:00';
+      d.className = 'timer-display done';
+      startBtn.textContent = 'Temps écoulé — tu peux trader';
+      startBtn.style.background = 'var(--green)';
+      startBtn.style.display = 'block';
+      cancelBtn.style.display = 'none';
+      setTimeout(function(){
+        d.textContent = '10:00';
+        d.className = 'timer-display';
+        startBtn.textContent = 'Je veux trader après une perte — démarre le compte';
+        startBtn.style.background = 'var(--gold)';
+      }, 4000);
+      return;
+    }
+    var mins = Math.floor(remaining / 60000);
+    var secs = Math.floor((remaining % 60000) / 1000);
+    d.textContent = (mins < 10 ? '0'+mins : mins) + ':' + (secs < 10 ? '0'+secs : secs);
+    d.className = 'timer-display running';
+  }
+
+  // ── Streak — calculé automatiquement depuis le journal des violations ──
+  function streakRender(){
+    var el = document.getElementById('streak-num');
+    if(!el) return;
+    var arr = violLoad();
+    var lastDate = null;
+    arr.forEach(function(v){
+      var m = /(\d\d)\/(\d\d)\/(\d{4})\s+(\d\d):(\d\d)/.exec(v.date || '');
+      if(!m) return;
+      var d = new Date(+m[3], +m[2]-1, +m[1], +m[4], +m[5]);
+      if(!lastDate || d > lastDate) lastDate = d;
+    });
+    if(!lastDate){ el.textContent = '—'; return; }
+    var days = Math.floor((Date.now() - lastDate.getTime()) / 86400000);
+    el.textContent = Math.max(0, days);
+  }
+
+  // ── Violations log ───────────────────────────────────────────
+  var VIOL_KEY = 'trading_violations';
+  function violLoad(){
+    try{ return JSON.parse(localStorage.getItem(VIOL_KEY)||'[]'); }catch(e){ return []; }
+  }
+  function violSave(arr){ try{ localStorage.setItem(VIOL_KEY, JSON.stringify(arr)); }catch(e){} }
+  function violRender(){
+    var arr = violLoad();
+    var list = document.getElementById('viol-list');
+    if(!list) return;
+    if(!arr.length){
+      list.innerHTML = '<div class="viol-empty">Aucune violation enregistrée</div>';
+      return;
+    }
+    list.innerHTML = arr.slice(-10).reverse().map(function(v, i, a){
+      var realIdx = arr.length - 1 - i;
+      return '<div class="viol-item">'+
+        '<span class="viol-date">'+v.date+'</span>'+
+        '<span class="viol-rule">Règle '+v.rule+'</span>'+
+        '<button class="viol-del" onclick="violDel('+realIdx+')" title="Supprimer">×</button>'+
+        '</div>';
+    }).join('');
+  }
+  function toggleViol(el){
+    el.classList.toggle('checked');
+  }
+  function violAdd(){
+    var checked = document.querySelectorAll('#viol-checks .viol-check.checked input');
+    if(!checked.length) return;
+    var d = new Date();
+    var pad = function(n){ return n < 10 ? '0'+n : n; };
+    var date = pad(d.getDate())+'/'+pad(d.getMonth()+1)+'/'+d.getFullYear()+' '+pad(d.getHours())+':'+pad(d.getMinutes());
+    var arr = violLoad();
+    checked.forEach(function(input){ arr.push({date: date, rule: input.value}); });
+    violSave(arr);
+    document.querySelectorAll('#viol-checks .viol-check.checked').forEach(function(el){ el.classList.remove('checked'); });
+    violRender();
+    streakRender();
+  }
+  function violDel(idx){
+    var arr = violLoad();
+    arr.splice(idx, 1);
+    violSave(arr);
+    violRender();
+    streakRender();
+  }
+  violRender();
+  streakRender();
+
+  // ── Checklist avant d'entrer ─────────────────────────────────
+  function toggle(el){
+    el.classList.toggle('checked');
+    saveChecklist();
+  }
+  function saveChecklist(){
+    var items = document.querySelectorAll('#checklist .check-item');
+    var state = Array.from(items).map(function(el){ return el.classList.contains('checked'); });
+    try{ localStorage.setItem('trading_checklist', JSON.stringify(state)); }catch(e){}
+  }
+  function resetChecklist(){
+    document.querySelectorAll('#checklist .check-item').forEach(function(el){ el.classList.remove('checked'); });
+    try{ localStorage.removeItem('trading_checklist'); }catch(e){}
+  }
+  (function(){
+    try{
+      var state = JSON.parse(localStorage.getItem('trading_checklist')||'[]');
+      var items = document.querySelectorAll('#checklist .check-item');
+      state.forEach(function(checked, i){ if(checked && items[i]) items[i].classList.add('checked'); });
+    }catch(e){}
+  })();
+
+  // ── Trades du jour — compteur + verrou anti-revenge ─────────
+  function dtPad(n){ return n < 10 ? '0'+n : n; }
+  function dtTodayKey(){
+    var d = new Date();
+    return 'daytrack_' + d.getFullYear()+'-'+dtPad(d.getMonth()+1)+'-'+dtPad(d.getDate());
+  }
+  function dtLoad(){ try{ return JSON.parse(localStorage.getItem(dtTodayKey())||'[]'); }catch(e){ return []; } }
+  function dtSave(arr){ try{ localStorage.setItem(dtTodayKey(), JSON.stringify(arr)); }catch(e){} }
+  var DT_LABELS = { win:'Gagnant', loss:'Perdant', be:'Neutre' };
+  function dtLog(result){
+    var arr = dtLoad();
+    var d = new Date();
+    arr.push({ result: result, time: dtPad(d.getHours())+':'+dtPad(d.getMinutes()) });
+    dtSave(arr);
+    dtRender();
+  }
+  function dtDel(i){
+    var arr = dtLoad();
+    arr.splice(i, 1);
+    dtSave(arr);
+    dtRender();
+  }
+  function dtReset(){
+    if(!confirm("Effacer les trades enregistrés aujourd'hui ?")) return;
+    try{ localStorage.removeItem(dtTodayKey()); }catch(e){}
+    dtRender();
+  }
+  function dtRender(){
+    var arr = dtLoad();
+    var trades = arr.length;
+    var losses = arr.filter(function(t){ return t.result === 'loss'; }).length;
+    var summary = document.getElementById('dt-summary');
+    if(!summary) return;
+    summary.textContent = trades + (trades > 1 ? ' trades' : ' trade') + ' · ' + losses + (losses > 1 ? ' pertes' : ' perte');
+    var locked = trades >= 3 || losses >= 2;
+    var banner = document.getElementById('dt-lock-banner');
+    var reason = document.getElementById('dt-lock-reason');
+    if(locked){
+      banner.style.display = 'block';
+      reason.textContent = losses >= 2
+        ? "2 pertes aujourd'hui — c'est le schéma qui a cramé les comptes précédents. Ferme la plateforme."
+        : '3 trades atteints pour aujourd\'hui.';
+    } else {
+      banner.style.display = 'none';
+    }
+    var list = document.getElementById('dt-list');
+    if(!arr.length){
+      list.innerHTML = '<div class="viol-empty">Aucun trade enregistré aujourd\'hui</div>';
+    } else {
+      list.innerHTML = arr.map(function(t, i){
+        var color = t.result === 'win' ? 'var(--green)' : (t.result === 'loss' ? 'var(--red)' : 'var(--muted)');
+        return '<div class="viol-item"><span class="viol-date">'+t.time+'</span><span style="color:'+color+';font-weight:600">'+DT_LABELS[t.result]+'</span><button class="viol-del" onclick="dtDel('+i+')" title="Supprimer">×</button></div>';
+      }).join('');
+    }
+    document.getElementById('dt-date').textContent = dtTodayKey().replace('daytrack_', '');
+  }
+  dtRender();
+
+  // ── Score de discipline du soir ──────────────────────────────
+  var DISC_CRITS = ['nb','taille','horaires','stop','lockout'];
+  function discPad(n){ return n < 10 ? '0'+n : n; }
+  function discKeyForDate(d){ return 'discipline_' + d.getFullYear()+'-'+discPad(d.getMonth()+1)+'-'+discPad(d.getDate()); }
+  function discTodayKey(){ return discKeyForDate(new Date()); }
+  function discLoad(key){ try{ return JSON.parse(localStorage.getItem(key)||'null'); }catch(e){ return null; } }
+  function discSaveFromDOM(){
+    var state = {};
+    document.querySelectorAll('#disc-checks .check-item').forEach(function(el){
+      state[el.dataset.crit] = el.classList.contains('checked');
+    });
+    try{ localStorage.setItem(discTodayKey(), JSON.stringify(state)); }catch(e){}
+  }
+  function discToggle(el){
+    el.classList.toggle('checked');
+    discSaveFromDOM();
+    discRenderTotal();
+    discRenderHistory();
+  }
+  function discRenderTotal(){
+    var total = document.querySelectorAll('#disc-checks .check-item.checked').length;
+    var numEl = document.getElementById('disc-total-num');
+    if(!numEl) return;
+    numEl.textContent = total;
+    var v = document.getElementById('disc-verdict');
+    v.style.background = ''; v.style.color = '';
+    if(total >= 4){ v.textContent = 'Bonne discipline'; v.className = 'score-verdict yes'; }
+    else if(total === 3){ v.textContent = 'Moyen'; v.className = 'score-verdict disc-verdict-mid'; }
+    else { v.textContent = 'Semaine dangereuse'; v.className = 'score-verdict no'; }
+  }
+  function discRenderHistory(){
+    var host = document.getElementById('disc-history');
+    if(!host) return;
+    var entries = [];
+    for(var i = 0; i < 14; i++){
+      var d = new Date(); d.setDate(d.getDate() - i);
+      var state = discLoad(discKeyForDate(d));
+      if(!state) continue;
+      var total = DISC_CRITS.reduce(function(a, c){ return a + (state[c] ? 1 : 0); }, 0);
+      entries.push({ label: discPad(d.getDate())+'/'+discPad(d.getMonth()+1), total: total });
+    }
+    if(!entries.length){ host.innerHTML = '<div class="viol-empty">Pas encore de score enregistré</div>'; return; }
+    host.innerHTML = entries.map(function(e){
+      var color = e.total >= 4 ? 'var(--green)' : (e.total === 3 ? 'var(--gold)' : 'var(--red)');
+      return '<div class="viol-item"><span class="viol-date">'+e.label+'</span><span style="color:'+color+';font-weight:700">'+e.total+'/5</span></div>';
+    }).join('');
+  }
+  (function(){
+    var saved = discLoad(discTodayKey());
+    if(saved){
+      document.querySelectorAll('#disc-checks .check-item').forEach(function(el){
+        if(saved[el.dataset.crit]) el.classList.add('checked');
+      });
+    }
+    var dateEl = document.getElementById('disc-date');
+    if(dateEl) dateEl.textContent = discTodayKey().replace('discipline_', '');
+    discRenderTotal();
+    discRenderHistory();
+  })();
 </script>
 <script>/* Bascule entre les vues (tableau de bord, brief, séances) */
 (function(){

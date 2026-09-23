@@ -1,17 +1,27 @@
 # Journal de trading — instructions projet
 
-Site statique (un seul `index.html` + `rules.html` + `sessions/*.html`),
-publié sur GitHub Pages (`scaryseb-afk.github.io/journal-trading`) depuis
-la branche `main`. Pas de build : ce qui est commité est ce qui est publié.
+Site statique (un seul `index.html` + `sessions/*.html`), publié sur
+GitHub Pages (`scaryseb-afk.github.io/journal-trading`) depuis la branche
+`main`. Pas de build : ce qui est commité est ce qui est publié.
+
+`index.html` regroupe Tableau de bord, Brief séance et Règles dans une
+seule page (3 onglets en haut, `data-goto`/`.view` — pas de rechargement).
+Les règles avaient leur propre fichier (`rules.html`) jusqu'au 23/09/2026 ;
+tout son contenu et sa logique (score de confluence, checklist, trades du
+jour, score de discipline, violations, streak, pause) vivent maintenant
+dans `#view-regles`. Le score de confluence existe en deux affichages
+(widget compact du Dashboard + carte complète de l'onglet Règles) qui
+partagent un seul état JS (`confluenceState`/`confluenceSet`/
+`confluenceRender`) et la même clé localStorage (`trading_score`) — les
+deux se mettent à jour en direct, sans rechargement.
 
 ## Design / cohérence
 
-`index.html` et `rules.html` partagent la même palette de couleurs (mêmes
-variables CSS : `--bg`, `--panel`/`--surface`, `--line`/`--border`, `--txt`,
-`--muted`, `--red`, `--gold`/`--amber`, `--green`), la même police système
-(pas de police externe), et la même barre de navigation en haut de page.
-Toute nouvelle page doit reprendre ces mêmes tokens plutôt que d'introduire
-sa propre palette.
+Une seule palette de couleurs pour tout le site (variables CSS : `--bg`,
+`--panel`, `--line`, `--txt`, `--muted`, `--red`, `--gold`, `--green`,
+`--blue`), la même police système (pas de police externe). Toute nouvelle
+page/section doit reprendre ces mêmes tokens plutôt que d'introduire sa
+propre palette.
 
 ## Données CSV — voir [csv/README.md](csv/README.md)
 
@@ -53,7 +63,7 @@ trade, relecture) — ne pas dupliquer ce CSS/JS dans le fichier de session.
 
 ## Avant de commiter/pousser
 
-Les changements sur `index.html`/`rules.html` sont visibles immédiatement
-en local, mais ne sont publiés sur le site en ligne qu'après
-`git commit` + `git push`. Toujours confirmer avec l'utilisateur avant de
-pousser (ça republie le site immédiatement).
+Les changements sur `index.html` sont visibles immédiatement en local,
+mais ne sont publiés sur le site en ligne qu'après `git commit` +
+`git push`. Toujours confirmer avec l'utilisateur avant de pousser (ça
+republie le site immédiatement).

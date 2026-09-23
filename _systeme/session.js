@@ -25,7 +25,7 @@ function sjSaveNote(el){
 
 /* ---------- Stop / objectif par trade : saisis à côté de chaque ligne, le R:R se calcule
    tout seul (Tradovate n'exporte pas le stop). Recopiés par "Copier pour Claude" avec la
-   relecture, pour que Claude les structure dans window.TRADES (rules.html / index.html). ---------- */
+   relecture, pour que Claude les structure dans window.TRADES (index.html). ---------- */
 function sjLoadStops(){ try{ return JSON.parse(localStorage.getItem(sjKeyStops())||'{}'); }catch(e){ return {}; } }
 function sjSaveStops(state){ try{ localStorage.setItem(sjKeyStops(), JSON.stringify(state)); }catch(e){} }
 function sjFindAcctTrade(key){
