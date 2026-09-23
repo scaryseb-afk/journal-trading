@@ -544,8 +544,10 @@ textarea::placeholder{color:#4A566A}
 .plan-item-top .long{color:var(--green)}
 .plan-item-top .short{color:var(--red)}
 .plan-item-lv{color:var(--muted);font-family:'IBM Plex Mono',monospace;font-size:11.5px;margin-top:2px}
-.plan-item-note{color:var(--muted);margin-top:3px}
-.plan-item-note.missing{color:var(--red);font-weight:600}
+.plan-note-edit{width:100%;margin-top:6px;border:1px solid var(--border);background:var(--bg);color:var(--txt);border-radius:6px;padding:6px 9px;font:inherit;font-size:12.5px;box-sizing:border-box;outline:none;transition:.12s}
+.plan-note-edit:focus{border-color:var(--gold)}
+.plan-note-edit.missing{border-color:var(--red);background:var(--red-dim)}
+.plan-note-edit.missing::placeholder{color:var(--red);opacity:.9}
 </style>
 </head>
 <body>
@@ -2408,6 +2410,8 @@ window.SESSIONS = [
     if(!isFinite(e) || !isFinite(s) || !isFinite(o)){ msg.textContent = 'Entrée, stop et objectif sont requis (des nombres).'; return; }
     var err = planCheck(e, s, o);
     if(err){ msg.textContent = err; return; }
+    if(!String(document.getElementById('plan-compte').value).trim()){ msg.textContent = 'Indique le compte (ex. 001) avant de valider.'; document.getElementById('plan-compte').focus(); return; }
+    if(!String(document.getElementById('plan-note').value).trim()){ msg.textContent = 'Écris la raison du trade avant de valider — pas de position sans justification.'; document.getElementById('plan-note').focus(); return; }
     var d = new Date();
     var arr = planLoad();
     arr.push({
@@ -2423,6 +2427,13 @@ window.SESSIONS = [
     ['plan-entree','plan-stop','plan-obj','plan-note'].forEach(function(id){ document.getElementById(id).value = ''; });
     planPreview();
     planRender();
+  }
+  function planSetNote(i, input){
+    var arr = planLoad();
+    if(!arr[i]) return;
+    arr[i].note = String(input.value).trim();
+    planSave(arr);
+    input.classList.toggle('missing', !arr[i].note);
   }
   function planDel(i){
     var arr = planLoad();
@@ -2444,19 +2455,26 @@ window.SESSIONS = [
       return '<div class="plan-item"><div class="plan-item-main">'
         + '<div class="plan-item-top">' + (t.compte ? planEsc(t.compte) + ' · ' : '') + planEsc(t.instr) + ' <span class="' + (t.side === 'Long' ? 'long' : 'short') + '">' + t.side + '</span> · R:R ' + rrTxt + '</div>'
         + '<div class="plan-item-lv">entrée ' + planEsc(t.entree) + ' · stop ' + planEsc(t.stop) + ' · objectif ' + planEsc(t.objectif) + ' · ' + t.time + '</div>'
-        + (t.note ? '<div class="plan-item-note">' + planEsc(t.note) + '</div>' : '<div class="plan-item-note missing">⚠️ raison du trade manquante</div>')
+        + '<input type="text" class="plan-note-edit' + (t.note ? '' : ' missing') + '" value="' + planEsc(t.note || '').replace(/"/g, '&quot;') + '" placeholder="⚠️ raison manquante — écris-la ici" onchange="planSetNote(' + i + ', this)">'
         + '</div><button class="viol-del" onclick="planDel(' + i + ')" title="Supprimer">×</button></div>';
     }).join('');
   }
   function planCopy(){
     var arr = planLoad();
     if(!arr.length) return;
+    var btn0 = document.getElementById('plan-copy-btn');
+    var missing = arr.filter(function(t){ return !t.note; }).length;
+    if(missing){
+      btn0.textContent = '⚠️ ' + missing + ' raison(s) manquante(s) — complète-les d\'abord';
+      setTimeout(function(){ btn0.textContent = '📋 Copier pour Claude'; }, 2600);
+      return;
+    }
     var lines = ['Plan du jour — ' + planTodayKey().replace('plan_', '')];
     arr.forEach(function(t, i){
       lines.push((i + 1) + '. ' + (t.compte ? 'Compte ' + t.compte + ' · ' : '') + t.instr + ' ' + t.side
         + ' · entrée ' + t.entree + ' · stop ' + t.stop + ' · objectif ' + t.objectif
         + ' · R:R ' + (t.rr != null ? t.rr.toFixed(2) + ':1' : '—')
-        + (t.note ? ' — ' + t.note : ' — (raison non renseignée)'));
+        + ' — ' + t.note);
     });
     var text = lines.join('\n');
     var btn = document.getElementById('plan-copy-btn');
