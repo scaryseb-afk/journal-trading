@@ -120,7 +120,9 @@ function renderAcct(acctId, bodyId){
       + '<tr class="note-row"><td colspan="8">'
       + '<textarea class="trade-note" placeholder="Setup, raison du trade, erreurs…" data-key="' + key + '" onblur="sjSaveNote(this)">'
       + sjEsc(note)
-      + '</textarea></td></tr>';
+      + '</textarea>'
+      + sjTradeRRRow(key)
+      + '</td></tr>';
   });
   document.getElementById(bodyId).innerHTML = html;
 }

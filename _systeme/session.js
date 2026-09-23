@@ -8,6 +8,7 @@
 
 function sjKeyImgs()  { return 'imgs_'  + SESSION_KEY; }
 function sjKeyNotes() { return 'notes_' + SESSION_KEY; }
+function sjKeyStops() { return 'stops_' + SESSION_KEY; }
 
 function sjEsc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
 
@@ -20,6 +21,61 @@ function sjSaveNote(el){
   if(val) notes[key] = val; else delete notes[key];
   try{ localStorage.setItem(sjKeyNotes(), JSON.stringify(notes)); }catch(e){}
   sjUpdateCopyState();
+}
+
+/* ---------- Stop / objectif par trade : saisis à côté de chaque ligne, le R:R se calcule
+   tout seul (Tradovate n'exporte pas le stop). Recopiés par "Copier pour Claude" avec la
+   relecture, pour que Claude les structure dans window.TRADES (rules.html / index.html). ---------- */
+function sjLoadStops(){ try{ return JSON.parse(localStorage.getItem(sjKeyStops())||'{}'); }catch(e){ return {}; } }
+function sjSaveStops(state){ try{ localStorage.setItem(sjKeyStops(), JSON.stringify(state)); }catch(e){} }
+function sjFindAcctTrade(key){
+  var idx = key.lastIndexOf('_');
+  var acct = key.slice(0, idx), n = +key.slice(idx + 1);
+  var trades = (window.ACCTS && window.ACCTS[acct]) || [];
+  return trades.filter(function(t){ return t.n === n; })[0];
+}
+function sjTradeRRRow(key){
+  var s = sjLoadStops()[key] || {};
+  return '<div class="trade-rr">'
+    + '<label>Stop <input type="text" inputmode="decimal" class="trade-rr-input" data-field="stop" data-key="' + key + '" value="' + sjEsc(s.stop || '') + '" placeholder="—"></label>'
+    + '<label>Objectif <input type="text" inputmode="decimal" class="trade-rr-input" data-field="objectif" data-key="' + key + '" value="' + sjEsc(s.objectif || '') + '" placeholder="—"></label>'
+    + '<span class="trade-rr-out" data-key="' + key + '">R:R —</span>'
+    + '</div>';
+}
+function sjUpdateTradeRROut(key){
+  var out = document.querySelector('.trade-rr-out[data-key="' + key + '"]');
+  if(!out) return;
+  var t = sjFindAcctTrade(key);
+  var s = sjLoadStops()[key];
+  out.textContent = 'R:R ' + (t ? sjComputeRR(t, s) : '—');
+}
+function sjInitTradeRR(){
+  document.querySelectorAll('.trade-rr-input').forEach(function(inp){
+    var key = inp.getAttribute('data-key');
+    sjUpdateTradeRROut(key);
+    inp.addEventListener('input', function(){
+      var stops = sjLoadStops();
+      stops[key] = stops[key] || {};
+      stops[key][inp.getAttribute('data-field')] = inp.value.trim();
+      if(!stops[key].stop && !stops[key].objectif) delete stops[key];
+      sjSaveStops(stops);
+      sjUpdateTradeRROut(key);
+      sjUpdateCopyState();
+    });
+  });
+}
+function sjStopsSummaryLines(){
+  var stops = sjLoadStops();
+  var lines = [];
+  Object.keys(stops).sort().forEach(function(key){
+    var s = stops[key];
+    if(!s || !s.stop || !s.objectif) return;
+    var t = sjFindAcctTrade(key);
+    if(!t) return;
+    var idx = key.lastIndexOf('_'), acct = key.slice(0, idx);
+    lines.push('Compte ' + acct + ' #' + t.n + ' (' + t.contract + ' ' + t.side + ', entrée ' + t.entry + ', sortie ' + t.exit + ') : stop ' + s.stop + ' · objectif ' + s.objectif + ' · R:R ' + sjComputeRR(t, s));
+  });
+  return lines;
 }
 
 /* ---------- Relecture : recopie tout dans le presse-papiers pour le coller à Claude ---------- */
@@ -38,11 +94,16 @@ function sjReflectValue(key){
 function sjUpdateCopyState(){
   var btn = document.getElementById('reflect-copy-btn');
   if(!btn) return;
-  var hasContent = SJ_REFLECT_FIELDS.some(function(f){ return sjReflectValue(f.key); });
+  var hasContent = SJ_REFLECT_FIELDS.some(function(f){ return sjReflectValue(f.key); }) || sjStopsSummaryLines().length > 0;
   btn.disabled = !hasContent;
 }
 function sjCopyReflect(){
   var lines = ['Relecture — ' + SESSION_KEY];
+  var stopLines = sjStopsSummaryLines();
+  if(stopLines.length){
+    lines.push('', 'Stops / objectifs saisis :');
+    stopLines.forEach(function(l){ lines.push('  ' + l); });
+  }
   SJ_REFLECT_FIELDS.forEach(function(f){
     var v = sjReflectValue(f.key);
     if(v) lines.push(f.label + ' : ' + v);
@@ -457,5 +518,6 @@ function initSessionPage(){
   sjInitPaste();
   sjInitCsvImport();
   sjInitTradeNotes();
+  sjInitTradeRR();
 }
 window.addEventListener('DOMContentLoaded', initSessionPage);
