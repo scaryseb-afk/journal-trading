@@ -521,6 +521,28 @@ textarea::placeholder{color:#4A566A}
 .viol-del{background:none;border:none;color:var(--border);cursor:pointer;font-size:14px;line-height:1;padding:0 2px}
 .viol-del:hover{color:var(--muted)}
 .viol-empty{font-size:12px;color:var(--muted);text-align:center;padding:12px 0}
+
+/* Plan du jour (brouillon d'avant-séance) */
+.plan-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px;margin-bottom:12px}
+.plan-label{display:flex;flex-direction:column;gap:4px;font-size:11px;color:var(--muted)}
+.plan-input{border:1px solid var(--border);background:var(--bg);color:var(--txt);border-radius:6px;padding:8px 10px;font:inherit;font-size:13px;font-family:'IBM Plex Mono',monospace;width:100%;box-sizing:border-box;outline:none;transition:.12s}
+.plan-input:focus{border-color:var(--gold)}
+.plan-side{display:flex;gap:6px}
+.plan-side-btn{flex:1;border:1px solid var(--border);background:var(--bg);color:var(--muted);border-radius:6px;padding:8px 10px;font:inherit;font-size:12px;font-weight:650;cursor:pointer;transition:.12s}
+.plan-side-btn.active[data-side="Long"]{background:var(--green-dim);border-color:var(--green);color:var(--green)}
+.plan-side-btn.active[data-side="Short"]{background:var(--red-dim);border-color:var(--red);color:var(--red)}
+.plan-add{border:1px solid var(--gold);background:var(--gold);color:#0d111c;border-radius:6px;padding:9px 16px;font:inherit;font-size:12.5px;font-weight:700;cursor:pointer;transition:opacity .12s}
+.plan-add:hover{opacity:.85}
+.plan-msg{font-size:12px;color:var(--red);margin-top:8px;min-height:0}
+.plan-item{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;padding:10px 0;border-bottom:1px solid var(--border);font-size:12.5px}
+.plan-item:last-child{border-bottom:none}
+.plan-item-main{flex:1;min-width:0}
+.plan-item-top{font-family:'IBM Plex Mono',monospace;font-weight:700;color:var(--txt)}
+.plan-item-top .long{color:var(--green)}
+.plan-item-top .short{color:var(--red)}
+.plan-item-lv{color:var(--muted);font-family:'IBM Plex Mono',monospace;font-size:11.5px;margin-top:2px}
+.plan-item-note{color:var(--muted);margin-top:3px}
+.plan-item-note.missing{color:var(--red);font-weight:600}
 </style>
 </head>
 <body>
@@ -762,6 +784,7 @@ textarea::placeholder{color:#4A566A}
     <button class="sn-btn" data-sub="interdits">Interdits &amp; repères</button>
     <button class="sn-btn" data-sub="checklist">Checklist</button>
     <button class="sn-btn" data-sub="comptes">Comptes</button>
+    <button class="sn-btn" data-sub="plan">Plan du jour</button>
   </div>
 
   <div class="subview active" data-subview="essentiel">
@@ -1101,6 +1124,62 @@ textarea::placeholder{color:#4A566A}
       </div>
     </div>
   </details>
+  </div>
+
+  <div class="subview" data-subview="plan">
+  <h2>Plan du jour</h2>
+  <p class="sub">Brouillon d'avant-séance : note tes trades prévus (entrée, stop, objectif) avant même d'avoir le CSV — la date du jour se détecte toute seule. Le R:R se calcule en direct. « Copier pour Claude » me l'envoie, je le croise avec le CSV quand il arrive. Reste dans ton navigateur.</p>
+
+  <div class="tool-card">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;">
+      <div class="tool-card-title" style="margin-bottom:0">📝 Nouveau trade prévu</div>
+      <span style="font-size:11px;color:var(--muted)" id="plan-date">—</span>
+    </div>
+    <div class="plan-grid">
+      <label class="plan-label">Compte
+        <input type="text" id="plan-compte" class="plan-input" placeholder="ex. 001">
+      </label>
+      <label class="plan-label">Instrument
+        <input type="text" id="plan-instr" class="plan-input" value="MNQ">
+      </label>
+      <div class="plan-label">Sens
+        <div class="plan-side">
+          <button type="button" class="plan-side-btn active" data-side="Long" onclick="planSetSide('Long',this)">Long</button>
+          <button type="button" class="plan-side-btn" data-side="Short" onclick="planSetSide('Short',this)">Short</button>
+        </div>
+      </div>
+    </div>
+    <div class="plan-grid">
+      <label class="plan-label">Entrée prévue
+        <input type="text" inputmode="decimal" id="plan-entree" class="plan-input" placeholder="ex. 30870.25">
+      </label>
+      <label class="plan-label">Stop
+        <input type="text" inputmode="decimal" id="plan-stop" class="plan-input" placeholder="ex. 30820.25">
+      </label>
+      <label class="plan-label">Objectif
+        <input type="text" inputmode="decimal" id="plan-obj" class="plan-input" placeholder="ex. 31000.25">
+      </label>
+    </div>
+    <label class="plan-label" style="margin-bottom:12px">Raison du trade (setup)
+      <input type="text" id="plan-note" class="plan-input" style="font-family:inherit" placeholder="ex. 2e IFVG 5M, biais haussier">
+    </label>
+    <div class="score-total" style="margin-top:0;padding-top:12px">
+      <div>
+        <span class="score-total-num" id="plan-rr">—</span>
+        <span class="score-total-sub" id="plan-rr-sub">R:R</span>
+      </div>
+      <button type="button" class="plan-add" onclick="planAdd()">+ Ajouter au plan</button>
+    </div>
+    <div class="plan-msg" id="plan-msg"></div>
+  </div>
+
+  <div class="tool-card" style="margin-top:12px">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;">
+      <div class="tool-card-title" style="margin-bottom:0">📋 Plan d'aujourd'hui</div>
+      <button type="button" class="reset-btn" id="plan-copy-btn" onclick="planCopy()" style="margin-top:0;font-size:10px;padding:4px 10px" disabled>📋 Copier pour Claude</button>
+    </div>
+    <div id="plan-list"></div>
+  </div>
   </div>
 
 </section>
@@ -2284,6 +2363,113 @@ window.SESSIONS = [
     discRenderTotal();
     discRenderHistory();
   })();
+</script>
+<script>/* Plan du jour — brouillon d'avant-séance : la date du jour vient du navigateur, rien à créer côté fichiers */
+  var planSide = 'Long';
+  function planPad(n){ return n < 10 ? '0'+n : n; }
+  function planTodayKey(){
+    var d = new Date();
+    return 'plan_' + d.getFullYear() + '-' + planPad(d.getMonth()+1) + '-' + planPad(d.getDate());
+  }
+  function planEsc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+  function planLoad(){ try{ return JSON.parse(localStorage.getItem(planTodayKey())||'[]'); }catch(e){ return []; } }
+  function planSave(arr){ try{ localStorage.setItem(planTodayKey(), JSON.stringify(arr)); }catch(e){} }
+  function planRaw(id){ return String(document.getElementById(id).value).trim().replace(',', '.'); }
+  function planNum(id){ return parseFloat(planRaw(id)); }
+  function planSetSide(side, btn){
+    planSide = side;
+    btn.parentElement.querySelectorAll('.plan-side-btn').forEach(function(b){ b.classList.toggle('active', b === btn); });
+    planPreview();
+  }
+  function planCheck(e, s, o){
+    if(planSide === 'Long' && !(s < e && e < o)) return 'Long : il faut stop < entrée < objectif.';
+    if(planSide === 'Short' && !(o < e && e < s)) return 'Short : il faut objectif < entrée < stop.';
+    return '';
+  }
+  function planPreview(){
+    var e = planNum('plan-entree'), s = planNum('plan-stop'), o = planNum('plan-obj');
+    var out = document.getElementById('plan-rr'), sub = document.getElementById('plan-rr-sub'), msg = document.getElementById('plan-msg');
+    msg.textContent = '';
+    out.style.color = '';
+    if(!isFinite(e) || !isFinite(s) || !isFinite(o)){ out.textContent = '—'; sub.textContent = 'R:R'; return; }
+    var err = planCheck(e, s, o);
+    if(err){ out.textContent = '—'; sub.textContent = 'R:R'; msg.textContent = err; return; }
+    var rr = Math.abs(o - e) / Math.abs(e - s);
+    out.textContent = rr.toFixed(2) + ' : 1';
+    out.style.color = rr >= 2 ? 'var(--green)' : 'var(--red)';
+    sub.textContent = rr >= 2 ? 'ton minimum est respecté' : 'sous ton minimum de 2:1';
+  }
+  function planAdd(){
+    var e = planNum('plan-entree'), s = planNum('plan-stop'), o = planNum('plan-obj');
+    var msg = document.getElementById('plan-msg');
+    if(!isFinite(e) || !isFinite(s) || !isFinite(o)){ msg.textContent = 'Entrée, stop et objectif sont requis (des nombres).'; return; }
+    var err = planCheck(e, s, o);
+    if(err){ msg.textContent = err; return; }
+    var d = new Date();
+    var arr = planLoad();
+    arr.push({
+      compte: String(document.getElementById('plan-compte').value).trim(),
+      instr: String(document.getElementById('plan-instr').value).trim() || 'MNQ',
+      side: planSide,
+      entree: planRaw('plan-entree'), stop: planRaw('plan-stop'), objectif: planRaw('plan-obj'),
+      note: String(document.getElementById('plan-note').value).trim(),
+      rr: Math.abs(o - e) / Math.abs(e - s),
+      time: planPad(d.getHours()) + ':' + planPad(d.getMinutes())
+    });
+    planSave(arr);
+    ['plan-entree','plan-stop','plan-obj','plan-note'].forEach(function(id){ document.getElementById(id).value = ''; });
+    planPreview();
+    planRender();
+  }
+  function planDel(i){
+    var arr = planLoad();
+    arr.splice(i, 1);
+    planSave(arr);
+    planRender();
+  }
+  function planRender(){
+    var host = document.getElementById('plan-list');
+    if(!host) return;
+    var arr = planLoad();
+    var dateEl = document.getElementById('plan-date');
+    if(dateEl) dateEl.textContent = planTodayKey().replace('plan_', '');
+    var btn = document.getElementById('plan-copy-btn');
+    if(btn) btn.disabled = !arr.length;
+    if(!arr.length){ host.innerHTML = '<div class="viol-empty">Aucun trade prévu aujourd\'hui</div>'; return; }
+    host.innerHTML = arr.map(function(t, i){
+      var rrTxt = t.rr != null ? t.rr.toFixed(2) + ':1' : '—';
+      return '<div class="plan-item"><div class="plan-item-main">'
+        + '<div class="plan-item-top">' + (t.compte ? planEsc(t.compte) + ' · ' : '') + planEsc(t.instr) + ' <span class="' + (t.side === 'Long' ? 'long' : 'short') + '">' + t.side + '</span> · R:R ' + rrTxt + '</div>'
+        + '<div class="plan-item-lv">entrée ' + planEsc(t.entree) + ' · stop ' + planEsc(t.stop) + ' · objectif ' + planEsc(t.objectif) + ' · ' + t.time + '</div>'
+        + (t.note ? '<div class="plan-item-note">' + planEsc(t.note) + '</div>' : '<div class="plan-item-note missing">⚠️ raison du trade manquante</div>')
+        + '</div><button class="viol-del" onclick="planDel(' + i + ')" title="Supprimer">×</button></div>';
+    }).join('');
+  }
+  function planCopy(){
+    var arr = planLoad();
+    if(!arr.length) return;
+    var lines = ['Plan du jour — ' + planTodayKey().replace('plan_', '')];
+    arr.forEach(function(t, i){
+      lines.push((i + 1) + '. ' + (t.compte ? 'Compte ' + t.compte + ' · ' : '') + t.instr + ' ' + t.side
+        + ' · entrée ' + t.entree + ' · stop ' + t.stop + ' · objectif ' + t.objectif
+        + ' · R:R ' + (t.rr != null ? t.rr.toFixed(2) + ':1' : '—')
+        + (t.note ? ' — ' + t.note : ' — (raison non renseignée)'));
+    });
+    var text = lines.join('\n');
+    var btn = document.getElementById('plan-copy-btn');
+    function done(ok){
+      btn.textContent = ok ? '✓ Copié — colle-le dans le chat Claude' : 'Échec de la copie';
+      setTimeout(function(){ btn.textContent = '📋 Copier pour Claude'; }, 2200);
+    }
+    if(navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(text).then(function(){ done(true); }, function(){ done(false); });
+    } else { done(false); }
+  }
+  ['plan-entree','plan-stop','plan-obj'].forEach(function(id){
+    var el = document.getElementById(id);
+    if(el) el.addEventListener('input', planPreview);
+  });
+  planRender();
 </script>
 <script>/* Bascule entre les vues (tableau de bord, brief, séances) */
 (function(){
