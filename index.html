@@ -601,8 +601,8 @@ textarea::placeholder{color:#4A566A}
   <div class="rules">
     <div class="r">
       <div class="n">Règle 1 — Taille</div>
-      <div class="t">264 $ de risque maximum, tous comptes et tous instruments confondus.</div>
-      <div class="d">Sur MNQ, ça correspond à 4 contrats micro avec 33 points de stop, 2 lots par position. Sur un autre instrument, recalcule : 1 tick de 6E vaut 12,5 ticks de MNQ micro. C'est le dollar qui compte, pas le nombre de contrats.</div>
+      <div class="t">Budget de risque par signal, pas par compte — 250 $ (21→27/09), 300 $ (28/09→04/10), 500 $ à partir du 05/10 (à confirmer).</div>
+      <div class="d">Un signal = un seul compte à la fois, en tournant entre les 5 comptes — jamais le même trade dupliqué sur plusieurs comptes en même temps (règle 8, toujours en vigueur). R:R minimum 2:1. C'est le budget en dollars qui fixe la taille, jamais l'inverse. Sur un autre instrument, recalcule : 1 tick de 6E vaut 12,5 ticks de MNQ micro.</div>
     </div>
     <div class="r">
       <div class="n">Règle 2 — Exécution</div>
@@ -739,7 +739,7 @@ textarea::placeholder{color:#4A566A}
 
   <div class="big" style="margin-top:16px;border-color:rgba(242,85,90,.45)">
     <div class="l">La consigne n°4</div>
-    <div class="t">4 contrats maximum, tous comptes confondus — y compris sur un instrument que tu ne connais pas encore bien.</div>
+    <div class="t">Le nombre de contrats se déduit du budget du moment (Règle 1), jamais l'inverse — et surtout jamais en réaction à une perte.</div>
     <div class="d">Le 21/08, sur le compte 005, une série de trades MCL est montée à <strong>6, puis 11, 11 et encore 11 contrats</strong> en 11 minutes, chaque fois en réaction à la perte précédente — quatre trades pour −352 $ au total, sur un instrument (pétrole micro) rarement tradé. Ce n'est pas un excès isolé : c'est le même réflexe qu'ailleurs dans le journal — augmenter la taille pour se refaire au lieu de s'arrêter.</div>
   </div>
 
@@ -840,7 +840,7 @@ textarea::placeholder{color:#4A566A}
   <div class="dont">
     <div class="no">3</div>
     <div>
-      <div class="t">Ne pas dépasser 2 lots par position, 4 contrats au total</div>
+      <div class="t">Fixer la taille par le budget du moment (Règle 1), pas par habitude</div>
       <div class="d">Tous comptes et tous instruments confondus — un contrat CL (taille standard) pèse environ 10 MCL en risque, un 6E pèse 12,5 MNQ. Raisonner en dollars de risque, pas en nombre de contrats, dès que l'instrument change.</div>
       <div class="ev2">21/08 — MCL monté à 11 contrats en 11 min (−352 $) · 07/09 — 1 contrat CL au lieu de MCL, taille hors gabarit</div>
     </div>
@@ -921,7 +921,7 @@ textarea::placeholder{color:#4A566A}
     <div class="r" style="border-color:rgba(242,85,90,.4)"><div class="n">0</div><div class="t">Suis-je en état de trader, là, maintenant ?</div><div class="d">La question du 20/08. Si non, tu fermes la plateforme — tout le reste de cette liste ne sert à rien ce jour-là.</div></div>
     <div class="r"><div class="n">1</div><div class="t">Quelle phase AMD suis-je en train de jouer ?</div><div class="d">Si tu ne peux pas répondre en une phrase, tu ne rentres pas.</div></div>
     <div class="r"><div class="n">2</div><div class="t">Est-ce mon biais, ou celui de quelqu'un d'autre ?</div><div class="d">La question qui aurait sauvé ta journée de vendredi.</div></div>
-    <div class="r"><div class="n">3</div><div class="t">Combien de contrats au total, tous comptes confondus ?</div><div class="d">Compte-les à voix haute. 4 maximum, 2 par position, 264 $ de risque plafond.</div></div>
+    <div class="r"><div class="n">3</div><div class="t">Est-ce que je prends ce signal sur un seul compte ?</div><div class="d">Un signal = un compte, tu tournes entre les 5 — jamais dupliqué sur plusieurs en même temps. Budget et R:R minimum : voir Règle 1.</div></div>
     <div class="r"><div class="n">4</div><div class="t">Ma quantité est-elle la bonne ? Je la lis à voix haute.</div><div class="d">14 lots au lieu de 2, le 18/08. Trois secondes de lecture évitent 959 $ d'exposition.</div></div>
     <div class="r"><div class="n">5</div><div class="t">Mes trois ordres sont posés — je m'engage à n'en déplacer aucun.</div><div class="d">Aucune exception, aucun sens — sauf une règle écrite avant l'entrée et appliquée mécaniquement.</div></div>
     <div class="r"><div class="n">6</div><div class="t">Ma dernière perte date de plus de 10 minutes ?</div><div class="d">Sinon, tu attends. La montre décide, pas toi.</div></div>
