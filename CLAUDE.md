@@ -4,8 +4,10 @@ Site statique (un seul `index.html` + `sessions/*.html`), publié sur
 GitHub Pages (`scaryseb-afk.github.io/journal-trading`) depuis la branche
 `main`. Pas de build : ce qui est commité est ce qui est publié.
 
-`index.html` regroupe Tableau de bord, Brief séance et Règles dans une
-seule page (3 onglets en haut, `data-goto`/`.view` — pas de rechargement).
+`index.html` regroupe Tableau de bord, Brief séance, Brouillon (« Plan du
+jour », trades prévus avant le CSV) et Règles dans une seule page (onglets
+en haut, `data-goto`/`.view` — pas de rechargement ; le sélecteur de thème
+est dans la barre du haut, à côté de Règles).
 Les règles avaient leur propre fichier (`rules.html`) jusqu'au 23/09/2026 ;
 tout son contenu et sa logique (score de confluence, checklist, trades du
 jour, score de discipline, violations, streak, pause) vivent maintenant
@@ -17,11 +19,14 @@ deux se mettent à jour en direct, sans rechargement.
 
 ## Design / cohérence
 
-Une seule palette de couleurs pour tout le site (variables CSS : `--bg`,
-`--panel`, `--line`, `--txt`, `--muted`, `--red`, `--gold`, `--green`,
-`--blue`), la même police système (pas de police externe). Toute nouvelle
-page/section doit reprendre ces mêmes tokens plutôt que d'introduire sa
-propre palette.
+Une seule palette « C, gris neutre » pour tout le site (`index.html` et
+`_systeme/style.css`) : gris neutres, et le rouge/vert du P&L (`--red`,
+`--green`) sont les SEULES couleurs saturées. L'accent est neutre
+(`--accent` : gris clair en nuit, encre en jour ; texte dessus :
+`--on-accent`) ; `--gold` et `--blue` en sont de simples alias. Pas de
+jaune/beige/bleu décoratif. Toute nouvelle page/section doit reprendre ces
+tokens plutôt que d'introduire sa propre palette, et jamais de couleur
+codée en dur pour un texte posé sur un fond `--accent`.
 
 ## Données CSV — voir [csv/README.md](csv/README.md)
 

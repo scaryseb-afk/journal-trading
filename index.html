@@ -6,25 +6,28 @@
 <title>Journal de trading — Viale</title>
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📈</text></svg>">
 <style>:root{
-  --bg:#0A0D13; --panel:#131820; --panel2:#1A212C; --line:#242D3A;
-  --txt:#EAF0F8; --muted:#8FA0B6; --dim:#5D6C82;
-  --green:#3DD68C; --red:#F2555A; --gold:#D4A63C; --blue:#5B9DF9;
+  --bg:#111113; --panel:#19191C; --panel2:#212125; --line:#2A2A2E;
+  --txt:#EDEDEE; --muted:#8A8A90; --dim:#5F5F65;
+  --green:#4CAF7D; --red:#E0554F;
+  --accent:#EDEDEE; --on-accent:#111113; --gold:var(--accent); --blue:var(--accent);
   --surface:var(--panel); --border:var(--line); --head:var(--txt);
-  --red-dim:rgba(242,85,90,.12); --amber-dim:rgba(212,166,60,.10); --green-dim:rgba(61,214,140,.10); --white-dim:rgba(255,255,255,.05);
+  --red-dim:rgba(224,85,79,.12); --amber-dim:rgba(237,237,238,.07); --green-dim:rgba(76,175,125,.10); --white-dim:rgba(255,255,255,.05);
 }
 @media(prefers-color-scheme:light){
   :root:not([data-theme="dark"]){
-    --bg:#F5F6F8; --panel:#FFFFFF; --panel2:#F0F2F5; --line:#D8DCE4;
-    --txt:#111827; --muted:#556070; --dim:#8A96A6;
-    --green:#16864D; --red:#C8282D; --gold:#9A6F10; --blue:#1A5FBF;
-    --red-dim:rgba(200,40,45,.10); --amber-dim:rgba(154,111,16,.10); --green-dim:rgba(22,134,77,.10); --white-dim:rgba(0,0,0,.04);
+    --bg:#F7F7F8; --panel:#FFFFFF; --panel2:#F0F0F2; --line:#E2E2E5;
+    --txt:#17171A; --muted:#6B6B70; --dim:#9A9AA0;
+    --green:#2E8B5E; --red:#B33A34;
+    --accent:#17171A; --on-accent:#FFFFFF;
+    --red-dim:rgba(179,58,52,.09); --amber-dim:rgba(23,23,26,.05); --green-dim:rgba(46,139,94,.09); --white-dim:rgba(0,0,0,.04);
   }
 }
 :root[data-theme="light"]{
-  --bg:#F5F6F8; --panel:#FFFFFF; --panel2:#F0F2F5; --line:#D8DCE4;
-  --txt:#111827; --muted:#556070; --dim:#8A96A6;
-  --green:#16864D; --red:#C8282D; --gold:#9A6F10; --blue:#1A5FBF;
-  --red-dim:rgba(200,40,45,.10); --amber-dim:rgba(154,111,16,.10); --green-dim:rgba(22,134,77,.10); --white-dim:rgba(0,0,0,.04);
+  --bg:#F7F7F8; --panel:#FFFFFF; --panel2:#F0F0F2; --line:#E2E2E5;
+  --txt:#17171A; --muted:#6B6B70; --dim:#9A9AA0;
+  --green:#2E8B5E; --red:#B33A34;
+  --accent:#17171A; --on-accent:#FFFFFF;
+  --red-dim:rgba(179,58,52,.09); --amber-dim:rgba(23,23,26,.05); --green-dim:rgba(46,139,94,.09); --white-dim:rgba(0,0,0,.04);
 }
 *{box-sizing:border-box}
 .view{display:none}.view.active{display:block}
@@ -88,12 +91,12 @@ h3{font-size:19px;font-weight:600;margin:0 0 4px}
 .cs-btn{border:1px solid var(--line);background:var(--panel2);color:var(--muted);
   border-radius:5px;padding:3px 7px;font:inherit;font-size:10.5px;font-weight:650;cursor:pointer;transition:.12s}
 .cs-btn:hover{border-color:var(--gold);color:var(--txt)}
-.cs-btn.active{background:var(--gold);border-color:var(--gold);color:#0d111c}
+.cs-btn.active{background:var(--gold);border-color:var(--gold);color:var(--on-accent)}
 .cs-total{display:flex;align-items:center;gap:8px;white-space:nowrap}
 .cs-total-num{font-size:16px;font-weight:700;color:var(--txt)}
 .cs-verdict{font-size:10px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;padding:3px 9px;border-radius:999px}
-.cs-verdict.no{background:rgba(242,85,90,.12);color:var(--red)}
-.cs-verdict.yes{background:rgba(61,214,140,.12);color:var(--green)}
+.cs-verdict.no{background:rgba(224,85,79,.12);color:var(--red)}
+.cs-verdict.yes{background:rgba(76,175,125,.12);color:var(--green)}
 .cs-reset{border:none;background:none;color:var(--muted);font-size:10px;cursor:pointer;text-decoration:underline;white-space:nowrap}
 .cs-reset:hover{color:var(--txt)}
 @media(max-width:700px){.cs-widget{flex-direction:column;align-items:stretch}.cs-rows{flex-direction:column;gap:8px}}
@@ -138,10 +141,10 @@ h3{font-size:19px;font-weight:600;margin:0 0 4px}
 .tbl tr.tot td{background:var(--panel2);font-weight:700;font-size:17px}
 .tbl td.fill{color:var(--muted);font-size:15px}
 .tag{display:inline-block;padding:4px 11px;border-radius:6px;font-size:12.5px;font-weight:700;letter-spacing:.05em;width:70px;text-align:center}
-.tag.l{background:rgba(61,214,140,.14);color:var(--green)}
-.tag.s{background:rgba(242,85,90,.14);color:var(--red)}
+.tag.l{background:rgba(76,175,125,.14);color:var(--green)}
+.tag.s{background:rgba(224,85,79,.14);color:var(--red)}
 .acc{display:inline-block;padding:3px 10px;border-radius:6px;font-size:12.5px;font-weight:650;
-  background:rgba(91,157,249,.13);color:#9CC4FF;white-space:nowrap}
+  background:var(--white-dim);color:var(--txt);white-space:nowrap}
 .rr{font-weight:700}.rr.bad{color:var(--red)}.rr.ok{color:var(--green)}
 
 .obs{background:var(--panel);border:1px solid var(--line);border-left:4px solid var(--gold);
@@ -170,28 +173,28 @@ textarea::placeholder{color:#4A566A}
 .grade button{width:42px;height:42px;border-radius:9px;border:1px solid var(--line);background:var(--panel2);
   color:var(--muted);font:inherit;font-weight:650;font-size:16px;cursor:pointer;transition:.12s}
 .grade button:hover{border-color:var(--blue);color:var(--txt)}
-.grade button.on{background:var(--gold);border-color:var(--gold);color:#161009}
+.grade button.on{background:var(--gold);border-color:var(--gold);color:var(--on-accent)}
 
 .chk{display:flex;flex-wrap:wrap;gap:10px;margin-top:6px}
 .chk button{border:1px solid var(--line);background:var(--panel2);color:var(--muted);border-radius:999px;
   padding:9px 17px;font:inherit;font-size:14.5px;cursor:pointer;transition:.12s}
 .chk button:hover{border-color:var(--blue);color:var(--txt)}
-.chk button.on{background:rgba(61,214,140,.15);border-color:var(--green);color:#A8ECC8}
-.chk button.off{background:rgba(242,85,90,.12);border-color:rgba(242,85,90,.45);color:#FFB6B8}
+.chk button.on{background:rgba(76,175,125,.15);border-color:var(--green);color:#A8ECC8}
+.chk button.off{background:rgba(224,85,79,.12);border-color:rgba(224,85,79,.45);color:#FFB6B8}
 
-.rule{background:linear-gradient(180deg,#161B24,#12161E);border:1px solid var(--line);
+.rule{background:var(--panel);border:1px solid var(--line);
   border-radius:14px;padding:26px 30px;margin-top:18px}
 .rule .n{color:var(--gold);font-size:13px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;margin-bottom:10px}
 .rule .t{font-size:20px;font-weight:650;margin-bottom:8px;line-height:1.4}
 .rule .d{color:var(--muted);font-size:16px}
-.rule.q{border-color:rgba(91,157,249,.35)}.rule.q .n{color:var(--blue)}
+.rule.q{border-color:var(--muted)}.rule.q .n{color:var(--blue)}
 
 /* barre de sauvegarde */
-.saveline{position:fixed;right:20px;bottom:20px;background:rgba(19,24,32,.94);backdrop-filter:blur(10px);
+.saveline{position:fixed;right:20px;bottom:20px;background:rgba(25,25,28,.94);backdrop-filter:blur(10px);
   border:1px solid var(--line);border-radius:999px;padding:10px 20px;font-size:14px;color:var(--dim);z-index:9;
   transition:.2s}
-.saveline.ok{color:var(--green);border-color:rgba(61,214,140,.35)}
-.saveline.err{color:var(--red);border-color:rgba(242,85,90,.5)}
+.saveline.ok{color:var(--green);border-color:rgba(76,175,125,.35)}
+.saveline.err{color:var(--red);border-color:rgba(224,85,79,.5)}
 
 /* session filter pills */
 .sf-filters{display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap}
@@ -199,7 +202,7 @@ textarea::placeholder{color:#4A566A}
   border-radius:999px;padding:6px 16px;font:inherit;font-size:13px;font-weight:650;
   cursor:pointer;transition:.12s}
 .sf-filter:hover{border-color:var(--blue);color:var(--txt)}
-.sf-filter.active{background:var(--blue);border-color:var(--blue);color:#fff}
+.sf-filter.active{background:var(--accent);border-color:var(--accent);color:var(--on-accent)}
 .sf-filter.active.win{background:var(--green);border-color:var(--green)}
 .sf-filter.active.lose{background:var(--red);border-color:var(--red)}
 /* sub-navigation within dashboard/brief views */
@@ -208,14 +211,14 @@ textarea::placeholder{color:#4A566A}
   border-radius:8px;padding:8px 14px;font:inherit;font-size:13px;font-weight:650;
   cursor:pointer;transition:.12s}
 .sn-btn:hover{border-color:var(--blue);color:var(--txt)}
-.sn-btn.active{background:var(--blue);border-color:var(--blue);color:#fff}
+.sn-btn.active{background:var(--accent);border-color:var(--accent);color:var(--on-accent)}
 .subview{display:none}
 .subview.active{display:block}
 /* session badge today/tomorrow */
 .sr-badge{display:inline-block;padding:2px 8px;border-radius:4px;font-size:10px;
   font-weight:700;letter-spacing:.07em;text-transform:uppercase;margin-left:6px;vertical-align:middle}
-.sr-badge.today{background:rgba(91,157,249,.2);color:#9CC4FF;border:1px solid rgba(91,157,249,.4)}
-.sr-badge.next{background:rgba(212,166,60,.15);color:var(--gold);border:1px solid rgba(212,166,60,.35)}
+.sr-badge.today{background:var(--accent);color:var(--on-accent);border:1px solid var(--accent)}
+.sr-badge.next{background:var(--white-dim);color:var(--muted);border:1px solid var(--line)}
 /* index — sessions feed compact */
 .sf{display:flex;flex-direction:column;gap:4px;margin-top:4px;margin-bottom:28px}
 .sf-month summary{list-style:none;cursor:pointer}
@@ -294,7 +297,7 @@ textarea::placeholder{color:#4A566A}
 .dont .ev2{color:var(--dim);font-size:14.5px;margin-top:10px;font-style:italic}
 .dont.do{border-left-color:var(--green)}
 .dont.do .no{color:var(--green)}
-.big{background:var(--panel2);border:1px solid rgba(212,166,60,.35);
+.big{background:var(--panel2);border:1px solid var(--line);
   border-radius:16px;padding:34px 36px;margin-top:20px}
 .big .l{color:var(--gold);font-size:13px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;margin-bottom:14px}
 .big .t{font-size:27px;font-weight:650;line-height:1.35;letter-spacing:-.01em}
@@ -302,7 +305,7 @@ textarea::placeholder{color:#4A566A}
 
 .rr-tip{position:relative;cursor:help}
 .rr-tip::after{content:attr(data-tip);position:absolute;bottom:calc(100% + 6px);left:50%;transform:translateX(-50%);
-  white-space:nowrap;background:#1A212C;border:1px solid var(--line);border-radius:6px;padding:5px 10px;
+  white-space:nowrap;background:var(--panel2);border:1px solid var(--line);border-radius:6px;padding:5px 10px;
   font-size:12px;color:var(--txt);pointer-events:none;opacity:0;transition:.15s;z-index:99}
 .rr-tip:hover::after{opacity:1}
 .foot{color:var(--dim);font-size:14.5px;text-align:center;margin-top:56px;line-height:1.7}
@@ -316,9 +319,9 @@ textarea::placeholder{color:#4A566A}
   border-radius:8px;padding:8px 16px;font-size:14px;font-weight:600;color:var(--muted);cursor:pointer;
   transition:.13s;line-height:1.4}
 .sc-btn:hover{border-color:var(--blue);color:var(--txt)}
-.sc-del{background:transparent;border:1px solid rgba(242,85,90,.35);border-radius:8px;
+.sc-del{background:transparent;border:1px solid rgba(224,85,79,.35);border-radius:8px;
   padding:8px 14px;font-size:14px;font-weight:600;color:var(--red);cursor:pointer;transition:.13s}
-.sc-del:hover{background:rgba(242,85,90,.1)}
+.sc-del:hover{background:rgba(224,85,79,.1)}
 
 /* ---- comptes : lignes compactes, responsives ---- */
 .acct-list{display:flex;flex-direction:column;gap:10px;margin-top:8px;min-width:0}
@@ -328,9 +331,9 @@ textarea::placeholder{color:#4A566A}
 .ar-name{font-size:15.5px;font-weight:650;line-height:1.35;overflow-wrap:anywhere}
 .ar-badge{display:inline-block;padding:3px 10px;border-radius:6px;white-space:nowrap;
   font-size:11px;font-weight:700;letter-spacing:.05em;text-transform:uppercase}
-.ar-badge.pos{background:rgba(61,214,140,.15);color:var(--green)}
-.ar-badge.gold{background:rgba(212,166,60,.15);color:var(--gold)}
-.ar-badge.dim{background:rgba(143,160,182,.12);color:var(--muted)}
+.ar-badge.pos{background:rgba(76,175,125,.15);color:var(--green)}
+.ar-badge.gold{background:var(--white-dim);color:var(--txt)}
+.ar-badge.dim{background:var(--white-dim);color:var(--muted)}
 .ar-ref{color:var(--dim);font-size:12px;font-variant-numeric:tabular-nums;overflow-wrap:anywhere}
 .ar-bal{font-size:19px;font-weight:700;font-variant-numeric:tabular-nums;white-space:nowrap}
 .ar-sub{color:var(--dim);font-size:13.5px;line-height:1.6;margin-top:7px;overflow-wrap:anywhere}
@@ -344,8 +347,8 @@ textarea::placeholder{color:#4A566A}
 .ar-buf-fill.safe{background:var(--green)}
 .ar-buf-fill.warn{background:var(--gold)}
 .ar-buf-fill.crit{background:var(--red)}
-.ar-ask{color:#9CC4FF;font-size:13px;line-height:1.55;margin-top:9px;
-  background:rgba(91,157,249,.09);border:1px solid rgba(91,157,249,.25);border-radius:8px;
+.ar-ask{color:var(--txt);font-size:13px;line-height:1.55;margin-top:9px;
+  background:var(--white-dim);border:1px solid var(--line);border-radius:8px;
   padding:9px 13px;overflow-wrap:anywhere}
 @media(max-width:560px){
   .ar{padding:14px 16px}
@@ -432,7 +435,7 @@ textarea::placeholder{color:#4A566A}
 .rc-rule.stop{border-left:2px solid var(--red);padding-left:16px}
 .rc-rule.warn{border-left:2px solid var(--gold);padding-left:16px}
 .rc-rule.stop .rc-rule-num{color:rgba(232,64,64,.18)}
-.rc-rule.warn .rc-rule-num{color:rgba(245,166,35,.18)}
+.rc-rule.warn .rc-rule-num{color:rgba(138,138,144,.28)}
 @media(max-width:520px){.rc-rule{grid-template-columns:36px 1fr;gap:0 16px}.rc-rule-num{font-size:22px}.rule-stmt{font-size:15px}}
 
 .prohibition{background:var(--red-dim);border:1px solid rgba(232,64,64,.25);border-radius:6px;padding:16px 20px;margin:32px 0 0;display:flex;align-items:flex-start;gap:14px}
@@ -463,7 +466,7 @@ textarea::placeholder{color:#4A566A}
 .score-opts{display:flex;gap:6px;flex-wrap:wrap}
 .score-btn{border:1px solid var(--border);background:var(--bg);color:var(--muted);border-radius:6px;padding:7px 12px;font:inherit;font-size:12px;font-weight:600;cursor:pointer;transition:.12s}
 .score-btn:hover{border-color:var(--muted);color:var(--txt)}
-.score-btn.active{background:var(--gold);border-color:var(--gold);color:#0d111c}
+.score-btn.active{background:var(--gold);border-color:var(--gold);color:var(--on-accent)}
 .score-total{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;margin-top:14px;padding-top:14px;border-top:1px solid var(--border)}
 .score-total-num{font-family:'IBM Plex Mono',monospace;font-size:26px;font-weight:700;color:var(--txt)}
 .score-total-sub{font-size:12px;color:var(--muted)}
@@ -498,7 +501,7 @@ textarea::placeholder{color:#4A566A}
 .timer-display.done{color:var(--green)}
 .timer-btn{width:100%;padding:10px;border-radius:6px;border:none;font-family:'IBM Plex Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;transition:opacity .12s}
 .timer-btn:hover{opacity:.85}
-.timer-btn.start{background:var(--gold);color:#0d111c}
+.timer-btn.start{background:var(--gold);color:var(--on-accent)}
 .timer-btn.cancel{background:var(--surface);border:1px solid var(--border);color:var(--muted);margin-top:6px}
 
 .streak-num{font-family:'IBM Plex Mono',monospace;font-size:52px;font-weight:700;color:var(--green);text-align:center;line-height:1;margin:4px 0 4px}
@@ -506,7 +509,7 @@ textarea::placeholder{color:#4A566A}
 .streak-btns{display:flex;gap:8px}
 .streak-btn{flex:1;padding:9px;border-radius:6px;border:1px solid var(--border);background:var(--surface);font-family:'IBM Plex Mono',monospace;font-size:12px;font-weight:700;cursor:pointer;color:var(--txt);transition:border-color .12s}
 .streak-btn:hover{border-color:var(--muted)}
-.streak-btn.add{color:var(--green);border-color:rgba(74,222,128,.3)}
+.streak-btn.add{color:var(--green);border-color:rgba(76,175,125,.3)}
 .streak-btn.add:hover{border-color:var(--green)}
 .streak-btn.reset{color:var(--red);border-color:rgba(232,64,64,.25)}
 .streak-btn.reset:hover{border-color:var(--red)}
@@ -524,14 +527,14 @@ textarea::placeholder{color:#4A566A}
 
 /* Plan du jour (brouillon d'avant-séance) */
 .plan-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px;margin-bottom:12px}
-.plan-label{display:flex;flex-direction:column;gap:4px;font-size:11px;color:var(--muted)}
+.plan-label{display:flex;flex-direction:column;gap:4px;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin:0}
 .plan-input{border:1px solid var(--border);background:var(--bg);color:var(--txt);border-radius:6px;padding:8px 10px;font:inherit;font-size:13px;font-family:'IBM Plex Mono',monospace;width:100%;box-sizing:border-box;outline:none;transition:.12s}
 .plan-input:focus{border-color:var(--gold)}
 .plan-side{display:flex;gap:6px}
 .plan-side-btn{flex:1;border:1px solid var(--border);background:var(--bg);color:var(--muted);border-radius:6px;padding:8px 10px;font:inherit;font-size:12px;font-weight:650;cursor:pointer;transition:.12s}
 .plan-side-btn.active[data-side="Long"]{background:var(--green-dim);border-color:var(--green);color:var(--green)}
 .plan-side-btn.active[data-side="Short"]{background:var(--red-dim);border-color:var(--red);color:var(--red)}
-.plan-add{border:1px solid var(--gold);background:var(--gold);color:#0d111c;border-radius:6px;padding:9px 16px;font:inherit;font-size:12.5px;font-weight:700;cursor:pointer;transition:opacity .12s}
+.plan-add{border:1px solid var(--gold);background:var(--gold);color:var(--on-accent);border-radius:6px;padding:9px 16px;font:inherit;font-size:12.5px;font-weight:700;cursor:pointer;transition:opacity .12s}
 .plan-add:hover{opacity:.85}
 .plan-msg{font-size:12px;color:var(--red);margin-top:8px;min-height:0}
 .plan-item{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;padding:10px 0;border-bottom:1px solid var(--border);font-size:12.5px}
@@ -550,12 +553,11 @@ textarea::placeholder{color:#4A566A}
 <nav class="nav">
   <a href="#" data-goto="dashboard">Tableau de bord</a>
   <a href="#" data-goto="brief">Brief séance</a>
+  <a href="#" data-goto="brouillon">📝 Brouillon</a>
   <a href="#" data-goto="regles" style="margin-left:auto">⛔ Règles</a>
+  <button id="theme-toggle" title="Changer le thème" style="background:var(--panel);border:1px solid var(--line);color:var(--muted);border-radius:999px;padding:6px 14px;font-size:12.5px;font-weight:650;cursor:pointer;letter-spacing:.04em;transition:.15s;font-family:inherit">⚙️ Système</button>
 </nav>
 <section class="view" id="view-dashboard">
-<div style="display:flex;justify-content:flex-end;margin-bottom:12px">
-  <button id="theme-toggle" title="Changer le thème" style="background:var(--panel);border:1px solid var(--line);color:var(--muted);border-radius:999px;padding:7px 16px;font-size:13px;font-weight:650;cursor:pointer;letter-spacing:.04em;transition:.15s">🌙 Sombre</button>
-</div>
 <p class="eyebrow">Journal de suivi &middot; Futures</p>
   <h1>Journal de trading</h1>
   <p class="sub">MNQ — quatre comptes actifs Tradovate / Lucid</p>
@@ -602,7 +604,7 @@ textarea::placeholder{color:#4A566A}
   </div>
 
   <div class="kpis kpis-top">
-    <div class="kpi"><div class="lbl">Sessions journalisées</div><div class="val">29</div><div class="note">du 13/08 au 22/09</div></div>
+    <div class="kpi"><div class="lbl">Règle de séance</div><div class="val" id="kpi-regle-val">250 $ / signal</div><div class="note" id="kpi-regle-note">1 seul compte à la fois · R:R ≥ 2 · 3 trades max par jour</div></div>
     <div class="kpi"><div class="lbl">Cumul 4 comptes</div><div class="val neg">−3 301,25 $</div><div class="note">recalculé sur les CSV bruts · +204 $ le 22/09 (compte 001) · +549 $ le 21/09 (compte 001, 1 trade, 2 contrats)</div></div>
     <div class="kpi"><div class="lbl">Meilleure session</div><div class="val pos">+2 529 $</div><div class="note">08/09 — TraderSyncer, 3 comptes</div></div>
     <div class="kpi"><div class="lbl">Pire session</div><div class="val neg">−2 095 $</div><div class="note">18/09 — nouveau compte A en 8 contrats dès le 1er jour, −1 176 $ à lui seul</div></div>
@@ -784,7 +786,6 @@ textarea::placeholder{color:#4A566A}
     <button class="sn-btn" data-sub="interdits">Interdits &amp; repères</button>
     <button class="sn-btn" data-sub="checklist">Checklist</button>
     <button class="sn-btn" data-sub="comptes">Comptes</button>
-    <button class="sn-btn" data-sub="plan">Plan du jour</button>
   </div>
 
   <div class="subview active" data-subview="essentiel">
@@ -850,13 +851,13 @@ textarea::placeholder{color:#4A566A}
 
   <div class="subview" data-subview="consignes">
   <h2 id="brief-consignes" style="margin-top:40px">Les cinq consignes de la semaine</h2>
-  <div class="big" style="border-color:rgba(242,85,90,.6)">
+  <div class="big" style="border-color:rgba(224,85,79,.6)">
     <div class="l">La consigne n°1</div>
     <div class="t">Après une perte, tu fermes la plateforme pendant 10 minutes. Sans exception, pas juste après les grosses pertes.</div>
     <div class="d">J'ai recompté sur les CSV réels, trade par trade, du 21/08 au 04/09 : <strong>38 de tes 87 trades — 44 % — sont entrés à moins de 10 minutes de la perte précédente.</strong> Certains en quelques secondes (0 s le 04/09 à 16:14:08, 4 s le 21/08 sur le MCL). Cette règle est écrite depuis le 14/08 et elle n'a quasiment jamais été suivie depuis.<br><br><strong>Ce que ça t'a coûté, précisément :</strong> ces 38 trades totalisent <strong>−1 233,50 $</strong> (12 gagnants pour +1 285 $, 26 perdants pour −2 518,50 $) — sur une période où tu as perdu −1 529,75 $ au total. <strong>Ces ré-entrées représentent à elles seules 81 % de toutes tes pertes depuis le 21/08.</strong> Sans elles, la période serait quasiment à l'équilibre (−296,25 $ au lieu de −1 529,75 $).<br><br>Ce n'est plus une consigne, c'est un chiffre qui te dit que la règle n'existe pas encore vraiment. Montre en main, dix minutes, sur tous les comptes.</div>
   </div>
 
-  <div class="big" style="border-color:rgba(242,85,90,.5)">
+  <div class="big" style="border-color:rgba(224,85,79,.5)">
     <div class="l">La consigne n°2</div>
     <div class="t">Après deux shorts perdants d'affilée dans un marché qui monte, tu arrêtes de shorter — tu ne rajoutes pas un troisième.</div>
     <div class="d">Deux fois le même schéma exact : le <strong>28/08</strong>, le compte 006 prend trois shorts consécutifs contre la tendance (−101 $, −152 $, −45 $), avant qu'un compte passe enfin long et gagne aussitôt (+84 $, +48 $). Le <strong>03/09</strong>, mêmes comptes (001/005), même schéma : quatre shorts d'affilée, presque tous perdants (−153 $, −54 $, −9 $, −60 $), pendant qu'une seule tentative en sens inverse (+1,50 $ à 16:36) montrait déjà que le marché ne coopérait pas. Deux séances, un mois d'écart, exactement la même erreur.<br><br><strong>Le marché te donne la réponse après le deuxième stop.</strong> Un troisième trade dans le même sens n'est pas une conviction, c'est de l'obstination.</div>
@@ -868,13 +869,13 @@ textarea::placeholder{color:#4A566A}
     <div class="d">Le 09/04, TraderSyncer a copié le même trade perdant sur 4 comptes en même temps : −290 $, −290 $, −281,50 $, −294 $, soit <strong>−1 155,50 $ pour une seule mauvaise décision.</strong> Mais ce n'était pas la première fois : le 09/02 et le 09/03, les mêmes trades apparaissent déjà, identiques à la seconde près, sur 2 à 3 comptes. TraderSyncer a été supprimé et la règle 8 ajoutée après le 04/09 — <strong>elle tient, à condition de ne jamais la contourner « juste pour cette fois ».</strong></div>
   </div>
 
-  <div class="big" style="margin-top:16px;border-color:rgba(242,85,90,.45)">
+  <div class="big" style="margin-top:16px;border-color:rgba(224,85,79,.45)">
     <div class="l">La consigne n°4</div>
     <div class="t">Le nombre de contrats se déduit du budget du moment (Règle 1), jamais l'inverse — et surtout jamais en réaction à une perte.</div>
     <div class="d">Le 21/08, sur le compte 005, une série de trades MCL est montée à <strong>6, puis 11, 11 et encore 11 contrats</strong> en 11 minutes, chaque fois en réaction à la perte précédente — quatre trades pour −352 $ au total, sur un instrument (pétrole micro) rarement tradé. Ce n'est pas un excès isolé : c'est le même réflexe qu'ailleurs dans le journal — augmenter la taille pour se refaire au lieu de s'arrêter.</div>
   </div>
 
-  <div class="big" style="margin-top:16px;border-color:rgba(61,214,140,.3)">
+  <div class="big" style="margin-top:16px;border-color:rgba(76,175,125,.3)">
     <div class="l">La consigne n°5</div>
     <div class="t">Ta meilleure séance récente n'a demandé que deux trades et de la patience — pas plus d'activité.</div>
     <div class="d">Le <strong>01/09</strong> : deux trades seulement, +6 $ puis <strong>+715,50 $</strong> sur une position tenue 43 minutes. Total +721,50 $, la meilleure séance depuis le 21/08 — et la plus calme. À l'inverse, les journées à 10-15 trades dispersés sur plusieurs comptes (21/08, 24/08, 04/09) sont toutes négatives. Le nombre de trades n'est pas un signe d'activité productive, c'est souvent un signe que tu ne laisses rien se développer.</div>
@@ -927,7 +928,7 @@ textarea::placeholder{color:#4A566A}
     </div>
   </div>
 
-  <div class="dont do" style="border-left-color:rgba(61,214,140,.3)">
+  <div class="dont do" style="border-left-color:rgba(76,175,125,.3)">
     <div class="no" style="color:var(--green)">6</div>
     <div>
       <div class="t">Laisser un trade gagnant se développer — moins de trades, plus de patience</div>
@@ -1049,7 +1050,7 @@ textarea::placeholder{color:#4A566A}
   <div class="subview" data-subview="checklist">
   <h2 id="brief-questions">Les sept questions avant d'appuyer</h2>
   <div class="rules">
-    <div class="r" style="border-color:rgba(242,85,90,.4)"><div class="n">0</div><div class="t">Suis-je en état de trader, là, maintenant ?</div><div class="d">La question du 20/08. Si non, tu fermes la plateforme — tout le reste de cette liste ne sert à rien ce jour-là.</div></div>
+    <div class="r" style="border-color:rgba(224,85,79,.4)"><div class="n">0</div><div class="t">Suis-je en état de trader, là, maintenant ?</div><div class="d">La question du 20/08. Si non, tu fermes la plateforme — tout le reste de cette liste ne sert à rien ce jour-là.</div></div>
     <div class="r"><div class="n">1</div><div class="t">Quelle phase AMD suis-je en train de jouer ?</div><div class="d">Si tu ne peux pas répondre en une phrase, tu ne rentres pas.</div></div>
     <div class="r"><div class="n">2</div><div class="t">Est-ce mon biais, ou celui de quelqu'un d'autre ?</div><div class="d">La question qui aurait sauvé ta journée de vendredi.</div></div>
     <div class="r"><div class="n">3</div><div class="t">Est-ce que je prends ce signal sur un seul compte ?</div><div class="d">Un signal = un compte, tu tournes entre les 5 — jamais dupliqué sur plusieurs en même temps. Budget et R:R minimum : voir Règle 1.</div></div>
@@ -1126,7 +1127,9 @@ textarea::placeholder{color:#4A566A}
   </details>
   </div>
 
-  <div class="subview" data-subview="plan">
+</section>
+
+<section class="view" id="view-brouillon">
   <h2>Plan du jour</h2>
   <p class="sub">Brouillon d'avant-séance : note tes trades prévus (entrée, stop, objectif) avant même d'avoir le CSV — la date du jour se détecte toute seule. Le R:R se calcule en direct. « Copier pour Claude » me l'envoie, je le croise avec le CSV quand il arrive. Reste dans ton navigateur.</p>
 
@@ -1180,7 +1183,7 @@ textarea::placeholder{color:#4A566A}
     </div>
     <div id="plan-list"></div>
   </div>
-  </div>
+  
 
 </section>
 
@@ -1559,7 +1562,7 @@ textarea::placeholder{color:#4A566A}
 
 <div style="background:var(--surface);border:1px solid var(--border);border-radius:8px;overflow:hidden;margin-bottom:32px;">
   <div style="padding:14px 20px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px;">
-    <span style="font-family:'IBM Plex Mono',monospace;font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;background:rgba(74,222,128,.12);color:#4ade80;padding:3px 10px;border-radius:3px;">MCL / CL</span>
+    <span style="font-family:'IBM Plex Mono',monospace;font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;background:var(--white-dim);color:var(--txt);padding:3px 10px;border-radius:3px;">MCL / CL</span>
     <span style="font-size:13px;color:var(--muted);">Approche différente du MNQ — mécanique, pas directionnelle</span>
   </div>
   <div style="display:grid;grid-template-columns:1fr 1fr;gap:0;border-bottom:1px solid var(--border);">
@@ -1575,8 +1578,8 @@ textarea::placeholder{color:#4A566A}
   <div style="padding:20px;">
     <div style="display:flex;flex-direction:column;gap:10px;">
       <div style="display:flex;align-items:flex-start;gap:12px;">
-        <div style="width:20px;height:20px;min-width:20px;border-radius:50%;background:rgba(74,222,128,.15);display:flex;align-items:center;justify-content:center;margin-top:1px;">
-          <span style="font-family:'IBM Plex Mono',monospace;font-size:10px;font-weight:700;color:#4ade80;">1</span>
+        <div style="width:20px;height:20px;min-width:20px;border-radius:50%;background:var(--white-dim);display:flex;align-items:center;justify-content:center;margin-top:1px;">
+          <span style="font-family:'IBM Plex Mono',monospace;font-size:10px;font-weight:700;color:var(--txt);">1</span>
         </div>
         <div>
           <div style="font-size:14px;font-weight:600;color:var(--head);margin-bottom:3px;">Identifier les niveaux de liquidité en M15</div>
@@ -1584,8 +1587,8 @@ textarea::placeholder{color:#4A566A}
         </div>
       </div>
       <div style="display:flex;align-items:flex-start;gap:12px;">
-        <div style="width:20px;height:20px;min-width:20px;border-radius:50%;background:rgba(74,222,128,.15);display:flex;align-items:center;justify-content:center;margin-top:1px;">
-          <span style="font-family:'IBM Plex Mono',monospace;font-size:10px;font-weight:700;color:#4ade80;">2</span>
+        <div style="width:20px;height:20px;min-width:20px;border-radius:50%;background:var(--white-dim);display:flex;align-items:center;justify-content:center;margin-top:1px;">
+          <span style="font-family:'IBM Plex Mono',monospace;font-size:10px;font-weight:700;color:var(--txt);">2</span>
         </div>
         <div>
           <div style="font-size:14px;font-weight:600;color:var(--head);margin-bottom:3px;">Alerte déclenchée → regarder le toucher</div>
@@ -1593,8 +1596,8 @@ textarea::placeholder{color:#4A566A}
         </div>
       </div>
       <div style="display:flex;align-items:flex-start;gap:12px;">
-        <div style="width:20px;height:20px;min-width:20px;border-radius:50%;background:rgba(74,222,128,.15);display:flex;align-items:center;justify-content:center;margin-top:1px;">
-          <span style="font-family:'IBM Plex Mono',monospace;font-size:10px;font-weight:700;color:#4ade80;">3</span>
+        <div style="width:20px;height:20px;min-width:20px;border-radius:50%;background:var(--white-dim);display:flex;align-items:center;justify-content:center;margin-top:1px;">
+          <span style="font-family:'IBM Plex Mono',monospace;font-size:10px;font-weight:700;color:var(--txt);">3</span>
         </div>
         <div>
           <div style="font-size:14px;font-weight:600;color:var(--head);margin-bottom:3px;">Entrée à l'inverse du sweep</div>
@@ -2471,6 +2474,21 @@ window.SESSIONS = [
   });
   planRender();
 </script>
+<script>/* KPI « Règle de séance » : budget de risque par signal selon la date du navigateur (voir Règle 1) */
+(function(){
+  var sched = [['2026-09-21', 250, '21/09'], ['2026-09-28', 300, '28/09'], ['2026-10-05', 500, '05/10']];
+  var d = new Date(), pad = function(n){ return n < 10 ? '0'+n : n; };
+  var key = d.getFullYear() + '-' + pad(d.getMonth()+1) + '-' + pad(d.getDate());
+  var cur = null, next = null;
+  sched.forEach(function(x){ if(key >= x[0]) cur = x; else if(!next) next = x; });
+  var val = document.getElementById('kpi-regle-val'), note = document.getElementById('kpi-regle-note');
+  if(!val || !note || !cur) return;
+  val.textContent = cur[1] + ' $ / signal';
+  note.textContent = '1 seul compte à la fois · R:R ≥ 2 · 3 trades max par jour'
+    + (cur[1] === 500 ? ' · palier à confirmer' : '')
+    + (next ? ' · ' + next[1] + ' $ dès le ' + next[2] : '');
+})();
+</script>
 <script>/* Bascule entre les vues (tableau de bord, brief, séances) */
 (function(){
 
@@ -2664,7 +2682,7 @@ window.SESSIONS = [
         h += '<div class="ar-buf-track"><div class="ar-buf-fill ' + barCls + '" style="width:' + pct.toFixed(1) + '%"></div></div>';
         h += '</div>';
       }
-      if(c.verrouille) h += '<div class="ar-ask" style="background:rgba(242,85,90,.10);border-color:rgba(242,85,90,.35);color:#FFB6B8">🔒 ' + c.verrouille + '</div>';
+      if(c.verrouille) h += '<div class="ar-ask" style="background:rgba(224,85,79,.10);border-color:rgba(224,85,79,.35);color:#FFB6B8">🔒 ' + c.verrouille + '</div>';
       if(c.note)        h += '<div class="ar-note">' + c.note + '</div>';
       if(c.aConfirmer)  h += '<div class="ar-ask">À me confirmer : ' + c.aConfirmer + '</div>';
       h += '</div>';
