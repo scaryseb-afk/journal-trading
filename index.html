@@ -1487,6 +1487,24 @@ textarea::placeholder{color:#4A566A}
     </div>
   </div>
 
+  <div class="rc-rule stop">
+    <div class="rc-rule-num">9</div>
+    <div class="rule-body">
+      <span class="rule-tag tag-stop">Entrée V2</span>
+      <div class="rule-stmt">Stratégie V2 (iFVG 5M, à partir de 15h30) : pas d'entrée si l'iFVG est du mauvais côté de la MME 1H, ni si le SL demande 400 ticks ou plus.</div>
+      <div class="rule-detail"><strong>MME 1H (la rouge) :</strong> en Long, un iFVG <strong>sous</strong> la MME 1H = on ne rentre pas (en Short, l'inverse : iFVG au-dessus — symétrie à confirmer).<br><strong>Distance du SL :</strong> 400 ticks ou plus (100 pts sur MNQ, ≈ 200 $ par contrat) = on ne rentre pas.<br>Pas d'exception : on passe son tour.</div>
+    </div>
+  </div>
+
+  <div class="rc-rule proc">
+    <div class="rc-rule-num">10</div>
+    <div class="rule-body">
+      <span class="rule-tag tag-proc">Stop V2</span>
+      <div class="rule-stmt">Le SL se place à l'un des 3 niveaux de protection.</div>
+      <div class="rule-detail"><strong>1.</strong> Sous (Long) / au-dessus (Short) de la <strong>FVG 5M</strong>.<br><strong>2.</strong> Sous / au-dessus de la <strong>création de la bougie 5M</strong>.<br><strong>3.</strong> Sous / au-dessus de l'<strong>avant-dernier swing low / swing high 5M</strong>.<br>Quel que soit le niveau choisi, la règle 9 s'applique : si ça fait 400 ticks ou plus, pas d'entrée.</div>
+    </div>
+  </div>
+
 </div>
 
 <div class="section-divider">
