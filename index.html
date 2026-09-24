@@ -101,12 +101,6 @@ h3{font-size:19px;font-weight:600;margin:0 0 4px}
 .cs-reset:hover{color:var(--txt)}
 @media(max-width:700px){.cs-widget{flex-direction:column;align-items:stretch}.cs-rows{flex-direction:column;gap:8px}}
 
-.brief-banner{display:flex;align-items:center;gap:12px;margin-top:20px;padding:12px 18px;
-  background:var(--panel);border:1px solid var(--line);border-radius:10px;text-decoration:none;transition:.12s}
-.brief-banner:hover{border-color:var(--gold);text-decoration:none}
-.brief-banner-l{color:var(--gold);font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;white-space:nowrap}
-.brief-banner-t{color:var(--txt);font-weight:650;font-size:15px;flex:1}
-.brief-banner-arrow{color:var(--muted)}
 
 .card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:28px 30px}
 .card p{margin:0 0 14px}.card p:last-child{margin-bottom:0}
@@ -556,6 +550,7 @@ textarea::placeholder{color:#4A566A}
   <a href="#" data-goto="dashboard">Tableau de bord</a>
   <a href="#" data-goto="brief">Brief séance</a>
   <a href="#" data-goto="brouillon">📝 Brouillon</a>
+  <a href="#" data-goto="sessions">Sessions</a>
   <a href="#" data-goto="regles" style="margin-left:auto">⛔ Règles</a>
   <button id="theme-toggle" title="Changer le thème" style="background:var(--panel);border:1px solid var(--line);color:var(--muted);border-radius:999px;padding:6px 14px;font-size:12.5px;font-weight:650;cursor:pointer;letter-spacing:.04em;transition:.15s;font-family:inherit">⚙️ Système</button>
 </nav>
@@ -563,12 +558,6 @@ textarea::placeholder{color:#4A566A}
 <p class="eyebrow">Journal de suivi &middot; Futures</p>
   <h1>Journal de trading</h1>
   <p class="sub">MNQ — quatre comptes actifs Tradovate / Lucid</p>
-
-  <a href="#" data-goto="brief" class="brief-banner">
-    <span class="brief-banner-l">Avant chaque séance</span>
-    <span class="brief-banner-t">Ouvrir le brief : ta prochaine séance</span>
-    <span class="brief-banner-arrow">→</span>
-  </a>
 
   <div class="cs-widget" id="cs-widget">
     <span class="cs-title">🎯 Score de confluence</span>
@@ -617,7 +606,6 @@ textarea::placeholder{color:#4A566A}
     <button class="sn-btn active" data-sub="overview">Vue d'ensemble</button>
     <button class="sn-btn" data-sub="comptes">Comptes &amp; Analyse</button>
     <button class="sn-btn" data-sub="risque">Risque &amp; R:R</button>
-    <button class="sn-btn" data-sub="sessions">Sessions</button>
     <button class="sn-btn" data-sub="bilan">Bilan &amp; Règles</button>
   </div>
 
@@ -659,11 +647,6 @@ textarea::placeholder{color:#4A566A}
   <p class="sub">Calculé uniquement sur les trades dont le stop initial est connu. <strong style="color:var(--gold)">S'arrête au 25/08</strong> — les trades du 21/08 au 09/09 n'ont pas de stop/objectif enregistré (le CSV Tradovate ne les contient pas). Utilise le bloc "📤 Importer un CSV" sur une page de session pour saisir stop/objectif par trade et voir le R:R se calculer — envoie-moi les valeurs si tu veux qu'elles remontent ici.</p>
   <div id="rr"></div>
 
-  </div>
-
-  <div class="subview" data-subview="sessions">
-  <h2 id="sessions">Sessions</h2>
-  <div id="sessions-feed"></div>
   </div>
 
   <div class="subview" data-subview="bilan">
@@ -777,7 +760,6 @@ textarea::placeholder{color:#4A566A}
   </p>
 </section>
 <section class="view" id="view-brief">
-  <div style="margin-bottom:24px"><a href="#" data-goto="dashboard" style="color:var(--muted);font-weight:600;font-size:.88rem;text-decoration:none">← Journal</a></div>
   <p class="eyebrow">Mis à jour après la séance du mercredi 9 septembre 2026 — recalculé sur les CSV réels du 21/08 au 09/09</p>
   <h1>Ta prochaine séance</h1>
   <p class="sub">Ce qu'il faut faire, ce qu'il ne faut pas faire. Construit uniquement à partir de tes journaux.</p>
@@ -1187,6 +1169,11 @@ textarea::placeholder{color:#4A566A}
   </div>
   
 
+</section>
+
+<section class="view" id="view-sessions">
+  <h2 id="sessions">Sessions</h2>
+  <div id="sessions-feed"></div>
 </section>
 
 <section class="view" id="view-regles">
@@ -2861,8 +2848,11 @@ window.SESSIONS = [
     var equity = sessions.map(function(s){ cum += s.pnl; return { jour: s.jour, label: s.label, pnl: s.pnl, cum: cum }; });
 
     // ── Stats globales ──
-    var positives = sessions.filter(function(s){ return s.pnl > 0; }).length;
-    var winRate   = sessions.length ? Math.round(positives / sessions.length * 100) : 0;
+    var traded    = sessions.filter(function(s){ return s.pnl !== 0 || s.trades > 0; });
+    var positives = traded.filter(function(s){ return s.pnl > 0; }).length;
+    var negatives = traded.filter(function(s){ return s.pnl < 0; }).length;
+    var noTrade   = sessions.length - traded.length;
+    var winRate   = traded.length ? Math.round(positives / traded.length * 100) : 0;
     var best      = sessions.reduce(function(a,b){ return b.pnl > a.pnl ? b : a; }, sessions[0]);
     var worst     = sessions.reduce(function(a,b){ return b.pnl < a.pnl ? b : a; }, sessions[0]);
 
@@ -2899,7 +2889,7 @@ window.SESSIONS = [
 
     // ── Stats rapides (4 KPIs) ──
     h += '<div class="kpis" style="margin-top:0">';
-    h += kpi('Win rate sessions', winRate + ' %', positives + ' positives · ' + (sessions.length - positives) + ' négatives sur ' + sessions.length, winRate >= 50 ? 'pos' : 'neg');
+    h += kpi('Win rate sessions', winRate + ' %', positives + ' positives · ' + negatives + ' négatives sur ' + traded.length + ' séances tradées' + (noTrade ? ' (' + noTrade + ' sans trade exclue' + (noTrade>1?'s':'') + ')' : ''), winRate >= 50 ? 'pos' : 'neg');
     if(streak > 0)
       h += kpi('Streak actuel', '+' + streak + ' session' + (streak>1?'s':''), 'Séances consécutives positives ↑', 'pos');
     else if(loseStreak > 0)
@@ -3299,23 +3289,13 @@ window.SESSIONS = [
     }
   }
 
-  function openSubview(navId, sub){
-    var nav = document.getElementById(navId);
-    if(!nav) return;
-    var btn = nav.querySelector('.sn-btn[data-sub="' + sub + '"]');
-    if(btn) btn.click();
-  }
-
   document.addEventListener('DOMContentLoaded', function(){
     analyse(); renderSessions(); comptes(); risque();
     initSubnav('dash-subnav'); initSubnav('brief-subnav');
-    // Si on revient d'une page session via #sessions, scroller jusqu'aux sessions
+    // Retour depuis une page de séance (lien #sessions) : ouvrir l'onglet Sessions
     if(window.location.hash === '#sessions'){
-      openSubview('dash-subnav', 'sessions');
-      setTimeout(function(){
-        var el = document.getElementById('sessions');
-        if(el) el.scrollIntoView({behavior:'smooth', block:'start'});
-      }, 150);
+      var tabSessions = document.querySelector('[data-goto="sessions"]');
+      if(tabSessions) tabSessions.click();
     }
   });
 })();
