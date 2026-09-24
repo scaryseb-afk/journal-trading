@@ -51,7 +51,10 @@ explicite :
    slippage plus large, ex. 001/006 le 17/09, 001/003 le 18/09, 001/005 le
    02/09). Un signal est gagnant si la somme des P&L de ses lignes est > 0.
    Le P&L, lui, reste compté par compte (c'est de l'argent réel sur chaque
-   compte).
+   compte). Exception : un trade que Sébastien déclare sorti à **break-even**
+   (stratégie V2 : stop remonté à l'entrée) est « neutre » — compté dans le
+   nombre de trades mais pas dans les gagnants, même si le P&L est
+   légèrement positif (ex. +8 $ le 23/09).
 4. Une fois les données extraites et la page mise à jour, commiter les CSV
    en même temps que les modifications HTML.
 5. Si un total semble incohérent avec l'historique, le signaler à
