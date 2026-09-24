@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Jeudi 24 sept. — Journal</title>
+<link rel="stylesheet" href="../_systeme/style.css">
+</head>
+<body>
+<div class="wrap">
+
+<a href="https://scaryseb-afk.github.io/journal-trading/#sessions" onclick="if(document.referrer){history.back();return false;}" class="sp-back">← Journal</a>
+
+<div class="sp-header">
+  <h1 class="sp-title">Jeudi 24 sept.</h1>
+  <span class="sp-pnl td-l">−566,00 $</span>
+</div>
+<div class="sp-meta">3 trades (4 lignes CSV) &nbsp;·&nbsp; 2 comptes (001, 002), un seul à la fois — le trade du 001 est sorti en deux fills</div>
+
+<div class="note-block">
+  <strong>−566,00 $ — trois trades, trois pertes ; le troisième est pris après deux pertes.</strong><br><br>
+  <strong>1. Compte 002 — MCL Long, 2 contrats :</strong> 10h29 → 11h04 (35 min), entrée 94,55, sortie 94,06, −98 $. Pétrole micro, hors de la fenêtre V2 (15h30).<br><br>
+  <strong>2. Compte 002 — MNQ Short, 3 contrats :</strong> 15h55 → 16h00 (5 min), entrée 30 552,25, sortie 30 588,25 (36 pts contre toi), −216 $. Ta capture de 16h10 : « 1. Biais baissier. 2. On est dans une zone de résistance M5. Mon plan est OK et si je perds c'est OK. »<br><br>
+  <strong>3. Compte 001 — MNQ Short, 3 contrats :</strong> 16h45 → 18h15 (1h30), entrée 30 576,50, sortie en deux fills (2 × 30 618,25 et 1 × 30 619,00, soit ~42 pts contre toi, sortie moyenne 30 618,50), −252 $. Compté comme un seul trade : les deux lignes CSV partagent la même entrée. Pas de capture ni de raison transmise pour ce trade.<br><br>
+  <strong>Contrôle du plan :</strong><br>
+  · <strong>Lockout non respecté :</strong> le trade 3 est ouvert après deux pertes de suite (−98 $ puis −216 $), alors que le verrou coupe après 2 pertes dans la journée.<br>
+  · Il est entré 11,75 pts sous le prix où le trade 2 avait été stoppé, dans le même sens (Short).<br>
+  · Règle 6 (10 min après une perte) : respectée — 45 min entre le stop de 16h00 et l'entrée de 16h45.<br>
+  · Un seul compte à la fois : respecté, les trois trades ne se chevauchent pas. 3 contrats maximum par trade, 3 trades sur la journée.<br>
+  · Budget (règle 1, 250 $ par signal) : trade 2 à −216 $ dans le budget ; trade 3 à −252 $, soit 2 $ au-dessus.<br>
+  · Direction du jour (règle 4) : « biais baissier » notée sur la capture de 16h10.
+</div>
+
+<div class="section-title">📸 Captures d'écran</div>
+<div id="img-zone" class="drop-zone">
+  <input type="file" id="img-input" accept="image/*" multiple style="display:none">
+  <div style="font-size:16px">🖼️ <span style="font-size:12px;font-weight:600">Glisser une image, cliquer, ou coller (Ctrl+V)</span></div>
+  <div class="drop-sub">Redimensionnée et compressée automatiquement avant stockage</div>
+</div>
+<div id="screenshots" class="screenshots" style="margin-top:12px"></div>
+<div id="img-clear-wrap" style="display:none">
+  <button class="clear-btn" onclick="sjClearScreenshots()">Effacer les captures</button>
+</div>
+
+<div class="section-title">📤 Importer un CSV (aperçu local, non publié)</div>
+<div id="csv-zone" class="drop-zone">
+  <input type="file" id="csv-input" accept=".csv" multiple style="display:none">
+  <div style="font-size:16px">📄 <span style="font-size:12px;font-weight:600">Glisser un export Tradovate (.csv) ou cliquer</span></div>
+  <div class="drop-sub">Compte détecté automatiquement, P&L calculé, R:R dès que tu remplis stop/objectif — reste dans ton navigateur, ne modifie pas la page tant que ce n'est pas relu.</div>
+</div>
+<div id="csv-import-result"></div>
+
+<div id="trades-section">
+
+  <div class="acct-header">
+    <span class="acct-label">Compte 001 — …4680001</span>
+    <span class="acct-pnl td-l">−252,00 $</span>
+  </div>
+  <div class="tbl-wrap">
+    <table class="trades-table">
+      <thead><tr><th>#</th><th>Contrat</th><th>Sens</th><th>Qté</th><th>Entrée</th><th>Sortie</th><th>Heure</th><th>P&amp;L</th></tr></thead>
+      <tbody id="body-001"></tbody>
+    </table>
+  </div>
+
+  <div class="acct-header">
+    <span class="acct-label">Compte 002 — …4680002</span>
+    <span class="acct-pnl td-l">−314,00 $</span>
+  </div>
+  <div class="tbl-wrap">
+    <table class="trades-table">
+      <thead><tr><th>#</th><th>Contrat</th><th>Sens</th><th>Qté</th><th>Entrée</th><th>Sortie</th><th>Heure</th><th>P&amp;L</th></tr></thead>
+      <tbody id="body-002"></tbody>
+    </table>
+  </div>
+
+  <div class="total-bar">
+    <span class="total-label">Total journée — 2 comptes</span>
+    <span class="total-val " style="color:var(--red)">−566,00 $</span>
+  </div>
+
+</div>
+
+<div class="section-title">🪞 Ta relecture</div>
+<div class="reflect-grid">
+  <div class="reflect-item err">
+    <label>Erreur commise</label>
+    <textarea class="reflect-note" data-key="reflect_erreur" placeholder="Qu'est-ce qui a foiré aujourd'hui, concrètement ?"></textarea>
+  </div>
+  <div class="reflect-item fix">
+    <label>Ce que j'aurais dû faire</label>
+    <textarea class="reflect-note" data-key="reflect_correction" placeholder="La version correcte de la décision"></textarea>
+  </div>
+  <div class="reflect-item ok">
+    <label>Ce qui a bien fonctionné</label>
+    <textarea class="reflect-note" data-key="reflect_ok" placeholder="À garder, à répéter"></textarea>
+  </div>
+</div>
+<div class="reflect-copy">
+  <button id="reflect-copy-btn" onclick="sjCopyReflect()" disabled>📋 Copier pour Claude</button>
+  <span class="hint">Colle ça dans le chat pour que ta prochaine séance en tienne compte.</span>
+</div>
+
+</div>
+<div class="lb-overlay" id="lb" onclick="sjCloseLB(event)">
+  <span class="lb-close" onclick="document.getElementById('lb').classList.remove('open')">×</span>
+  <img id="lb-img" src="" alt="">
+</div>
+
+<script>
+var SESSION_KEY = '2026_09_24_jeudi';
+
+var ACCTS = {
+  '001': [
+    {n:1, contract:'MNQ', side:'Short', qty:'3', entry:'30576.50', exit:'30618.50', time:'16:45', pnl: -252.00}
+  ],
+  '002': [
+    {n:1, contract:'MCL', side:'Long', qty:'2', entry:'94.55', exit:'94.06', time:'10:29', pnl: -98.00},
+    {n:2, contract:'MNQ', side:'Short', qty:'3', entry:'30552.25', exit:'30588.25', time:'15:55', pnl: -216.00}
+  ]
+};
+
+function renderAcct(acctId, bodyId){
+  var notes = sjLoadNotes();
+  var trades = ACCTS[acctId] || [];
+  var html = '';
+  trades.forEach(function(t){
+    var ps = (t.pnl >= 0 ? '+' : '') + t.pnl.toFixed(2) + ' $';
+    var pc = t.pnl >= 0 ? 'td-w' : 'td-l';
+    var key = acctId + '_' + t.n;
+    var note = notes[key] || '';
+    html += '<tr class="trade-row">'
+      + '<td>' + t.n + '</td>'
+      + '<td><strong>' + sjEsc(t.contract) + '</strong></td>'
+      + '<td>' + sjEsc(t.side) + '</td>'
+      + '<td>' + sjEsc(t.qty) + '</td>'
+      + '<td>' + sjEsc(t.entry) + '</td>'
+      + '<td>' + sjEsc(t.exit) + '</td>'
+      + '<td style="color:var(--muted);font-size:12px">' + sjEsc(t.time) + '</td>'
+      + '<td class="td-pnl ' + pc + '">' + ps + '</td>'
+      + '</tr>'
+      + '<tr class="note-row"><td colspan="8">'
+      + '<textarea class="trade-note" placeholder="Setup, raison du trade, erreurs…" data-key="' + key + '" onblur="sjSaveNote(this)">'
+      + sjEsc(note)
+      + '</textarea>'
+      + sjTradeRRRow(key)
+      + '</td></tr>';
+  });
+  document.getElementById(bodyId).innerHTML = html;
+}
+
+window.addEventListener('DOMContentLoaded', function(){
+  renderAcct('001', 'body-001');
+  renderAcct('002', 'body-002');
+});
+</script>
+<script src="../_systeme/session.js"></script>
+</body>
+</html>

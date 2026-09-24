@@ -54,7 +54,10 @@ explicite :
    compte). Exception : un trade que Sébastien déclare sorti à **break-even**
    (stratégie V2 : stop remonté à l'entrée) est « neutre » — compté dans le
    nombre de trades mais pas dans les gagnants, même si le P&L est
-   légèrement positif (ex. +8 $ le 23/09).
+   légèrement positif (ex. +8 $ le 23/09). Une position sortie en plusieurs
+   fills (même fill d'entrée, plusieurs lignes CSV — ex. 001 le 24/09) compte
+   pour **1 trade** depuis le 24/09 ; avant, les décomptes historiques
+   comptaient parfois chaque ligne à part.
 4. Une fois les données extraites et la page mise à jour, commiter les CSV
    en même temps que les modifications HTML.
 5. Si un total semble incohérent avec l'historique, le signaler à
