@@ -528,6 +528,7 @@ textarea::placeholder{color:#4A566A}
 .plan-label{display:flex;flex-direction:column;gap:4px;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin:0}
 .plan-input{border:1px solid var(--border);background:var(--bg);color:var(--txt);border-radius:6px;padding:8px 10px;font:inherit;font-size:13px;font-family:'IBM Plex Mono',monospace;width:100%;box-sizing:border-box;outline:none;transition:.12s}
 .plan-input:focus{border-color:var(--gold)}
+select.plan-input{cursor:pointer}
 .plan-side{display:flex;gap:6px}
 .plan-side-btn{flex:1;border:1px solid var(--border);background:var(--bg);color:var(--muted);border-radius:6px;padding:8px 10px;font:inherit;font-size:12px;font-weight:650;cursor:pointer;transition:.12s}
 .plan-side-btn.active[data-side="Long"]{background:var(--green-dim);border-color:var(--green);color:var(--green)}
@@ -1130,8 +1131,17 @@ textarea::placeholder{color:#4A566A}
       <label class="plan-label">Compte
         <input type="text" id="plan-compte" class="plan-input" placeholder="ex. 001">
       </label>
-      <label class="plan-label">Instrument
-        <input type="text" id="plan-instr" class="plan-input" value="MNQ">
+      <label class="plan-label">Actif tradé
+        <select id="plan-instr" class="plan-input">
+          <option value="MNQ" selected>MNQ — Micro Nasdaq</option>
+          <option value="NQ">NQ — Nasdaq</option>
+          <option value="MCL">MCL — Micro pétrole</option>
+          <option value="CL">CL — Pétrole</option>
+          <option value="MGC">MGC — Micro or</option>
+          <option value="GC">GC — Or</option>
+          <option value="6E">6E — Euro FX</option>
+          <option value="M6E">M6E — Micro Euro FX</option>
+        </select>
       </label>
       <div class="plan-label">Sens
         <div class="plan-side">
@@ -2530,6 +2540,14 @@ window.SESSIONS = [
     var el = document.getElementById(id);
     if(el) el.addEventListener('input', planPreview);
   });
+  var planInstr = document.getElementById('plan-instr');
+  if(planInstr){
+    try{
+      var lastInstr = localStorage.getItem('plan-last-instr');
+      if(lastInstr && planInstr.querySelector('option[value="' + lastInstr + '"]')) planInstr.value = lastInstr;
+    }catch(e){}
+    planInstr.addEventListener('change', function(){ try{ localStorage.setItem('plan-last-instr', planInstr.value); }catch(e){} });
+  }
   planRender();
 </script>
 <script>/* KPI « Règle de séance » : budget de risque par signal selon la date du navigateur (voir Règle 1) */
