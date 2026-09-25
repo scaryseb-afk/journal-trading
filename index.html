@@ -227,7 +227,7 @@ textarea::placeholder{color:#4A566A}
 .sf-mh-wl .pos{color:var(--green)}
 .sf-mh-wl .neg{color:var(--red)}
 .sf-mh-line{flex:1;height:1px;background:var(--line)}
-.sr{display:grid;grid-template-columns:140px 80px 46px 96px 1fr;gap:0 14px;align-items:center;
+.sr{display:grid;grid-template-columns:140px 80px 76px 46px 96px 1fr;gap:0 14px;align-items:center;
   background:var(--panel);border:1px solid var(--line);border-left:3px solid var(--dim);
   border-radius:8px;padding:10px 16px;transition:.1s;color:var(--txt);text-decoration:none}
 .sr:hover{border-color:var(--blue);background:var(--panel2)}
@@ -239,11 +239,15 @@ textarea::placeholder{color:#4A566A}
 .sr-img{font-size:12px;opacity:.7}
 .sr-warn{font-size:12px}
 .sr-pnl{font-size:14px;font-weight:700;font-variant-numeric:tabular-nums;text-align:right;white-space:nowrap}
+.sr-r{font-size:12px;font-weight:650;font-variant-numeric:tabular-nums;text-align:right;white-space:nowrap;color:var(--dim)}
+.sf-mh-r{font-size:12px;font-weight:700;white-space:nowrap;font-variant-numeric:tabular-nums}
+.sf-legend{font-size:11.5px;color:var(--dim);line-height:1.5;margin:0 0 4px}
 .sr-trades{font-size:12px;color:var(--dim);text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
 .sr-wr{font-size:12px;color:var(--dim);text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
 .sr-note{color:var(--muted);font-size:12.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0}
 @media(max-width:700px){
-  .sr{grid-template-columns:110px 64px 40px 60px}
+  .sr{grid-template-columns:104px 62px 58px 38px;gap:0 8px;padding:10px 12px}
+  .sr-wr{display:none}
   .sr-note{display:none}
 }
 /* keep legacy .s/.sessions for any remaining refs */
@@ -3171,6 +3175,20 @@ window.SESSIONS = [
       return true;
     }
 
+    /* Risque par trade retenu par mois (fourchette $). Sert au R affiché par séance et par mois ;
+       pas de fourchette définie = pas de R (août). */
+    var RISK_BY_MONTH = { '09': [250, 300] };
+    function rInfo(pnl, m){
+      var r = RISK_BY_MONTH[m];
+      if(!r || pnl === null) return null;
+      var a = pnl / r[0], b = pnl / r[1];
+      return { mid: pnl / ((r[0] + r[1]) / 2), lo: Math.min(a, b), hi: Math.max(a, b), risk: r };
+    }
+    function rStr(x){ return (x > 0 ? '+' : (x < 0 ? '−' : '')) + Math.abs(x).toFixed(1).replace('.', ',') + ' R'; }
+    function rTitle(ri){
+      return 'Risque ' + ri.risk[0] + '–' + ri.risk[1] + ' $ par trade : de ' + rStr(ri.lo) + ' à ' + rStr(ri.hi) + ' (milieu ' + ((ri.risk[0] + ri.risk[1]) / 2) + ' $ : ' + rStr(ri.mid) + ')';
+    }
+
     function buildFeed(){
       var months = [], monthMap = {};
       window.SESSIONS.forEach(function(s){
@@ -3185,6 +3203,7 @@ window.SESSIONS = [
       h += '<button class="sf-filter'+(activeFilter==='win'?' active win':'')+'" data-filter="win">Gagnantes ✓</button>';
       h += '<button class="sf-filter'+(activeFilter==='lose'?' active lose':'')+'" data-filter="lose">Perdantes ✗</button>';
       h += '</div>';
+      h += '<div class="sf-legend">R = P&amp;L ÷ risque par trade — septembre : 250–300 $ (milieu 275 $ affiché, fourchette au survol). Août : pas de risque défini, pas de R. Avant le 21/09, le copy trading cumule plusieurs comptes dans le P&amp;L : le R y est gonflé.</div>';
 
       months.forEach(function(m){
         var allSessions = monthMap[m];
@@ -3197,6 +3216,7 @@ window.SESSIONS = [
         var label = MONTH_FULL[m] || m;
         var sumCls = mTotal > 0 ? 'pos' : (mTotal < 0 ? 'neg' : '');
         var sumStr = mTotal > 0 ? ('+' + Math.round(mTotal) + ' $') : (Math.round(mTotal) + ' $');
+        var mR = rInfo(mTotal, m);
         var isOpen = (m === currentMonthKey);
 
         h += '<details class="sf-month"' + (isOpen ? ' open' : '') + '>';
@@ -3206,6 +3226,7 @@ window.SESSIONS = [
            + (sessWithPnl.length ? '<span class="sf-mh-wl" title="Journées gagnées / perdues"><span class="pos">'+daysWon+'✓</span> <span class="neg">'+daysLost+'✗</span></span>' : '')
            + (sessWithPnl.length >= 2 ? '<span style="margin-left:2px;display:inline-flex;align-items:center">'+sparkline(sessWithPnl,52,20)+'</span>' : '')
            + '<span class="sf-mh-line"></span>'
+           + (mR ? '<span class="sf-mh-r ' + sumCls + '" title="' + rTitle(mR) + '">≈ ' + rStr(mR.mid) + '</span>' : '')
            + '<span class="sf-mh-sum ' + sumCls + '">' + sumStr + '</span>'
            + '</summary>';
 
@@ -3247,6 +3268,8 @@ window.SESSIONS = [
             h += '<div class="sr-pnl ' + (s.pnl > 0 ? 'pos' : (s.pnl < 0 ? 'neg' : '')) + '">' + pnlStr + '</div>';
           }
 
+          var ri = rInfo(s.pnl, s.jour.slice(3));
+          h += ri ? '<div class="sr-r ' + (s.pnl > 0 ? 'pos' : (s.pnl < 0 ? 'neg' : '')) + '" title="' + rTitle(ri) + '">≈ ' + rStr(ri.mid) + '</div>' : '<div class="sr-r">—</div>';
           h += s.trades > 0 ? '<div class="sr-trades" title="Nombre de positions prises">'+s.trades+' pos.</div>' : '<div class="sr-trades">—</div>';
           h += s.trades > 0 ? '<div class="sr-wr" title="Taux de trades gagnants">'+winRate+'% gagnants</div>' : '<div class="sr-wr">—</div>';
           h += '<div class="sr-note">' + (s.note || '') + '</div>';
