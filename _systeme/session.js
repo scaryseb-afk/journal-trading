@@ -39,15 +39,27 @@ function sjTradeRRRow(key){
   return '<div class="trade-rr">'
     + '<label>Stop <input type="text" inputmode="decimal" class="trade-rr-input" data-field="stop" data-key="' + key + '" value="' + sjEsc(s.stop || '') + '" placeholder="—"></label>'
     + '<label>Objectif <input type="text" inputmode="decimal" class="trade-rr-input" data-field="objectif" data-key="' + key + '" value="' + sjEsc(s.objectif || '') + '" placeholder="—"></label>'
+    + '<label title="Si tu n\'as pas noté le stop et l\'objectif : ton R:R à la main (ex. 2 ou 2,5)">R:R <input type="text" inputmode="decimal" class="trade-rr-input" data-field="rr" data-key="' + key + '" value="' + sjEsc(s.rr || '') + '" placeholder="manuel"></label>'
     + '<span class="trade-rr-out" data-key="' + key + '">R:R —</span>'
     + '</div>';
+}
+/* R:R saisi à la main (« 2 », « 2,5 », « 2:1 ») : sert quand stop/objectif ne sont pas notés */
+function sjParseRR(v){
+  var n = parseFloat(String(v == null ? '' : v).trim().replace(',', '.').replace(/:\s*1$/, ''));
+  return (isFinite(n) && n > 0) ? n : null;
+}
+function sjRRText(t, s){
+  var auto = t ? sjComputeRR(t, s) : '—';
+  if(auto !== '—') return auto;
+  var man = s ? sjParseRR(s.rr) : null;
+  return man ? man.toFixed(2) + ':1 (manuel)' : '—';
 }
 function sjUpdateTradeRROut(key){
   var out = document.querySelector('.trade-rr-out[data-key="' + key + '"]');
   if(!out) return;
   var t = sjFindAcctTrade(key);
   var s = sjLoadStops()[key];
-  out.textContent = 'R:R ' + (t ? sjComputeRR(t, s) : '—');
+  out.textContent = 'R:R ' + sjRRText(t, s);
 }
 function sjInitTradeRR(){
   document.querySelectorAll('.trade-rr-input').forEach(function(inp){
@@ -57,7 +69,7 @@ function sjInitTradeRR(){
       var stops = sjLoadStops();
       stops[key] = stops[key] || {};
       stops[key][inp.getAttribute('data-field')] = inp.value.trim();
-      if(!stops[key].stop && !stops[key].objectif) delete stops[key];
+      if(!stops[key].stop && !stops[key].objectif && !stops[key].rr) delete stops[key];
       sjSaveStops(stops);
       sjUpdateTradeRROut(key);
       sjUpdateCopyState();
@@ -69,11 +81,16 @@ function sjStopsSummaryLines(){
   var lines = [];
   Object.keys(stops).sort().forEach(function(key){
     var s = stops[key];
-    if(!s || !s.stop || !s.objectif) return;
+    if(!s) return;
     var t = sjFindAcctTrade(key);
     if(!t) return;
     var idx = key.lastIndexOf('_'), acct = key.slice(0, idx);
-    lines.push('Compte ' + acct + ' #' + t.n + ' (' + t.contract + ' ' + t.side + ', entrée ' + t.entry + ', sortie ' + t.exit + ') : stop ' + s.stop + ' · objectif ' + s.objectif + ' · R:R ' + sjComputeRR(t, s));
+    var head = 'Compte ' + acct + ' #' + t.n + ' (' + t.contract + ' ' + t.side + ', entrée ' + t.entry + ', sortie ' + t.exit + ') : ';
+    if(s.stop && s.objectif){
+      lines.push(head + 'stop ' + s.stop + ' · objectif ' + s.objectif + ' · R:R ' + sjComputeRR(t, s));
+    } else if(sjParseRR(s.rr)){
+      lines.push(head + 'R:R ' + sjParseRR(s.rr).toFixed(2) + ':1 (saisi à la main, stop/objectif non notés)');
+    }
   });
   return lines;
 }

@@ -1172,6 +1172,9 @@ select.plan-input{cursor:pointer}
       <label class="plan-label">Objectif
         <input type="text" inputmode="decimal" id="plan-obj" class="plan-input" placeholder="ex. 31000.25">
       </label>
+      <label class="plan-label" title="Si tu n'as pas noté le stop et l'objectif : ton R:R à la main">R:R manuel
+        <input type="text" inputmode="decimal" id="plan-rr-manuel" class="plan-input" placeholder="ex. 2">
+      </label>
     </div>
     <label class="plan-label" style="margin-bottom:12px">Raison du trade (setup)
       <input type="text" id="plan-note" class="plan-input" style="font-family:inherit" placeholder="ex. 2e IFVG 5M, biais haussier">
@@ -2472,12 +2475,25 @@ window.SESSIONS = [
     if(planSide === 'Short' && !(o < e && e < s)) return 'Short : il faut objectif < entrée < stop.';
     return '';
   }
+  function planRRManual(){
+    var n = parseFloat(planRaw('plan-rr-manuel').replace(/:\s*1$/, ''));
+    return (isFinite(n) && n > 0) ? n : null;
+  }
+  function planLevel(id){ return isFinite(planNum(id)) ? planRaw(id) : ''; }
   function planPreview(){
     var e = planNum('plan-entree'), s = planNum('plan-stop'), o = planNum('plan-obj');
     var out = document.getElementById('plan-rr'), sub = document.getElementById('plan-rr-sub'), msg = document.getElementById('plan-msg');
     msg.textContent = '';
     out.style.color = '';
-    if(!isFinite(e) || !isFinite(s) || !isFinite(o)){ out.textContent = '—'; sub.textContent = 'R:R'; return; }
+    if(!isFinite(e) || !isFinite(s) || !isFinite(o)){
+      var man = planRRManual();
+      if(man){
+        out.textContent = man.toFixed(2) + ' : 1';
+        out.style.color = man >= 2 ? 'var(--green)' : 'var(--red)';
+        sub.textContent = 'manuel · ' + (man >= 2 ? 'ton minimum est respecté' : 'sous ton minimum de 2:1');
+      } else { out.textContent = '—'; sub.textContent = 'R:R'; }
+      return;
+    }
     var err = planCheck(e, s, o);
     if(err){ out.textContent = '—'; sub.textContent = 'R:R'; msg.textContent = err; return; }
     var rr = Math.abs(o - e) / Math.abs(e - s);
@@ -2488,8 +2504,10 @@ window.SESSIONS = [
   function planAdd(){
     var e = planNum('plan-entree'), s = planNum('plan-stop'), o = planNum('plan-obj');
     var msg = document.getElementById('plan-msg');
-    if(!isFinite(e) || !isFinite(s) || !isFinite(o)){ msg.textContent = 'Entrée, stop et objectif sont requis (des nombres).'; return; }
-    var err = planCheck(e, s, o);
+    var levelsOk = isFinite(e) && isFinite(s) && isFinite(o);
+    var man = planRRManual();
+    if(!levelsOk && !man){ msg.textContent = 'Entrée, stop et objectif sont requis (des nombres) — ou un R:R manuel si tu ne les as pas.'; return; }
+    var err = levelsOk ? planCheck(e, s, o) : '';
     if(err){ msg.textContent = err; return; }
     if(!String(document.getElementById('plan-compte').value).trim()){ msg.textContent = 'Indique le compte (ex. 001) avant de valider.'; document.getElementById('plan-compte').focus(); return; }
     if(!String(document.getElementById('plan-note').value).trim()){ msg.textContent = 'Écris la raison du trade avant de valider — pas de position sans justification.'; document.getElementById('plan-note').focus(); return; }
@@ -2499,13 +2517,14 @@ window.SESSIONS = [
       compte: String(document.getElementById('plan-compte').value).trim(),
       instr: String(document.getElementById('plan-instr').value).trim() || 'MNQ',
       side: planSide,
-      entree: planRaw('plan-entree'), stop: planRaw('plan-stop'), objectif: planRaw('plan-obj'),
+      entree: planLevel('plan-entree'), stop: planLevel('plan-stop'), objectif: planLevel('plan-obj'),
       note: String(document.getElementById('plan-note').value).trim(),
-      rr: Math.abs(o - e) / Math.abs(e - s),
+      rr: levelsOk ? Math.abs(o - e) / Math.abs(e - s) : man,
+      rrManuel: !levelsOk,
       time: planPad(d.getHours()) + ':' + planPad(d.getMinutes())
     });
     planSave(arr);
-    ['plan-entree','plan-stop','plan-obj','plan-note'].forEach(function(id){ document.getElementById(id).value = ''; });
+    ['plan-entree','plan-stop','plan-obj','plan-rr-manuel','plan-note'].forEach(function(id){ document.getElementById(id).value = ''; });
     planPreview();
     planRender();
   }
@@ -2532,10 +2551,10 @@ window.SESSIONS = [
     if(btn) btn.disabled = !arr.length;
     if(!arr.length){ host.innerHTML = '<div class="viol-empty">Aucun trade prévu aujourd\'hui</div>'; return; }
     host.innerHTML = arr.map(function(t, i){
-      var rrTxt = t.rr != null ? t.rr.toFixed(2) + ':1' : '—';
+      var rrTxt = t.rr != null ? t.rr.toFixed(2) + ':1' + (t.rrManuel ? ' (manuel)' : '') : '—';
       return '<div class="plan-item"><div class="plan-item-main">'
         + '<div class="plan-item-top">' + (t.compte ? planEsc(t.compte) + ' · ' : '') + planEsc(t.instr) + ' <span class="' + (t.side === 'Long' ? 'long' : 'short') + '">' + t.side + '</span> · R:R ' + rrTxt + '</div>'
-        + '<div class="plan-item-lv">entrée ' + planEsc(t.entree) + ' · stop ' + planEsc(t.stop) + ' · objectif ' + planEsc(t.objectif) + ' · ' + t.time + '</div>'
+        + '<div class="plan-item-lv">entrée ' + planEsc(t.entree || '—') + ' · stop ' + planEsc(t.stop || '—') + ' · objectif ' + planEsc(t.objectif || '—') + ' · ' + t.time + '</div>'
         + '<input type="text" class="plan-note-edit' + (t.note ? '' : ' missing') + '" value="' + planEsc(t.note || '').replace(/"/g, '&quot;') + '" placeholder="⚠️ raison manquante — écris-la ici" onchange="planSetNote(' + i + ', this)">'
         + '</div><button class="viol-del" onclick="planDel(' + i + ')" title="Supprimer">×</button></div>';
     }).join('');
@@ -2553,8 +2572,8 @@ window.SESSIONS = [
     var lines = ['Plan du jour — ' + planTodayKey().replace('plan_', '')];
     arr.forEach(function(t, i){
       lines.push((i + 1) + '. ' + (t.compte ? 'Compte ' + t.compte + ' · ' : '') + t.instr + ' ' + t.side
-        + ' · entrée ' + t.entree + ' · stop ' + t.stop + ' · objectif ' + t.objectif
-        + ' · R:R ' + (t.rr != null ? t.rr.toFixed(2) + ':1' : '—')
+        + ' · entrée ' + (t.entree || '—') + ' · stop ' + (t.stop || '—') + ' · objectif ' + (t.objectif || '—')
+        + ' · R:R ' + (t.rr != null ? t.rr.toFixed(2) + ':1' + (t.rrManuel ? ' (manuel)' : '') : '—')
         + ' — ' + t.note);
     });
     var text = lines.join('\n');
@@ -2567,7 +2586,7 @@ window.SESSIONS = [
       navigator.clipboard.writeText(text).then(function(){ done(true); }, function(){ done(false); });
     } else { done(false); }
   }
-  ['plan-entree','plan-stop','plan-obj'].forEach(function(id){
+  ['plan-entree','plan-stop','plan-obj','plan-rr-manuel'].forEach(function(id){
     var el = document.getElementById(id);
     if(el) el.addEventListener('input', planPreview);
   });

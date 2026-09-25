@@ -62,7 +62,11 @@ trade, relecture) — ne pas dupliquer ce CSS/JS dans le fichier de session.
   `buyFillId`, mêmes plages que `csv/README.md`), P&L, dédoublonnage exact.
   Le R:R ne peut pas être déduit du CSV (Tradovate n'exporte ni stop ni
   objectif) — l'utilisateur les saisit dans les champs à côté de chaque
-  trade, le R:R se recalcule alors tout seul. **100% local au navigateur**,
+  trade, le R:R se recalcule alors tout seul. S'il ne les a pas notés, il
+  peut saisir son R:R à la main (champ « R:R » à côté de chaque trade, et
+  « R:R manuel » dans le Brouillon) : « Copier pour Claude » le remonte
+  marqué « saisi à la main » — une donnée déclarée, pas recalculée.
+  **100% local au navigateur**,
   ne modifie jamais `index.html`/la page de session tant que Claude n'a pas
   relu et validé — ne pas considérer ce contenu comme publié.
 
