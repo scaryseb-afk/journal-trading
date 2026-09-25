@@ -591,6 +591,22 @@ select.plan-input{cursor:pointer}
           <button class="cs-btn" data-val="5" onclick="confluenceSet('smt',5,this)">5M</button>
         </div>
       </div>
+      <div class="cs-row" data-crit="cisd">
+        <span class="cs-row-label">CISD</span>
+        <div class="cs-opts">
+          <button class="cs-btn active" data-val="0" onclick="confluenceSet('cisd',0,this)">Aucun</button>
+          <button class="cs-btn" data-val="1" onclick="confluenceSet('cisd',1,this)">1M</button>
+          <button class="cs-btn" data-val="5" onclick="confluenceSet('cisd',5,this)">5M</button>
+        </div>
+      </div>
+      <div class="cs-row" data-crit="liq">
+        <span class="cs-row-label">Liquidité</span>
+        <div class="cs-opts">
+          <button class="cs-btn active" data-val="0" onclick="confluenceSet('liq',0,this)">Aucun</button>
+          <button class="cs-btn" data-val="1" onclick="confluenceSet('liq',1,this)">1M</button>
+          <button class="cs-btn" data-val="5" onclick="confluenceSet('liq',5,this)">5M</button>
+        </div>
+      </div>
     </div>
     <div class="cs-total">
       <span class="cs-total-num" id="cs-total-num">0</span><span style="font-size:10.5px;color:var(--muted)">/9</span>
@@ -1252,7 +1268,7 @@ select.plan-input{cursor:pointer}
 
   <div class="tool-card" style="grid-column:1/-1">
     <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px;">
-      <div class="tool-card-title" style="margin-bottom:0">🎯 Score de confluence — BPR / IFVG / SMT</div>
+      <div class="tool-card-title" style="margin-bottom:0">🎯 Score de confluence — BPR / IFVG / SMT / CISD / Liquidité</div>
       <button class="reset-btn" onclick="confluenceReset()" style="margin-top:0;font-size:10px;padding:4px 10px">↺ Reset</button>
     </div>
     <div style="font-size:12px;color:var(--muted);margin-bottom:10px">5M vaut 5 points, 1M vaut 1 point — plus de 9 points pour rentrer.</div>
@@ -1279,6 +1295,22 @@ select.plan-input{cursor:pointer}
           <button class="score-btn active" data-val="0" onclick="confluenceSet('smt',0,this)">Aucun</button>
           <button class="score-btn" data-val="1" onclick="confluenceSet('smt',1,this)">1M · 1 pt</button>
           <button class="score-btn" data-val="5" onclick="confluenceSet('smt',5,this)">5M · 5 pts</button>
+        </div>
+      </div>
+      <div class="score-row" data-crit="cisd">
+        <span class="score-label">CISD</span>
+        <div class="score-opts">
+          <button class="score-btn active" data-val="0" onclick="confluenceSet('cisd',0,this)">Aucun</button>
+          <button class="score-btn" data-val="1" onclick="confluenceSet('cisd',1,this)">1M · 1 pt</button>
+          <button class="score-btn" data-val="5" onclick="confluenceSet('cisd',5,this)">5M · 5 pts</button>
+        </div>
+      </div>
+      <div class="score-row" data-crit="liq">
+        <span class="score-label">Prise de liquidité</span>
+        <div class="score-opts">
+          <button class="score-btn active" data-val="0" onclick="confluenceSet('liq',0,this)">Aucun</button>
+          <button class="score-btn" data-val="1" onclick="confluenceSet('liq',1,this)">1M · 1 pt</button>
+          <button class="score-btn" data-val="5" onclick="confluenceSet('liq',5,this)">5M · 5 pts</button>
         </div>
       </div>
     </div>
@@ -2066,7 +2098,9 @@ window.SESSIONS = [
 </script>
 <script>/* Score de confluence — un seul état, deux affichages (widget compact du Dashboard + carte complète de l'onglet Règles), synchronisés en direct */
 (function(){
-  var confluenceState = { bpr: 0, ifvg: 0, smt: 0 };
+  var CONFLUENCE_CRITS = ['bpr','ifvg','smt','cisd','liq'];
+  function confluenceDefaults(){ var o = {}; CONFLUENCE_CRITS.forEach(function(c){ o[c] = 0; }); return o; }
+  var confluenceState = confluenceDefaults();
 
   window.confluenceSet = function(crit, val, btn){
     confluenceState[crit] = val;
@@ -2077,8 +2111,8 @@ window.SESSIONS = [
   };
 
   function confluenceRender(){
-    var total = confluenceState.bpr + confluenceState.ifvg + confluenceState.smt;
-    ['bpr','ifvg','smt'].forEach(function(crit){
+    var total = CONFLUENCE_CRITS.reduce(function(a, c){ return a + (Number(confluenceState[c]) || 0); }, 0);
+    CONFLUENCE_CRITS.forEach(function(crit){
       document.querySelectorAll('.cs-row[data-crit="'+crit+'"] .cs-btn, .score-row[data-crit="'+crit+'"] .score-btn').forEach(function(b){
         b.classList.toggle('active', Number(b.dataset.val) === confluenceState[crit]);
       });
@@ -2104,7 +2138,7 @@ window.SESSIONS = [
   }
 
   window.confluenceReset = function(){
-    confluenceState = { bpr: 0, ifvg: 0, smt: 0 };
+    confluenceState = confluenceDefaults();
     document.querySelectorAll('.cs-btn, .score-btn').forEach(function(b){
       b.classList.toggle('active', b.dataset.val === '0');
     });
@@ -2115,7 +2149,7 @@ window.SESSIONS = [
   document.addEventListener('DOMContentLoaded', function(){
     try{
       var saved = JSON.parse(localStorage.getItem('trading_score')||'null');
-      if(saved) confluenceState = saved;
+      if(saved) CONFLUENCE_CRITS.forEach(function(c){ if(typeof saved[c] === 'number') confluenceState[c] = saved[c]; });
     }catch(e){}
     confluenceRender();
   });
