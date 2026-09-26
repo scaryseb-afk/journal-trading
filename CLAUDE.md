@@ -26,14 +26,15 @@ deux se mettent à jour en direct, sans rechargement.
 
 ## Design / cohérence
 
-Une seule palette « C, gris neutre » pour tout le site (`index.html` et
-`_systeme/style.css`) : gris neutres, et le rouge/vert du P&L (`--red`,
-`--green`) sont les SEULES couleurs saturées. L'accent est neutre
-(`--accent` : gris clair en nuit, encre en jour ; texte dessus :
-`--on-accent`) ; `--gold` et `--blue` en sont de simples alias. Pas de
-jaune/beige/bleu décoratif. Toute nouvelle page/section doit reprendre ces
-tokens plutôt que d'introduire sa propre palette, et jamais de couleur
-codée en dur pour un texte posé sur un fond `--accent`.
+Une seule palette pour tout le site (`index.html` et `_systeme/style.css`) :
+gris neutres, le rouge/vert du P&L (`--red`, `--green`) pour les résultats, et
+un unique accent **bleu acier** (`--accent` : `#6B91C7` en nuit, `#335E99` en
+jour ; texte dessus : `--on-accent`) pour les éléments actifs, liens, focus et
+libellés — jamais sur un chiffre de résultat. `--gold` et `--blue` en sont de
+simples alias. Pas de jaune/beige/orange/violet décoratif. Toute nouvelle
+page/section doit reprendre ces tokens plutôt que d'introduire sa propre
+palette, et jamais de couleur codée en dur pour un texte posé sur un fond
+`--accent`.
 
 ## Données CSV — voir [csv/README.md](csv/README.md)
 
