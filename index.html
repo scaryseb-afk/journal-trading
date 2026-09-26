@@ -248,6 +248,7 @@ textarea::placeholder{color:#4A566A}
 .sn-btn:hover{border-color:var(--blue);color:var(--txt)}
 .sn-btn.active{background:var(--accent);border-color:var(--accent);color:var(--on-accent)}
 .subview{display:none}
+.subview > h1 + h2{margin-top:32px}
 .subview.active{display:block}
 /* session badge today/tomorrow */
 .sr-badge{display:inline-block;padding:2px 8px;border-radius:4px;font-size:10px;
@@ -615,8 +616,16 @@ select.plan-input{cursor:pointer}
   <button id="theme-toggle" title="Changer le thème" style="background:var(--panel);border:1px solid var(--line);color:var(--muted);border-radius:999px;padding:6px 14px;font-size:12.5px;font-weight:650;cursor:pointer;letter-spacing:.04em;transition:.15s;font-family:inherit">⚙️ Système</button>
 </nav>
 <section class="view" id="view-dashboard">
-<p class="eyebrow">Journal de suivi &middot; Futures</p>
-  <h1>Journal de trading</h1>
+  <div class="subnav" id="dash-subnav">
+    <button class="sn-btn active" data-sub="overview">Vue d'ensemble</button>
+    <button class="sn-btn" data-sub="comptes">Comptes &amp; Analyse</button>
+    <button class="sn-btn" data-sub="risque">Risque &amp; R:R</button>
+    <button class="sn-btn" data-sub="bilan">Bilan &amp; Règles</button>
+  </div>
+
+  <div class="subview active" data-subview="overview">
+<p class="eyebrow">Tableau de bord</p>
+  <h1>Vue d'ensemble</h1>
   <p class="sub">MNQ — quatre comptes actifs Tradovate / Lucid</p>
 
   <div class="cs-widget" id="cs-widget">
@@ -679,14 +688,6 @@ select.plan-input{cursor:pointer}
     <div class="kpi"><div class="lbl">Pire session</div><div class="val neg">−2 095 $</div><div class="note">18/09 — nouveau compte A en 8 contrats dès le 1er jour, −1 176 $ à lui seul</div></div>
   </div>
 
-  <div class="subnav" id="dash-subnav">
-    <button class="sn-btn active" data-sub="overview">Vue d'ensemble</button>
-    <button class="sn-btn" data-sub="comptes">Comptes &amp; Analyse</button>
-    <button class="sn-btn" data-sub="risque">Risque &amp; R:R</button>
-    <button class="sn-btn" data-sub="bilan">Bilan &amp; Règles</button>
-  </div>
-
-  <div class="subview active" data-subview="overview">
   <h2>Objectif &amp; Risque</h2>
   <p class="sub">Recalculés sur les CSV bruts des 4 comptes actifs à chaque mise à jour.</p>
   <div class="kpis" style="margin-top:0;grid-template-columns:repeat(auto-fit,minmax(320px,1fr))">
@@ -709,6 +710,8 @@ select.plan-input{cursor:pointer}
   </div>
 
   <div class="subview" data-subview="comptes">
+  <p class="eyebrow">Tableau de bord</p>
+  <h1>Comptes &amp; Analyse</h1>
   <h2>Données &amp; Analyse</h2>
   <div id="analyse-section"></div>
 
@@ -720,6 +723,8 @@ select.plan-input{cursor:pointer}
   </div>
 
   <div class="subview" data-subview="risque">
+  <p class="eyebrow">Tableau de bord</p>
+  <h1>Risque &amp; R:R</h1>
   <h2>Risque et R:R</h2>
   <p class="sub">Calculé uniquement sur les trades dont le stop initial est connu. <strong style="color:var(--gold)">S'arrête au 25/08</strong> — les trades du 21/08 au 09/09 n'ont pas de stop/objectif enregistré (le CSV Tradovate ne les contient pas). Utilise le bloc "📤 Importer un CSV" sur une page de session pour saisir stop/objectif par trade et voir le R:R se calculer — envoie-moi les valeurs si tu veux qu'elles remontent ici.</p>
   <div id="rr"></div>
@@ -727,6 +732,8 @@ select.plan-input{cursor:pointer}
   </div>
 
   <div class="subview" data-subview="bilan">
+  <p class="eyebrow">Tableau de bord</p>
+  <h1>Bilan &amp; Règles</h1>
   <h2>Ce qui revient</h2>
   <div class="rules recur">
     <div class="r bad">
