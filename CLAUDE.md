@@ -65,6 +65,10 @@ trade, relecture) — ne pas dupliquer ce CSS/JS dans le fichier de session.
   qu'elles remontent jusqu'à la session suivante et nourrissent le Brief
   séance. Sans ce copier-coller, Claude ne les voit jamais (localStorage
   n'est lisible que dans le navigateur de l'utilisateur).
+- Chaque séance ajoutée dans `window.SESSIONS` (index.html) porte `planOk`
+  (true/false : ≤ 3 trades/jour, ≤ 4 contrats par trade, aucun trade après 2
+  pertes) et, si false, `planWhy` (raison courte) : le bandeau « Respect du
+  plan » du tableau de bord se calcule tout seul depuis ces deux champs.
 - Pas d'import CSV dans les pages : c'est Claude qui crée la page de séance
   à partir des exports que l'utilisateur envoie dans le chat.
 - Stop / objectif / R:R par trade : Tradovate n'exporte ni stop ni objectif,

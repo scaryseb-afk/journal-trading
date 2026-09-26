@@ -101,6 +101,27 @@ h3{font-size:19px;font-weight:600;margin:0 0 4px}
 .kpis-top .note{font-size:12.5px}
 @media(max-width:900px){.kpis-top{grid-template-columns:repeat(auto-fit,minmax(160px,1fr))}}
 
+.plan-widget{margin-top:10px;padding:12px 16px;border:1px solid var(--line);border-radius:10px;background:var(--panel)}
+.plan-widget.ko{border-color:var(--red);background:linear-gradient(90deg,var(--red-dim),var(--panel) 65%);box-shadow:inset 4px 0 0 var(--red)}
+.plan-widget.ok{border-color:var(--green);background:linear-gradient(90deg,var(--green-dim),var(--panel) 65%);box-shadow:inset 4px 0 0 var(--green)}
+.pw-row{display:flex;align-items:center;gap:8px 16px;flex-wrap:wrap}
+.pw-status{font-size:17px;font-weight:800;letter-spacing:-.01em}
+.plan-widget.ko .pw-status{color:var(--red)}
+.plan-widget.ok .pw-status{color:var(--green)}
+.pw-dots{display:flex;gap:5px;flex-wrap:wrap}
+.pw-dot{width:25px;height:25px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;font-variant-numeric:tabular-nums;border:1px solid;cursor:default}
+.pw-dot.ok{background:var(--green-dim);border-color:var(--green);color:var(--green)}
+.pw-dot.ko{background:var(--red-dim);border-color:var(--red);color:var(--red)}
+.pw-count{margin-left:auto;font-size:12px;color:var(--muted);white-space:nowrap}
+.pw-count b{font-size:20px;font-weight:800;color:var(--txt)}
+.pw-detail{margin-top:8px;font-size:13px;color:var(--muted);line-height:1.6}
+.pw-detail b{color:var(--txt);font-weight:700}
+.pw-rule{color:var(--dim);font-size:12px;margin-top:4px}
+@media(max-width:700px){.pw-count{margin-left:0}}
+.kpi:has(.val.pos){background:linear-gradient(180deg,var(--green-dim),var(--panel) 75%);border-top:3px solid var(--green)}
+.kpi:has(.val.neg){background:linear-gradient(180deg,var(--red-dim),var(--panel) 75%);border-top:3px solid var(--red)}
+.ar:has(.ar-bal.pos){border-left:3px solid var(--green);background:linear-gradient(90deg,var(--green-dim),var(--panel) 45%)}
+.ar:has(.ar-bal.neg){border-left:3px solid var(--red);background:linear-gradient(90deg,var(--red-dim),var(--panel) 45%)}
 .cs-widget{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-top:14px;padding:10px 16px;
   background:var(--panel);border:1px solid var(--line);border-radius:10px}
 .cs-title{font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);white-space:nowrap}
@@ -649,12 +670,13 @@ select.plan-input{cursor:pointer}
     <button class="cs-reset" onclick="confluenceReset()">↺ reset</button>
   </div>
 
+  <div class="plan-widget" id="plan-widget"></div>
+
   <div class="kpis kpis-top">
     <div class="kpi"><div class="lbl">Règle de séance</div><div class="val" id="kpi-regle-val">250 $ / signal</div><div class="note" id="kpi-regle-note">1 seul compte à la fois · R:R ≥ 2 · 3 trades max par jour</div></div>
     <div class="kpi"><div class="lbl">Cumul 4 comptes</div><div class="val neg">−4 243,25 $</div><div class="note">recalculé sur les CSV bruts · −403 $ le 25/09 (7 trades, comptes 001 et 002) · −566 $ le 24/09 · +27 $ le 23/09</div></div>
     <div class="kpi"><div class="lbl">Meilleure session</div><div class="val pos">+2 529 $</div><div class="note">08/09 — TraderSyncer, 3 comptes</div></div>
     <div class="kpi"><div class="lbl">Pire session</div><div class="val neg">−2 095 $</div><div class="note">18/09 — nouveau compte A en 8 contrats dès le 1er jour, −1 176 $ à lui seul</div></div>
-    <div class="kpi"><div class="lbl">Respect du plan</div><div class="val neg">🔴 Cassé le 24 et le 25/09</div><div class="note">24/09 : 3e trade après 2 pertes · 25/09 : 7 trades (max 3), trades pris après le verrou des 2 pertes, 6 contrats sur un trade — 3 séances respectées du 21 au 23/09</div></div>
   </div>
 
   <div class="subnav" id="dash-subnav">
@@ -2096,16 +2118,16 @@ window.TRADES = [
    vérifié depuis les CSV bruts. N'évalue pas la qualité de l'entrée.
    Absent = pas encore évalué (jours avant le 14/09). Sert au KPI "Respect du plan". */
 window.SESSIONS = [
-  { jour:"25/09", label:"Vendredi 25 sept.", fichier:"2026-09-25-vendredi.html", pnl:-403.00, trades:7, gagnants:2, neutres:1, planOk:false, note:"Sept trades, quatre pertes : 001 6E Long +225 $, 001 MNQ Long en deux entrées −539 $, 002 MNQ Short 6 contrats +549 $ (journée à +235 $ à 16h19), puis le 002 enchaîne Long −244 $, Short en BE +10 $, Long −206 $, Short −198 $. 7 trades pour un maximum de 3, trois entrées après le verrou des deux pertes, trois entrées à moins de 10 min d'une perte (règle 6), 6 contrats sur un trade (plafond 4)." },
-  { jour:"24/09", label:"Jeudi 24 sept.", fichier:"2026-09-24-jeudi.html", pnl:-566.00, trades:3, gagnants:0, neutres:0, planOk:false, note:"Trois trades, trois pertes : 002 MCL Long 2 contrats −98 $ (10h29), 002 MNQ Short 3 contrats −216 $ (15h55, stoppé en 5 min, biais baissier noté sur ta capture), 001 MNQ Short 3 contrats −252 $ (16h45) — ce dernier pris après deux pertes, donc lockout non respecté. Un seul compte à la fois, règle 6 respectée (45 min après la perte). Le trade du 001 est sorti en deux fills (une seule position)." },
+  { jour:"25/09", label:"Vendredi 25 sept.", fichier:"2026-09-25-vendredi.html", pnl:-403.00, trades:7, gagnants:2, neutres:1, planOk:false, planWhy:"7 trades (max 3), 3 trades après le verrou des 2 pertes, 6 contrats sur un trade (plafond 4), entrées à moins de 10 min d'une perte", note:"Sept trades, quatre pertes : 001 6E Long +225 $, 001 MNQ Long en deux entrées −539 $, 002 MNQ Short 6 contrats +549 $ (journée à +235 $ à 16h19), puis le 002 enchaîne Long −244 $, Short en BE +10 $, Long −206 $, Short −198 $. 7 trades pour un maximum de 3, trois entrées après le verrou des deux pertes, trois entrées à moins de 10 min d'une perte (règle 6), 6 contrats sur un trade (plafond 4)." },
+  { jour:"24/09", label:"Jeudi 24 sept.", fichier:"2026-09-24-jeudi.html", pnl:-566.00, trades:3, gagnants:0, neutres:0, planOk:false, planWhy:"3e trade pris après 2 pertes (lockout)", note:"Trois trades, trois pertes : 002 MCL Long 2 contrats −98 $ (10h29), 002 MNQ Short 3 contrats −216 $ (15h55, stoppé en 5 min, biais baissier noté sur ta capture), 001 MNQ Short 3 contrats −252 $ (16h45) — ce dernier pris après deux pertes, donc lockout non respecté. Un seul compte à la fois, règle 6 respectée (45 min après la perte). Le trade du 001 est sorti en deux fills (une seule position)." },
   { jour:"23/09", label:"Mercredi 23 sept.", fichier:"2026-09-23-mercredi.html", pnl:27.00, trades:2, gagnants:0, neutres:2, planOk:true, note:"Deux break-even en stratégie V2 (IFVG 5M après 15h30, stop remonté à l'entrée), un seul compte à la fois : 001 Long 1 MNQ 16h35→17h51 (+8 $, R:R planifié 2,14) puis 002 Short 2 MNQ 18h14→19h43 (+19 $, stop non transmis). 3 contrats au total, pas de copy trading." },
   { jour:"22/09", label:"Mardi 22 sept.", fichier:"2026-09-22-mardi.html", pnl:204.00, trades:1, gagnants:1, neutres:0, planOk:true, note:"Gagnant (+204 $), mais entrée que tu remets toi-même en cause : visée ~800 points au lieu d'un deuxième IFVG à 150 points de risque et R:R 2,5. Long MNQ sur 001, 1 contrat, tenu plus de 5h. Aucun autre compte transmis." },
   { jour:"21/09", label:"Lundi 21 sept.", fichier:"2026-09-21-lundi.html", pnl:549.00, trades:1, gagnants:1, neutres:0, planOk:true, note:"1 seul trade, sur le compte 001 : Long MNQ en 2 contrats (sous le plafond de 4), tenu 33 min, +549 $ — journée que tu décris comme conforme au plan. Aucun autre compte transmis." },
-  { jour:"18/09", label:"Vendredi 18 sept.", fichier:"2026-09-18-vendredi.html", pnl:-2095.00, trades:6, gagnants:1, neutres:0, planOk:false, note:"Nouveau compte « A » ouvert et tradé en 8 contrats dès le 1er jour — 3 trades, tous perdants, −1 176 $ à lui seul. Copy trading 001/002/003 (même seconde, même sortie, prix à 1,5 pt près). Seul trade gagnant : un scalp de +2,50 $ sur 001 (1 contrat, 2 secondes), ajouté le 21/09 après un export complété." },
-  { jour:"17/09", label:"Jeudi 17 sept.", fichier:"2026-09-17-jeudi.html", pnl:-1080.50, trades:6, gagnants:2, neutres:0, planOk:false, note:"Nouveau compte « 004 » racheté et tradé le jour même : +105 $ (2 trades gagnants sur 3), seul compte gagnant, mais 6 contrats dès le 1er jour (hors gabarit). Copy trading 001/006 (short) et 002/003 (long) sur le même mouvement, en sens opposés — personne n'a gagné sur ces trades-là." },
+  { jour:"18/09", label:"Vendredi 18 sept.", fichier:"2026-09-18-vendredi.html", pnl:-2095.00, trades:6, gagnants:1, neutres:0, planOk:false, planWhy:"6 trades (max 3), compte A en 8 contrats (plafond 4)", note:"Nouveau compte « A » ouvert et tradé en 8 contrats dès le 1er jour — 3 trades, tous perdants, −1 176 $ à lui seul. Copy trading 001/002/003 (même seconde, même sortie, prix à 1,5 pt près). Seul trade gagnant : un scalp de +2,50 $ sur 001 (1 contrat, 2 secondes), ajouté le 21/09 après un export complété." },
+  { jour:"17/09", label:"Jeudi 17 sept.", fichier:"2026-09-17-jeudi.html", pnl:-1080.50, trades:6, gagnants:2, neutres:0, planOk:false, planWhy:"6 trades (max 3), 6 contrats sur le compte 004 (plafond 4)", note:"Nouveau compte « 004 » racheté et tradé le jour même : +105 $ (2 trades gagnants sur 3), seul compte gagnant, mais 6 contrats dès le 1er jour (hors gabarit). Copy trading 001/006 (short) et 002/003 (long) sur le même mouvement, en sens opposés — personne n'a gagné sur ces trades-là." },
   { jour:"16/09", label:"Mercredi 16 sept.", fichier:"2026-09-16-mercredi.html", pnl:343.50, trades:1, gagnants:1, neutres:0, planOk:true, note:"Nouvelle strat testée : biais haussier, 2 IFVG 5M, TP visant un R:R de 2 — même signal copié sur 001/003 (compté comme 1 trade), tenu 2h14, gagnant sur les deux. Le plan n'a pas été suivi à 100 % mais le cadre était là." },
-  { jour:"15/09", label:"Mardi 15 sept.", fichier:"2026-09-15-mardi.html", pnl:-1108.00, trades:13, gagnants:2, neutres:0, planOk:false, note:"5 comptes actifs — dédupliqué : 13 signaux uniques, dont 6 copiés entre 001/003/005 entre 17h00 et 17h34 (même prix, même minute, comptés une fois). 002 : 2 trades (−187,50 $, 17h41 et 18h29) absents de l'export initial, ajoutés le 21/09. Pas de full-size aujourd'hui (tout en MNQ micro)." },
-  { jour:"14/09", label:"Lundi 14 sept.", fichier:"2026-09-14-lundi.html", pnl:-1521.00, trades:15, gagnants:4, neutres:0, planOk:false, note:"5 comptes, tous perdants — pas de copy trading évident cette fois, juste une journée uniformément mauvaise. 006 et 003 : GC (gold taille standard) au lieu de MGC, même remarque que le CL en septembre." },
+  { jour:"15/09", label:"Mardi 15 sept.", fichier:"2026-09-15-mardi.html", pnl:-1108.00, trades:13, gagnants:2, neutres:0, planOk:false, planWhy:"13 trades (max 3)", note:"5 comptes actifs — dédupliqué : 13 signaux uniques, dont 6 copiés entre 001/003/005 entre 17h00 et 17h34 (même prix, même minute, comptés une fois). 002 : 2 trades (−187,50 $, 17h41 et 18h29) absents de l'export initial, ajoutés le 21/09. Pas de full-size aujourd'hui (tout en MNQ micro)." },
+  { jour:"14/09", label:"Lundi 14 sept.", fichier:"2026-09-14-lundi.html", pnl:-1521.00, trades:15, gagnants:4, neutres:0, planOk:false, planWhy:"15 trades (max 3)", note:"5 comptes, tous perdants — pas de copy trading évident cette fois, juste une journée uniformément mauvaise. 006 et 003 : GC (gold taille standard) au lieu de MGC, même remarque que le CL en septembre." },
   { jour:"11/09", label:"Vendredi 11 sept.", fichier:"2026-09-11-vendredi.html", pnl:-275.50, trades:13, gagnants:4, neutres:0, note:"Copy trading (005/006) · 002 : 3 réentrées en 53 s · 005 : 6 trades entre 17h26 et 18h04 après le signal copié perdant, certains à moins d'une minute d'écart. Sauvé par le 003 (+560 $) — sans lui, −835,50 $. Dédupliqué : 13 signaux uniques. 001 non transmis." },
   { jour:"10/09", label:"Jeudi 10 sept.", fichier:"2026-09-10-jeudi.html", pnl:-1403.00, trades:19, gagnants:4, neutres:0, note:"Copy trading (001/002) · 006 : 3 entrées en 51 s sur position perdante · 005 : réentrée 7 s après clôture · nouveau compte « 003 » repris et tradé le jour même (MCL à 10 contrats). Dédupliqué : 19 signaux uniques. 004 clôturé." },
   { jour:"09/09", label:"Mercredi 9 sept.", fichier:"2026-09-09-mercredi.html", pnl:594.00, trades:1, gagnants:1, neutres:0, note:"Compte 001 seul reçu · un seul short MNQ tenu 9 min, +594 $ · autres comptes non transmis." },
@@ -3505,6 +3527,57 @@ window.SESSIONS = [
   document.addEventListener('DOMContentLoaded', function(){
     analyse(); renderSessions(); comptes(); risque();
     initSubnav('dash-subnav'); initSubnav('brief-subnav');
+  });
+})();
+</script>
+<script>/* Respect du plan — calculé depuis window.SESSIONS (planOk / planWhy) : série en cours, pastilles des séances évaluées, raisons */
+(function(){
+  function fmtDates(ds){
+    if(ds.length === 1) return 'le ' + ds[0];
+    var mm = ds.map(function(d){ return d.slice(3); });
+    if(mm.every(function(m){ return m === mm[0]; })){
+      var days = ds.map(function(d){ return d.slice(0, 2); });
+      if(ds.length === 2) return 'le ' + days[0] + ' et le ' + days[1] + '/' + mm[0];
+      return 'les ' + days.slice(0, -1).join(', ') + ' et ' + days[days.length - 1] + '/' + mm[0];
+    }
+    return ds.join(', ');
+  }
+  function plural(n, w){ return n + ' ' + w + (n > 1 ? 's' : ''); }
+  document.addEventListener('DOMContentLoaded', function(){
+    var host = document.getElementById('plan-widget');
+    if(!host || !window.SESSIONS) return;
+    var ev = window.SESSIONS.filter(function(s){ return typeof s.planOk === 'boolean'; });  // du plus récent au plus ancien
+    if(!ev.length) return;
+    var okCount = ev.filter(function(s){ return s.planOk; }).length;
+    var state = ev[0].planOk, run = [];
+    for(var i = 0; i < ev.length && ev[i].planOk === state; i++) run.push(ev[i]);
+    var prev = [];
+    for(var k = run.length; k < ev.length && ev[k].planOk !== state; k++) prev.push(ev[k]);
+    var runDates = run.map(function(s){ return s.jour; }).reverse();
+    var status = state
+      ? '🟢 Tenu depuis ' + plural(run.length, 'séance') + ' (' + runDates[0] + ')'
+      : '🔴 Cassé ' + fmtDates(runDates);
+    var dots = ev.slice().reverse().map(function(s){
+      var t = s.jour + ' — ' + (s.pnl > 0 ? '+' : '') + Math.round(s.pnl) + ' $ — ' + (s.planOk ? 'dans le plan' : (s.planWhy || 'hors plan'));
+      return '<span class="pw-dot ' + (s.planOk ? 'ok' : 'ko') + '" title="' + t.replace(/"/g, '&quot;') + '">' + s.jour.slice(0, 2) + '</span>';
+    }).join('');
+    var detail = '';
+    if(!state){
+      detail += run.slice().reverse().map(function(s){ return '<div><b>' + s.jour + '</b> — ' + (s.planWhy || 'hors plan') + '</div>'; }).join('');
+      if(prev.length){
+        var pd = prev.map(function(s){ return s.jour; }).reverse();
+        detail += '<div class="pw-rule">Dernière série tenue : ' + plural(prev.length, 'séance') + ' (' + pd[0] + ' → ' + pd[pd.length - 1] + ').</div>';
+      }
+    } else if(prev.length){
+      detail += '<div><b>' + prev[0].jour + '</b> — dernière rupture : ' + (prev[0].planWhy || 'hors plan') + '</div>';
+    }
+    detail += '<div class="pw-rule">Le plan : 3 trades max par jour, 4 contrats max par trade, aucun trade ouvert après 2 pertes dans la journée.</div>';
+    host.className = 'plan-widget ' + (state ? 'ok' : 'ko');
+    host.innerHTML = '<div class="pw-row"><span class="cs-title">🛡️ Respect du plan</span>'
+      + '<span class="pw-status">' + status + '</span>'
+      + '<span class="pw-dots">' + dots + '</span>'
+      + '<span class="pw-count"><b>' + okCount + '</b> / ' + ev.length + ' séances dans le plan depuis le ' + ev[ev.length - 1].jour + '</span></div>'
+      + '<div class="pw-detail">' + detail + '</div>';
   });
 })();
 </script>
