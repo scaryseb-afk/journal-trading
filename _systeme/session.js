@@ -528,13 +528,104 @@ function sjInitTradeNotes(){
   });
 }
 
+/* ---------- Copier un trade : texte prêt à coller (chat Claude, notes…), sous les infos de chaque trade ---------- */
+function sjCopyText(text, done){
+  function fallback(){
+    try{
+      var ta = document.createElement('textarea');
+      ta.value = text; ta.style.position = 'fixed'; ta.style.opacity = '0';
+      document.body.appendChild(ta); ta.select();
+      var ok = document.execCommand('copy'); document.body.removeChild(ta); done(ok);
+    }catch(e){ done(false); }
+  }
+  if(navigator.clipboard && navigator.clipboard.writeText){
+    navigator.clipboard.writeText(text).then(function(){ done(true); }, fallback);
+  } else { fallback(); }
+}
+function sjSessionDate(){
+  var m = String(typeof SESSION_KEY === 'string' ? SESSION_KEY : '').match(/^(\d{4})_(\d{2})_(\d{2})/);
+  return m ? m[3] + '/' + m[2] + '/' + m[1] : '';
+}
+function sjTradeText(noteRow){
+  var tr = noteRow.previousElementSibling;
+  var cells = tr ? [].map.call(tr.children, function(c){ return c.textContent.trim(); }) : [];
+  var ta = noteRow.querySelector('textarea.trade-note');
+  var key = ta ? ta.getAttribute('data-key') : '';
+  var acct = key ? key.slice(0, key.lastIndexOf('_')) : '';
+  var parts = [sjSessionDate() + (acct ? ' · Compte ' + acct : '')];
+  if(cells.length >= 8) parts.push(cells[1] + ' ' + cells[2] + ' ×' + cells[3] + ' · entrée ' + cells[4] + ' → sortie ' + cells[5] + ' · ' + cells[6] + ' · P&L ' + cells[7]);
+  else parts.push(cells.slice(1).join(' · '));
+  var st = key ? (sjLoadStops()[key] || null) : null;
+  if(st){
+    if(st.stop) parts.push('stop ' + st.stop);
+    if(st.objectif) parts.push('objectif ' + st.objectif);
+  }
+  var rr = sjRRText(key ? sjFindAcctTrade(key) : null, st);
+  if(rr !== '—') parts.push('R:R ' + rr);
+  var reason = ta ? ta.value.trim() : '';
+  return parts.join(' · ') + ' — ' + (reason ? 'Raison : ' + reason : 'raison non renseignée');
+}
+function sjInitTradeCopy(){
+  document.querySelectorAll('tr.note-row').forEach(function(row){
+    var cell = row.querySelector('td');
+    if(!cell || cell.querySelector('.trade-copy')) return;
+    var box = document.createElement('div');
+    box.className = 'trade-copy';
+    box.innerHTML = '<button type="button" class="trade-copy-btn">📋 Copier ce trade</button><span class="trade-copy-msg"></span>';
+    cell.appendChild(box);
+    var msg = box.querySelector('.trade-copy-msg');
+    box.querySelector('button').addEventListener('click', function(){
+      sjCopyText(sjTradeText(row), function(ok){
+        msg.textContent = ok ? '✓ Copié' : 'Échec de la copie';
+        setTimeout(function(){ msg.textContent = ''; }, 2000);
+      });
+    });
+  });
+}
+
+/* ---------- Menu latéral : même navigation que index.html, thème partagé (clé localStorage « journal-theme ») ---------- */
+var SJ_NAV = [['dashboard','Tableau de bord'],['brief','Brief séance'],['brouillon','📝 Brouillon'],['sessions','Sessions'],['regles','⛔ Règles']];
+var SJ_THEMES = ['system','dark','light'];
+var SJ_THEME_LABELS = {system:'⚙️ Système', dark:'🌙 Sombre', light:'☀️ Clair'};
+function sjApplyTheme(t){
+  if(t === 'dark') document.documentElement.setAttribute('data-theme','dark');
+  else if(t === 'light') document.documentElement.setAttribute('data-theme','light');
+  else document.documentElement.removeAttribute('data-theme');
+  var btn = document.querySelector('.side-nav .theme-btn');
+  if(btn) btn.textContent = SJ_THEME_LABELS[t] || t;
+  try{ localStorage.setItem('journal-theme', t); }catch(e){}
+}
+function sjCurrentTheme(){
+  var t = 'system';
+  try{ t = localStorage.getItem('journal-theme') || 'system'; }catch(e){}
+  return SJ_THEMES.indexOf(t) >= 0 ? t : 'system';
+}
+sjApplyTheme(sjCurrentTheme());
+function sjInitSidebar(){
+  if(document.querySelector('.side-nav')) return;
+  var nav = document.createElement('nav');
+  nav.className = 'side-nav';
+  nav.innerHTML = '<div class="side-nav-brand"><b>Journal de trading</b><span>Futures · Tradovate / Lucid</span></div>'
+    + SJ_NAV.map(function(n){ return '<a href="../index.html#' + n[0] + '"' + (n[0] === 'sessions' ? ' class="on"' : '') + '>' + n[1] + '</a>'; }).join('')
+    + '<button type="button" class="theme-btn"></button>';
+  document.body.insertBefore(nav, document.body.firstChild);
+  document.body.classList.add('has-side-nav');
+  var btn = nav.querySelector('.theme-btn');
+  btn.textContent = SJ_THEME_LABELS[sjCurrentTheme()];
+  btn.addEventListener('click', function(){
+    sjApplyTheme(SJ_THEMES[(SJ_THEMES.indexOf(sjCurrentTheme()) + 1) % SJ_THEMES.length]);
+  });
+}
+
 /* ---------- Point d'entrée ---------- */
 function initSessionPage(){
+  sjInitSidebar();
   sjInitImages();
   sjInitReflect();
   sjInitPaste();
   sjInitCsvImport();
   sjInitTradeNotes();
   sjInitTradeRR();
+  sjInitTradeCopy();
 }
 window.addEventListener('DOMContentLoaded', initSessionPage);

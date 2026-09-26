@@ -47,14 +47,28 @@ h3{font-size:19px;font-weight:600;margin:0 0 4px}
 
 .nav{display:flex;flex-wrap:wrap;gap:18px;align-items:center;padding:12px 32px;
   border-bottom:1px solid var(--line);font-size:15px;position:sticky;top:0;z-index:100;
-  background:rgba(var(--bg-rgb,10,13,19),.92);backdrop-filter:blur(12px);
-  margin:0 -32px 26px;width:calc(100% + 64px)}
-@media(prefers-color-scheme:light){:root:not([data-theme="dark"]) .nav{background:rgba(245,246,248,.92)}}
-:root[data-theme="dark"] .nav{background:rgba(10,13,19,.92)}
-:root[data-theme="light"] .nav{background:rgba(245,246,248,.92)}
+  background:var(--bg);margin:0 -32px 26px;width:calc(100% + 64px)}
+.nav-brand{display:none}
 .nav a{color:var(--muted);font-weight:600}
 .nav a:hover{color:var(--txt);text-decoration:none}
 .nav a.on{color:var(--gold);font-weight:650}
+.nav a[data-goto="regles"]{margin-left:auto}
+/* Grand écran : le menu devient une bannière fixe à gauche ; en dessous de 960 px, barre du haut comme avant */
+@media(min-width:960px){
+  body{padding-left:232px}
+  .wrap{max-width:1040px;padding-top:40px}
+  .nav{position:fixed;left:0;top:0;bottom:0;width:232px;margin:0;padding:24px 14px 18px;
+    flex-direction:column;flex-wrap:nowrap;align-items:stretch;gap:2px;
+    border-bottom:none;border-right:1px solid var(--line);background:var(--panel);overflow-y:auto}
+  .nav-brand{display:block;padding:2px 12px 18px;margin-bottom:8px;border-bottom:1px solid var(--line)}
+  .nav-brand b{display:block;font-size:15px;font-weight:700;letter-spacing:-.01em;color:var(--txt)}
+  .nav-brand span{display:block;font-size:11.5px;color:var(--muted);margin-top:2px}
+  .nav a{padding:9px 12px;border-radius:8px;font-size:14.5px}
+  .nav a:hover{background:var(--white-dim)}
+  .nav a.on{background:var(--white-dim);color:var(--txt);box-shadow:inset 3px 0 0 var(--accent)}
+  .nav a[data-goto="regles"]{margin-left:0}
+  #theme-toggle{margin-top:auto}
+}
 
 .kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:18px;margin-top:36px}
 @keyframes kpi-in{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
@@ -549,6 +563,8 @@ select.plan-input{cursor:pointer}
 .plan-item:last-child{border-bottom:none}
 .plan-item-main{flex:1;min-width:0}
 .plan-item-top{font-family:'IBM Plex Mono',monospace;font-weight:700;color:var(--txt)}
+.plan-copy-one{margin-top:6px;background:none;border:1px solid var(--border);color:var(--muted);border-radius:6px;padding:4px 10px;font:inherit;font-size:11.5px;font-weight:600;cursor:pointer;transition:.12s}
+.plan-copy-one:hover{color:var(--txt);border-color:var(--muted)}
 .plan-item-top .long{color:var(--green)}
 .plan-item-top .short{color:var(--red)}
 .plan-item-lv{color:var(--muted);font-family:'IBM Plex Mono',monospace;font-size:11.5px;margin-top:2px}
@@ -561,11 +577,12 @@ select.plan-input{cursor:pointer}
 <body>
 <div class="wrap">
 <nav class="nav">
-  <a href="#" data-goto="dashboard">Tableau de bord</a>
-  <a href="#" data-goto="brief">Brief séance</a>
-  <a href="#" data-goto="brouillon">📝 Brouillon</a>
-  <a href="#" data-goto="sessions">Sessions</a>
-  <a href="#" data-goto="regles" style="margin-left:auto">⛔ Règles</a>
+  <div class="nav-brand"><b>Journal de trading</b><span>Futures · Tradovate / Lucid</span></div>
+  <a href="#dashboard" data-goto="dashboard">Tableau de bord</a>
+  <a href="#brief" data-goto="brief">Brief séance</a>
+  <a href="#brouillon" data-goto="brouillon">📝 Brouillon</a>
+  <a href="#sessions" data-goto="sessions">Sessions</a>
+  <a href="#regles" data-goto="regles">⛔ Règles</a>
   <button id="theme-toggle" title="Changer le thème" style="background:var(--panel);border:1px solid var(--line);color:var(--muted);border-radius:999px;padding:6px 14px;font-size:12.5px;font-weight:650;cursor:pointer;letter-spacing:.04em;transition:.15s;font-family:inherit">⚙️ Système</button>
 </nav>
 <section class="view" id="view-dashboard">
@@ -2565,6 +2582,7 @@ window.SESSIONS = [
         + '<div class="plan-item-top">' + (t.compte ? planEsc(t.compte) + ' · ' : '') + planEsc(t.instr) + ' <span class="' + (t.side === 'Long' ? 'long' : 'short') + '">' + t.side + '</span> · R:R ' + rrTxt + '</div>'
         + '<div class="plan-item-lv">entrée ' + planEsc(t.entree || '—') + ' · stop ' + planEsc(t.stop || '—') + ' · objectif ' + planEsc(t.objectif || '—') + ' · ' + t.time + '</div>'
         + '<input type="text" class="plan-note-edit' + (t.note ? '' : ' missing') + '" value="' + planEsc(t.note || '').replace(/"/g, '&quot;') + '" placeholder="⚠️ raison manquante — écris-la ici" onchange="planSetNote(' + i + ', this)">'
+        + '<button type="button" class="plan-copy-one" onclick="planCopyOne(' + i + ', this)">📋 Copier ce trade</button>'
         + '</div><button class="viol-del" onclick="planDel(' + i + ')" title="Supprimer">×</button></div>';
     }).join('');
   }
@@ -2579,21 +2597,46 @@ window.SESSIONS = [
       return;
     }
     var lines = ['Plan du jour — ' + planTodayKey().replace('plan_', '')];
-    arr.forEach(function(t, i){
-      lines.push((i + 1) + '. ' + (t.compte ? 'Compte ' + t.compte + ' · ' : '') + t.instr + ' ' + t.side
-        + ' · entrée ' + (t.entree || '—') + ' · stop ' + (t.stop || '—') + ' · objectif ' + (t.objectif || '—')
-        + ' · R:R ' + (t.rr != null ? t.rr.toFixed(2) + ':1' + (t.rrManuel ? ' (manuel)' : '') : '—')
-        + ' — ' + t.note);
-    });
+    arr.forEach(function(t, i){ lines.push((i + 1) + '. ' + planLine(t)); });
     var text = lines.join('\n');
     var btn = document.getElementById('plan-copy-btn');
-    function done(ok){
+    planCopyText(text, function(ok){
       btn.textContent = ok ? '✓ Copié — colle-le dans le chat Claude' : 'Échec de la copie';
       setTimeout(function(){ btn.textContent = '📋 Copier pour Claude'; }, 2200);
+    });
+  }
+  function planLine(t){
+    return (t.compte ? 'Compte ' + t.compte + ' · ' : '') + t.instr + ' ' + t.side
+      + ' · entrée ' + (t.entree || '—') + ' · stop ' + (t.stop || '—') + ' · objectif ' + (t.objectif || '—')
+      + ' · R:R ' + (t.rr != null ? t.rr.toFixed(2) + ':1' + (t.rrManuel ? ' (manuel)' : '') : '—')
+      + ' — ' + t.note;
+  }
+  function planCopyText(text, done){
+    function fallback(){
+      try{
+        var ta = document.createElement('textarea');
+        ta.value = text; ta.style.position = 'fixed'; ta.style.opacity = '0';
+        document.body.appendChild(ta); ta.select();
+        var ok = document.execCommand('copy'); document.body.removeChild(ta); done(ok);
+      }catch(e){ done(false); }
     }
     if(navigator.clipboard && navigator.clipboard.writeText){
-      navigator.clipboard.writeText(text).then(function(){ done(true); }, function(){ done(false); });
-    } else { done(false); }
+      navigator.clipboard.writeText(text).then(function(){ done(true); }, fallback);
+    } else { fallback(); }
+  }
+  function planCopyOne(i, btn){
+    var t = planLoad()[i];
+    if(!t) return;
+    var old = '📋 Copier ce trade';
+    if(!t.note){
+      btn.textContent = '⚠️ écris d\'abord la raison';
+      setTimeout(function(){ btn.textContent = old; }, 2200);
+      return;
+    }
+    planCopyText(planTodayKey().replace('plan_', '') + ' · ' + planLine(t), function(ok){
+      btn.textContent = ok ? '✓ Copié' : 'Échec de la copie';
+      setTimeout(function(){ btn.textContent = old; }, 1800);
+    });
   }
   ['plan-entree','plan-stop','plan-obj','plan-rr-manuel'].forEach(function(id){
     var el = document.getElementById(id);
@@ -2677,6 +2720,7 @@ window.SESSIONS = [
       tabs.forEach(function(t){ t.classList.toggle('on', t.dataset.goto === id); });
       window.scrollTo(0, 0);
       try{ localStorage.setItem('journal-last-view', id); }catch(e){}
+      try{ history.replaceState(null, '', '#' + id); }catch(e){}
     }
 
     tabs.forEach(function(t){
@@ -2688,7 +2732,9 @@ window.SESSIONS = [
 
     var last = 'dashboard';
     try{ last = localStorage.getItem('journal-last-view') || 'dashboard'; }catch(e){}
-    show(last);
+    // un lien #brief, #sessions… (menu des pages de séance) ouvre directement l'onglet demandé
+    var fromHash = (window.location.hash || '').slice(1);
+    show(document.getElementById('view-' + fromHash) ? fromHash : last);
   });
 })();
 </script>
@@ -3446,11 +3492,6 @@ window.SESSIONS = [
   document.addEventListener('DOMContentLoaded', function(){
     analyse(); renderSessions(); comptes(); risque();
     initSubnav('dash-subnav'); initSubnav('brief-subnav');
-    // Retour depuis une page de séance (lien #sessions) : ouvrir l'onglet Sessions
-    if(window.location.hash === '#sessions'){
-      var tabSessions = document.querySelector('[data-goto="sessions"]');
-      if(tabSessions) tabSessions.click();
-    }
   });
 })();
 </script>

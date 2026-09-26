@@ -5,9 +5,12 @@ GitHub Pages (`scaryseb-afk.github.io/journal-trading`) depuis la branche
 `main`. Pas de build : ce qui est commité est ce qui est publié.
 
 `index.html` regroupe Tableau de bord, Brief séance, Brouillon (« Plan du
-jour », trades prévus avant le CSV) et Règles dans une seule page (onglets
-en haut, `data-goto`/`.view` — pas de rechargement ; le sélecteur de thème
-est dans la barre du haut, à côté de Règles).
+jour », trades prévus avant le CSV), Sessions et Règles dans une seule page
+(`data-goto`/`.view` — pas de rechargement, l'onglet actif est dans le hash :
+`#brief`, `#sessions`…). Le menu est une bannière fixe à gauche dès 960 px
+(barre du haut en dessous), thème en bas du menu. Les pages de séance
+injectent le même menu (`.side-nav`, dans `session.js`) et partagent le thème
+(`journal-theme`).
 Les règles avaient leur propre fichier (`rules.html`) jusqu'au 23/09/2026 ;
 tout son contenu et sa logique (score de confluence, checklist, trades du
 jour, score de discipline, violations, streak, pause) vivent maintenant
