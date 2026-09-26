@@ -11,8 +11,9 @@ jour », trades prévus avant le CSV), Sessions et Règles dans une seule page
 (barre du haut en dessous), thème en bas du menu. Sur grand écran, les
 sous-onglets du Tableau de bord et du Brief (`.subnav`/`.sn-btn`) sont
 reproduits en sous-entrées du menu sous l'onglet actif (générées depuis
-`.sn-btn` : un nouveau `.sn-btn` apparaît tout seul) et la barre dans la page
-est masquée. Chaque sous-page du Tableau de bord a son propre titre ; l'en-tête
+`.sn-btn` : un nouveau `.sn-btn` apparaît tout seul ; le premier, marqué
+`data-nosidebar`, n'est pas répété : le lien parent du menu ouvre cette
+sous-page) et la barre dans la page est masquée. Chaque sous-page du Tableau de bord a son propre titre ; l'en-tête
 et les widgets du haut (score de confluence, respect du plan, cartes) ne sont que
 sur « Vue d'ensemble ». Les pages de séance
 injectent le même menu (`.side-nav`, dans `session.js`) et partagent le thème
