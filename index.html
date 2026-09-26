@@ -215,6 +215,10 @@ textarea::placeholder{color:#4A566A}
 .sr-badge.next{background:var(--white-dim);color:var(--muted);border:1px solid var(--line)}
 /* index — sessions feed compact */
 .sf{display:flex;flex-direction:column;gap:4px;margin-top:4px;margin-bottom:28px}
+.sf-wk{display:flex;align-items:center;gap:12px;margin:12px 0 2px}
+.sf-wk:first-child{margin-top:0}
+.sf-wk-name{color:var(--muted);font-size:11.5px;font-weight:650;white-space:nowrap}
+.sf-wk .sf-mh-line{opacity:.6}
 .sf-month summary{list-style:none;cursor:pointer}
 .sf-month summary::-webkit-details-marker{display:none}
 .sf-month summary::marker{content:''}
@@ -246,6 +250,8 @@ textarea::placeholder{color:#4A566A}
 .sr-wr{font-size:12px;color:var(--dim);text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
 .sr-note{color:var(--muted);font-size:12.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0}
 @media(max-width:700px){
+  .sf-wk-name{font-size:11px}
+  .sf-wk .sf-mh-wl{display:none}
   .sr{grid-template-columns:104px 62px 58px 38px;gap:0 8px;padding:10px 12px}
   .sr-wr{display:none}
   .sr-note{display:none}
@@ -3257,6 +3263,30 @@ window.SESSIONS = [
       return 'Risque ' + ri.risk[0] + '–' + ri.risk[1] + ' $ par trade : de ' + rStr(ri.lo) + ' à ' + rStr(ri.hi) + ' (milieu ' + ((ri.risk[0] + ri.risk[1]) / 2) + ' $ : ' + rStr(ri.mid) + ')';
     }
 
+    /* Semaine = lundi→vendredi ; une semaine à cheval sur deux mois est coupée à la frontière du mois */
+    function weekOf(jour){
+      var p = parseJour(jour), dt = new Date(p.y, p.m - 1, p.d);
+      dt.setDate(dt.getDate() - ((dt.getDay() + 6) % 7));
+      return dt.getFullYear() + '-' + (dt.getMonth() + 1) + '-' + dt.getDate();
+    }
+    function weekHeader(list, m){
+      var withPnl = list.filter(function(x){ return x.pnl !== null; });
+      var total = withPnl.reduce(function(a, x){ return a + x.pnl; }, 0);
+      var won = withPnl.filter(function(x){ return x.pnl > 0; }).length;
+      var lost = withPnl.filter(function(x){ return x.pnl < 0; }).length;
+      var pa = parseJour(list[list.length - 1].jour), pb = parseJour(list[0].jour);
+      var mon = (MONTH_NAMES[m] || m).toLowerCase();
+      var label = 'Semaine du ' + pa.d + (pa.d !== pb.d ? ' au ' + pb.d : '') + ' ' + mon;
+      var cls = total > 0 ? 'pos' : (total < 0 ? 'neg' : '');
+      var wR = withPnl.length ? rInfo(total, m) : null;
+      var h = '<div class="sf-wk"><span class="sf-wk-name">' + label + '</span>';
+      if(withPnl.length) h += '<span class="sf-mh-wl" title="Journées gagnées / perdues"><span class="pos">' + won + '✓</span> <span class="neg">' + lost + '✗</span></span>';
+      h += '<span class="sf-mh-line"></span>';
+      if(wR) h += '<span class="sf-mh-r ' + cls + '" title="' + rTitle(wR) + '">≈ ' + rStr(wR.mid) + '</span>';
+      if(withPnl.length) h += '<span class="sf-mh-sum ' + cls + '">' + (total > 0 ? '+' : '') + Math.round(total) + ' $</span>';
+      return h + '</div>';
+    }
+
     function buildFeed(){
       var months = [], monthMap = {};
       window.SESSIONS.forEach(function(s){
@@ -3271,7 +3301,7 @@ window.SESSIONS = [
       h += '<button class="sf-filter'+(activeFilter==='win'?' active win':'')+'" data-filter="win">Gagnantes ✓</button>';
       h += '<button class="sf-filter'+(activeFilter==='lose'?' active lose':'')+'" data-filter="lose">Perdantes ✗</button>';
       h += '</div>';
-      h += '<div class="sf-legend">R = P&amp;L ÷ risque par trade — septembre : 250–300 $ (milieu 275 $ affiché, fourchette au survol). Août : pas de risque défini, pas de R. Avant le 21/09, le copy trading cumule plusieurs comptes dans le P&amp;L : le R y est gonflé.</div>';
+      h += '<div class="sf-legend">R = P&amp;L ÷ risque par trade — septembre : 250–300 $ (milieu 275 $ affiché, fourchette au survol). Août : pas de risque défini, pas de R. Le R par semaine ou par mois est la somme de ses séances. Avant le 21/09, le copy trading cumule plusieurs comptes dans le P&amp;L : le R y est gonflé.</div>';
 
       months.forEach(function(m){
         var allSessions = monthMap[m];
@@ -3299,7 +3329,11 @@ window.SESSIONS = [
            + '</summary>';
 
         h += '<div class="sf">';
+        var weekMap = {}, lastWeek = null;
+        allSessions.forEach(function(x){ var k = weekOf(x.jour); (weekMap[k] = weekMap[k] || []).push(x); });
         filtered.forEach(function(s){
+          var wk = weekOf(s.jour);
+          if(wk !== lastWeek){ lastWeek = wk; h += weekHeader(weekMap[wk], m); }
           var isPending = s.pnl === null;
           var winRate = s.trades > 0 ? Math.round(s.gagnants / s.trades * 100) : 0;
           var cls = isPending ? 'flat pending' : (s.pnl > 0 ? 'win' : (s.pnl < 0 ? 'lose' : 'flat'));
