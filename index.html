@@ -57,7 +57,7 @@ h3{font-size:18px;font-weight:600;margin:0 0 4px}
 /* Grand écran : le menu devient une bannière fixe à gauche ; en dessous de 960 px, barre du haut comme avant */
 @media(min-width:960px){
   body{padding-left:232px}
-  .wrap{max-width:1040px;padding-top:40px}
+  .wrap{max-width:1200px;padding-top:40px}
   .nav{position:fixed;left:0;top:0;bottom:0;width:232px;margin:0;padding:24px 14px 18px;
     flex-direction:column;flex-wrap:nowrap;align-items:stretch;gap:2px;
     border-bottom:none;border-right:1px solid var(--line);background:var(--panel);overflow-y:auto}
@@ -95,7 +95,7 @@ h3{font-size:18px;font-weight:600;margin:0 0 4px}
 .kpis-rr .note{font-size:12px;margin-top:6px}
 @media(max-width:900px){.kpis-rr{grid-template-columns:repeat(auto-fit,minmax(150px,1fr))}}
 
-.kpis-top{grid-template-columns:repeat(5,1fr);gap:12px;margin-top:24px}
+.kpis-top{grid-template-columns:repeat(4,1fr);gap:12px;margin-top:24px}
 .kpis-top .kpi{padding:18px 16px}
 .kpis-top .val{font-size:24.5px}
 .kpis-top .lbl{font-size:11.5px}
@@ -248,6 +248,18 @@ textarea::placeholder{color:#4A566A}
   cursor:pointer;transition:.12s}
 .sn-btn:hover{border-color:var(--blue);color:var(--txt)}
 .sn-btn.active{background:var(--accent);border-color:var(--accent);color:var(--on-accent)}
+.pg-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:14px;margin:26px 0 8px}
+.pg-tbl{width:100%;border-collapse:collapse;margin-top:8px;font-size:13.5px;font-variant-numeric:tabular-nums}
+.pg-tbl th{text-align:left;padding:8px 10px;font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);border-bottom:1px solid var(--line)}
+.pg-tbl td{padding:10px;border-bottom:1px solid var(--line);vertical-align:middle}
+.pg-tbl tr.cur td{background:color-mix(in srgb,var(--accent) 8%,transparent)}
+.pg-w{font-weight:650;white-space:nowrap}
+.pg-w small{display:block;font-weight:400;font-size:11px;color:var(--muted)}
+.pg-d{font-size:11.5px;font-weight:650;margin-left:6px;white-space:nowrap}
+.pg-d.up{color:var(--green)} .pg-d.down{color:var(--red)} .pg-d.flat{color:var(--muted)}
+.pg-bar{display:inline-block;width:64px;height:6px;border-radius:3px;background:var(--line);vertical-align:middle;margin-left:8px;overflow:hidden}
+.pg-bar i{display:block;height:100%;background:var(--accent)}
+.pg-note{color:var(--dim);font-size:12px;margin-top:12px;line-height:1.5}
 .subview{display:none}
 .subview > h1 + h2{margin-top:32px}
 .subview.active{display:block}
@@ -603,6 +615,16 @@ select.plan-input{cursor:pointer}
 .plan-note-edit:focus{border-color:var(--gold)}
 .plan-note-edit.missing{border-color:var(--red);background:var(--red-dim)}
 .plan-note-edit.missing::placeholder{color:var(--red);opacity:.9}
+/* Écrans peu hauts (13" en 1280×720/800) : on gagne de la place verticale en haut de page */
+@media(min-width:960px) and (max-height:820px){
+  .wrap{padding-top:26px}
+  h1{font-size:30px}
+  .plan-widget .pw-rule{display:none}
+  .plan-widget{padding:9px 14px}
+  .cs-widget{margin-top:10px}
+  .kpis-top{margin-top:24px}
+  .kpi{padding:18px 20px}
+}
 </style>
 </head>
 <body>
@@ -619,6 +641,7 @@ select.plan-input{cursor:pointer}
 <section class="view" id="view-dashboard">
   <div class="subnav" id="dash-subnav">
     <button class="sn-btn active" data-sub="overview" data-nosidebar>Vue d'ensemble</button>
+    <button class="sn-btn" data-sub="progression">Progression</button>
     <button class="sn-btn" data-sub="comptes">Comptes &amp; Analyse</button>
     <button class="sn-btn" data-sub="risque">Risque &amp; R:R</button>
     <button class="sn-btn" data-sub="bilan">Bilan &amp; Règles</button>
@@ -708,6 +731,13 @@ select.plan-input{cursor:pointer}
     </div>
   </div>
 
+  </div>
+
+  <div class="subview" data-subview="progression">
+  <p class="eyebrow">Tableau de bord</p>
+  <h1>Progression</h1>
+  <p class="sub">Semaine après semaine : nombre de trades, ré-entrées après une perte, résultat et respect du plan. Vert = mieux que la semaine précédente, rouge = moins bien.</p>
+  <div id="progression"></div>
   </div>
 
   <div class="subview" data-subview="comptes">
@@ -845,7 +875,7 @@ select.plan-input{cursor:pointer}
   </p>
 </section>
 <section class="view" id="view-brief">
-  <p class="eyebrow">Mis à jour après la séance du mercredi 9 septembre 2026 — recalculé sur les CSV réels du 21/08 au 09/09</p>
+  <p class="eyebrow">Ré-entrées recalculées le 26/09/2026 sur les CSV réels du 21/08 au 25/09 — le reste du brief date de la séance du 9 septembre</p>
   <h1>Ta prochaine séance</h1>
   <p class="sub">Ce qu'il faut faire, ce qu'il ne faut pas faire. Construit uniquement à partir de tes journaux.</p>
 
@@ -923,7 +953,7 @@ select.plan-input{cursor:pointer}
   <div class="big" style="border-color:rgba(224,85,79,.6)">
     <div class="l">La consigne n°1</div>
     <div class="t">Après une perte, tu fermes la plateforme pendant 10 minutes. Sans exception, pas juste après les grosses pertes.</div>
-    <div class="d">J'ai recompté sur les CSV réels, trade par trade, du 21/08 au 04/09 : <strong>38 de tes 87 trades — 44 % — sont entrés à moins de 10 minutes de la perte précédente.</strong> Certains en quelques secondes (0 s le 04/09 à 16:14:08, 4 s le 21/08 sur le MCL). Cette règle est écrite depuis le 14/08 et elle n'a quasiment jamais été suivie depuis.<br><br><strong>Ce que ça t'a coûté, précisément :</strong> ces 38 trades totalisent <strong>−1 233,50 $</strong> (12 gagnants pour +1 285 $, 26 perdants pour −2 518,50 $) — sur une période où tu as perdu −1 529,75 $ au total. <strong>Ces ré-entrées représentent à elles seules 81 % de toutes tes pertes depuis le 21/08.</strong> Sans elles, la période serait quasiment à l'équilibre (−296,25 $ au lieu de −1 529,75 $).<br><br>Ce n'est plus une consigne, c'est un chiffre qui te dit que la règle n'existe pas encore vraiment. Montre en main, dix minutes, sur tous les comptes.</div>
+    <div class="d">J'ai recompté sur les CSV réels, trade par trade (le copy trading compté une seule fois), du 21/08 au 25/09 : <strong>70 de tes 160 trades — 44 % — sont entrés à moins de 10 minutes de la perte précédente.</strong> Dix d'entre eux à moins de 10 secondes (4 s le 21/08, 5 s les 14 et 15/09) et 39 à moins d'une minute. Cette règle est écrite depuis le 14/08 et elle n'a presque jamais été suivie.<br><br><strong>Ce que ça t'a coûté, précisément :</strong> ces 70 trades totalisent <strong>−3 203,50 $</strong> (19 gagnants pour +2 960,50 $, 51 perdants pour −6 164 $) — sur une période où tu as perdu −5 772,75 $ au total. <strong>Ces ré-entrées représentent à elles seules 55 % du résultat de la période.</strong> Sans elles, tu serais à −2 569,25 $ au lieu de −5 772,75 $ : toujours négatif, mais deux fois moins.<br><br><strong>Cette semaine (21 → 25/09) :</strong> 3 ré-entrées sur 14 trades (21 %), contre 24 sur 41 (59 %) la semaine du 14/09. Aucune de lundi à jeudi ; vendredi après 16h, trois, à 9 min 29 s, 37 s et 4 min 8 s d'une perte.<br><br>Ce n'est plus une consigne, c'est un chiffre qui te dit que la règle n'existe pas encore vraiment. Montre en main, dix minutes, sur tous les comptes.</div>
   </div>
 
   <div class="big" style="border-color:rgba(224,85,79,.5)">
@@ -956,8 +986,8 @@ select.plan-input{cursor:pointer}
     <div class="no" style="color:var(--red)">1</div>
     <div>
       <div class="t">Compter 10 minutes après chaque perte. Montre en main, sur tous les comptes.</div>
-      <div class="d">38 des 87 trades depuis le 21/08 sont des ré-entrées à moins de 10 minutes d'une perte — 44 %, pour −1 233,50 $, soit 81 % de toutes les pertes de la période. Ce n'est plus un accident, c'est devenu la façon dont tu trades un jour sur deux.</div>
-      <div class="ev2">21/08 : réentrées à 4-13 s d'une perte sur MCL et MGC · 04/09 : 0 s entre deux trades.</div>
+      <div class="d">70 des 160 trades depuis le 21/08 sont des ré-entrées à moins de 10 minutes d'une perte — 44 %, pour −3 203,50 $, soit 55 % du résultat de la période. Ce n'est plus un accident, c'est devenu la façon dont tu trades quatre fois sur dix. Cette semaine, 3 sur 14 seulement (21 %) : le mieux est réel, il reste à le tenir jusqu'au vendredi soir.</div>
+      <div class="ev2">21/08 : ré-entrée à 4 s d'une perte · 14 et 15/09 : à 5 s · vendredi 25/09 : à 9 min 29 s, 37 s et 4 min 8 s.</div>
     </div>
   </div>
 
@@ -1052,7 +1082,7 @@ select.plan-input{cursor:pointer}
     <div>
       <div class="t">Ne pas reprendre position dans les 10 minutes qui suivent une perte</div>
       <div class="d">La règle la plus enfreinte du journal, de très loin. Elle est écrite depuis le 14/08, elle a coûté deux fois cet été-là, et elle continue de coûter chaque semaine.</div>
-      <div class="ev2">38 des 87 trades depuis le 21/08 (44 %) : ré-entrée à moins de 10 min d'une perte, pour −1 233,50 $ — 81 % de toutes les pertes de la période.</div>
+      <div class="ev2">70 des 160 trades depuis le 21/08 (44 %) : ré-entrée à moins de 10 min d'une perte, pour −3 203,50 $ — 55 % du résultat de la période (−5 772,75 $).</div>
     </div>
   </div>
 
@@ -2126,34 +2156,34 @@ window.TRADES = [
    vérifié depuis les CSV bruts. N'évalue pas la qualité de l'entrée.
    Absent = pas encore évalué (jours avant le 14/09). Sert au KPI "Respect du plan". */
 window.SESSIONS = [
-  { jour:"25/09", label:"Vendredi 25 sept.", fichier:"2026-09-25-vendredi.html", pnl:-403.00, trades:7, gagnants:2, neutres:1, planOk:false, planWhy:"7 trades (max 3), 3 trades après le verrou des 2 pertes, 6 contrats sur un trade (plafond 4), entrées à moins de 10 min d'une perte", note:"Sept trades, quatre pertes : 001 6E Long +225 $, 001 MNQ Long en deux entrées −539 $, 002 MNQ Short 6 contrats +549 $ (journée à +235 $ à 16h19), puis le 002 enchaîne Long −244 $, Short en BE +10 $, Long −206 $, Short −198 $. 7 trades pour un maximum de 3, trois entrées après le verrou des deux pertes, trois entrées à moins de 10 min d'une perte (règle 6), 6 contrats sur un trade (plafond 4)." },
-  { jour:"24/09", label:"Jeudi 24 sept.", fichier:"2026-09-24-jeudi.html", pnl:-566.00, trades:3, gagnants:0, neutres:0, planOk:false, planWhy:"3e trade pris après 2 pertes (lockout)", note:"Trois trades, trois pertes : 002 MCL Long 2 contrats −98 $ (10h29), 002 MNQ Short 3 contrats −216 $ (15h55, stoppé en 5 min, biais baissier noté sur ta capture), 001 MNQ Short 3 contrats −252 $ (16h45) — ce dernier pris après deux pertes, donc lockout non respecté. Un seul compte à la fois, règle 6 respectée (45 min après la perte). Le trade du 001 est sorti en deux fills (une seule position)." },
-  { jour:"23/09", label:"Mercredi 23 sept.", fichier:"2026-09-23-mercredi.html", pnl:27.00, trades:2, gagnants:0, neutres:2, planOk:true, note:"Deux break-even en stratégie V2 (IFVG 5M après 15h30, stop remonté à l'entrée), un seul compte à la fois : 001 Long 1 MNQ 16h35→17h51 (+8 $, R:R planifié 2,14) puis 002 Short 2 MNQ 18h14→19h43 (+19 $, stop non transmis). 3 contrats au total, pas de copy trading." },
-  { jour:"22/09", label:"Mardi 22 sept.", fichier:"2026-09-22-mardi.html", pnl:204.00, trades:1, gagnants:1, neutres:0, planOk:true, note:"Gagnant (+204 $), mais entrée que tu remets toi-même en cause : visée ~800 points au lieu d'un deuxième IFVG à 150 points de risque et R:R 2,5. Long MNQ sur 001, 1 contrat, tenu plus de 5h. Aucun autre compte transmis." },
-  { jour:"21/09", label:"Lundi 21 sept.", fichier:"2026-09-21-lundi.html", pnl:549.00, trades:1, gagnants:1, neutres:0, planOk:true, note:"1 seul trade, sur le compte 001 : Long MNQ en 2 contrats (sous le plafond de 4), tenu 33 min, +549 $ — journée que tu décris comme conforme au plan. Aucun autre compte transmis." },
-  { jour:"18/09", label:"Vendredi 18 sept.", fichier:"2026-09-18-vendredi.html", pnl:-2095.00, trades:6, gagnants:1, neutres:0, planOk:false, planWhy:"6 trades (max 3), compte A en 8 contrats (plafond 4)", note:"Nouveau compte « A » ouvert et tradé en 8 contrats dès le 1er jour — 3 trades, tous perdants, −1 176 $ à lui seul. Copy trading 001/002/003 (même seconde, même sortie, prix à 1,5 pt près). Seul trade gagnant : un scalp de +2,50 $ sur 001 (1 contrat, 2 secondes), ajouté le 21/09 après un export complété." },
-  { jour:"17/09", label:"Jeudi 17 sept.", fichier:"2026-09-17-jeudi.html", pnl:-1080.50, trades:6, gagnants:2, neutres:0, planOk:false, planWhy:"6 trades (max 3), 6 contrats sur le compte 004 (plafond 4)", note:"Nouveau compte « 004 » racheté et tradé le jour même : +105 $ (2 trades gagnants sur 3), seul compte gagnant, mais 6 contrats dès le 1er jour (hors gabarit). Copy trading 001/006 (short) et 002/003 (long) sur le même mouvement, en sens opposés — personne n'a gagné sur ces trades-là." },
-  { jour:"16/09", label:"Mercredi 16 sept.", fichier:"2026-09-16-mercredi.html", pnl:343.50, trades:1, gagnants:1, neutres:0, planOk:true, note:"Nouvelle strat testée : biais haussier, 2 IFVG 5M, TP visant un R:R de 2 — même signal copié sur 001/003 (compté comme 1 trade), tenu 2h14, gagnant sur les deux. Le plan n'a pas été suivi à 100 % mais le cadre était là." },
-  { jour:"15/09", label:"Mardi 15 sept.", fichier:"2026-09-15-mardi.html", pnl:-1108.00, trades:13, gagnants:2, neutres:0, planOk:false, planWhy:"13 trades (max 3)", note:"5 comptes actifs — dédupliqué : 13 signaux uniques, dont 6 copiés entre 001/003/005 entre 17h00 et 17h34 (même prix, même minute, comptés une fois). 002 : 2 trades (−187,50 $, 17h41 et 18h29) absents de l'export initial, ajoutés le 21/09. Pas de full-size aujourd'hui (tout en MNQ micro)." },
-  { jour:"14/09", label:"Lundi 14 sept.", fichier:"2026-09-14-lundi.html", pnl:-1521.00, trades:15, gagnants:4, neutres:0, planOk:false, planWhy:"15 trades (max 3)", note:"5 comptes, tous perdants — pas de copy trading évident cette fois, juste une journée uniformément mauvaise. 006 et 003 : GC (gold taille standard) au lieu de MGC, même remarque que le CL en septembre." },
-  { jour:"11/09", label:"Vendredi 11 sept.", fichier:"2026-09-11-vendredi.html", pnl:-275.50, trades:13, gagnants:4, neutres:0, note:"Copy trading (005/006) · 002 : 3 réentrées en 53 s · 005 : 6 trades entre 17h26 et 18h04 après le signal copié perdant, certains à moins d'une minute d'écart. Sauvé par le 003 (+560 $) — sans lui, −835,50 $. Dédupliqué : 13 signaux uniques. 001 non transmis." },
-  { jour:"10/09", label:"Jeudi 10 sept.", fichier:"2026-09-10-jeudi.html", pnl:-1403.00, trades:19, gagnants:4, neutres:0, note:"Copy trading (001/002) · 006 : 3 entrées en 51 s sur position perdante · 005 : réentrée 7 s après clôture · nouveau compte « 003 » repris et tradé le jour même (MCL à 10 contrats). Dédupliqué : 19 signaux uniques. 004 clôturé." },
-  { jour:"09/09", label:"Mercredi 9 sept.", fichier:"2026-09-09-mercredi.html", pnl:594.00, trades:1, gagnants:1, neutres:0, note:"Compte 001 seul reçu · un seul short MNQ tenu 9 min, +594 $ · autres comptes non transmis." },
-  { jour:"08/09", label:"Mardi 8 sept.",    fichier:"2026-09-08-mardi.html",    pnl:2529.00, trades:1, gagnants:1, neutres:0, note:"TraderSyncer de retour : 001 +844,50 $ · 002 +843 $ · 005 +841,50 $, même short MNQ dupliqué sur 3 comptes malgré la règle 8 — compté comme 1 seul trade. Gagnant cette fois — ne prouve rien après le −1 155,50 $ du 04/09." },
-  { jour:"07/09", label:"Lundi 7 sept.",    fichier:"2026-09-07-lundi.html",    pnl:893.00, trades:4, gagnants:3, neutres:0, note:"Compte 001 seul reçu · long CL (taille standard, ≈10× un MCL) tenu 2h54 → +840 $ · autres comptes non transmis." },
-  { jour:"04/09", label:"Vendredi 4 sept.", fichier:"2026-09-04-vendredi.html", pnl:-1155.50, trades:12, gagnants:3, neutres:0, note:"TraderSyncer copie le même signal sur 001/002/005 toute la séance (9 trades chacun), 006 trade séparément (4 trades) · 001 −281,50$ · 002 −290$ · 005 −290$ · 006 −294$ · Total −1 155,50$. Dédupliqué : 12 signaux uniques pour 31 lignes CSV (corrigé le 21/09 : 3 copies à 4 ticks d'écart, même seconde, avaient été comptées à part ; l'ancien « 36 lignes » venait d'un tableau mal étiqueté). Chômage + copy trading = règles 3 et 8 ajoutées." },
-  { jour:"03/09", label:"Jeudi 3 sept.",    fichier:"2026-09-03-jeudi.html",    pnl:-586.5, trades:5, gagnants:0, neutres:0, note:"2 comptes · 3 shorts consécutifs · même pattern 28/08. Dédupliqué : 5 signaux uniques, tous perdants (l'ancienne note comptait 8 trades et 1 gagnant)." },
-  { jour:"02/09", label:"Mercredi 2 sept.", fichier:"2026-09-02-mercredi.html", pnl:750, trades:6, gagnants:4, neutres:0, note:"3 comptes · stop ouverture → retournement short → long final +550 $. Dédupliqué : 6 signaux uniques, 4 gagnants (corrigé le 21/09 : 001 et 005 entrent et sortent à la même seconde, prix à 3,5 pts d'écart — un seul signal copié, pas deux)." },
-  { jour:"01/09", label:"Mardi 1er sept.",  fichier:"2026-09-01-mardi.html",    pnl:721.50, trades:2, gagnants:2, neutres:0, note:"…006 · 2 longs MNQU6 · +6 $ (scalp) + 715,50 $ (43 min, +119 pts) · net +718 $." },
-  { jour:"31/08", label:"Lundi 31 août",    fichier:"2026-08-31-lundi.html",    pnl:0, trades:0, gagnants:0, neutres:0, note:"Aucun trade. Plan respecté — pas de setup valable. Dernier jour d'août." },
-  { jour:"28/08", label:"Vendredi 28 août", fichier:"2026-08-28-vendredi.html", pnl:-167.00, trades:6, gagnants:2, neutres:1, note:"Compte …006 −298 $ (3 shorts consécutifs contre tendance) · Compte …001 +131 $ (3 longs) · net −167 $." },
-  { jour:"27/08", label:"Jeudi 27 août",    fichier:"2026-08-27-jeudi.html",    pnl:-72.00, trades:5, gagnants:4, neutres:0, note:"…006 · 5 scalps MNQU6 · 4 gagnants (+3, +5, +8,50, +2 $) · 1 stop −90,50 $ en 52 s · net −72 $." },
-  { jour:"26/08", label:"Mercredi 26 août", fichier:"2026-08-26-mercredi.html", pnl:160.50, trades:6, gagnants:5, neutres:0, note:"…006 · 2 scalps or +127 $ · 1 short MNQ −179 $ · 3 longs MNQ +212,50 $ · net +160,50 $." },
-  { jour:"25/08", label:"Mardi 25 août", fichier:"2026-08-25-mardi.html", pnl:-457.00, trades:9, gagnants:4, neutres:0,
+  { jour:"25/09", label:"Vendredi 25 sept.", fichier:"2026-09-25-vendredi.html", pnl:-403.00, trades:7, gagnants:2, neutres:1, rt:[7,3,361], planOk:false, planWhy:"7 trades (max 3), 3 trades après le verrou des 2 pertes, 6 contrats sur un trade (plafond 4), entrées à moins de 10 min d'une perte", note:"Sept trades, quatre pertes : 001 6E Long +225 $, 001 MNQ Long en deux entrées −539 $, 002 MNQ Short 6 contrats +549 $ (journée à +235 $ à 16h19), puis le 002 enchaîne Long −244 $, Short en BE +10 $, Long −206 $, Short −198 $. 7 trades pour un maximum de 3, trois entrées après le verrou des deux pertes, trois entrées à moins de 10 min d'une perte (règle 6), 6 contrats sur un trade (plafond 4)." },
+  { jour:"24/09", label:"Jeudi 24 sept.", fichier:"2026-09-24-jeudi.html", pnl:-566.00, trades:3, gagnants:0, neutres:0, rt:[3,0,0], planOk:false, planWhy:"3e trade pris après 2 pertes (lockout)", note:"Trois trades, trois pertes : 002 MCL Long 2 contrats −98 $ (10h29), 002 MNQ Short 3 contrats −216 $ (15h55, stoppé en 5 min, biais baissier noté sur ta capture), 001 MNQ Short 3 contrats −252 $ (16h45) — ce dernier pris après deux pertes, donc lockout non respecté. Un seul compte à la fois, règle 6 respectée (45 min après la perte). Le trade du 001 est sorti en deux fills (une seule position)." },
+  { jour:"23/09", label:"Mercredi 23 sept.", fichier:"2026-09-23-mercredi.html", pnl:27.00, trades:2, gagnants:0, neutres:2, rt:[2,0,0], planOk:true, note:"Deux break-even en stratégie V2 (IFVG 5M après 15h30, stop remonté à l'entrée), un seul compte à la fois : 001 Long 1 MNQ 16h35→17h51 (+8 $, R:R planifié 2,14) puis 002 Short 2 MNQ 18h14→19h43 (+19 $, stop non transmis). 3 contrats au total, pas de copy trading." },
+  { jour:"22/09", label:"Mardi 22 sept.", fichier:"2026-09-22-mardi.html", pnl:204.00, trades:1, gagnants:1, neutres:0, rt:[1,0,0], planOk:true, note:"Gagnant (+204 $), mais entrée que tu remets toi-même en cause : visée ~800 points au lieu d'un deuxième IFVG à 150 points de risque et R:R 2,5. Long MNQ sur 001, 1 contrat, tenu plus de 5h. Aucun autre compte transmis." },
+  { jour:"21/09", label:"Lundi 21 sept.", fichier:"2026-09-21-lundi.html", pnl:549.00, trades:1, gagnants:1, neutres:0, rt:[1,0,0], planOk:true, note:"1 seul trade, sur le compte 001 : Long MNQ en 2 contrats (sous le plafond de 4), tenu 33 min, +549 $ — journée que tu décris comme conforme au plan. Aucun autre compte transmis." },
+  { jour:"18/09", label:"Vendredi 18 sept.", fichier:"2026-09-18-vendredi.html", pnl:-2095.00, trades:6, gagnants:1, neutres:0, rt:[6,4,-817.5], planOk:false, planWhy:"6 trades (max 3), compte A en 8 contrats (plafond 4)", note:"Nouveau compte « A » ouvert et tradé en 8 contrats dès le 1er jour — 3 trades, tous perdants, −1 176 $ à lui seul. Copy trading 001/002/003 (même seconde, même sortie, prix à 1,5 pt près). Seul trade gagnant : un scalp de +2,50 $ sur 001 (1 contrat, 2 secondes), ajouté le 21/09 après un export complété." },
+  { jour:"17/09", label:"Jeudi 17 sept.", fichier:"2026-09-17-jeudi.html", pnl:-1080.50, trades:6, gagnants:2, neutres:0, rt:[6,2,-531], planOk:false, planWhy:"6 trades (max 3), 6 contrats sur le compte 004 (plafond 4)", note:"Nouveau compte « 004 » racheté et tradé le jour même : +105 $ (2 trades gagnants sur 3), seul compte gagnant, mais 6 contrats dès le 1er jour (hors gabarit). Copy trading 001/006 (short) et 002/003 (long) sur le même mouvement, en sens opposés — personne n'a gagné sur ces trades-là." },
+  { jour:"16/09", label:"Mercredi 16 sept.", fichier:"2026-09-16-mercredi.html", pnl:343.50, trades:1, gagnants:1, neutres:0, rt:[1,0,0], planOk:true, note:"Nouvelle strat testée : biais haussier, 2 IFVG 5M, TP visant un R:R de 2 — même signal copié sur 001/003 (compté comme 1 trade), tenu 2h14, gagnant sur les deux. Le plan n'a pas été suivi à 100 % mais le cadre était là." },
+  { jour:"15/09", label:"Mardi 15 sept.", fichier:"2026-09-15-mardi.html", pnl:-1108.00, trades:13, gagnants:2, neutres:0, rt:[13,9,-470], planOk:false, planWhy:"13 trades (max 3)", note:"5 comptes actifs — dédupliqué : 13 signaux uniques, dont 6 copiés entre 001/003/005 entre 17h00 et 17h34 (même prix, même minute, comptés une fois). 002 : 2 trades (−187,50 $, 17h41 et 18h29) absents de l'export initial, ajoutés le 21/09. Pas de full-size aujourd'hui (tout en MNQ micro)." },
+  { jour:"14/09", label:"Lundi 14 sept.", fichier:"2026-09-14-lundi.html", pnl:-1521.00, trades:15, gagnants:4, neutres:0, rt:[15,9,-849], planOk:false, planWhy:"15 trades (max 3)", note:"5 comptes, tous perdants — pas de copy trading évident cette fois, juste une journée uniformément mauvaise. 006 et 003 : GC (gold taille standard) au lieu de MGC, même remarque que le CL en septembre." },
+  { jour:"11/09", label:"Vendredi 11 sept.", fichier:"2026-09-11-vendredi.html", pnl:-275.50, trades:13, gagnants:4, neutres:0, rt:[11,5,-444], note:"Copy trading (005/006) · 002 : 3 réentrées en 53 s · 005 : 6 trades entre 17h26 et 18h04 après le signal copié perdant, certains à moins d'une minute d'écart. Sauvé par le 003 (+560 $) — sans lui, −835,50 $. Dédupliqué : 13 signaux uniques. 001 non transmis." },
+  { jour:"10/09", label:"Jeudi 10 sept.", fichier:"2026-09-10-jeudi.html", pnl:-1403.00, trades:19, gagnants:4, neutres:0, rt:[18,9,-139], note:"Copy trading (001/002) · 006 : 3 entrées en 51 s sur position perdante · 005 : réentrée 7 s après clôture · nouveau compte « 003 » repris et tradé le jour même (MCL à 10 contrats). Dédupliqué : 19 signaux uniques. 004 clôturé." },
+  { jour:"09/09", label:"Mercredi 9 sept.", fichier:"2026-09-09-mercredi.html", pnl:594.00, trades:1, gagnants:1, neutres:0, rt:[1,0,0], note:"Compte 001 seul reçu · un seul short MNQ tenu 9 min, +594 $ · autres comptes non transmis." },
+  { jour:"08/09", label:"Mardi 8 sept.",    fichier:"2026-09-08-mardi.html",    pnl:2529.00, trades:1, gagnants:1, neutres:0, rt:[1,0,0], note:"TraderSyncer de retour : 001 +844,50 $ · 002 +843 $ · 005 +841,50 $, même short MNQ dupliqué sur 3 comptes malgré la règle 8 — compté comme 1 seul trade. Gagnant cette fois — ne prouve rien après le −1 155,50 $ du 04/09." },
+  { jour:"07/09", label:"Lundi 7 sept.",    fichier:"2026-09-07-lundi.html",    pnl:893.00, trades:4, gagnants:3, neutres:0, rt:[4,0,0], note:"Compte 001 seul reçu · long CL (taille standard, ≈10× un MCL) tenu 2h54 → +840 $ · autres comptes non transmis." },
+  { jour:"04/09", label:"Vendredi 4 sept.", fichier:"2026-09-04-vendredi.html", pnl:-1155.50, trades:12, gagnants:3, neutres:0, rt:[10,5,-254.5], note:"TraderSyncer copie le même signal sur 001/002/005 toute la séance (9 trades chacun), 006 trade séparément (4 trades) · 001 −281,50$ · 002 −290$ · 005 −290$ · 006 −294$ · Total −1 155,50$. Dédupliqué : 12 signaux uniques pour 31 lignes CSV (corrigé le 21/09 : 3 copies à 4 ticks d'écart, même seconde, avaient été comptées à part ; l'ancien « 36 lignes » venait d'un tableau mal étiqueté). Chômage + copy trading = règles 3 et 8 ajoutées." },
+  { jour:"03/09", label:"Jeudi 3 sept.",    fichier:"2026-09-03-jeudi.html",    pnl:-586.5, trades:5, gagnants:0, neutres:0, rt:[5,1,-7.5], note:"2 comptes · 3 shorts consécutifs · même pattern 28/08. Dédupliqué : 5 signaux uniques, tous perdants (l'ancienne note comptait 8 trades et 1 gagnant)." },
+  { jour:"02/09", label:"Mercredi 2 sept.", fichier:"2026-09-02-mercredi.html", pnl:750, trades:6, gagnants:4, neutres:0, rt:[4,1,350.5], note:"3 comptes · stop ouverture → retournement short → long final +550 $. Dédupliqué : 6 signaux uniques, 4 gagnants (corrigé le 21/09 : 001 et 005 entrent et sortent à la même seconde, prix à 3,5 pts d'écart — un seul signal copié, pas deux)." },
+  { jour:"01/09", label:"Mardi 1er sept.",  fichier:"2026-09-01-mardi.html",    pnl:721.50, trades:2, gagnants:2, neutres:0, rt:[2,0,0], note:"…006 · 2 longs MNQU6 · +6 $ (scalp) + 715,50 $ (43 min, +119 pts) · net +718 $." },
+  { jour:"31/08", label:"Lundi 31 août",    fichier:"2026-08-31-lundi.html",    pnl:0, trades:0, gagnants:0, neutres:0, rt:[0,0,0], note:"Aucun trade. Plan respecté — pas de setup valable. Dernier jour d'août." },
+  { jour:"28/08", label:"Vendredi 28 août", fichier:"2026-08-28-vendredi.html", pnl:-167.00, trades:6, gagnants:2, neutres:1, rt:[5,3,-113], note:"Compte …006 −298 $ (3 shorts consécutifs contre tendance) · Compte …001 +131 $ (3 longs) · net −167 $." },
+  { jour:"27/08", label:"Jeudi 27 août",    fichier:"2026-08-27-jeudi.html",    pnl:-72.00, trades:5, gagnants:4, neutres:0, rt:[5,1,8.5], note:"…006 · 5 scalps MNQU6 · 4 gagnants (+3, +5, +8,50, +2 $) · 1 stop −90,50 $ en 52 s · net −72 $." },
+  { jour:"26/08", label:"Mercredi 26 août", fichier:"2026-08-26-mercredi.html", pnl:160.50, trades:6, gagnants:5, neutres:0, rt:[4,0,0], note:"…006 · 2 scalps or +127 $ · 1 short MNQ −179 $ · 3 longs MNQ +212,50 $ · net +160,50 $." },
+  { jour:"25/08", label:"Mardi 25 août", fichier:"2026-08-25-mardi.html", pnl:-457.00, trades:9, gagnants:4, neutres:0, rt:[9,4,-109],
     note:"004 −301 $ (2 trades) · 006 −156 $ (7 trades, 4 réentrées <10 min). Recalculé sur CSV réel : 9 trades, pas 11." },
-  { jour:"24/08", label:"Lundi 24 août", fichier:"2026-08-24-lundi.html", pnl:-398.75, trades:10, gagnants:2, neutres:0,
+  { jour:"24/08", label:"Lundi 24 août", fichier:"2026-08-24-lundi.html", pnl:-398.75, trades:10, gagnants:2, neutres:0, rt:[9,5,35],
     note:"001 −506,75 $ · 002 +484 $ (2 longs gagnants) · 004 −376 $. Recalculé sur CSV réel : 10 trades." },
-  { jour:"21/08", label:"Vendredi 21 août", fichier:"2026-08-21-vendredi.html", pnl:-1255.50, trades:21, gagnants:4, neutres:0,
+  { jour:"21/08", label:"Vendredi 21 août", fichier:"2026-08-21-vendredi.html", pnl:-1255.50, trades:21, gagnants:4, neutres:0, rt:[17,9,-224],
     note:"4 comptes actifs · MCL monté à 11 contrats en 11 min sur le 005 (−352 $). Recalculé sur CSV réel : −1 255,50 $, 21 trades (2 trades MGC identiques sur 001, pris à tort pour un doublon lors d'un précédent recalcul)." },
   { jour:"20/08", label:"Jeudi 20 août",    fichier:"2026-08-20-jeudi.html",    pnl:-740.40,  trades:9, gagnants:2, neutres:1 },
   { jour:"19/08", label:"Mercredi 19 août", fichier:"2026-08-19-mercredi.html", pnl:384.16,   trades:4, gagnants:1, neutres:0 },
@@ -3587,6 +3617,85 @@ window.SESSIONS = [
       + '<span class="pw-count"><b>' + okCount + '</b> / ' + ev.length + ' séances dans le plan depuis le ' + ev[ev.length - 1].jour + '</span></div>'
       + '<div class="pw-detail">' + detail + '</div>';
   });
+})();
+</script>
+<script>/* Progression — comparaison semaine après semaine, calculée depuis window.SESSIONS (rt = [trades, ré-entrées < 10 min, P&L des ré-entrées], voir csv/calc-semaine.js) */
+(function(){
+  var RISK_MID = 275;  // milieu de la fourchette 250–300 $ retenue pour septembre
+  function mondayOf(j){
+    var p = j.split('/'), dt = new Date(2026, +p[1] - 1, +p[0]);
+    dt.setDate(dt.getDate() - ((dt.getDay() + 6) % 7));
+    return dt;
+  }
+  function keyOf(dt){ return dt.getFullYear() + '-' + (dt.getMonth() + 1) + '-' + dt.getDate(); }
+  function money(v){ return (v > 0 ? '+' : (v < 0 ? '−' : '')) + Math.abs(Math.round(v)).toLocaleString('fr-FR') + ' $'; }
+  function chip(delta, goodWhen, fmt, title){
+    if(delta === null) return '';
+    var dir = delta > 0 ? '▲' : (delta < 0 ? '▼' : '=');
+    var cls = delta === 0 ? 'flat' : ((goodWhen === 'down') === (delta < 0) ? 'up' : 'down');
+    return '<span class="pg-d ' + cls + '" title="' + title + '">' + dir + (delta === 0 ? '' : ' ' + fmt(Math.abs(delta))) + '</span>';
+  }
+  function build(){
+    var host = document.getElementById('progression');
+    if(!host || !window.SESSIONS) return;
+    var weeks = {}, order = [];
+    window.SESSIONS.forEach(function(s){
+      if(s.pnl === null || !s.rt) return;
+      var mo = mondayOf(s.jour), k = keyOf(mo);
+      if(!weeks[k]){ weeks[k] = { days: [] }; order.push(k); }
+      weeks[k].days.push(s);
+    });
+    var W = order.map(function(k){
+      var d = weeks[k].days, n = 0, r = 0, rp = 0, pnl = 0, sept = 0, ok = 0, ev = 0;
+      d.forEach(function(s){
+        n += s.rt[0]; r += s.rt[1]; rp += s.rt[2]; pnl += s.pnl;
+        if(s.jour.slice(3) === '09') sept += s.pnl;
+        if(typeof s.planOk === 'boolean'){ ev++; if(s.planOk) ok++; }
+      });
+      return { first: d[d.length - 1].jour, last: d[0].jour, days: d.length, n: n, r: r, rp: rp, pct: n ? r / n * 100 : 0,
+               pnl: pnl, R: d.some(function(s){ return s.jour.slice(3) === '09'; }) ? sept / RISK_MID : null, ok: ok, ev: ev };
+    });
+    if(!W.length) return;
+    W.forEach(function(w, i){
+      var older = W[i + 1];
+      w.partial = !older && w.days < 5;
+      w.prev = older && !(!W[i + 2] && older.days < 5) ? older : null;
+    });
+    var latest = W[0], prev = latest.prev;
+    var pctFmt = function(v){ return Math.round(v) + ' pts'; };
+    var h = '';
+    var card = function(lbl, val, cls, note){
+      return '<div class="kpi"><div class="lbl">' + lbl + '</div><div class="val ' + cls + '">' + val + '</div><div class="note">' + note + '</div></div>';
+    };
+    var better = function(delta, goodWhen){ return delta === null || delta === 0 ? '' : ((goodWhen === 'down') === (delta < 0) ? 'pos' : 'neg'); };
+    var dN = prev ? latest.n - prev.n : null, dP = prev ? latest.pct - prev.pct : null;
+    var dPl = prev ? latest.pnl - prev.pnl : null, dOk = prev && latest.ev && prev.ev ? latest.ok - prev.ok : null;
+    h += '<h2 style="margin-top:28px">Semaine du ' + latest.first + ' au ' + latest.last + '</h2>';
+    h += '<div class="pg-cards">'
+      + card('Trades', latest.n, better(dN, 'down'), prev ? 'contre ' + prev.n + ' la semaine précédente (' + (dN > 0 ? '+' : (dN < 0 ? '−' : '')) + Math.abs(dN) + ')' : 'première semaine suivie')
+      + card('Ré-entrées &lt; 10 min', Math.round(latest.pct) + ' %', better(dP, 'down'), latest.r + ' sur ' + latest.n + (prev ? ' · ' + Math.round(prev.pct) + ' % la semaine précédente' : ''))
+      + card('Résultat', money(latest.pnl), latest.pnl > 0 ? 'pos' : (latest.pnl < 0 ? 'neg' : ''), prev ? 'contre ' + money(prev.pnl) + ' la semaine précédente' : '')
+      + card('Jours dans le plan', latest.ev ? latest.ok + ' / ' + latest.ev : '—', better(dOk, 'up'), prev && prev.ev ? 'contre ' + prev.ok + ' / ' + prev.ev + ' la semaine précédente' : '')
+      + '</div>';
+    h += '<h2>Semaine après semaine</h2>';
+    h += '<div class="tbl-wrap"><table class="pg-tbl"><thead><tr><th>Semaine</th><th>Trades</th><th>Ré-entrées &lt; 10 min</th><th>Résultat</th><th>R ≈</th><th>Plan</th></tr></thead><tbody>';
+    W.forEach(function(w, i){
+      var p = w.prev;
+      var label = w.first === w.last ? w.first : w.first + ' → ' + w.last;
+      h += '<tr' + (i === 0 ? ' class="cur"' : '') + '>'
+        + '<td class="pg-w">' + label + (w.partial ? '<small>semaine incomplète (départ du suivi)</small>' : '') + '</td>'
+        + '<td><b>' + w.n + '</b>' + (p ? chip(w.n - p.n, 'down', String, 'Écart de trades vs la semaine précédente (' + p.n + ')') : '') + '</td>'
+        + '<td><b>' + Math.round(w.pct) + ' %</b> <span style="color:var(--muted)">(' + w.r + '/' + w.n + ')</span><span class="pg-bar"><i style="width:' + Math.min(100, Math.round(w.pct)) + '%"></i></span>'
+          + (p ? chip(w.pct - p.pct, 'down', pctFmt, 'Écart vs la semaine précédente (' + Math.round(p.pct) + ' %)') : '') + '</td>'
+        + '<td class="' + (w.pnl > 0 ? 'pos' : (w.pnl < 0 ? 'neg' : '')) + '"><b>' + money(w.pnl) + '</b>' + (p ? chip(w.pnl - p.pnl, 'up', function(v){ return money(v).replace(/^[+−]/, ''); }, 'Écart de résultat vs la semaine précédente (' + money(p.pnl) + ')') : '') + '</td>'
+        + '<td style="color:var(--muted)">' + (w.R === null ? '—' : (w.R > 0 ? '+' : (w.R < 0 ? '−' : '')) + Math.abs(w.R).toFixed(1).replace('.', ',') + ' R') + '</td>'
+        + '<td>' + (w.ev ? w.ok + ' / ' + w.ev : '—') + (p && w.ev && p.ev ? chip(w.ok - p.ok, 'up', String, 'Écart de jours dans le plan vs la semaine précédente') : '') + '</td></tr>';
+    });
+    h += '</tbody></table></div>';
+    h += '<p class="pg-note">Ré-entrée : trade pris moins de 10 minutes après la dernière perte terminée, tous comptes confondus (copy trading compté une fois, une position en plusieurs fills = 1 trade). Recalculé sur les CSV bruts avec csv/calc-semaine.js, à partir du 21/08. « Plan » : jours respectant 3 trades max, 4 contrats max par trade et aucun trade après 2 pertes (évalué depuis le 14/09). R ≈ : résultat ÷ 275 $, septembre uniquement.</p>';
+    host.innerHTML = h;
+  }
+  document.addEventListener('DOMContentLoaded', build);
 })();
 </script>
 <script>/* Menu latéral : les sous-onglets (Tableau de bord, Brief séance) deviennent des sous-entrées du menu, dépliées sous l'onglet actif */

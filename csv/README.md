@@ -62,3 +62,14 @@ explicite :
    en même temps que les modifications HTML.
 5. Si un total semble incohérent avec l'historique, le signaler à
    l'utilisateur plutôt que de l'absorber silencieusement.
+
+## Progression semaine par semaine
+
+`node csv/calc-semaine.js [AAAA-MM-JJ]` recalcule depuis `csv/comptes/*.csv`,
+jour par jour, le nombre de trades (une position en plusieurs fills = 1, copy
+trading = 1), les **ré-entrées** (entrée moins de 10 min après la dernière
+perte terminée, tous comptes) et leur P&L. Les valeurs `rt:[trades,
+ré-entrées, P&L des ré-entrées]` sont à recopier dans `window.SESSIONS`
+(index.html) à chaque nouvelle séance : elles alimentent la page
+« Progression » du tableau de bord et les chiffres du Brief séance.
+

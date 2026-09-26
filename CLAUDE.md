@@ -73,6 +73,9 @@ trade, relecture) — ne pas dupliquer ce CSS/JS dans le fichier de session.
   (true/false : ≤ 3 trades/jour, ≤ 4 contrats par trade, aucun trade après 2
   pertes) et, si false, `planWhy` (raison courte) : le bandeau « Respect du
   plan » du tableau de bord se calcule tout seul depuis ces deux champs.
+- À chaque séance ajoutée, lancer `node csv/calc-semaine.js` et recopier la
+  ligne `rt:[trades, ré-entrées, P&L des ré-entrées]` du jour dans
+  `window.SESSIONS` : la page « Progression » (semaine après semaine) en dépend.
 - Pas d'import CSV dans les pages : c'est Claude qui crée la page de séance
   à partir des exports que l'utilisateur envoie dans le chat.
 - Stop / objectif / R:R par trade : Tradovate n'exporte ni stop ni objectif,
