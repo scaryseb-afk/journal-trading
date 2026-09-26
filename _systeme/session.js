@@ -154,8 +154,9 @@ var SJ_IMG_MAX_WIDTH = 1400;   // px — au-delà, une capture d'écran n'apport
 var SJ_IMG_QUALITY   = 0.82;   // JPEG — largement suffisant pour relire un graphique
 
 function sjSetupDrop(zoneId, inputId, handler){
-  var dz = document.getElementById(zoneId);
-  var fi = document.getElementById(inputId);
+  sjSetupDropEl(document.getElementById(zoneId), document.getElementById(inputId), handler);
+}
+function sjSetupDropEl(dz, fi, handler){
   if(!dz || !fi) return;
   dz.addEventListener('click', function(e){ if(e.target !== fi) fi.click(); });
   dz.addEventListener('dragover', function(e){ e.preventDefault(); dz.classList.add('drag-over'); });
@@ -167,7 +168,7 @@ function sjSetupDrop(zoneId, inputId, handler){
   fi.addEventListener('change', function(){ Array.from(fi.files).forEach(handler); fi.value = ''; });
 }
 
-function sjReadImage(file){
+function sjReadImage(file, key){
   if(!file.type.startsWith('image/')) return;
   var reader = new FileReader();
   reader.onload = function(e){
@@ -179,14 +180,25 @@ function sjReadImage(file){
       canvas.width = w; canvas.height = h;
       canvas.getContext('2d').drawImage(img, 0, 0, w, h);
       var dataUrl = canvas.toDataURL('image/jpeg', SJ_IMG_QUALITY);
-      sjStoreImage(dataUrl, file.size, dataUrl.length);
+      sjStoreImage(dataUrl, file.size, dataUrl.length, key);
     };
     img.onerror = function(){ alert("Impossible de lire cette image."); };
     img.src = e.target.result;
   };
   reader.readAsDataURL(file);
 }
-function sjStoreImage(dataUrl, origBytes, newBytes){
+function sjStoreImage(dataUrl, origBytes, newBytes, key){
+  if(key){
+    var timgs = sjLoadTradeImgs(key);
+    timgs.push(dataUrl);
+    if(!sjSaveTradeImgs(key, timgs)){
+      timgs.pop();
+      alert("Stockage plein : le navigateur limite l'espace disponible pour ce site. Supprime une ancienne capture avant d'en ajouter une nouvelle.");
+      return;
+    }
+    sjRenderTradeShots(key);
+    return;
+  }
   var imgs = [];
   try{ imgs = JSON.parse(localStorage.getItem(sjKeyImgs()) || '[]'); }catch(e){}
   imgs.push(dataUrl);
@@ -226,7 +238,51 @@ function sjInitImages(){
     var imgs = JSON.parse(localStorage.getItem(sjKeyImgs()) || '[]');
     if(imgs.length) sjRenderScreenshots(imgs);
   }catch(e){}
-  sjSetupDrop('img-zone', 'img-input', sjReadImage);
+  sjSetupDrop('img-zone', 'img-input', function(f){ sjReadImage(f); });
+}
+
+/* ---------- Captures sous chaque trade (clé imgs_<session>__<compte>_<n>) ---------- */
+var sjHoverKey = null;
+function sjKeyTradeImgs(key){ return 'imgs_' + SESSION_KEY + '__' + key; }
+function sjLoadTradeImgs(key){ try{ return JSON.parse(localStorage.getItem(sjKeyTradeImgs(key)) || '[]'); }catch(e){ return []; } }
+function sjSaveTradeImgs(key, imgs){
+  try{
+    if(imgs.length) localStorage.setItem(sjKeyTradeImgs(key), JSON.stringify(imgs));
+    else localStorage.removeItem(sjKeyTradeImgs(key));
+    return true;
+  }catch(e){ return false; }
+}
+function sjRenderTradeShots(key){
+  var box = document.querySelector('.trade-shots[data-key="' + key + '"]');
+  if(!box) return;
+  box.querySelector('.trade-shots-list').innerHTML = sjLoadTradeImgs(key).map(function(src, i){
+    return '<div class="screenshot-wrap"><img src="' + src + '" onclick="sjOpenLB(this.src)">'
+         + '<button type="button" class="screenshot-del" onclick="sjDelTradeShot(\'' + key + '\',' + i + ')" title="Supprimer">×</button></div>';
+  }).join('');
+}
+function sjDelTradeShot(key, i){
+  var imgs = sjLoadTradeImgs(key);
+  imgs.splice(i, 1);
+  sjSaveTradeImgs(key, imgs);
+  sjRenderTradeShots(key);
+}
+function sjInitTradeShots(){
+  document.querySelectorAll('tr.note-row').forEach(function(row){
+    var ta = row.querySelector('textarea.trade-note'), cell = row.querySelector('td');
+    if(!ta || !cell || cell.querySelector('.trade-shots')) return;
+    var key = ta.getAttribute('data-key');
+    var box = document.createElement('div');
+    box.className = 'trade-shots';
+    box.setAttribute('data-key', key);
+    box.innerHTML = '<div class="screenshots trade-shots-list"></div>'
+      + '<div class="trade-shots-drop">📸 Ajouter une capture sous ce trade <span>— glisser, cliquer, ou survoler la ligne puis Ctrl+V</span></div>'
+      + '<input type="file" accept="image/*" multiple style="display:none">';
+    cell.appendChild(box);
+    sjSetupDropEl(box.querySelector('.trade-shots-drop'), box.querySelector('input'), function(f){ sjReadImage(f, key); });
+    row.addEventListener('mouseenter', function(){ sjHoverKey = key; });
+    row.addEventListener('mouseleave', function(){ if(sjHoverKey === key) sjHoverKey = null; });
+    sjRenderTradeShots(key);
+  });
 }
 
 /* ---------- Lightbox (zoom plein écran sur une capture) ---------- */
@@ -253,10 +309,16 @@ function sjInitPaste(){
   document.addEventListener('paste', function(e){
     var items = (e.clipboardData && e.clipboardData.items) || [];
     var used = false;
+    var key = sjHoverKey;
+    if(!key){
+      var ae = document.activeElement, row = ae && ae.closest ? ae.closest('tr.note-row') : null;
+      var ta = row ? row.querySelector('textarea.trade-note') : null;
+      if(ta) key = ta.getAttribute('data-key');
+    }
     for(var i = 0; i < items.length; i++){
       if(items[i].type && items[i].type.indexOf('image/') === 0){
         var file = items[i].getAsFile();
-        if(file){ sjReadImage(file); used = true; }
+        if(file){ sjReadImage(file, key || undefined); used = true; }
       }
     }
     if(used) e.preventDefault(); // n'empêche le collage normal que si une image a été trouvée
@@ -627,5 +689,6 @@ function initSessionPage(){
   sjInitTradeNotes();
   sjInitTradeRR();
   sjInitTradeCopy();
+  sjInitTradeShots();
 }
 window.addEventListener('DOMContentLoaded', initSessionPage);

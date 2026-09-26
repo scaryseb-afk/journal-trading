@@ -251,8 +251,10 @@ textarea::placeholder{color:#4A566A}
   background:var(--panel);border:1px solid var(--line);border-left:3px solid var(--dim);
   border-radius:8px;padding:10px 16px;transition:.1s;color:var(--txt);text-decoration:none}
 .sr:hover{border-color:var(--blue);background:var(--panel2)}
-.sr.win{border-left-color:var(--green)}
-.sr.lose{border-left-color:var(--red)}
+.sr.win{border-left-color:var(--green);background:linear-gradient(90deg,var(--green-dim),var(--panel) 45%)}
+.sr.lose{border-left-color:var(--red);background:linear-gradient(90deg,var(--red-dim),var(--panel) 45%)}
+.sr.win:hover{background:linear-gradient(90deg,var(--green-dim),var(--panel2) 45%)}
+.sr.lose:hover{background:linear-gradient(90deg,var(--red-dim),var(--panel2) 45%)}
 .sr.flat{border-left-color:var(--dim)}
 .sr.pending{opacity:.5;border-left-style:dashed}
 .sr-date{font-size:13.5px;font-weight:600;color:var(--txt);display:flex;align-items:center;gap:5px}
@@ -3420,8 +3422,13 @@ window.SESSIONS = [
           if(s.fichier){
             try{
               var skey = s.fichier.replace(/\.html$/,'').replace(/-/g,'_');
-              var imgs = JSON.parse(localStorage.getItem('imgs_' + skey) || '[]');
-              hasImg = imgs.length > 0;
+              // captures générales (imgs_<séance>) ou sous un trade (imgs_<séance>__<trade>)
+              for(var li = 0; li < localStorage.length && !hasImg; li++){
+                var lk = localStorage.key(li);
+                if(lk === 'imgs_' + skey || lk.indexOf('imgs_' + skey + '__') === 0){
+                  try{ hasImg = JSON.parse(localStorage.getItem(lk) || '[]').length > 0; }catch(e2){}
+                }
+              }
               var notes = JSON.parse(localStorage.getItem('notes_' + skey) || '{}');
               var noteCount = Object.keys(notes).filter(function(k){ return /_\d+$/.test(k); }).length;
               if(isToday && s.trades > 0 && noteCount < s.trades) missingReasons = s.trades - noteCount;

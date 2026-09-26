@@ -51,7 +51,9 @@ trade, relecture) — ne pas dupliquer ce CSS/JS dans le fichier de session.
 
 - Captures d'écran : redimensionnées et compressées côté navigateur avant
   stockage (voir `SJ_IMG_MAX_WIDTH`/`SJ_IMG_QUALITY` dans `session.js`) pour
-  éviter de saturer le quota localStorage. Stockage 100% local au navigateur
+  éviter de saturer le quota localStorage. Une zone générale par séance
+  (`imgs_<séance>`) et une zone sous chaque trade
+  (`imgs_<séance>__<compte>_<n>`). Stockage 100% local au navigateur
   — invisible pour Claude, donc ne pas s'appuyer dessus pour les calculs.
 - Relecture ("Erreur commise" / "Ce que j'aurais dû faire" / "Ce qui a bien
   fonctionné") : à remplir par Sébastien après la séance, bouton "Copier

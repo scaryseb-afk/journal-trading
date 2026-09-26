@@ -5,6 +5,7 @@
   --green:#4CAF7D; --red:#E0554F;
   --accent:#EDEDEE; --on-accent:#111113; --gold:var(--accent); --blue:var(--accent);
   --white-dim:rgba(255,255,255,.05);
+  --green-dim:rgba(76,175,125,.10); --red-dim:rgba(224,85,79,.12);
 }
 @media(prefers-color-scheme:light){
   :root:not([data-theme="dark"]){
@@ -13,6 +14,7 @@
     --green:#2E8B5E; --red:#B33A34;
     --accent:#17171A; --on-accent:#FFFFFF;
     --white-dim:rgba(0,0,0,.04);
+    --green-dim:rgba(46,139,94,.09); --red-dim:rgba(179,58,52,.09);
   }
 }
 :root[data-theme="light"]{
@@ -21,6 +23,7 @@
   --green:#2E8B5E; --red:#B33A34;
   --accent:#17171A; --on-accent:#FFFFFF;
   --white-dim:rgba(0,0,0,.04);
+  --green-dim:rgba(46,139,94,.09); --red-dim:rgba(179,58,52,.09);
 }
 
 /* ── Reset ── */
@@ -360,3 +363,28 @@ textarea::placeholder{color:var(--dim)}
   .reflect-grid{grid-template-columns:1fr}
   .screenshot-wrap img{max-width:100%}
 }
+
+/* ── Un peu de couleur : teintes rouge/vert selon le résultat (les deux seules couleurs saturées du site) ── */
+.sp-pnl{padding:2px 14px;border-radius:999px}
+.sp-pnl.td-w{background:var(--green-dim)}
+.sp-pnl.td-l{background:var(--red-dim)}
+.sp-header:has(.td-w) ~ .note-block{border-left-color:var(--green)}
+.sp-header:has(.td-l) ~ .note-block{border-left-color:var(--red)}
+.acct-header{align-items:center;padding:9px 14px;border-radius:8px;border-left:3px solid var(--line)}
+.acct-header .acct-label{color:var(--txt)}
+.acct-header:has(.td-w){background:var(--green-dim);border-left-color:var(--green)}
+.acct-header:has(.td-l){background:var(--red-dim);border-left-color:var(--red)}
+.trades-table tr.trade-row:has(.td-w) td,.trades-table tr.trade-row:has(.td-w) + tr.note-row td{background:var(--green-dim)}
+.trades-table tr.trade-row:has(.td-l) td,.trades-table tr.trade-row:has(.td-l) + tr.note-row td{background:var(--red-dim)}
+.total-bar{border-left:3px solid var(--line)}
+.total-bar:has([style*="--green"]){background:var(--green-dim);border-left-color:var(--green)}
+.total-bar:has([style*="--red"]){background:var(--red-dim);border-left-color:var(--red)}
+
+/* ── Captures sous chaque trade ── */
+.trade-shots{margin-top:10px}
+.trade-shots-list:empty{display:none}
+.trade-shots .screenshots{margin-bottom:10px}
+.trade-shots .screenshot-wrap{flex:1 1 340px;max-width:560px}
+.trade-shots-drop{border:1px dashed var(--line);border-radius:8px;padding:9px 12px;font-size:12px;font-weight:600;color:var(--muted);text-align:center;cursor:pointer;transition:.15s;background:var(--bg)}
+.trade-shots-drop span{font-weight:400;color:var(--dim)}
+.trade-shots-drop:hover,.trade-shots-drop.drag-over{border-color:var(--muted);color:var(--txt)}
