@@ -53,6 +53,7 @@ h3{font-size:19px;font-weight:600;margin:0 0 4px}
 .nav a:hover{color:var(--txt);text-decoration:none}
 .nav a.on{color:var(--gold);font-weight:650}
 .nav a[data-goto="regles"]{margin-left:auto}
+.nav-sub{display:none}
 /* Grand écran : le menu devient une bannière fixe à gauche ; en dessous de 960 px, barre du haut comme avant */
 @media(min-width:960px){
   body{padding-left:232px}
@@ -68,6 +69,11 @@ h3{font-size:19px;font-weight:600;margin:0 0 4px}
   .nav a.on{background:var(--white-dim);color:var(--txt);box-shadow:inset 3px 0 0 var(--accent)}
   .nav a[data-goto="regles"]{margin-left:0}
   #theme-toggle{margin-top:auto}
+  /* les sous-onglets passent dans le menu, sous l'onglet actif */
+  .nav a.on + .nav-sub{display:flex;flex-direction:column;gap:1px;margin:2px 0 8px 16px;padding-left:10px;border-left:1px solid var(--line)}
+  .nav-sub a{padding:6px 10px;font-size:13px;border-radius:6px}
+  .nav .nav-sub a.on{background:var(--white-dim);color:var(--txt);box-shadow:none;font-weight:700}
+  .wrap .subnav{display:none}
 }
 
 .kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:18px;margin-top:36px}
@@ -3499,6 +3505,32 @@ window.SESSIONS = [
   document.addEventListener('DOMContentLoaded', function(){
     analyse(); renderSessions(); comptes(); risque();
     initSubnav('dash-subnav'); initSubnav('brief-subnav');
+  });
+})();
+</script>
+<script>/* Menu latéral : les sous-onglets (Tableau de bord, Brief séance) deviennent des sous-entrées du menu, dépliées sous l'onglet actif */
+(function(){
+  document.addEventListener('DOMContentLoaded', function(){
+    [['dashboard', 'dash-subnav'], ['brief', 'brief-subnav']].forEach(function(pair){
+      var main = document.querySelector('.nav a[data-goto="' + pair[0] + '"]');
+      var bar = document.getElementById(pair[1]);
+      if(!main || !bar) return;
+      var box = document.createElement('div');
+      box.className = 'nav-sub';
+      var links = [];
+      bar.querySelectorAll('.sn-btn').forEach(function(btn){
+        var a = document.createElement('a');
+        a.href = '#';
+        a.textContent = btn.textContent;
+        a.addEventListener('click', function(e){ e.preventDefault(); btn.click(); window.scrollTo(0, 0); });
+        box.appendChild(a);
+        links.push([a, btn]);
+      });
+      main.insertAdjacentElement('afterend', box);
+      function sync(){ links.forEach(function(p){ p[0].classList.toggle('on', p[1].classList.contains('active')); }); }
+      new MutationObserver(sync).observe(bar, {attributes: true, subtree: true, attributeFilter: ['class']});
+      sync();
+    });
   });
 })();
 </script>

@@ -8,7 +8,11 @@ GitHub Pages (`scaryseb-afk.github.io/journal-trading`) depuis la branche
 jour », trades prévus avant le CSV), Sessions et Règles dans une seule page
 (`data-goto`/`.view` — pas de rechargement, l'onglet actif est dans le hash :
 `#brief`, `#sessions`…). Le menu est une bannière fixe à gauche dès 960 px
-(barre du haut en dessous), thème en bas du menu. Les pages de séance
+(barre du haut en dessous), thème en bas du menu. Sur grand écran, les
+sous-onglets du Tableau de bord et du Brief (`.subnav`/`.sn-btn`) sont
+reproduits en sous-entrées du menu sous l'onglet actif (générées depuis
+`.sn-btn` : un nouveau `.sn-btn` apparaît tout seul) et la barre dans la page
+est masquée. Les pages de séance
 injectent le même menu (`.side-nav`, dans `session.js`) et partagent le thème
 (`journal-theme`).
 Les règles avaient leur propre fichier (`rules.html`) jusqu'au 23/09/2026 ;
