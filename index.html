@@ -3068,10 +3068,15 @@ window.SESSIONS = [
     }
 
     // ── Discipline notes ── sessions with rule violations
-    var violations = sessions.filter(function(s){
+    // Depuis le 14/09 : critère structuré (planOk). Avant : violations écrites dans les notes de séance.
+    var violations = traded.filter(function(s){
+      if(typeof s.planOk === 'boolean') return !s.planOk;
       return s.note && (s.note.indexOf('consécutif') !== -1 || s.note.indexOf('règle') !== -1 || s.note.indexOf('pattern') !== -1);
     });
-    var cleanDays = sessions.length - violations.length;
+    var cleanDays = traded.length - violations.length;
+    var violPct = traded.length ? Math.round(violations.length / traded.length * 100) : 0;
+    var evalDays = traded.filter(function(s){ return typeof s.planOk === 'boolean'; });
+    var evalViol = evalDays.filter(function(s){ return !s.planOk; }).length;
 
     // ── P&L by month ──
     var byMonth = {};
@@ -3100,14 +3105,16 @@ window.SESSIONS = [
     // ── Discipline tracker ──
     h += '<div class="big" style="margin-top:20px;border-color:' + (violations.length === 0 ? 'rgba(60,180,100,.4)' : 'rgba(220,60,60,.4)') + '">';
     h += '<div class="l">Discipline</div>';
-    h += '<div class="t">' + cleanDays + ' / ' + sessions.length + ' séances sans violation de règle documentée</div>';
+    h += '<div class="t">' + violPct + ' % des séances avec une violation de règle</div>';
     h += '<div class="d">';
-    if(violations.length === 0){
-      h += 'Aucune violation identifiée dans les notes de séance.';
-    } else {
-      h += '<strong>Violations détectées (' + violations.length + ') :</strong><br>';
+    h += '<strong>' + violations.length + ' séances sur ' + traded.length + '</strong> tradées ont au moins une violation (' + cleanDays + ' sans).';
+    if(evalDays.length){
+      h += '<br>Depuis le ' + evalDays[0].jour + ', où le respect du plan est évalué séance par séance : <strong>' + evalViol + ' sur ' + evalDays.length + ' hors plan (' + Math.round(evalViol / evalDays.length * 100) + ' %)</strong>. Avant cette date, ce sont les violations écrites dans les notes de séance.';
+    }
+    if(violations.length){
+      h += '<br><br><strong>Détail des violations :</strong><br>';
       violations.forEach(function(s){
-        h += '· <strong>' + s.jour + '</strong> — ' + s.note + '<br>';
+        h += '· <strong>' + s.jour + '</strong> — ' + (s.planWhy || s.note) + '<br>';
       });
     }
     h += '</div></div>';
