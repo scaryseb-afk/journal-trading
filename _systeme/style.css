@@ -369,10 +369,13 @@ textarea::placeholder{color:var(--dim)}
 .sp-pnl.td-l{background:var(--red-dim)}
 .sp-header:has(.td-w) ~ .note-block{border-left-color:var(--green)}
 .sp-header:has(.td-l) ~ .note-block{border-left-color:var(--red)}
-.acct-header{align-items:center;padding:9px 14px;border-radius:8px;border-left:3px solid var(--line)}
-.acct-header .acct-label{color:var(--txt)}
-.acct-header:has(.td-w){background:var(--green-dim);border-left-color:var(--green)}
-.acct-header:has(.td-l){background:var(--red-dim);border-left-color:var(--red)}
+/* Bandeau de compte : centré et plus gros, pour le distinguer des trades qu'il contient */
+.acct-header{flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:2px;
+  margin:36px 0 12px;padding:16px 18px;border-radius:12px;border-top:4px solid var(--line)}
+.acct-header .acct-label{font-size:17px;font-weight:800;letter-spacing:.07em;color:var(--txt)}
+.acct-header .acct-pnl{font-size:18px}
+.acct-header:has(.td-w){background:var(--green-dim);border-top-color:var(--green)}
+.acct-header:has(.td-l){background:var(--red-dim);border-top-color:var(--red)}
 .trades-table tr.trade-row:has(.td-w) td,.trades-table tr.trade-row:has(.td-w) + tr.note-row td{background:var(--green-dim)}
 .trades-table tr.trade-row:has(.td-l) td,.trades-table tr.trade-row:has(.td-l) + tr.note-row td{background:var(--red-dim)}
 .total-bar{border-left:3px solid var(--line)}
