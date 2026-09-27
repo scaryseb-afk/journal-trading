@@ -17,7 +17,12 @@ sous-page) et la barre dans la page est masquée. Chaque sous-page du Tableau de
 et les widgets du haut (score de confluence, respect du plan, cartes) ne sont que
 sur « Vue d'ensemble ». Les pages de séance
 injectent le même menu (`.side-nav`, dans `session.js`) et partagent le thème
-(`journal-theme`).
+(`journal-theme`). Adaptations iOS/Safari mobile : meta
+`apple-mobile-web-app-*` + `apple-touch-icon.png` (icône générée avec
+`_systeme/` — à refaire avec le même script si la palette change), champs de
+saisie forcés à 16px sous 700px (sinon Safari zoome au focus), marges
+`env(safe-area-inset-*)` (encoche, barre gestuelle) sur `.nav`/`.side-nav`/
+`.wrap`, `-webkit-tap-highlight-color:transparent` sur liens/boutons.
 Les règles avaient leur propre fichier (`rules.html`) jusqu'au 23/09/2026 ;
 tout son contenu et sa logique (score de confluence, checklist, trades du
 jour, score de discipline, violations, streak, pause) vivent maintenant
