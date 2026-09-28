@@ -2894,6 +2894,7 @@ window.SESSIONS = [
     try{ localStorage.setItem('journal-comptes-sort', mode); }catch(e){}
     comptes();
   }
+  window.setComptesSort = setComptesSort;  // appelé depuis l'attribut onclick du bouton — hors de portée de cette IIFE sinon
 
   function comptes(){
     var host = document.getElementById('comptes');
@@ -2967,12 +2968,23 @@ window.SESSIONS = [
     });
   }
 
+  /* ---------- Simulation R:R 2:1 pour les trades sans R:R noté (règle 1 : minimum 2:1) ---------- */
+  var RR_SIMULATE = false;
+  try{ RR_SIMULATE = localStorage.getItem('journal-rr-simulate') === '1'; }catch(e){}
+  function setRRSimulate(on){
+    RR_SIMULATE = on;
+    try{ localStorage.setItem('journal-rr-simulate', on ? '1' : '0'); }catch(e){}
+    risque();
+  }
+  window.setRRSimulate = setRRSimulate;  // appelé depuis l'attribut onchange de la case à cocher — hors de portée de cette IIFE sinon
+
   /* ---------- Risque / R:R ---------- */
   function risque(){
     var host = document.getElementById('rr');
     if(!host || !window.TRADES) return;
 
     var docs = window.TRADES.filter(function(t){ return (t.stop !== null && t.objectif !== null) || t.rrManuel; });
+    var undoc = window.TRADES.filter(function(t){ return !(t.stop !== null && t.objectif !== null) && !t.rrManuel; });
     var rows = docs.map(function(t){
       if(t.rrManuel){
         return { t: t, risk: null, rew: null, rr: t.rr, r: null, riskUsd: null };
@@ -2991,19 +3003,33 @@ window.SESSIONS = [
     // stats qui exigent un risque réel en points/dollars (R réalisé, winrate, risque max engagé).
     var realRows = rows.filter(function(x){ return x.r !== null; });
     var riskUsds = rows.map(function(x){ return x.riskUsd; }).filter(function(v){ return v !== null; });
+    var manuels  = rows.length - realRows.length;
 
-    var rrMoy = rows.reduce(function(a,x){ return a + x.rr; }, 0) / rows.length;
+    // Simulation (case cochée) : les trades sans aucun R:R noté sont supposés au minimum de la règle 1 (2:1).
+    // N'entre que dans la moyenne planifiée et le seuil de réussite — jamais dans le R réalisé, le winrate
+    // ou le risque en $, qui exigent un vrai stop en points (un R:R seul ne le donne pas).
+    var simRows = RR_SIMULATE ? undoc.map(function(t){ return { t: t, risk: null, rew: null, rr: 2, r: null, riskUsd: null, simulated: true }; }) : [];
+    var allRows = rows.concat(simRows);
+
+    var rrMoy = allRows.reduce(function(a,x){ return a + x.rr; }, 0) / allRows.length;
     var rTot  = realRows.reduce(function(a,x){ return a + x.r; }, 0);
     var seuil = 100 / (1 + rrMoy);
     var gagnants = realRows.filter(function(x){ return x.r > 0 && !x.t.be; }).length;
     var winReel  = realRows.length ? (gagnants / realRows.length * 100) : 0;
     var ecart    = winReel - seuil;
-    var manuels  = rows.length - realRows.length;
 
-    var h = '<div class="kpis kpis-rr" style="margin-top:0">'
+    var rrNote = rows.length + ' trades documentés' + (manuels ? ' (' + manuels + ' en R:R déclaré, sans stop)' : '');
+    if(RR_SIMULATE) rrNote += ' + ' + simRows.length + ' simulés à 2:1 (règle 1, sans info)';
+
+    var h = '<label style="display:flex;align-items:center;gap:8px;font-size:13px;color:var(--muted);margin-bottom:14px;cursor:pointer">'
+      + '<input type="checkbox" id="rr-sim-check" ' + (RR_SIMULATE ? 'checked' : '') + ' onchange="setRRSimulate(this.checked)" style="width:15px;height:15px;accent-color:var(--accent);cursor:pointer">'
+      + 'Simuler R:R 2:1 pour les ' + undoc.length + ' trades sans aucun R:R noté (minimum de la règle 1)'
+      + '</label>';
+    h += '<p style="color:var(--dim);font-size:12.5px;margin:-8px 0 16px">Affecte seulement le R:R planifié moyen et le seuil de réussite ci-dessous — le R réalisé, le winrate et le risque en $ restent calculés sur les trades avec un vrai stop, une supposition de R:R ne suffit pas à les recalculer.</p>';
+    h += '<div class="kpis kpis-rr" style="margin-top:0">'
       + kpi('R:R planifié moyen',
             rrMoy.toFixed(2) + ' : 1',
-            rows.length + ' trades documentés' + (manuels ? ' (' + manuels + ' en R:R déclaré, sans stop)' : ''))
+            rrNote)
       + kpi('R cumulé réalisé',
             (rTot >= 0 ? '+' : '−') + Math.abs(rTot).toFixed(2) + 'R',
             'Moy. ' + (rTot/realRows.length >= 0 ? '+' : '−') + Math.abs(rTot/realRows.length).toFixed(2) + 'R / trade',
