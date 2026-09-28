@@ -77,7 +77,7 @@ h3{font-size:18px;font-weight:600;margin:0 0 4px}
   .nav a[data-goto="regles"]{margin-left:0}
   #theme-toggle{margin-top:auto;margin-bottom:env(safe-area-inset-bottom)}
   /* les sous-onglets passent dans le menu, sous l'onglet actif */
-  .nav a.on + .nav-sub{display:flex;flex-direction:column;gap:1px;margin:2px 0 8px 16px;padding-left:10px;border-left:1px solid var(--line)}
+  .nav-sub{display:flex;flex-direction:column;gap:1px;margin:2px 0 8px 16px;padding-left:10px;border-left:1px solid var(--line)}
   .nav-sub a{padding:6px 10px;font-size:13px;border-radius:6px}
   .nav a.on.in-sub{background:none;box-shadow:none;font-weight:700}
   .nav .nav-sub a.on{background:color-mix(in srgb,var(--accent) 12%,transparent);color:var(--accent);box-shadow:none;font-weight:700}
@@ -647,20 +647,20 @@ select.plan-input{cursor:pointer}
 <div class="wrap">
 <nav class="nav">
   <div class="nav-brand"><b>Journal de trading</b><span>Futures · Tradovate / Lucid</span></div>
-  <a href="#dashboard" data-goto="dashboard">Tableau de bord</a>
-  <a href="#brief" data-goto="brief">Brief séance</a>
+  <a href="#dashboard" data-goto="dashboard">📊 Tableau de bord</a>
+  <a href="#brief" data-goto="brief">🧭 Brief séance</a>
   <a href="#brouillon" data-goto="brouillon">📝 Brouillon</a>
-  <a href="#sessions" data-goto="sessions">Sessions</a>
+  <a href="#sessions" data-goto="sessions">🗓️ Sessions</a>
   <a href="#regles" data-goto="regles">⛔ Règles</a>
   <button id="theme-toggle" title="Changer le thème" style="background:var(--panel);border:1px solid var(--line);color:var(--muted);border-radius:999px;padding:6px 14px;font-size:12.5px;font-weight:650;cursor:pointer;letter-spacing:.04em;transition:.15s;font-family:inherit">⚙️ Système</button>
 </nav>
 <section class="view" id="view-dashboard">
   <div class="subnav" id="dash-subnav">
-    <button class="sn-btn active" data-sub="overview" data-nosidebar>Vue d'ensemble</button>
-    <button class="sn-btn" data-sub="progression">Progression</button>
-    <button class="sn-btn" data-sub="comptes">Comptes &amp; Analyse</button>
-    <button class="sn-btn" data-sub="risque">Risque &amp; R:R</button>
-    <button class="sn-btn" data-sub="bilan">Bilan &amp; Règles</button>
+    <button class="sn-btn active" data-sub="overview" data-nosidebar>🔎 Vue d'ensemble</button>
+    <button class="sn-btn" data-sub="progression">📈 Progression</button>
+    <button class="sn-btn" data-sub="comptes">🧮 Comptes &amp; Analyse</button>
+    <button class="sn-btn" data-sub="risque">⚖️ Risque &amp; R:R</button>
+    <button class="sn-btn" data-sub="bilan">📑 Bilan &amp; Règles</button>
   </div>
 
   <div class="subview active" data-subview="overview">
@@ -775,7 +775,7 @@ select.plan-input{cursor:pointer}
   <p class="eyebrow">Tableau de bord</p>
   <h1>Risque &amp; R:R</h1>
   <h2>Risque et R:R</h2>
-  <p class="sub">Calculé uniquement sur les trades dont le stop initial est connu. <strong style="color:var(--gold)">S'arrête au 25/08</strong> — les trades du 21/08 au 09/09 n'ont pas de stop/objectif enregistré (le CSV Tradovate ne les contient pas). Utilise le bloc "📤 Importer un CSV" sur une page de session pour saisir stop/objectif par trade et voir le R:R se calculer — envoie-moi les valeurs si tu veux qu'elles remontent ici.</p>
+  <p class="sub">Calculé uniquement sur les trades dont le stop et l'objectif sont connus (le CSV Tradovate ne les contient pas). <strong style="color:var(--accent)">Dernier trade documenté : 23/09</strong> — rien depuis pour les séances du 24, du 25 et du 28/09. Remplis les champs « Stop » et « Objectif » (ou « R:R » si tu ne les as pas notés) sous le trade concerné sur sa page de séance, clique « Copier ce trade », et colle-le moi ici : c'est comme ça que ça remonte dans ce tableau.</p>
   <div id="rr"></div>
 
   </div>
@@ -898,11 +898,11 @@ select.plan-input{cursor:pointer}
   <p class="sub">Ce qu'il faut faire, ce qu'il ne faut pas faire. Construit uniquement à partir de tes journaux.</p>
 
   <div class="subnav" id="brief-subnav">
-    <button class="sn-btn active" data-sub="essentiel" data-nosidebar>L'essentiel</button>
-    <button class="sn-btn" data-sub="consignes">Consignes &amp; actions</button>
-    <button class="sn-btn" data-sub="interdits">Interdits &amp; repères</button>
-    <button class="sn-btn" data-sub="checklist">Checklist</button>
-    <button class="sn-btn" data-sub="comptes">Comptes</button>
+    <button class="sn-btn active" data-sub="essentiel" data-nosidebar>⭐ L'essentiel</button>
+    <button class="sn-btn" data-sub="consignes">✅ Consignes &amp; actions</button>
+    <button class="sn-btn" data-sub="interdits">🚫 Interdits &amp; repères</button>
+    <button class="sn-btn" data-sub="checklist">☑️ Checklist</button>
+    <button class="sn-btn" data-sub="comptes">🏦 Comptes</button>
   </div>
 
   <div class="subview active" data-subview="essentiel">
