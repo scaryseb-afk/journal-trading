@@ -2166,7 +2166,12 @@ window.TRADES = [
   /* ── 23 SEPTEMBRE — Compte 01 (…0001) — stratégie V2, stop/objectif lus sur la capture TradingView ── */
   { jour:"23/09", instrument:"MNQ", sens:"Long", qte:1, compte:"Compte 01",
     entree:30727.75, stop:30664.25, objectif:30863.75, sortie:30731.75, pnl:8.00, tick:2, dec:2, be:true,
-    remarque:"16h35→17h51 (1h15) — stop remonté à BE (prix repassé sous les 3 MME) · sortie +4 pts" }
+    remarque:"16h35→17h51 (1h15) — stop remonté à BE (prix repassé sous les 3 MME) · sortie +4 pts" },
+
+  /* ── 28 SEPTEMBRE — Compte 01 (…0001) — TP atteint, R:R déclaré par Sébastien (stop non transmis, pas recalculé) ── */
+  { jour:"28/09", instrument:"MNQ", sens:"Short", qte:2, compte:"Compte 01",
+    entree:30642.75, stop:null, objectif:30457.25, sortie:30457.25, pnl:742.00, tick:2, dec:2, rr:4.20, rrManuel:true,
+    remarque:"15h40→16h43 (1h03) — objectif atteint, R:R 4,20:1 déclaré · stop non transmis, non recalculé" }
 ];
 
 /* planOk (optionnel) : ≤ 3 trades/jour ET ≤ 4 contrats par trade ET aucun trade ouvert après
@@ -2967,8 +2972,11 @@ window.SESSIONS = [
     var host = document.getElementById('rr');
     if(!host || !window.TRADES) return;
 
-    var docs = window.TRADES.filter(function(t){ return t.stop !== null && t.objectif !== null; });
+    var docs = window.TRADES.filter(function(t){ return (t.stop !== null && t.objectif !== null) || t.rrManuel; });
     var rows = docs.map(function(t){
+      if(t.rrManuel){
+        return { t: t, risk: null, rew: null, rr: t.rr, r: null, riskUsd: null };
+      }
       var risk = Math.abs(t.entree - t.stop);
       var rew  = Math.abs(t.objectif - t.entree);
       var pts  = t.sens === 'Long' ? (t.sortie - t.entree) : (t.entree - t.sortie);
@@ -2979,33 +2987,38 @@ window.SESSIONS = [
         riskUsd: risk * t.qte * t.tick
       };
     });
+    // Les trades en R:R déclaré (sans stop réel) entrent dans la moyenne planifiée, mais pas dans les
+    // stats qui exigent un risque réel en points/dollars (R réalisé, winrate, risque max engagé).
+    var realRows = rows.filter(function(x){ return x.r !== null; });
+    var riskUsds = rows.map(function(x){ return x.riskUsd; }).filter(function(v){ return v !== null; });
 
     var rrMoy = rows.reduce(function(a,x){ return a + x.rr; }, 0) / rows.length;
-    var rTot  = rows.reduce(function(a,x){ return a + x.r; }, 0);
+    var rTot  = realRows.reduce(function(a,x){ return a + x.r; }, 0);
     var seuil = 100 / (1 + rrMoy);
-    var gagnants = rows.filter(function(x){ return x.r > 0 && !x.t.be; }).length;
-    var winReel  = rows.length ? (gagnants / rows.length * 100) : 0;
+    var gagnants = realRows.filter(function(x){ return x.r > 0 && !x.t.be; }).length;
+    var winReel  = realRows.length ? (gagnants / realRows.length * 100) : 0;
     var ecart    = winReel - seuil;
+    var manuels  = rows.length - realRows.length;
 
     var h = '<div class="kpis kpis-rr" style="margin-top:0">'
       + kpi('R:R planifié moyen',
             rrMoy.toFixed(2) + ' : 1',
-            rows.length + ' trades documentés')
+            rows.length + ' trades documentés' + (manuels ? ' (' + manuels + ' en R:R déclaré, sans stop)' : ''))
       + kpi('R cumulé réalisé',
             (rTot >= 0 ? '+' : '−') + Math.abs(rTot).toFixed(2) + 'R',
-            'Moy. ' + (rTot/rows.length >= 0 ? '+' : '−') + Math.abs(rTot/rows.length).toFixed(2) + 'R / trade',
+            'Moy. ' + (rTot/realRows.length >= 0 ? '+' : '−') + Math.abs(rTot/realRows.length).toFixed(2) + 'R / trade',
             rTot >= 0 ? 'pos' : 'neg')
       + kpi('Réussite nécessaire', seuil.toFixed(0) + ' %', 'Pour être à l\'équilibre à ce R:R')
       + kpi('Winrate réel', winReel.toFixed(0) + ' %',
-            (ecart >= 0 ? '+' : '−') + Math.abs(ecart).toFixed(0) + ' pt vs seuil requis · ' + gagnants + '/' + rows.length,
+            (ecart >= 0 ? '+' : '−') + Math.abs(ecart).toFixed(0) + ' pt vs seuil requis · ' + gagnants + '/' + realRows.length,
             ecart >= 0 ? 'pos' : 'neg')
-      + kpi('Risque max engagé', fmt(Math.max.apply(null, rows.map(function(x){ return x.riskUsd; })), 0) + ' $',
-            'Soit ' + (Math.max.apply(null, rows.map(function(x){ return x.riskUsd; })) / 500).toFixed(2) + ' % d\'un compte 50 k')
+      + kpi('Risque max engagé', fmt(Math.max.apply(null, riskUsds), 0) + ' $',
+            'Soit ' + (Math.max.apply(null, riskUsds) / 500).toFixed(2) + ' % d\'un compte 50 k')
       + '</div>';
 
     h += '<details style="margin-top:20px"><summary style="cursor:pointer;color:var(--muted);font-size:14px;font-weight:650;letter-spacing:.06em;text-transform:uppercase;padding:12px 0;list-style:none;display:flex;gap:8px;align-items:center">'
       + '<span class="det-arrow" style="font-size:10px;transition:.15s">▶</span>'
-      + rows.length + ' trades avec stop documenté — voir le détail</summary>';
+      + rows.length + ' trades avec risque documenté — voir le détail</summary>';
     h += '<table class="tbl" style="border-radius:14px;border-top:1px solid var(--line);margin-top:12px">'
       + '<thead><tr><th>Jour</th><th>Marché</th><th>Compte</th><th>Sens</th><th>Qté</th>'
       + '<th>Entrée</th><th>Stop</th><th>Objectif</th><th>Risque</th><th>R:R</th><th>Résultat</th></tr></thead><tbody>';
@@ -3013,8 +3026,15 @@ window.SESSIONS = [
     rows.forEach(function(x){
       var t = x.t;
       var rrCls = x.rr >= 2 ? 'ok' : 'bad';
-      var rCls  = x.t.be ? '' : (x.r > 0.02 ? 'pos' : (x.r < -0.02 ? 'neg' : ''));
       var dc = t.dec === undefined ? 2 : t.dec;
+      var rrLabel = x.rr.toFixed(2) + ':1' + (t.rrManuel ? ' (manuel)' : '');
+      var resultCell;
+      if(x.r === null){
+        resultCell = '<td style="color:var(--dim)">—</td>';
+      } else {
+        var rCls = t.be ? '' : (x.r > 0.02 ? 'pos' : (x.r < -0.02 ? 'neg' : ''));
+        resultCell = '<td class="' + rCls + '"><span class="rr-tip" data-tip="≈ ' + (x.r >= 0 ? '+' : '−') + Math.round(Math.abs(x.r) * x.riskUsd) + ' $ / compte (50 k)">' + (x.r >= 0 ? '+' : '−') + Math.abs(x.r).toFixed(2) + 'R</span></td>';
+      }
       h += '<tr>'
         + '<td>' + t.jour + '</td>'
         + '<td class="fill">' + t.instrument + '</td>'
@@ -3022,11 +3042,11 @@ window.SESSIONS = [
         + '<td class="fill" style="text-align:center"><span class="tag ' + (t.sens === 'Long' ? 'l' : 's') + '">' + t.sens.toUpperCase() + '</span></td>'
         + '<td class="fill">' + t.qte + '</td>'
         + '<td class="fill">' + fmt(t.entree, dc) + '</td>'
-        + '<td class="fill">' + fmt(t.stop, dc) + '</td>'
-        + '<td class="fill">' + fmt(t.objectif, dc) + '</td>'
-        + '<td class="fill">' + fmt(x.riskUsd, 0) + ' $</td>'
-        + '<td><span class="rr ' + rrCls + '">' + x.rr.toFixed(2) + ':1</span></td>'
-        + '<td class="' + rCls + '"><span class="rr-tip" data-tip="≈ ' + (x.r >= 0 ? '+' : '−') + Math.round(Math.abs(x.r) * x.riskUsd) + ' $ / compte (50 k)">' + (x.r >= 0 ? '+' : '−') + Math.abs(x.r).toFixed(2) + 'R</span></td>'
+        + '<td class="fill">' + (t.stop !== null ? fmt(t.stop, dc) : '—') + '</td>'
+        + '<td class="fill">' + (t.objectif !== null ? fmt(t.objectif, dc) : '—') + '</td>'
+        + '<td class="fill">' + (x.riskUsd !== null ? fmt(x.riskUsd, 0) + ' $' : '—') + '</td>'
+        + '<td><span class="rr ' + rrCls + '">' + rrLabel + '</span></td>'
+        + resultCell
         + '</tr>';
     });
 
