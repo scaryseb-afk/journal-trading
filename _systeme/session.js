@@ -6,7 +6,6 @@
    localStorage du navigateur, sous une clé propre à la session.
    ============================================================ */
 
-function sjKeyImgs()  { return 'imgs_'  + SESSION_KEY; }
 function sjKeyNotes() { return 'notes_' + SESSION_KEY; }
 function sjKeyStops() { return 'stops_' + SESSION_KEY; }
 
@@ -197,57 +196,14 @@ function sjReadImage(file, key){
   reader.readAsDataURL(file);
 }
 function sjStoreImage(dataUrl, origBytes, newBytes, key){
-  if(key){
-    var timgs = sjLoadTradeImgs(key);
-    timgs.push(dataUrl);
-    if(!sjSaveTradeImgs(key, timgs)){
-      timgs.pop();
-      alert("Stockage plein : le navigateur limite l'espace disponible pour ce site. Supprime une ancienne capture avant d'en ajouter une nouvelle.");
-      return;
-    }
-    sjRenderTradeShots(key);
-    return;
-  }
-  var imgs = [];
-  try{ imgs = JSON.parse(localStorage.getItem(sjKeyImgs()) || '[]'); }catch(e){}
-  imgs.push(dataUrl);
-  try{
-    localStorage.setItem(sjKeyImgs(), JSON.stringify(imgs));
-  }catch(e){
-    imgs.pop();
+  var timgs = sjLoadTradeImgs(key);
+  timgs.push(dataUrl);
+  if(!sjSaveTradeImgs(key, timgs)){
+    timgs.pop();
     alert("Stockage plein : le navigateur limite l'espace disponible pour ce site. Supprime une ancienne capture avant d'en ajouter une nouvelle.");
     return;
   }
-  sjRenderScreenshots(imgs);
-}
-function sjRenderScreenshots(imgs){
-  var c = document.getElementById('screenshots');
-  if(!c) return;
-  c.innerHTML = imgs.map(function(src, i){
-    return '<div class="screenshot-wrap"><img src="' + src + '" onclick="sjOpenLB(this.src)">'
-         + '<button class="screenshot-del" onclick="sjDelShot(' + i + ')" title="Supprimer">×</button></div>';
-  }).join('');
-  var clearWrap = document.getElementById('img-clear-wrap');
-  if(clearWrap) clearWrap.style.display = imgs.length ? 'block' : 'none';
-}
-function sjDelShot(i){
-  var imgs = [];
-  try{ imgs = JSON.parse(localStorage.getItem(sjKeyImgs()) || '[]'); }catch(e){}
-  imgs.splice(i, 1);
-  try{ localStorage.setItem(sjKeyImgs(), JSON.stringify(imgs)); }catch(e){}
-  sjRenderScreenshots(imgs);
-}
-function sjClearScreenshots(){
-  if(!confirm('Supprimer toutes les captures de cette session ?')) return;
-  try{ localStorage.removeItem(sjKeyImgs()); }catch(e){}
-  sjRenderScreenshots([]);
-}
-function sjInitImages(){
-  try{
-    var imgs = JSON.parse(localStorage.getItem(sjKeyImgs()) || '[]');
-    if(imgs.length) sjRenderScreenshots(imgs);
-  }catch(e){}
-  sjSetupDrop('img-zone', 'img-input', function(f){ sjReadImage(f); });
+  sjRenderTradeShots(key);
 }
 
 /* ---------- Captures sous chaque trade (clé imgs_<session>__<compte>_<n>) ---------- */
@@ -342,10 +298,11 @@ function sjInitPaste(){
       var ta = row ? row.querySelector('textarea.trade-note') : null;
       if(ta) key = ta.getAttribute('data-key');
     }
+    if(!key) return;  // pas de trade ciblé (survolé ou en cours d'écriture) : rien à faire, plus de zone générale
     for(var i = 0; i < items.length; i++){
       if(items[i].type && items[i].type.indexOf('image/') === 0){
         var file = items[i].getAsFile();
-        if(file){ sjReadImage(file, key || undefined); used = true; }
+        if(file){ sjReadImage(file, key); used = true; }
       }
     }
     if(used) e.preventDefault(); // n'empêche le collage normal que si une image a été trouvée
@@ -468,7 +425,6 @@ function sjInitSidebar(){
 /* ---------- Point d'entrée ---------- */
 function initSessionPage(){
   sjInitSidebar();
-  sjInitImages();
   sjInitReflect();
   sjInitPaste();
   sjInitTradeNotes();

@@ -66,12 +66,14 @@ d'un ancien fichier copié-collé. Le template s'appuie sur `_systeme/style.css`
 et `_systeme/session.js` (logique partagée : captures d'écran, notes par
 trade, relecture) — ne pas dupliquer ce CSS/JS dans le fichier de session.
 
-- Captures d'écran : redimensionnées et compressées côté navigateur avant
-  stockage (voir `SJ_IMG_MAX_WIDTH`/`SJ_IMG_QUALITY` dans `session.js`) pour
-  éviter de saturer le quota localStorage. Une zone générale par séance
-  (`imgs_<séance>`) et une zone sous chaque trade
-  (`imgs_<séance>__<compte>_<n>`). Stockage 100% local au navigateur
-  — invisible pour Claude, donc ne pas s'appuyer dessus pour les calculs.
+- Captures d'écran : une seule zone, sous chaque trade
+  (`imgs_<séance>__<compte>_<n>`, glisser/cliquer/Ctrl+V en survolant la
+  ligne) — pas de zone générale au niveau de la séance (retirée le 28/09,
+  redondante avec les zones par trade). Redimensionnées et compressées côté
+  navigateur avant stockage (voir `SJ_IMG_MAX_WIDTH`/`SJ_IMG_QUALITY` dans
+  `session.js`) pour éviter de saturer le quota localStorage. Stockage 100%
+  local au navigateur — invisible pour Claude, donc ne pas s'appuyer dessus
+  pour les calculs.
 - Relecture ("Erreur commise" / "Ce que j'aurais dû faire" / "Ce qui a bien
   fonctionné") : à remplir par Sébastien après la séance, bouton "Copier
   pour Claude" pour recopier ces notes dans le chat — c'est comme ça
