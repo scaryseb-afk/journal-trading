@@ -287,19 +287,24 @@ textarea::placeholder{color:#4A566A}
 .sf{display:flex;flex-direction:column;gap:4px;margin-top:4px;margin-bottom:28px}
 .sf-wk{display:flex;align-items:center;gap:12px;margin:12px 0 2px}
 .sf-wk:first-child{margin-top:0}
-.sf-wk-name{color:var(--muted);font-size:11.5px;font-weight:650;white-space:nowrap}
+.sf-wk-name{color:var(--muted);font-size:11px;font-weight:600;white-space:nowrap}
 .sf-wk .sf-mh-line{opacity:.6}
-.sf-wk-tr{font-size:11px;color:var(--muted);white-space:nowrap;font-variant-numeric:tabular-nums}
+.sf-wk-tr{font-size:10.5px;color:var(--muted);white-space:nowrap;font-variant-numeric:tabular-nums}
 .sf-wk-tr b{font-weight:700;color:var(--txt)}
+/* Les en-têtes de semaine réutilisent les classes du mois (sf-mh-*) : on les réduit ici pour bien
+   marquer que le mois est le niveau principal et la semaine un sous-niveau, pas deux lignes pareilles. */
+.sf-wk .sf-mh-wl{font-size:10.5px}
+.sf-wk .sf-mh-r{font-size:11px;font-weight:600}
+.sf-wk .sf-mh-sum{font-size:11.5px;font-weight:650}
 .sf-month summary{list-style:none;cursor:pointer}
 .sf-month summary::-webkit-details-marker{display:none}
 .sf-month summary::marker{content:''}
 .sf-arrow{font-size:10px;color:var(--dim);transition:.15s;display:inline-block}
 .sf-month[open] .sf-arrow{transform:rotate(90deg)}
 .sf-mh{display:flex;align-items:center;gap:14px;margin:24px 0 8px}
-.sf-mh-name{color:var(--muted);font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;white-space:nowrap}
-.sf-mh-sum{font-size:12px;font-weight:700;white-space:nowrap}
-.sf-mh-wl{font-size:11px;font-weight:650;white-space:nowrap;font-variant-numeric:tabular-nums}
+.sf-mh-name{color:var(--txt);font-size:15px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;white-space:nowrap}
+.sf-mh-sum{font-size:15px;font-weight:800;white-space:nowrap}
+.sf-mh-wl{font-size:12px;font-weight:700;white-space:nowrap;font-variant-numeric:tabular-nums}
 .sf-mh-wl .pos{color:var(--green)}
 .sf-mh-wl .neg{color:var(--red)}
 .sf-mh-line{flex:1;height:1px;background:var(--line)}
@@ -318,7 +323,7 @@ textarea::placeholder{color:#4A566A}
 .sr-warn{font-size:12px}
 .sr-pnl{font-size:14px;font-weight:700;font-variant-numeric:tabular-nums;text-align:right;white-space:nowrap}
 .sr-r{font-size:12px;font-weight:650;font-variant-numeric:tabular-nums;text-align:right;white-space:nowrap;color:var(--dim)}
-.sf-mh-r{font-size:12px;font-weight:700;white-space:nowrap;font-variant-numeric:tabular-nums}
+.sf-mh-r{font-size:14px;font-weight:700;white-space:nowrap;font-variant-numeric:tabular-nums}
 .sf-legend{font-size:11.5px;color:var(--dim);line-height:1.5;margin:0 0 4px}
 .sr-trades{font-size:12px;color:var(--dim);text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
 .sr-wr{font-size:12px;color:var(--dim);text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
