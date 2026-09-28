@@ -15,7 +15,7 @@ reproduits en sous-entrées du menu sous l'onglet actif (générées depuis
 `data-nosidebar`, n'est pas répété : le lien parent du menu ouvre cette
 sous-page) et la barre dans la page est masquée. Chaque sous-page du Tableau de bord a son propre titre ; l'en-tête
 et les widgets du haut (score de confluence, respect du plan, cartes) ne sont que
-sur « Vue d'ensemble ». Les pages de séance
+sur « Vue d'ensemble ». Juste en dessous du sous-titre, une bannière du jour (`#day-banner`) tire un message parmi 30 (bonne séance) / 30 (séance difficile) — sens et message tirés du P&L du jour dans `window.SESSIONS`, ou à défaut du compteur live `daytrack_AAAA-MM-JJ` (boutons +Gagnant/+Perdant/+Neutre de l'onglet Règles) ; sans donnée pour aujourd'hui, elle reste neutre. Un seul message par jour (index déterministe sur la date), pour rester stable au fil des visites. Les pages de séance
 injectent le même menu (`.side-nav`, dans `session.js`) et partagent le thème
 (`journal-theme`). Adaptations iOS/Safari mobile : meta
 `apple-mobile-web-app-*` + `apple-touch-icon.png` (icône générée avec

@@ -109,6 +109,14 @@ h3{font-size:18px;font-weight:600;margin:0 0 4px}
 .kpis-top .note{font-size:12.5px}
 @media(max-width:900px){.kpis-top{grid-template-columns:repeat(auto-fit,minmax(160px,1fr))}}
 
+.day-banner{display:none;align-items:center;gap:12px;margin:18px 0 4px;padding:14px 18px;border-radius:12px;
+  border:1px solid var(--line);font-size:14.5px;font-weight:600;line-height:1.45}
+.day-banner.show{display:flex}
+.day-banner .db-icon{font-size:20px;flex:none}
+.day-banner.good{background:linear-gradient(90deg,var(--green-dim),var(--panel) 70%);border-color:var(--green);color:var(--txt)}
+.day-banner.bad{background:linear-gradient(90deg,var(--red-dim),var(--panel) 70%);border-color:var(--red);color:var(--txt)}
+.day-banner.neutral{background:var(--panel);color:var(--muted);font-weight:500}
+@media(max-width:700px){.day-banner{font-size:13.5px;padding:12px 14px}}
 .plan-widget{margin-top:10px;padding:12px 16px;border:1px solid var(--line);border-radius:10px;background:var(--panel)}
 .plan-widget.ko{border-color:var(--red);background:linear-gradient(90deg,var(--red-dim),var(--panel) 65%);box-shadow:inset 4px 0 0 var(--red)}
 .plan-widget.ok{border-color:var(--green);background:linear-gradient(90deg,var(--green-dim),var(--panel) 65%);box-shadow:inset 4px 0 0 var(--green)}
@@ -659,6 +667,8 @@ select.plan-input{cursor:pointer}
 <p class="eyebrow">Journal de suivi &middot; Futures</p>
   <h1>Tableau de bord</h1>
   <p class="sub">MNQ — quatre comptes actifs Tradovate / Lucid</p>
+
+  <div class="day-banner" id="day-banner"></div>
 
   <div class="cs-widget" id="cs-widget">
     <span class="cs-title">🎯 Score de confluence</span>
@@ -3581,6 +3591,112 @@ window.SESSIONS = [
   document.addEventListener('DOMContentLoaded', function(){
     analyse(); renderSessions(); comptes(); risque();
     initSubnav('dash-subnav'); initSubnav('brief-subnav');
+  });
+})();
+</script>
+<script>/* Bannière du jour : un message parmi 30 (bonne séance) ou 30 (séance difficile, mais on continue),
+   tiré au sort une fois par jour (stable toute la journée). Le sens (bonne/mauvaise séance) vient de
+   window.SESSIONS si la séance du jour est déjà enregistrée, sinon du compteur "Trades du jour" en direct
+   (localStorage daytrack_AAAA-MM-JJ, alimenté par les boutons +Gagnant/+Perdant/+Neutre de l'onglet Règles).
+   Sans aucune donnée pour aujourd'hui, la bannière reste neutre — elle n'appartient à aucun des deux réservoirs. */
+(function(){
+  var BANNER_GOOD = [
+    "Journée positive — et ce n'est pas le hasard, c'est le plan qui a tenu.",
+    "Du positif aujourd'hui. Retiens surtout ce que tu as bien fait, pas juste le chiffre.",
+    "Une bonne séance de plus. Note ce qui a marché — c'est ça qu'il faut répéter demain.",
+    "Le plan respecté, le résultat suit. C'est exactement dans cet ordre que ça doit se passer.",
+    "Journée verte. Le vrai gain, c'est d'avoir tenu ta taille et ton R:R.",
+    "Bien joué aujourd'hui. Une séance sans lockout déclenché vaut plus que le chiffre affiché.",
+    "Ça a payé aujourd'hui — et surtout, ça a été fait dans les clous. Continue comme ça.",
+    "Encore une séance où tu as suivi ton propre plan. C'est ce qui construit un compte qui dure.",
+    "Vert aujourd'hui. Une semaine faite de journées comme celle-ci, c'est un compte qui grandit.",
+    "Bonne séance. Le marché a dit oui, mais c'est toi qui as dit non aux mauvaises entrées.",
+    "Résultat positif, discipline intacte — la combinaison qui compte vraiment.",
+    "Une séance propre. Pas de ré-entrée précipitée, pas de taille forcée. Garde ce rythme.",
+    "Bien aujourd'hui. Tu n'as pas eu besoin d'un gros coup, juste du plan suivi.",
+    "Séance gagnante. Rappelle-toi cette sensation calme la prochaine fois que ça part mal.",
+    "Du vert au compteur. Une bonne journée, c'est une journée que tu pourrais refaire à l'identique.",
+    "Journée réussie. Le compte progresse, et surtout la confiance dans ton process aussi.",
+    "Ça a été une bonne séance aujourd'hui. Garde ce rythme, jour après jour.",
+    "Aujourd'hui, tu as tradé ton plan, pas tes émotions. Le résultat en est la preuve.",
+    "Séance positive. Garde ce que tu as fait aujourd'hui en mémoire pour les jours difficiles.",
+    "Bien joué. Une entrée, une raison claire, un résultat propre — exactement le schéma à répéter.",
+    "Journée dans le vert. Le compte te remercie pour la discipline appliquée aujourd'hui.",
+    "Bonne séance aujourd'hui. Tu construis un historique, pas juste un P&L du jour.",
+    "Du positif aujourd'hui, et sans avoir forcé. C'est ce type de journée qui fait les bons mois.",
+    "Résultat positif. La vraie victoire, c'est d'avoir respecté le nombre de trades prévu.",
+    "Séance solide. Le marché ne t'a pas eu aujourd'hui parce que tu n'as pas couru après lui.",
+    "Bonne journée. Ce sont ces séances-là, calmes et cadrées, qui compensent les mauvaises.",
+    "Du vert au compteur aujourd'hui. Une preuve de plus que le plan fonctionne quand tu le suis.",
+    "Belle séance. Rien à changer — juste à refaire, demain, et le jour d'après.",
+    "Journée positive. Tu as laissé le trade venir à toi au lieu de courir après lui.",
+    "Bien aujourd'hui. Le compte est vert, et surtout, tu sais exactement pourquoi."
+  ];
+  var BANNER_BAD = [
+    "Journée rouge. Ça arrive — la question qui compte, c'est : le plan a-t-il été suivi malgré tout ?",
+    "Perte aujourd'hui. Un jour dans le rouge où le plan a tenu vaut mieux qu'un jour vert sans plan.",
+    "Séance difficile. Respire, relis tes règles, et laisse la prochaine entrée attendre son setup.",
+    "Ça a mal tourné aujourd'hui. Une perte ne casse rien — c'est ce que tu fais juste après qui compte.",
+    "Journée négative. Si le lockout a tenu après la 2e perte, ce n'est pas un échec, c'est une victoire cachée.",
+    "Perte aujourd'hui. Le compte encaisse, mais le plan, lui, est toujours debout si tu ne l'as pas cassé.",
+    "Séance difficile. Une chose à te demander ce soir : est-ce que la taille était la bonne ?",
+    "Rouge aujourd'hui. Ce n'est pas la perte qui crame un compte, c'est ce qui suit une perte.",
+    "Mauvaise journée. Personne ne juge le trade perdant — c'est la ré-entrée à chaud qui coûte cher.",
+    "Journée dans le rouge. Ferme la plateforme si c'est prévu — demain est une nouvelle séance, pas une revanche.",
+    "Perte aujourd'hui. Ton propre texte le dit : une semaine perdante à 5/5 vaut mieux qu'une gagnante à 2/5.",
+    "Séance négative. Le chiffre est mauvais ce soir, mais un chiffre ne dit rien sur demain.",
+    "Ça a été rouge aujourd'hui. Vérifie une chose : as-tu respecté les 10 minutes après la perte ?",
+    "Mauvaise séance. Le marché ne t'a rien pris que tu ne pouvais pas te permettre de perdre, en principe.",
+    "Journée négative. Une perte suivie de discipline vaut mieux qu'une perte suivie d'une revanche.",
+    "Rouge ce soir. Ce n'est pas grave d'avoir perdu — vérifie juste que tu n'as pas doublé la mise pour te refaire.",
+    "Perte aujourd'hui. Le compte a besoin de temps pour se refaire, pas d'un gros trade demain matin.",
+    "Séance difficile aujourd'hui. Ce qui compte, c'est la ligne du dessous : combien de règles ont tenu.",
+    "Journée rouge. Le trading pardonne les pertes. Il pardonne beaucoup moins les ré-entrées précipitées.",
+    "Mauvaise journée. Le prochain trade n'a pas à te rembourser celui-là. Il a juste à respecter le plan.",
+    "Ça a mal tourné. Une perte aujourd'hui ne veut pas dire une mauvaise stratégie — regarde la semaine, pas le jour.",
+    "Rouge aujourd'hui. Si tu as fermé la plateforme au lieu de rentrer une 4e fois, c'est déjà un progrès.",
+    "Journée négative. Le compte encaisse ce soir. Demain, il n'a besoin que d'un setup, pas d'une revanche.",
+    "Perte aujourd'hui. Chaque compte cramé de ton historique a commencé par une perte suivie d'une autre, trop vite.",
+    "Mauvaise séance. Ce n'est pas la journée qui définit le trader, c'est ce que tu fais avec la prochaine.",
+    "Rouge ce soir. Ça pique, normalement. La question honnête à se poser : le stop a-t-il été respecté ?",
+    "Journée difficile. Une perte dans le plan se répare en une semaine. Une perte hors plan met bien plus longtemps.",
+    "Ça a été rouge aujourd'hui. Le découragement est le pire moment pour ouvrir un nouveau trade — attends demain.",
+    "Perte aujourd'hui. Tu as déjà tenu des semaines à 5/5 malgré des jours rouges. Celui-ci peut en faire partie.",
+    "Séance négative. Un jour rouge ne casse pas un compte. C'est la suite immédiate qui décide."
+  ];
+  function pad(n){ return n < 10 ? '0' + n : '' + n; }
+  function pick(list, key){
+    var h = 0;
+    for(var i = 0; i < key.length; i++) h = (h * 31 + key.charCodeAt(i)) >>> 0;
+    return list[h % list.length];
+  }
+  document.addEventListener('DOMContentLoaded', function(){
+    var host = document.getElementById('day-banner');
+    if(!host) return;
+    var now = new Date();
+    var dm = pad(now.getDate()) + '/' + pad(now.getMonth() + 1);
+    var todayKey = now.getFullYear() + '-' + pad(now.getMonth() + 1) + '-' + pad(now.getDate());
+    var good = null;
+    var sess = (window.SESSIONS || []).find(function(s){ return s.jour === dm && s.pnl !== null; });
+    if(sess){
+      good = sess.pnl >= 0;
+    } else {
+      try{
+        var today = JSON.parse(localStorage.getItem('daytrack_' + todayKey) || '[]');
+        if(today.length){
+          var losses = today.filter(function(t){ return t.result === 'loss'; }).length;
+          good = losses === 0;
+        }
+      }catch(e){}
+    }
+    if(good === null){
+      host.className = 'day-banner neutral show';
+      host.innerHTML = '<span class="db-icon">🌤️</span><span>Nouvelle séance — rien d\'enregistré pour aujourd\'hui pour l\'instant.</span>';
+      return;
+    }
+    var msg = good ? pick(BANNER_GOOD, todayKey) : pick(BANNER_BAD, todayKey);
+    host.className = 'day-banner ' + (good ? 'good' : 'bad') + ' show';
+    host.innerHTML = '<span class="db-icon">' + (good ? '🟢' : '🔴') + '</span><span>' + msg + '</span>';
   });
 })();
 </script>
