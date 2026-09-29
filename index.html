@@ -730,7 +730,7 @@ select.plan-input{cursor:pointer}
 
   <div class="kpis kpis-top">
     <div class="kpi"><div class="lbl">Règle de séance</div><div class="val" id="kpi-regle-val">250 $ / signal</div><div class="note" id="kpi-regle-note">1 seul compte à la fois · R:R ≥ 2 · 3 trades max par jour</div></div>
-    <div class="kpi"><div class="lbl">Cumul 4 comptes</div><div class="val neg">−3 501,25 $</div><div class="note">recalculé sur les CSV bruts · +742 $ le 28/09 (compte 001) · −403 $ le 25/09 · −566 $ le 24/09</div></div>
+    <div class="kpi"><div class="lbl">Cumul 4 comptes</div><div class="val neg">−3 939,25 $</div><div class="note">recalculé sur les CSV bruts · −438 $ le 29/09 (2 trades, comptes 001 et 003) · +742 $ le 28/09 · −403 $ le 25/09</div></div>
     <div class="kpi"><div class="lbl">Meilleure session</div><div class="val pos">+2 529 $</div><div class="note">08/09 — TraderSyncer, 3 comptes</div></div>
     <div class="kpi"><div class="lbl">Pire session</div><div class="val neg">−2 095 $</div><div class="note">18/09 — nouveau compte A en 8 contrats dès le 1er jour, −1 176 $ à lui seul</div></div>
   </div>
@@ -740,12 +740,12 @@ select.plan-input{cursor:pointer}
   <div class="kpis" style="margin-top:0;grid-template-columns:repeat(auto-fit,minmax(320px,1fr))">
     <div class="kpi">
       <div class="lbl">Objectif +12 000 $</div>
-      <div class="val neg">−3 501,25 $</div>
+      <div class="val neg">−3 939,25 $</div>
       <div class="ar-buf" style="margin:10px 0 4px">
         <div class="ar-buf-label"><span>0 %</span><span>12 000 $</span></div>
         <div class="ar-buf-track"><div class="ar-buf-fill crit" style="width:0%"></div></div>
       </div>
-      <div class="note">Reste 15 501,25 $ à faire — +742 $ le 28/09 (1 trade) après −403 $ le 25/09</div>
+      <div class="note">Reste 15 939,25 $ à faire — −438 $ le 29/09 (2 pertes) après +742 $ le 28/09</div>
     </div>
     <div class="kpi">
       <div class="lbl">Drawdown max −8 000 $</div>
@@ -1197,8 +1197,8 @@ select.plan-input{cursor:pointer}
   <div class="rules">
     <div class="r">
       <div class="n">Compte …4680001 — Tradovate / Lucid</div>
-      <div class="t">50 962,25 $ · <span style="color:var(--green)">+962,25 $ depuis le départ</span></div>
-      <div class="d">Solde au 28/09. +742 $ ce jour-là : Short MNQ en 2 contrats, 185,5 points captés en 1h03 — seul trade de la journée. Le 25/09 : −314 $ (6E gagnant, MNQ perdant entré avant la clôture de l'iFVG).</div>
+      <div class="t">50 699,25 $ · <span style="color:var(--green)">+699,25 $ depuis le départ</span></div>
+      <div class="d">Solde au 29/09. −263 $ ce jour-là : Short MNQ en 2 contrats, 65,75 pts contre toi en 41 min. Le 28/09 : +742 $, seul trade de la journée.</div>
     </div>
     <div class="r">
       <div class="n">Compte …4680002 — Tradovate / Lucid</div>
@@ -1217,8 +1217,8 @@ select.plan-input{cursor:pointer}
     </div>
     <div class="r">
       <div class="n">Compte …4680003 — Tradovate / Lucid</div>
-      <div class="t">49 319,00 $ · <span style="color:var(--red)">−681,00 $ depuis le départ (solde de 50 000 $ supposé)</span></div>
-      <div class="d">Solde au 18/09. −262,50 $ ce jour-là — copié avec les comptes 001/002.</div>
+      <div class="t">49 144,00 $ · <span style="color:var(--red)">−856,00 $ depuis le départ (solde de 50 000 $ supposé)</span></div>
+      <div class="d">Solde au 29/09. −175 $ ce jour-là : Short MNQ en 2 contrats, 43,75 pts contre toi en 2 min 15, entré 30 min après la perte du 001 (règle 6 respectée). Avant : −262,50 $ le 18/09, copié avec 001/002.</div>
     </div>
     <div class="r">
       <div class="n">Compte …4680004 — Tradovate / Lucid (nouveau)</div>
@@ -1332,12 +1332,12 @@ select.plan-input{cursor:pointer}
     <div class="stat-row">
       <div class="stat-item">
         <span class="stat-label">Total PnL</span>
-        <span class="stat-val neg">−6 191,25 $</span>
-        <div style="font-size:10px;color:var(--muted);margin-top:2px">Recalculé sur les CSV réels, 33 séances (13/08 → 28/09)</div>
+        <span class="stat-val neg">−6 629,25 $</span>
+        <div style="font-size:10px;color:var(--muted);margin-top:2px">Recalculé sur les CSV réels, 34 séances (13/08 → 29/09)</div>
       </div>
       <div class="stat-item">
         <span class="stat-label">Win rate</span>
-        <span class="stat-val">32,8% <span style="font-size:10px;color:var(--muted);font-weight:400">(59/180)</span></span>
+        <span class="stat-val">32,4% <span style="font-size:10px;color:var(--muted);font-weight:400">(59/182)</span></span>
         <div style="font-size:10px;color:var(--muted);margin-top:2px">8 comptes Tradovate (dont le 004 archivé), dédupliqué (copy trading compté 1 fois) · un BE volontaire compte comme trade, pas comme gagnant · TopstepX (clôturé) exclu</div>
       </div>
       <div class="stat-item">
@@ -1865,15 +1865,15 @@ window.COMPTES = [
     statutLabel: "Évaluation",
     devise: "$",
     depart: 50000,
-    solde: 49319.00,
-    soldeDate: "18/09/2026",
+    solde: 49144.00,
+    soldeDate: "29/09/2026",
     seuil: 48000,
-    buffer: 1319.00,
+    buffer: 1144.00,
     reference: null,
     objectif: null,
     mll: 48000,
     maxContrats: null,
-    note: "−262,50 $ le 18/09 — copié avec les comptes 001/002 (Long au même prix/même seconde). Solde de départ supposé 50 000 $ comme les autres comptes — à confirmer.",
+    note: "−175 $ le 29/09 — Short MNQ 2 contrats, entré 30 min après la perte du 001 (règle 6 respectée). Avant : −262,50 $ le 18/09, copié avec 001/002. Solde de départ supposé 50 000 $ comme les autres comptes — à confirmer.",
     aConfirmer: "Le solde de départ exact (50 000 $ supposé) et la référence Tradovate complète."
   },
   {
@@ -1919,15 +1919,15 @@ window.COMPTES = [
     statutLabel: "Évaluation",
     devise: "$",
     depart: 50000,
-    solde: 50962.25,
-    soldeDate: "28/09/2026",
+    solde: 50699.25,
+    soldeDate: "29/09/2026",
     seuil: 48000,
-    buffer: 2962.25,
+    buffer: 2699.25,
     reference: "LTE05085004680001",
     objectif: null,
     mll: 48000,
     maxContrats: null,
-    note: "Buffer : +2 962,25 $ · +742 $ le 28/09 — Short MNQ 2 contrats, 185,5 points captés en 1h03, seul trade de la journée. −314 $ le 25/09.",
+    note: "Buffer : +2 699,25 $ · −263 $ le 29/09 — Short MNQ 2 contrats, 65,75 pts contre toi en 41 min. +742 $ le 28/09.",
     aConfirmer: null
   },
   {
@@ -2184,6 +2184,7 @@ window.TRADES = [
    vérifié depuis les CSV bruts. N'évalue pas la qualité de l'entrée.
    Absent = pas encore évalué (jours avant le 14/09). Sert au KPI "Respect du plan". */
 window.SESSIONS = [
+  { jour:"29/09", label:"Mardi 29 sept.", fichier:"2026-09-29-mardi.html", pnl:-438.00, trades:2, gagnants:0, neutres:0, planOk:true, rt:[2,0,0], note:"Deux trades, deux pertes, sur deux comptes différents : 001 MNQ Short 2 contrats −263 $ (15h38, 41 min), 003 MNQ Short 2 contrats −175 $ (16h49, 2 min), entré 30 min après la perte du 001 — règle 6 respectée. Capture 16h50 : biais baissier, chute de folie, entrée retardée à la clôture de bougie (>350 ticks), doute sur le timing. 2 trades (max 3), 2 contrats (max 4), un seul compte à la fois." },
   { jour:"28/09", label:"Lundi 28 sept.", fichier:"2026-09-28-lundi.html", pnl:742.00, trades:1, gagnants:1, neutres:0, planOk:true, rt:[1,0,0], note:"Un seul trade, gagnant : 001 MNQ Short 2 contrats, entrée 15h40 à 30 642,75, sortie 16h43 à 30 457,25 — 185,5 points captés en 1h03. Sous les plafonds de 3 trades et 4 contrats, pas de deuxième trade donc pas de question de délai après une perte." },
   { jour:"25/09", label:"Vendredi 25 sept.", fichier:"2026-09-25-vendredi.html", pnl:-403.00, trades:7, gagnants:2, neutres:1, rt:[7,3,361], planOk:false, planWhy:"7 trades (max 3), 3 trades après le verrou des 2 pertes, 6 contrats sur un trade (plafond 4), entrées à moins de 10 min d'une perte", note:"Sept trades, quatre pertes : 001 6E Long +225 $, 001 MNQ Long en deux entrées −539 $, 002 MNQ Short 6 contrats +549 $ (journée à +235 $ à 16h19), puis le 002 enchaîne Long −244 $, Short en BE +10 $, Long −206 $, Short −198 $. 7 trades pour un maximum de 3, trois entrées après le verrou des deux pertes, trois entrées à moins de 10 min d'une perte (règle 6), 6 contrats sur un trade (plafond 4)." },
   { jour:"24/09", label:"Jeudi 24 sept.", fichier:"2026-09-24-jeudi.html", pnl:-566.00, trades:3, gagnants:0, neutres:0, rt:[3,0,0], planOk:false, planWhy:"3e trade pris après 2 pertes (lockout)", note:"Trois trades, trois pertes : 002 MCL Long 2 contrats −98 $ (10h29), 002 MNQ Short 3 contrats −216 $ (15h55, stoppé en 5 min, biais baissier noté sur ta capture), 001 MNQ Short 3 contrats −252 $ (16h45) — ce dernier pris après deux pertes, donc lockout non respecté. Un seul compte à la fois, règle 6 respectée (45 min après la perte). Le trade du 001 est sorti en deux fills (une seule position)." },
