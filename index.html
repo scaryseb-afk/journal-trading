@@ -671,7 +671,7 @@ select.plan-input{cursor:pointer}
   <div class="subview active" data-subview="overview">
 <p class="eyebrow">Journal de suivi &middot; Futures</p>
   <h1>Tableau de bord</h1>
-  <p class="sub">MNQ — quatre comptes actifs Tradovate / Lucid</p>
+  <p class="sub">MNQ — huit comptes suivis Tradovate / Lucid</p>
 
   <div class="day-banner" id="day-banner"></div>
 
@@ -730,7 +730,7 @@ select.plan-input{cursor:pointer}
 
   <div class="kpis kpis-top">
     <div class="kpi"><div class="lbl">Règle de séance</div><div class="val" id="kpi-regle-val">250 $ / signal</div><div class="note" id="kpi-regle-note">1 seul compte à la fois · R:R ≥ 2 · 3 trades max par jour</div></div>
-    <div class="kpi"><div class="lbl">Cumul 4 comptes</div><div class="val neg">−3 939,25 $</div><div class="note">recalculé sur les CSV bruts · −438 $ le 29/09 (2 trades, comptes 001 et 003) · +742 $ le 28/09 · −403 $ le 25/09</div></div>
+    <div class="kpi"><div class="lbl">Cumul 4 comptes</div><div class="val neg">−3 919,25 $</div><div class="note">recalculé sur les CSV bruts · −418 $ le 29/09 (4 trades, comptes 001, 003 et 02b/nouveau, qui prend la suite du 002) · +742 $ le 28/09 · −403 $ le 25/09</div></div>
     <div class="kpi"><div class="lbl">Meilleure session</div><div class="val pos">+2 529 $</div><div class="note">08/09 — TraderSyncer, 3 comptes</div></div>
     <div class="kpi"><div class="lbl">Pire session</div><div class="val neg">−2 095 $</div><div class="note">18/09 — nouveau compte A en 8 contrats dès le 1er jour, −1 176 $ à lui seul</div></div>
   </div>
@@ -740,12 +740,12 @@ select.plan-input{cursor:pointer}
   <div class="kpis" style="margin-top:0;grid-template-columns:repeat(auto-fit,minmax(320px,1fr))">
     <div class="kpi">
       <div class="lbl">Objectif +12 000 $</div>
-      <div class="val neg">−3 939,25 $</div>
+      <div class="val neg">−3 919,25 $</div>
       <div class="ar-buf" style="margin:10px 0 4px">
         <div class="ar-buf-label"><span>0 %</span><span>12 000 $</span></div>
         <div class="ar-buf-track"><div class="ar-buf-fill crit" style="width:0%"></div></div>
       </div>
-      <div class="note">Reste 15 939,25 $ à faire — −438 $ le 29/09 (2 pertes) après +742 $ le 28/09</div>
+      <div class="note">Reste 15 919,25 $ à faire — −418 $ le 29/09 (2 pertes sur 001/003, +18 $ net sur le nouveau 02b) après +742 $ le 28/09</div>
     </div>
     <div class="kpi">
       <div class="lbl">Drawdown max −8 000 $</div>
@@ -1185,50 +1185,68 @@ select.plan-input{cursor:pointer}
 
   <div class="subview" data-subview="comptes">
   <h2 id="brief-comptes">Où en sont tes comptes</h2>
-  <p class="sub">Sept comptes actifs (001, 002, 003, 004, 005, 006, A) — le 004 a été racheté le 17/09 après la clôture de l'ancien le 10/09, le compte A ouvert le 18/09. Soldes recalculés directement depuis les fichiers CSV bruts à chaque mise à jour. Les comptes 003, 004 et A, ouverts récemment, ne sont pas encore comptés dans "Objectif &amp; Risque" ci-dessus (soldes de départ supposés, pas confirmés).</p>
+  <p class="sub">Huit comptes suivis (001, 003, 004, 005, 005b, 006, 02b, A) — le 002 a breaché le 29/09 et a été remplacé le jour même par le 02b, le 005b est un rachat du 005 tradé une seule fois, le 004 a été racheté le 17/09 après la clôture de l'ancien le 10/09. Soldes actualisés le 30/09 depuis ta page de comptes Lucid (buffer, jours de trading, seuil MLL — des infos que le CSV Tradovate ne donne pas) ; quand un solde recalculé sur CSV existe, l'écart avec Lucid est signalé plutôt que lissé. Compte A absent de cette page Lucid — statut à confirmer.</p>
   <div class="obs warn" style="margin-bottom:16px">
-    <div class="t">🔴🔴 Trois comptes sous les 900 $ de buffer : …4680005, …4680006 (166 $ chacun) et Compte A (824 $)</div>
-    <div class="d">005 et 006 sont en dessous d'un trade perdant moyen de la clôture (seuil à 48 000 $). Le compte A, ouvert le 18/09, a déjà perdu plus de la moitié de son buffer initial en une seule journée. NE PAS TOUCHER 005/006 avant d'en reparler ensemble.</div>
+    <div class="t">🔴 Le 002 a breaché le 29/09</div>
+    <div class="d">Confirmé par Sébastien. Dernier solde 49 098 $, sous le seuil de clôture (49 120 $). Remplacé le jour même par le 02b (…4680006, LucidFlex), déjà tradé une fois : +18 $ net.</div>
   </div>
   <div class="obs warn" style="margin-bottom:16px">
-    <div class="t">⚠️ Compte « A » : 8 contrats par trade dès le premier jour</div>
-    <div class="d">3 trades, tous perdants, −1 176 $ le 18/09. Chaque trade en 8 contrats MNQ — le double du plafond de 4, et plus gros encore que le 004 le jour de son ouverture (6 contrats). Ça fait trois nouveaux comptes de suite (003, 004, A) qui démarrent sans aucune règle de taille appliquée.</div>
+    <div class="t">🔴🔴 Deux comptes sous les 900 $ de buffer : …4680006/006 (61 $) et …4680003 (801 $)</div>
+    <div class="d">006 est descendu à peine 61 $ au-dessus du seuil de clôture (48 000 $) — encore plus serré qu'au 17/09. NE PAS TOUCHER 005/006 avant d'en reparler ensemble.</div>
+  </div>
+  <div class="obs warn" style="margin-bottom:16px">
+    <div class="t">⚠️ Le 005b a touché sa limite journalière dès son 1er jour</div>
+    <div class="d">−1 200 $ le 29/09 (pile la limite DLL), tailles de lots variables selon Sébastien (« j'ai fait n'importe quoi »). Pas de CSV Tradovate reçu pour cette séance — trades non détaillés.</div>
+  </div>
+  <div class="obs warn" style="margin-bottom:16px">
+    <div class="t">⚠️ Compte « A » : 8 contrats par trade dès le premier jour, absent de la page Lucid</div>
+    <div class="d">3 trades, tous perdants, −1 176 $ le 18/09, en 8 contrats MNQ — le double du plafond de 4. Ce compte n'apparaît plus dans la liste Lucid du 30/09 : encore ouvert ?</div>
   </div>
   <div class="rules">
     <div class="r">
       <div class="n">Compte …4680001 — Tradovate / Lucid</div>
-      <div class="t">50 699,25 $ · <span style="color:var(--green)">+699,25 $ depuis le départ</span></div>
-      <div class="d">Solde au 29/09. −263 $ ce jour-là : Short MNQ en 2 contrats, 65,75 pts contre toi en 41 min. Le 28/09 : +742 $, seul trade de la journée.</div>
+      <div class="t">50 503,00 $ · <span style="color:var(--green)">+503,00 $ depuis le départ</span></div>
+      <div class="d">Solde Lucid au 30/09 — écart de 196 $ avec le calcul CSV du 29/09 (50 699,25 $), à surveiller. −263 $ le 29/09 : Short MNQ en 2 contrats, 65,75 pts contre toi en 41 min. Le 28/09 : +742 $, seul trade de la journée.</div>
     </div>
     <div class="r">
-      <div class="n">Compte …4680002 — Tradovate / Lucid</div>
-      <div class="t">49 204,50 $ · <span style="color:var(--red)">−795,50 $ depuis le départ</span></div>
-      <div class="d">Solde au 25/09. −89 $ ce jour-là : 5 trades entre 16h14 et 18h26 — Short 6 contrats +549 $, puis Long −244 $, Short en BE +10 $, Long −206 $, Short −198 $. Trois entrées à moins de 10 min d'une perte, après le verrou des deux pertes. Le 24/09 : −314 $.</div>
+      <div class="n">Compte …4680002 — Tradovate / Lucid · breaché</div>
+      <div class="t">49 098,00 $ · <span style="color:var(--red)">−902,00 $ depuis le départ</span></div>
+      <div class="d">Cramé (breach) le 29/09, confirmé par Sébastien. Remplacé le jour même par le 02b. Avant breach : −89 $ le 25/09 (5 trades entre 16h14 et 18h26), −314 $ le 24/09.</div>
+    </div>
+    <div class="r">
+      <div class="n">Compte …4680006 — Tradovate / Lucid (LucidFlex, nouveau — remplace le 002)</div>
+      <div class="t">50 018,00 $ · <span style="color:var(--green)">+18,00 $ depuis le départ</span></div>
+      <div class="d">Racheté le 29/09. Premier trade : Short MNQ 2 contrats en 2 fills (17h12/17h13), sortis 20h23/20h25, +16 $ puis +4 $ — +18 $ net après frais. Entré 20 min après la perte du 003, règle 6 respectée.</div>
     </div>
     <div class="r">
       <div class="n">Compte …4680006 — Tradovate / Lucid</div>
-      <div class="t">48 166,00 $ · <span style="color:var(--red)">−1 834,00 $ depuis le départ</span></div>
-      <div class="d">Solde au 17/09 (aucun trade depuis). Buffer à +166 $ seulement, aussi critique que le 005.</div>
+      <div class="t">48 061,00 $ · <span style="color:var(--red)">−1 939,00 $ depuis le départ</span></div>
+      <div class="d">Solde Lucid au 30/09. Buffer à +61 $ seulement — encore plus serré qu'au 17/09 (166 $). NE PAS TOUCHER tant que ce n'est pas reparlé.</div>
     </div>
     <div class="r">
       <div class="n">Compte …4680005 — Tradovate / Lucid</div>
       <div class="t">48 166,00 $ · <span style="color:var(--red)">−1 834,00 $ depuis le départ</span></div>
-      <div class="d">Solde au 15/09 (aucun trade depuis). Buffer à +166 $ seulement. NE PAS TOUCHER avant d'en reparler.</div>
+      <div class="d">Solde au 15/09 (aucun trade depuis). Buffer à +166 $ seulement. N'apparaît plus séparément sur Lucid le 30/09 (seul le 005b y figure) — toujours ouvert ? NE PAS TOUCHER avant d'en reparler.</div>
+    </div>
+    <div class="r">
+      <div class="n">Compte …4680005 — Tradovate / Lucid (nouveau, racheté)</div>
+      <div class="t">48 800,00 $ · <span style="color:var(--red)">−1 200,00 $ depuis le départ</span></div>
+      <div class="d">1 jour de trading (29/09), tailles de lots variables — a touché pile la limite journalière (DLL 1 200 $). Pas de CSV Tradovate reçu pour cette séance : trades non détaillés.</div>
     </div>
     <div class="r">
       <div class="n">Compte …4680003 — Tradovate / Lucid</div>
-      <div class="t">49 144,00 $ · <span style="color:var(--red)">−856,00 $ depuis le départ (solde de 50 000 $ supposé)</span></div>
-      <div class="d">Solde au 29/09. −175 $ ce jour-là : Short MNQ en 2 contrats, 43,75 pts contre toi en 2 min 15, entré 30 min après la perte du 001 (règle 6 respectée). Avant : −262,50 $ le 18/09, copié avec 001/002.</div>
+      <div class="t">49 052,00 $ · <span style="color:var(--red)">−948,00 $ depuis le départ</span></div>
+      <div class="d">Solde Lucid au 30/09 — écart de 92 $ avec le calcul CSV du 29/09 (49 144 $), à surveiller. −175 $ le 29/09 : Short MNQ en 2 contrats, 43,75 pts contre toi en 2 min 15, entré 30 min après la perte du 001 (règle 6 respectée). Avant : −262,50 $ le 18/09, copié avec 001/002.</div>
     </div>
     <div class="r">
       <div class="n">Compte …4680004 — Tradovate / Lucid (nouveau)</div>
-      <div class="t">49 953,00 $ · <span style="color:var(--red)">−47,00 $ depuis le départ (solde de 50 000 $ supposé)</span></div>
-      <div class="d">Solde au 18/09. −152 $ ce jour-là (1 trade seul). Racheté et tradé dès le 17/09 — remplace l'ancien 004 cramé le 10/09.</div>
+      <div class="t">49 933,00 $ · <span style="color:var(--red)">−67,00 $ depuis le départ</span></div>
+      <div class="d">Solde Lucid au 30/09 — écart de 20 $ avec le calcul CSV du 18/09 (49 953 $). Racheté et tradé dès le 17/09 — remplace l'ancien 004 cramé le 10/09.</div>
     </div>
     <div class="r">
       <div class="n">Compte A — Tradovate / Lucid (nouveau)</div>
       <div class="t">48 824,00 $ · <span style="color:var(--red)">−1 176,00 $ depuis le départ (solde de 50 000 $ supposé)</span></div>
-      <div class="d">Ouvert et tradé le 18/09. 3 trades, tous perdants, en 8 contrats MNQ — le double du plafond habituel, dès le premier jour. Buffer déjà à 824 $.</div>
+      <div class="d">Ouvert et tradé le 18/09. 3 trades, tous perdants, en 8 contrats MNQ — le double du plafond habituel, dès le premier jour. Buffer déjà à 824 $ au dernier relevé (18/09). N'apparaît plus dans la liste Lucid du 30/09 — encore ouvert ?</div>
     </div>
   </div>
 
@@ -1332,13 +1350,13 @@ select.plan-input{cursor:pointer}
     <div class="stat-row">
       <div class="stat-item">
         <span class="stat-label">Total PnL</span>
-        <span class="stat-val neg">−6 629,25 $</span>
+        <span class="stat-val neg">−6 609,25 $</span>
         <div style="font-size:10px;color:var(--muted);margin-top:2px">Recalculé sur les CSV réels, 34 séances (13/08 → 29/09)</div>
       </div>
       <div class="stat-item">
         <span class="stat-label">Win rate</span>
-        <span class="stat-val">32,4% <span style="font-size:10px;color:var(--muted);font-weight:400">(59/182)</span></span>
-        <div style="font-size:10px;color:var(--muted);margin-top:2px">8 comptes Tradovate (dont le 004 archivé), dédupliqué (copy trading compté 1 fois) · un BE volontaire compte comme trade, pas comme gagnant · TopstepX (clôturé) exclu</div>
+        <span class="stat-val">33,2% <span style="font-size:10px;color:var(--muted);font-weight:400">(61/184)</span></span>
+        <div style="font-size:10px;color:var(--muted);margin-top:2px">10 comptes Tradovate (dont 004a et 002 cramés), dédupliqué (copy trading compté 1 fois) · un BE volontaire compte comme trade, pas comme gagnant · TopstepX (clôturé) exclu</div>
       </div>
       <div class="stat-item">
         <span class="stat-label">Meilleur jour</span>
@@ -1837,8 +1855,8 @@ window.COMPTES = [
     objectif: null,
     mll: 48000,
     maxContrats: null,
-    note: "🔴 Ouvert et tradé le 18/09 : 3 trades, tous perdants, −1 176 $ dès le premier jour. Chaque trade en 8 contrats MNQ — le double du plafond de 4, et la plus grosse taille jamais vue sur un compte tout juste ouvert. Buffer déjà descendu à 824 $. Solde de départ supposé 50 000 $ — à confirmer.",
-    aConfirmer: "Le solde de départ exact (50 000 $ supposé), la référence Tradovate complète, et pourquoi ce compte trade en 8 contrats d'entrée de jeu."
+    note: "🔴 Ouvert et tradé le 18/09 : 3 trades, tous perdants, −1 176 $ dès le premier jour. Chaque trade en 8 contrats MNQ — le double du plafond de 4, et la plus grosse taille jamais vue sur un compte tout juste ouvert. Buffer déjà descendu à 824 $. Solde de départ supposé 50 000 $ — à confirmer. ⚠️ N'apparaît plus dans ta page de comptes Lucid du 30/09 (qui liste 001, 003, 004, 005, 005b, 006 et 02b, plus le 002 breaché) — encore ouvert ?",
+    aConfirmer: "Le solde de départ exact (50 000 $ supposé), la référence Tradovate complète, pourquoi ce compte trade en 8 contrats d'entrée de jeu, et s'il est toujours ouvert (absent de la liste Lucid du 30/09)."
   },
   {
     nom: "Tradovate / Lucid — …4680004 (nouveau)",
@@ -1847,16 +1865,16 @@ window.COMPTES = [
     statutLabel: "Évaluation",
     devise: "$",
     depart: 50000,
-    solde: 49953.00,
-    soldeDate: "18/09/2026",
-    seuil: 48000,
-    buffer: 1953.00,
-    reference: null,
-    objectif: null,
-    mll: 48000,
+    solde: 49933.00,
+    soldeDate: "30/09/2026",
+    seuil: 48087,
+    buffer: 1846.00,
+    reference: "LFE05085004680004",
+    objectif: 53000,
+    mll: 48087,
     maxContrats: null,
-    note: "−152 $ le 18/09 (1 trade). Racheté et tradé dès le 17/09 — remplace l'ancien 004 cramé et clôturé le 10/09. Solde de départ supposé 50 000 $ — à confirmer.",
-    aConfirmer: "Le solde de départ exact (50 000 $ supposé) et la référence Tradovate complète."
+    note: "−152 $ le 18/09 (1 trade). Racheté et tradé dès le 17/09 — remplace l'ancien 004 cramé et clôturé le 10/09. Solde actualisé depuis ta page Lucid (30/09) : 49 933 $, 2 jours de trading — écart de 20 $ avec le dernier calcul CSV (49 953 $ au 18/09), probablement des frais non repris dans l'export Tradovate.",
+    aConfirmer: null
   },
   {
     nom: "Tradovate / Lucid — …4680003",
@@ -1865,33 +1883,51 @@ window.COMPTES = [
     statutLabel: "Évaluation",
     devise: "$",
     depart: 50000,
-    solde: 49144.00,
-    soldeDate: "29/09/2026",
-    seuil: 48000,
-    buffer: 1144.00,
-    reference: null,
-    objectif: null,
-    mll: 48000,
+    solde: 49052.00,
+    soldeDate: "30/09/2026",
+    seuil: 48251,
+    buffer: 801.00,
+    reference: "LFE05085004680003",
+    objectif: 53000,
+    mll: 48251,
     maxContrats: null,
-    note: "−175 $ le 29/09 — Short MNQ 2 contrats, entré 30 min après la perte du 001 (règle 6 respectée). Avant : −262,50 $ le 18/09, copié avec 001/002. Solde de départ supposé 50 000 $ comme les autres comptes — à confirmer.",
-    aConfirmer: "Le solde de départ exact (50 000 $ supposé) et la référence Tradovate complète."
+    note: "−175 $ le 29/09 — Short MNQ 2 contrats, entré 30 min après la perte du 001 (règle 6 respectée). Avant : −262,50 $ le 18/09, copié avec 001/002. Solde actualisé depuis ta page Lucid (30/09) : 49 052 $ — écart de 92 $ avec le calcul CSV du 29/09 (49 144 $), à surveiller (frais ou décalage de relevé).",
+    aConfirmer: null
   },
   {
     nom: "Tradovate / Lucid — …4680002",
     ref: "Compte 02",
+    statut: "breached",
+    statutLabel: "Compte cramé (breach)",
+    devise: "$",
+    depart: 50000,
+    solde: 49098.00,
+    soldeDate: "30/09/2026",
+    seuil: 49120,
+    buffer: -22.00,
+    reference: "LTE05085004680002 (Lucid : LFE05085004680002)",
+    objectif: null,
+    mll: 49120,
+    maxContrats: null,
+    note: "🔴 Compte cramé (breach), confirmé par Sébastien le 30/09. Dernier solde connu (Lucid) : 49 098 $, sous le seuil de clôture à 49 120 $. Remplacé le jour même par le 02b. Historique avant breach : −89 $ le 25/09 (5 trades entre 16h14 et 18h26, quatre après le plafond de 3 trades du jour), −314 $ le 24/09.",
+    aConfirmer: null
+  },
+  {
+    nom: "Tradovate / Lucid — …4680006 (LucidFlex, nouveau — remplace le 002)",
+    ref: "Compte 02b",
     statut: "evaluation",
     statutLabel: "Évaluation",
     devise: "$",
     depart: 50000,
-    solde: 49204.50,
-    soldeDate: "25/09/2026",
-    seuil: 48000,
-    buffer: 1204.50,
-    reference: "LTE05085004680002",
+    solde: 50018.00,
+    soldeDate: "29/09/2026",
+    seuil: 48018,
+    buffer: 2000.00,
+    reference: "LFE05085004680006",
     objectif: 53000,
-    mll: 48000,
+    mll: 48018,
     maxContrats: null,
-    note: "Buffer : +1 204,50 $ · −89 $ le 25/09 — 5 trades entre 16h14 et 18h26 (Short 6 contrats +549 $, puis −244, +10, −206, −198 $), quatre d'entre eux après le plafond de 3 trades du jour. −314 $ le 24/09.",
+    note: "Racheté le 29/09 pour remplacer le 002 (breaché). Premier trade : Short MNQ, 2 contrats en 2 fills (17h12 et 17h13), sortis 20h23 et 20h25, +16 $ puis +4 $ (+20 $ brut / +18 $ net après frais Tradovate). Entré 20 min après la perte du 003 — règle 6 respectée.",
     aConfirmer: null
   },
   {
@@ -1901,15 +1937,15 @@ window.COMPTES = [
     statutLabel: "Évaluation",
     devise: "$",
     depart: 50000,
-    solde: 48166.00,
-    soldeDate: "17/09/2026",
+    solde: 48061.00,
+    soldeDate: "30/09/2026",
     seuil: 48000,
-    buffer: 166.00,
-    reference: "LTE05085004680006",
-    objectif: null,
+    buffer: 61.00,
+    reference: "LTE05085004680006 (LucidPro — même compte, ID différent sur Tradovate et sur Lucid)",
+    objectif: 52999,
     mll: 48000,
     maxContrats: null,
-    note: "🔴🔴 Buffer : +166 $ seulement — en dessous d'un trade perdant moyen. −291 $ le 17/09, copié avec le compte 001 (short au même prix/même seconde). NE PAS TOUCHER tant que ce n'est pas reparlé.",
+    note: "🔴🔴 Buffer : +61 $ seulement (Lucid, 30/09) — encore plus serré qu'avant (166 $ au 17/09). En dessous d'un trade perdant moyen. NE PAS TOUCHER tant que ce n'est pas reparlé.",
     aConfirmer: null
   },
   {
@@ -1919,15 +1955,15 @@ window.COMPTES = [
     statutLabel: "Évaluation",
     devise: "$",
     depart: 50000,
-    solde: 50699.25,
-    soldeDate: "29/09/2026",
-    seuil: 48000,
-    buffer: 2699.25,
-    reference: "LTE05085004680001",
-    objectif: null,
-    mll: 48000,
+    solde: 50503.00,
+    soldeDate: "30/09/2026",
+    seuil: 49186,
+    buffer: 1317.00,
+    reference: "LTE05085004680001 (Lucid : LFE05085004680001)",
+    objectif: 53000,
+    mll: 49186,
     maxContrats: null,
-    note: "Buffer : +2 699,25 $ · −263 $ le 29/09 — Short MNQ 2 contrats, 65,75 pts contre toi en 41 min. +742 $ le 28/09.",
+    note: "Solde actualisé depuis ta page Lucid (30/09) : 50 503 $ — écart de 196 $ avec le calcul CSV du 29/09 (50 699,25 $), à surveiller. −263 $ le 29/09 (Short MNQ 2 contrats, 65,75 pts contre toi en 41 min), +742 $ le 28/09.",
     aConfirmer: null
   },
   {
@@ -1945,8 +1981,26 @@ window.COMPTES = [
     objectif: null,
     mll: 48000,
     maxContrats: null,
-    note: "🔴🔴 Buffer : +166 $ seulement — en dessous d'un trade perdant moyen. −48 $ le 15/09 (1 trade, copié avec 001/003 à 17h00). NE PAS TOUCHER tant que ce n'est pas reparlé.",
-    aConfirmer: null
+    note: "🔴🔴 Buffer : +166 $ seulement — en dessous d'un trade perdant moyen. −48 $ le 15/09 (1 trade, copié avec 001/003 à 17h00). NE PAS TOUCHER tant que ce n'est pas reparlé. ⚠️ N'apparaît plus tel quel dans ta page Lucid du 30/09 — remplacé par le 005b, ou toujours ouvert en parallèle ?",
+    aConfirmer: "Ce compte (historique, plusieurs séances depuis août) est-il toujours ouvert ? Il n'apparaît plus séparément sur Lucid — seul le 005b (racheté, 1 jour de trading) y figure."
+  },
+  {
+    nom: "Tradovate / Lucid — …4680005 (nouveau, racheté)",
+    ref: "Compte 05b",
+    statut: "evaluation",
+    statutLabel: "Limite journalière touchée",
+    devise: "$",
+    depart: 50000,
+    solde: 48800.00,
+    soldeDate: "29/09/2026",
+    seuil: 48000,
+    buffer: 800.00,
+    reference: "LFE05085004680005",
+    objectif: 53000,
+    mll: 48000,
+    maxContrats: null,
+    note: "1 jour de trading (29/09), tailles de lots variables — Sébastien : « j'ai fait n'importe quoi » — → −1 200 $ en une seule séance, pile la limite journalière (DLL 1 200 $). Pas de CSV Tradovate reçu pour cette séance : impossible de détailler les trades un par un tant que l'export n'est pas envoyé.",
+    aConfirmer: "L'export Tradovate (Performance CSV) de la séance du 29/09 sur ce compte, pour détailler les trades comme sur les autres comptes."
   }
 ];
 
@@ -2184,7 +2238,7 @@ window.TRADES = [
    vérifié depuis les CSV bruts. N'évalue pas la qualité de l'entrée.
    Absent = pas encore évalué (jours avant le 14/09). Sert au KPI "Respect du plan". */
 window.SESSIONS = [
-  { jour:"29/09", label:"Mardi 29 sept.", fichier:"2026-09-29-mardi.html", pnl:-438.00, trades:2, gagnants:0, neutres:0, planOk:true, rt:[2,0,0], note:"Deux trades, deux pertes, sur deux comptes différents : 001 MNQ Short 2 contrats −263 $ (15h38, 41 min), 003 MNQ Short 2 contrats −175 $ (16h49, 2 min), entré 30 min après la perte du 001 — règle 6 respectée. Capture 16h50 : biais baissier, chute de folie, entrée retardée à la clôture de bougie (>350 ticks), doute sur le timing. 2 trades (max 3), 2 contrats (max 4), un seul compte à la fois." },
+  { jour:"29/09", label:"Mardi 29 sept.", fichier:"2026-09-29-mardi.html", pnl:-418.00, trades:4, gagnants:2, neutres:0, planOk:true, rt:[4,0,0], note:"Quatre trades sur trois comptes différents : 001 MNQ Short 2 contrats −263 $ (15h38, 41 min), 003 MNQ Short 2 contrats −175 $ (16h49, 2 min, entré 30 min après la perte du 001 — règle 6 respectée), et deux trades sur le 02b (compte racheté le jour même pour remplacer le 002 breaché) — MNQ Short 1 contrat +16 $ (17h12→20h23) puis 1 contrat +4 $ (17h13→20h25), entrés 20 min après la perte du 003. Capture 16h50 : biais baissier, chute de folie, entrée retardée à la clôture de bougie (>350 ticks), doute sur le timing." },
   { jour:"28/09", label:"Lundi 28 sept.", fichier:"2026-09-28-lundi.html", pnl:742.00, trades:1, gagnants:1, neutres:0, planOk:true, rt:[1,0,0], note:"Un seul trade, gagnant : 001 MNQ Short 2 contrats, entrée 15h40 à 30 642,75, sortie 16h43 à 30 457,25 — 185,5 points captés en 1h03. Sous les plafonds de 3 trades et 4 contrats, pas de deuxième trade donc pas de question de délai après une perte." },
   { jour:"25/09", label:"Vendredi 25 sept.", fichier:"2026-09-25-vendredi.html", pnl:-403.00, trades:7, gagnants:2, neutres:1, rt:[7,3,361], planOk:false, planWhy:"7 trades (max 3), 3 trades après le verrou des 2 pertes, 6 contrats sur un trade (plafond 4), entrées à moins de 10 min d'une perte", note:"Sept trades, quatre pertes : 001 6E Long +225 $, 001 MNQ Long en deux entrées −539 $, 002 MNQ Short 6 contrats +549 $ (journée à +235 $ à 16h19), puis le 002 enchaîne Long −244 $, Short en BE +10 $, Long −206 $, Short −198 $. 7 trades pour un maximum de 3, trois entrées après le verrou des deux pertes, trois entrées à moins de 10 min d'une perte (règle 6), 6 contrats sur un trade (plafond 4)." },
   { jour:"24/09", label:"Jeudi 24 sept.", fichier:"2026-09-24-jeudi.html", pnl:-566.00, trades:3, gagnants:0, neutres:0, rt:[3,0,0], planOk:false, planWhy:"3e trade pris après 2 pertes (lockout)", note:"Trois trades, trois pertes : 002 MCL Long 2 contrats −98 $ (10h29), 002 MNQ Short 3 contrats −216 $ (15h55, stoppé en 5 min, biais baissier noté sur ta capture), 001 MNQ Short 3 contrats −252 $ (16h45) — ce dernier pris après deux pertes, donc lockout non respecté. Un seul compte à la fois, règle 6 respectée (45 min après la perte). Le trade du 001 est sorti en deux fills (une seule position)." },

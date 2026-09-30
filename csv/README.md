@@ -31,6 +31,7 @@ explicite :
 | 003 | 655959380xxx (numéro complet confirmé le 14/09 — anciennement noté « 006b » en attente) |
 | 004b | 664675940xxx (nouveau compte racheté le 17/09, remplace le 004a) |
 | A | 665865960xxx (nouveau compte ouvert le 18/09, trade en 8 contrats dès le 1er jour) |
+| 02b | 679770490xxx (nouveau compte racheté le 29/09, remplace le 002 cramé/breached) |
 
 ## Règle pour toute session Claude qui traite un CSV envoyé par l'utilisateur
 

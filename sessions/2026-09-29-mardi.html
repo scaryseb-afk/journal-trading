@@ -16,17 +16,17 @@
 
 <div class="sp-header">
   <h1 class="sp-title">Mardi 29 sept.</h1>
-  <span class="sp-pnl td-l">−438,00 $</span>
+  <span class="sp-pnl td-l">−418,00 $</span>
 </div>
-<div class="sp-meta">2 trades (2 lignes CSV) &nbsp;·&nbsp; 2 comptes (001, 003), un seul à la fois</div>
+<div class="sp-meta">4 trades (4 lignes CSV) &nbsp;·&nbsp; 3 comptes (001, 003, 02b), un seul à la fois</div>
 
 <div class="note-block">
-  <strong>−438,00 $ — deux trades, deux pertes, sur deux comptes différents.</strong><br><br>
+  <strong>−418,00 $ — trois comptes, dont un tout juste racheté.</strong><br><br>
   <strong>1. Compte 001 — MNQ Short, 2 contrats :</strong> entrée (vente) à 15h38:02 à 30 601,00, sortie (rachat) à 16h19:14 à 30 666,75, soit 65,75 pts contre toi en 41 min, −263 $.<br><br>
   <strong>2. Compte 003 — MNQ Short, 2 contrats :</strong> entrée (vente) à 16h49:39 à 30 648,50, sortie (rachat) à 16h51:55 à 30 692,25, soit 43,75 pts contre toi en 2 min 15, −175 $. Entré 30 min 25 s après la clôture de la perte précédente — au-delà des 10 minutes de la règle 6.<br><br>
-  <strong>Ta capture de 16h50 :</strong> « 1. Biais baissier. 2. Sweep d'un point haussier. Une chute de folie mais j'ai voulu attendre la bougie pour rentrer, peut-être une erreur car plus de 350 ticks avec la bougie de clôture de création. » Le graphique montre une bougie de chute très large juste avant tes deux entrées, avec une FVG marquée vers 30 651–30 665 — la zone d'où tu es reparti short les deux fois.<br><br>
-  <strong>Contrôle du plan :</strong> 2 trades pour un maximum de 3, 2 contrats à chaque fois pour un plafond de 4, un seul compte à la fois, pas de chevauchement, règle 6 respectée entre les deux trades (30 min). Sur la taille et le rythme, le plan a tenu — le résultat, non.<br><br>
-  <strong>Ta phrase coupée :</strong> « j'ai suivi le plan mais j'ai essayé de reprendre un trade… » — je n'ai que le début, dis-moi la suite pour que je la mette au bon endroit.
+  <strong>3. Compte 02b — MNQ Short, 1+1 contrat (2 fills) :</strong> entrées à 17h11:55 (30 614,00) et 17h13:13 (30 599,50), sorties à 20h22:53 (30 606,00) et 20h25:09 (30 597,50) — +16 $ puis +4 $, +20 $ brut. Compte racheté le jour même pour remplacer le 002, breaché. Entré 20 min après la clôture de la perte du 003 — règle 6 respectée.<br><br>
+  <strong>Ta capture de 16h50 :</strong> « 1. Biais baissier. 2. Sweep d'un point haussier. Une chute de folie mais j'ai voulu attendre la bougie pour rentrer, peut-être une erreur car plus de 350 ticks avec la bougie de clôture de création. » Le graphique montre une bougie de chute très large juste avant tes deux entrées sur 001/003, avec une FVG marquée vers 30 651–30 665 — la zone d'où tu es reparti short les deux fois.<br><br>
+  <strong>Contrôle du plan :</strong> 3 décisions de trade pour un maximum de 3, 2 contrats à chaque fois pour un plafond de 4, un seul compte à la fois, règle 6 respectée entre chaque trade (30 min, puis 20 min). Sur la taille et le rythme, le plan a tenu.
 </div>
 
 <div id="trades-section">
@@ -53,9 +53,20 @@
     </table>
   </div>
 
+  <div class="acct-header">
+    <span class="acct-label">Compte 02b — …4680006 (nouveau, remplace le 002)</span>
+    <span class="acct-pnl td-w">+20,00 $</span>
+  </div>
+  <div class="tbl-wrap">
+    <table class="trades-table">
+      <thead><tr><th>#</th><th>Contrat</th><th>Sens</th><th>Qté</th><th>Entrée</th><th>Sortie</th><th>Heure</th><th>P&amp;L</th></tr></thead>
+      <tbody id="body-02b"></tbody>
+    </table>
+  </div>
+
   <div class="total-bar">
-    <span class="total-label">Total journée — 2 comptes</span>
-    <span class="total-val " style="color:var(--red)">−438,00 $</span>
+    <span class="total-label">Total journée — 3 comptes</span>
+    <span class="total-val " style="color:var(--red)">−418,00 $</span>
   </div>
 
 </div>
@@ -95,6 +106,10 @@ var ACCTS = {
   ],
   '003': [
     {n:1, contract:'MNQ', side:'Short', qty:'2', entry:'30648.50', exit:'30692.25', time:'16:49', pnl: -175.00}
+  ],
+  '02b': [
+    {n:1, contract:'MNQ', side:'Short', qty:'1', entry:'30614.00', exit:'30606.00', time:'17:11', pnl: 16.00},
+    {n:2, contract:'MNQ', side:'Short', qty:'1', entry:'30599.50', exit:'30597.50', time:'17:13', pnl: 4.00}
   ]
 };
 
@@ -130,6 +145,7 @@ function renderAcct(acctId, bodyId){
 window.addEventListener('DOMContentLoaded', function(){
   renderAcct('001', 'body-001');
   renderAcct('003', 'body-003');
+  renderAcct('02b', 'body-02b');
 });
 </script>
 <script src="../_systeme/session.js"></script>
