@@ -134,6 +134,20 @@ h3{font-size:18px;font-weight:600;margin:0 0 4px}
 .pw-detail b{color:var(--txt);font-weight:700}
 .pw-rule{color:var(--dim);font-size:12px;margin-top:4px}
 @media(max-width:700px){.pw-count{margin-left:0}}
+.wk-recap{display:flex;gap:24px;flex-wrap:wrap;margin:10px 0 4px}
+.wk-recap-col{flex:1 1 220px;min-width:200px}
+.wk-recap-h{font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-bottom:4px}
+.wk-recap-col ul{margin:0;padding-left:18px;font-size:13px;line-height:1.6;color:var(--txt)}
+.wk-recap-verdict{color:var(--muted);font-size:13px;margin:10px 0 4px;font-style:italic}
+.cha-list{display:flex;flex-direction:column;gap:8px;margin:12px 0 24px}
+.cha-item{display:flex;align-items:center;gap:10px;padding:10px 14px;border:1px solid var(--line);border-radius:10px;background:var(--panel);flex-wrap:wrap}
+.cha-item.ok{border-color:var(--green)}
+.cha-item.ko{border-color:var(--red)}
+.cha-icon{font-size:15px}
+.cha-label{font-weight:700;flex:1 1 auto;min-width:180px;font-size:13.5px}
+.cha-detail{font-size:12px;color:var(--muted)}
+.cha-streak{margin-left:auto;font-size:12px;color:var(--accent);font-weight:700;white-space:nowrap}
+@media(max-width:700px){.cha-streak{margin-left:0}}
 .kpi:has(.val.pos){background:linear-gradient(180deg,var(--green-dim),var(--panel) 75%);border-top:3px solid var(--green)}
 .kpi:has(.val.neg){background:linear-gradient(180deg,var(--red-dim),var(--panel) 75%);border-top:3px solid var(--red)}
 .ar:has(.ar-bal.pos){border-left:3px solid var(--green);background:linear-gradient(90deg,var(--green-dim),var(--panel) 45%)}
@@ -2276,6 +2290,13 @@ window.SESSIONS = [
   { jour:"14/08", label:"Vendredi 14 août", fichier:"2026-08-14-vendredi.html", pnl:-263.72,  trades:3, gagnants:1, neutres:0 },
   { jour:"13/08", label:"Jeudi 13 août",    fichier:"2026-08-13-jeudi.html",    pnl:2472.48,  trades:3, gagnants:3, neutres:0 }
 ];
+
+/* Résumé hebdo (page Progression) — écrit à la main par Claude une fois la semaine bouclée,
+   à partir de window.SESSIONS (pas de reconstruction rétroactive avant le 30/09/2026).
+   Clé = même format que weekOf()/mondayOf() ailleurs dans la page : "AAAA-M-J" du lundi de la semaine. */
+window.WEEKLY_RECAPS = {
+  /* "2026-9-28": { forts:["..."], travailler:["..."], verdict:"..." } */
+};
 </script>
 <script>/* Score de confluence — un seul état, deux affichages (widget compact du Dashboard + carte complète de l'onglet Règles), synchronisés en direct */
 (function(){
@@ -3896,7 +3917,7 @@ window.SESSIONS = [
         if(s.jour.slice(3) === '09') sept += s.pnl;
         if(typeof s.planOk === 'boolean'){ ev++; if(s.planOk) ok++; }
       });
-      return { first: d[d.length - 1].jour, last: d[0].jour, days: d.length, n: n, r: r, rp: rp, pct: n ? r / n * 100 : 0,
+      return { key: k, first: d[d.length - 1].jour, last: d[0].jour, days: d.length, n: n, r: r, rp: rp, pct: n ? r / n * 100 : 0,
                pnl: pnl, R: d.some(function(s){ return s.jour.slice(3) === '09'; }) ? sept / RISK_MID : null, ok: ok, ev: ev };
     });
     if(!W.length) return;
@@ -3915,6 +3936,47 @@ window.SESSIONS = [
     var dN = prev ? latest.n - prev.n : null, dP = prev ? latest.pct - prev.pct : null;
     var dPl = prev ? latest.pnl - prev.pnl : null, dOk = prev && latest.ev && prev.ev ? latest.ok - prev.ok : null;
     h += '<h2 style="margin-top:28px">Semaine du ' + latest.first + ' au ' + latest.last + '</h2>';
+
+    var recap = (window.WEEKLY_RECAPS || {})[latest.key];
+    if(recap){
+      h += '<div class="wk-recap">';
+      if(recap.forts && recap.forts.length) h += '<div class="wk-recap-col"><div class="wk-recap-h">✅ Points forts</div><ul>' + recap.forts.map(function(t){ return '<li>' + t + '</li>'; }).join('') + '</ul></div>';
+      if(recap.travailler && recap.travailler.length) h += '<div class="wk-recap-col"><div class="wk-recap-h">⚠️ À travailler</div><ul>' + recap.travailler.map(function(t){ return '<li>' + t + '</li>'; }).join('') + '</ul></div>';
+      h += '</div>';
+      if(recap.verdict) h += '<p class="wk-recap-verdict">' + recap.verdict + '</p>';
+    }
+
+    /* Défis de la semaine — évalués automatiquement depuis les mêmes données que les cartes ci-dessous.
+       Un défi non évaluable pour une semaine (ex. pas de trade, pas de donnée planOk) est ignoré, pas cassé. */
+    var CHALLENGES = [
+      { icon: '🎯', label: 'Zéro ré-entrée précipitée', evaluate: function(w){ return w.n > 0 ? (w.r === 0) : null; }, detail: function(w){ return w.r + '/' + w.n + ' ré-entrées'; } },
+      { icon: '📋', label: 'Semaine 100% dans le plan', evaluate: function(w){ return w.ev > 0 ? (w.ok === w.ev) : null; }, detail: function(w){ return w.ok + '/' + w.ev + ' jours dans le plan'; } },
+      { icon: '💰', label: 'Semaine positive', evaluate: function(w){ return w.pnl !== 0 ? (w.pnl > 0) : null; }, detail: function(w){ return money(w.pnl); } }
+    ];
+    var streakOf = function(evaluate){
+      var s = 0;
+      for(var i = 0; i < W.length; i++){
+        var v = evaluate(W[i]);
+        if(v === null) continue;
+        if(v) s++; else break;
+      }
+      return s;
+    };
+    h += '<h2>🏆 Défis de la semaine</h2><div class="cha-list">';
+    CHALLENGES.forEach(function(c){
+      var val = c.evaluate(latest);
+      var streak = streakOf(c.evaluate);
+      var cls = val === null ? '' : (val ? 'ok' : 'ko');
+      var mark = val === null ? '⏳' : (val ? '✅' : '❌');
+      h += '<div class="cha-item ' + cls + '">'
+        + '<span class="cha-icon">' + mark + '</span>'
+        + '<span class="cha-label">' + c.icon + ' ' + c.label + '</span>'
+        + '<span class="cha-detail">' + c.detail(latest) + '</span>'
+        + (streak > 0 ? '<span class="cha-streak">🔥 ' + streak + ' semaine' + (streak > 1 ? 's' : '') + ' d\'affilée</span>' : '')
+        + '</div>';
+    });
+    h += '</div>';
+
     h += '<div class="pg-cards">'
       + card('Trades', latest.n, better(dN, 'down'), prev ? 'contre ' + prev.n + ' la semaine précédente (' + (dN > 0 ? '+' : (dN < 0 ? '−' : '')) + Math.abs(dN) + ')' : 'première semaine suivie')
       + card('Ré-entrées &lt; 10 min', Math.round(latest.pct) + ' %', better(dP, 'down'), latest.r + ' sur ' + latest.n + (prev ? ' · ' + Math.round(prev.pct) + ' % la semaine précédente' : ''))
