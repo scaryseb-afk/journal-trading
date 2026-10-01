@@ -702,39 +702,39 @@ select.plan-input{cursor:pointer}
   <div class="tz-row">
     <div class="tz-card">
       <div class="lbl">Net P&amp;L</div>
-      <div class="val neg">−6 808 $</div>
+      <div class="val neg">−7 224 $</div>
     </div>
     <div class="tz-card gauge">
       <div class="lbl">Trade win %</div>
       <div class="tz-ring-wrap">
         <svg width="72" height="72" viewBox="0 0 72 72">
           <circle cx="36" cy="36" r="30" fill="none" stroke="var(--line)" stroke-width="7"/>
-          <circle cx="36" cy="36" r="30" fill="none" stroke="var(--red)" stroke-width="7" stroke-linecap="round" stroke-dasharray="62.2 188.5" transform="rotate(-90 36 36)"/>
+          <circle cx="36" cy="36" r="30" fill="none" stroke="var(--red)" stroke-width="7" stroke-linecap="round" stroke-dasharray="61.8 188.5" transform="rotate(-90 36 36)"/>
         </svg>
         <div class="tz-ring-val">33 %</div>
       </div>
-      <div class="tz-sub">61/185</div>
+      <div class="tz-sub">61/186</div>
     </div>
     <div class="tz-card">
       <div class="lbl">Profit factor</div>
-      <div class="val neg">0,66</div>
-      <div class="tz-sub">13 427 $ / 20 235 $</div>
+      <div class="val neg">0,65</div>
+      <div class="tz-sub">13 427 $ / 20 651 $</div>
     </div>
     <div class="tz-card gauge">
       <div class="lbl">Day win %</div>
       <div class="tz-ring-wrap">
         <svg width="72" height="72" viewBox="0 0 72 72">
           <circle cx="36" cy="36" r="30" fill="none" stroke="var(--line)" stroke-width="7"/>
-          <circle cx="36" cy="36" r="30" fill="none" stroke="var(--red)" stroke-width="7" stroke-linecap="round" stroke-dasharray="75.4 188.5" transform="rotate(-90 36 36)"/>
+          <circle cx="36" cy="36" r="30" fill="none" stroke="var(--red)" stroke-width="7" stroke-linecap="round" stroke-dasharray="73.3 188.5" transform="rotate(-90 36 36)"/>
         </svg>
-        <div class="tz-ring-val">40 %</div>
+        <div class="tz-ring-val">39 %</div>
       </div>
-      <div class="tz-sub">14/35 séances</div>
+      <div class="tz-sub">14/36 séances</div>
     </div>
     <div class="tz-card">
       <div class="lbl">Gain / perte moyen</div>
-      <div class="val"><span class="pos">220 $</span> <span style="color:var(--dim);font-weight:500;font-size:16px">/</span> <span class="neg">165 $</span></div>
-      <div class="tz-sub">ratio 1,34</div>
+      <div class="val"><span class="pos">220 $</span> <span style="color:var(--dim);font-weight:500;font-size:16px">/</span> <span class="neg">167 $</span></div>
+      <div class="tz-sub">ratio 1,32</div>
     </div>
   </div>
 
@@ -1248,7 +1248,7 @@ select.plan-input{cursor:pointer}
 
   <div class="subview" data-subview="comptes">
   <h2 id="brief-comptes">Où en sont tes comptes</h2>
-  <p class="sub">Huit comptes suivis (001, 003, 004, 005, 005b, 006, 02b, A) — le 002 a breaché le 29/09 et a été remplacé le jour même par le 02b, le 005b est un rachat du 005 tradé une seule fois, le 004 a été racheté le 17/09 après la clôture de l'ancien le 10/09. Soldes actualisés le 30/09 depuis ta page de comptes Lucid (buffer, jours de trading, seuil MLL — des infos que le CSV Tradovate ne donne pas) ; quand un solde recalculé sur CSV existe, l'écart avec Lucid est signalé plutôt que lissé. Compte A absent de cette page Lucid — statut à confirmer.</p>
+  <p class="sub">Huit comptes suivis (001, 003, 004, 005, 005b, 006, 02b, A) — le 002 a breaché le 29/09 et a été remplacé le jour même par le 02b, le 005b est un rachat du 005 tradé une seule fois, le 004 a été racheté le 17/09 après la clôture de l'ancien le 10/09. Soldes actualisés le 30/09 depuis ta page de comptes Lucid (buffer, jours de trading, seuil MLL — des infos que le CSV Tradovate ne donne pas) ; quand un solde recalculé sur CSV existe, l'écart avec Lucid est signalé plutôt que lissé. Compte A confirmé toujours actif par un trade le 01/10, malgré son absence de cette page Lucid.</p>
   <div class="obs warn" style="margin-bottom:16px">
     <div class="t">🔴 Le 002 a breaché le 29/09</div>
     <div class="d">Confirmé par Sébastien. Dernier solde 49 098 $, sous le seuil de clôture (49 120 $). Remplacé le jour même par le 02b (…4680006, LucidFlex), déjà tradé une fois : +18 $ net.</div>
@@ -1262,8 +1262,8 @@ select.plan-input{cursor:pointer}
     <div class="d">−1 200 $ le 29/09 (pile la limite DLL), tailles de lots variables selon Sébastien (« j'ai fait n'importe quoi »). Pas de CSV Tradovate reçu pour cette séance — trades non détaillés.</div>
   </div>
   <div class="obs warn" style="margin-bottom:16px">
-    <div class="t">⚠️ Compte « A » : 8 contrats par trade dès le premier jour, absent de la page Lucid</div>
-    <div class="d">3 trades, tous perdants, −1 176 $ le 18/09, en 8 contrats MNQ — le double du plafond de 4. Ce compte n'apparaît plus dans la liste Lucid du 30/09 : encore ouvert ?</div>
+    <div class="t">⚠️ Compte « A » : toujours actif, buffer à 408 $</div>
+    <div class="d">Confirmé actif par un nouveau trade le 01/10 (−416 $, 4 contrats), malgré son absence de la liste Lucid du 30/09. 3 trades à 8 contrats le 18/09 (−1 176 $) restent le pire épisode de ce compte. Buffer descendu à 408 $ — à surveiller de près.</div>
   </div>
   <div class="rules">
     <div class="r">
@@ -1308,8 +1308,8 @@ select.plan-input{cursor:pointer}
     </div>
     <div class="r">
       <div class="n">Compte A — Tradovate / Lucid (nouveau)</div>
-      <div class="t">48 824,00 $ · <span style="color:var(--red)">−1 176,00 $ depuis le départ (solde de 50 000 $ supposé)</span></div>
-      <div class="d">Ouvert et tradé le 18/09. 3 trades, tous perdants, en 8 contrats MNQ — le double du plafond habituel, dès le premier jour. Buffer déjà à 824 $ au dernier relevé (18/09). N'apparaît plus dans la liste Lucid du 30/09 — encore ouvert ?</div>
+      <div class="t">48 408,00 $ · <span style="color:var(--red)">−1 592,00 $ depuis le départ (solde de 50 000 $ supposé)</span></div>
+      <div class="d">−416 $ le 01/10 : Long MNQ 4 contrats, 52 pts contre toi en 18 min 17 (plafond de 4 contrats atteint pile). Toujours actif — confirmé par ce nouveau trade, malgré son absence de la liste Lucid du 30/09. Avant : ouvert et tradé le 18/09 en 8 contrats, 3 trades tous perdants, −1 176 $ à lui seul. Buffer à 408 $.</div>
     </div>
   </div>
 
@@ -1413,18 +1413,18 @@ select.plan-input{cursor:pointer}
     <div class="stat-row">
       <div class="stat-item">
         <span class="stat-label">Total PnL</span>
-        <span class="stat-val neg">−6 808,25 $</span>
-        <div style="font-size:10px;color:var(--muted);margin-top:2px">Recalculé sur les CSV réels, 35 séances (13/08 → 30/09)</div>
+        <span class="stat-val neg">−7 224,25 $</span>
+        <div style="font-size:10px;color:var(--muted);margin-top:2px">Recalculé sur les CSV réels, 36 séances (13/08 → 01/10)</div>
       </div>
       <div class="stat-item">
         <span class="stat-label">Win rate</span>
-        <span class="stat-val">33,0% <span style="font-size:10px;color:var(--muted);font-weight:400">(61/185)</span></span>
+        <span class="stat-val">32,8% <span style="font-size:10px;color:var(--muted);font-weight:400">(61/186)</span></span>
         <div style="font-size:10px;color:var(--muted);margin-top:2px">10 comptes Tradovate (dont 004a et 002 cramés), dédupliqué (copy trading compté 1 fois) · un BE volontaire compte comme trade, pas comme gagnant · TopstepX (clôturé) exclu</div>
       </div>
       <div class="stat-item">
         <span class="stat-label">Profit factor</span>
-        <span class="stat-val neg">0,66</span>
-        <div style="font-size:10px;color:var(--muted);margin-top:2px">13 427 $ de gains bruts ÷ 20 235 $ de pertes brutes, même dédoublonnage que le win rate · &lt; 1 = perdant sur la période, peu importe le win rate à côté</div>
+        <span class="stat-val neg">0,65</span>
+        <div style="font-size:10px;color:var(--muted);margin-top:2px">13 427 $ de gains bruts ÷ 20 651 $ de pertes brutes, même dédoublonnage que le win rate · &lt; 1 = perdant sur la période, peu importe le win rate à côté</div>
       </div>
       <div class="stat-item">
         <span class="stat-label">Meilleur jour</span>
@@ -1915,16 +1915,16 @@ window.COMPTES = [
     statutLabel: "Évaluation",
     devise: "$",
     depart: 50000,
-    solde: 48824.00,
-    soldeDate: "18/09/2026",
+    solde: 48408.00,
+    soldeDate: "01/10/2026",
     seuil: 48000,
-    buffer: 824.00,
+    buffer: 408.00,
     reference: null,
     objectif: null,
     mll: 48000,
     maxContrats: null,
-    note: "🔴 Ouvert et tradé le 18/09 : 3 trades, tous perdants, −1 176 $ dès le premier jour. Chaque trade en 8 contrats MNQ — le double du plafond de 4, et la plus grosse taille jamais vue sur un compte tout juste ouvert. Buffer déjà descendu à 824 $. Solde de départ supposé 50 000 $ — à confirmer. ⚠️ N'apparaît plus dans ta page de comptes Lucid du 30/09 (qui liste 001, 003, 004, 005, 005b, 006 et 02b, plus le 002 breaché) — encore ouvert ?",
-    aConfirmer: "Le solde de départ exact (50 000 $ supposé), la référence Tradovate complète, pourquoi ce compte trade en 8 contrats d'entrée de jeu, et s'il est toujours ouvert (absent de la liste Lucid du 30/09)."
+    note: "🔴🔴 Buffer tombé à 408 $. −416 $ le 01/10 : Long MNQ 4 contrats (plafond atteint pile), 52 pts contre toi en 18 min 17. Toujours actif — confirmé par ce trade malgré son absence de la page Lucid du 30/09. Avant : ouvert et tradé le 18/09 en 8 contrats, 3 trades tous perdants, −1 176 $ dès le premier jour. Solde de départ supposé 50 000 $ — à confirmer.",
+    aConfirmer: "Le solde de départ exact (50 000 $ supposé) et la référence Tradovate complète."
   },
   {
     nom: "Tradovate / Lucid — …4680004 (nouveau)",
@@ -2306,6 +2306,7 @@ window.TRADES = [
    vérifié depuis les CSV bruts. N'évalue pas la qualité de l'entrée.
    Absent = pas encore évalué (jours avant le 14/09). Sert au KPI "Respect du plan". */
 window.SESSIONS = [
+  { jour:"01/10", label:"Jeudi 1 oct.", fichier:"2026-10-01-jeudi.html", pnl:-416.00, trades:1, gagnants:0, neutres:0, planOk:true, rt:[1,0,0], note:"Un seul trade, perdant : compte A, Long MNQ 4 contrats (plafond pile) −416 $ (18h35→18h53, 52 pts contre). Confirme que le compte A est toujours actif. 1 trade (max 3), 4 contrats (max 4), un seul compte." },
   { jour:"30/09", label:"Mercredi 30 sept.", fichier:"2026-09-30-mercredi.html", pnl:-199.00, trades:1, gagnants:0, neutres:0, planOk:true, rt:[1,0,0], note:"Un seul trade, perdant : 003 MNQ Short 2 contrats −199 $ (16h35→16h49, stop touché). 1 trade (max 3), 2 contrats (max 4), un seul compte." },
   { jour:"29/09", label:"Mardi 29 sept.", fichier:"2026-09-29-mardi.html", pnl:-418.00, trades:4, gagnants:2, neutres:0, planOk:true, rt:[4,0,0], note:"Quatre trades sur trois comptes différents : 001 MNQ Short 2 contrats −263 $ (15h38, 41 min), 003 MNQ Short 2 contrats −175 $ (16h49, 2 min, entré 30 min après la perte du 001 — règle 6 respectée), et deux trades sur le 02b (compte racheté le jour même pour remplacer le 002 breaché) — MNQ Short 1 contrat +16 $ (17h12→20h23) puis 1 contrat +4 $ (17h13→20h25), entrés 20 min après la perte du 003. Capture 16h50 : biais baissier, chute de folie, entrée retardée à la clôture de bougie (>350 ticks), doute sur le timing." },
   { jour:"28/09", label:"Lundi 28 sept.", fichier:"2026-09-28-lundi.html", pnl:742.00, trades:1, gagnants:1, neutres:0, planOk:true, rt:[1,0,0], note:"Un seul trade, gagnant : 001 MNQ Short 2 contrats, entrée 15h40 à 30 642,75, sortie 16h43 à 30 457,25 — 185,5 points captés en 1h03. Sous les plafonds de 3 trades et 4 contrats, pas de deuxième trade donc pas de question de délai après une perte." },

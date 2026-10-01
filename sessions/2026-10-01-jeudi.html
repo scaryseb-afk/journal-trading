@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<link rel="apple-touch-icon" href="../apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>Jeudi 1 oct. — Journal</title>
+<link rel="stylesheet" href="../_systeme/style.css">
+</head>
+<body>
+<div class="wrap">
+
+<a href="https://scaryseb-afk.github.io/journal-trading/#sessions" onclick="if(document.referrer){history.back();return false;}" class="sp-back">← Journal</a>
+
+<div class="sp-header">
+  <h1 class="sp-title">Jeudi 1 oct.</h1>
+  <span class="sp-pnl td-l">−416,00 $</span>
+</div>
+<div class="sp-meta">1 trade (1 ligne CSV) &nbsp;·&nbsp; 1 compte (A)</div>
+
+<div class="note-block">
+  <strong>−416,00 $ — un seul trade, perdant.</strong><br><br>
+  <strong>Compte A — MNQ Long, 4 contrats :</strong> entrée (achat) à 18h35:07 à 30 658,00, sortie (vente) à 18h53:24 à 30 606,00, soit 52 pts contre toi en 18 min 17, −416 $. 4 contrats — exactement le plafond de la règle 1, pas au-dessus.<br><br>
+  <strong>Ta capture (graphique 5 min, générée le 01/10 à 19h09) :</strong> la séance est globalement baissière, de ~30 885 en tout début de période jusqu'à des creux vers 30 520. Ton entrée (30 658) et ta sortie (30 606) se situent dans une zone basse marquée par l'indicateur FVG/iFVG — une zone de prix encadrée par des rectangles rouges avec une ligne médiane vers 30 636–30 639, et une zone verte/sarcelle superposée côté droit sur à peu près la même fourchette. Le Long a été pris alors que le prix revenait tester cette zone après la baisse, mais la baisse a continué. Pas de commentaire écrit reçu avec cette capture — dis-moi si cette lecture (tentative de rebond sur FVG) correspond à ton setup, ou si c'était autre chose.<br><br>
+  <strong>Compte A — à noter :</strong> ce trade confirme que le compte est toujours actif (il n'apparaissait plus sur ta page de comptes Lucid du 30/09). Buffer tombé à 408 $ avant clôture — à surveiller de près.<br><br>
+  <strong>Contrôle du plan :</strong> 1 trade (max 3), 4 contrats (plafond atteint pile, pas dépassé), un seul compte. Plan respecté.
+</div>
+
+<div id="trades-section">
+
+  <div class="acct-header">
+    <span class="acct-label">Compte A — nouveau, 18/09</span>
+    <span class="acct-pnl td-l">−416,00 $</span>
+  </div>
+  <div class="tbl-wrap">
+    <table class="trades-table">
+      <thead><tr><th>#</th><th>Contrat</th><th>Sens</th><th>Qté</th><th>Entrée</th><th>Sortie</th><th>Heure</th><th>P&amp;L</th></tr></thead>
+      <tbody id="body-A"></tbody>
+    </table>
+  </div>
+
+  <div class="total-bar">
+    <span class="total-label">Total journée — 1 compte</span>
+    <span class="total-val " style="color:var(--red)">−416,00 $</span>
+  </div>
+
+</div>
+
+<div class="section-title">🪞 Ta relecture</div>
+<div class="reflect-grid">
+  <div class="reflect-item err">
+    <label>Erreur commise</label>
+    <textarea class="reflect-note" data-key="reflect_erreur" placeholder="Qu'est-ce qui a foiré aujourd'hui, concrètement ?"></textarea>
+  </div>
+  <div class="reflect-item fix">
+    <label>Ce que j'aurais dû faire</label>
+    <textarea class="reflect-note" data-key="reflect_correction" placeholder="La version correcte de la décision"></textarea>
+  </div>
+  <div class="reflect-item ok">
+    <label>Ce qui a bien fonctionné</label>
+    <textarea class="reflect-note" data-key="reflect_ok" placeholder="À garder, à répéter"></textarea>
+  </div>
+</div>
+<div class="reflect-copy">
+  <button id="reflect-copy-btn" onclick="sjCopyReflect()" disabled>📋 Copier pour Claude</button>
+  <span class="hint">Colle ça dans le chat pour que ta prochaine séance en tienne compte.</span>
+</div>
+
+</div>
+<div class="lb-overlay" id="lb" onclick="sjCloseLB(event)">
+  <span class="lb-close" onclick="document.getElementById('lb').classList.remove('open')">×</span>
+  <img id="lb-img" src="" alt="">
+</div>
+
+<script>
+var SESSION_KEY = '2026_10_01_jeudi';
+
+var ACCTS = {
+  'A': [
+    {n:1, contract:'MNQ', side:'Long', qty:'4', entry:'30658.00', exit:'30606.00', time:'18:35', pnl: -416.00}
+  ]
+};
+
+function renderAcct(acctId, bodyId){
+  var notes = sjLoadNotes();
+  var trades = ACCTS[acctId] || [];
+  var html = '';
+  trades.forEach(function(t){
+    var ps = (t.pnl >= 0 ? '+' : '') + t.pnl.toFixed(2) + ' $';
+    var pc = t.pnl >= 0 ? 'td-w' : 'td-l';
+    var key = acctId + '_' + t.n;
+    var note = notes[key] || '';
+    html += '<tr class="trade-row">'
+      + '<td>' + t.n + '</td>'
+      + '<td><strong>' + sjEsc(t.contract) + '</strong></td>'
+      + '<td>' + sjEsc(t.side) + '</td>'
+      + '<td>' + sjEsc(t.qty) + '</td>'
+      + '<td>' + sjEsc(t.entry) + '</td>'
+      + '<td>' + sjEsc(t.exit) + '</td>'
+      + '<td style="color:var(--muted);font-size:12px">' + sjEsc(t.time) + '</td>'
+      + '<td class="td-pnl ' + pc + '">' + ps + '</td>'
+      + '</tr>'
+      + '<tr class="note-row"><td colspan="8">'
+      + '<textarea class="trade-note" placeholder="Setup, raison du trade, erreurs…" data-key="' + key + '" onblur="sjSaveNote(this)">'
+      + sjEsc(note)
+      + '</textarea>'
+      + sjTradeRRRow(key)
+      + '</td></tr>';
+  });
+  document.getElementById(bodyId).innerHTML = html;
+}
+
+window.addEventListener('DOMContentLoaded', function(){
+  renderAcct('A', 'body-A');
+});
+</script>
+<script src="../_systeme/session.js"></script>
+</body>
+</html>
