@@ -63,9 +63,9 @@ h3{font-size:18px;font-weight:600;margin:0 0 4px}
 .nav-sub{display:none}
 /* Grand écran : le menu devient une bannière fixe à gauche ; en dessous de 960 px, barre du haut comme avant */
 @media(min-width:960px){
-  body{padding-left:232px}
+  body{padding-left:264px}
   .wrap{max-width:1200px;padding-top:40px}
-  .nav{position:fixed;left:0;top:0;bottom:0;width:232px;margin:0;padding:24px 14px 18px;padding-left:calc(14px + env(safe-area-inset-left));
+  .nav{position:fixed;left:0;top:0;bottom:0;width:264px;margin:0;padding:24px 14px 18px;padding-left:calc(14px + env(safe-area-inset-left));
     flex-direction:column;flex-wrap:nowrap;align-items:stretch;gap:2px;
     border-bottom:none;border-right:1px solid var(--line);background:var(--panel);overflow-y:auto}
   .nav-brand{display:block;padding:2px 12px 18px;margin-bottom:8px;border-bottom:1px solid var(--line)}
@@ -77,8 +77,8 @@ h3{font-size:18px;font-weight:600;margin:0 0 4px}
   .nav a[data-goto="regles"]{margin-left:0}
   #theme-toggle{margin-top:auto;margin-bottom:env(safe-area-inset-bottom)}
   /* les sous-onglets passent dans le menu, sous l'onglet actif */
-  .nav-sub{display:flex;flex-direction:column;gap:1px;margin:2px 0 8px 16px;padding-left:10px;border-left:1px solid var(--line)}
-  .nav-sub a{padding:6px 10px;font-size:13px;border-radius:6px}
+  .nav-sub{display:flex;flex-direction:column;gap:1px;margin:2px 0 8px 14px;padding-left:8px;border-left:1px solid var(--line)}
+  .nav-sub a{padding:6px 8px;font-size:12.5px;border-radius:6px;white-space:nowrap}
   .nav a.on.in-sub{background:none;box-shadow:none;font-weight:700}
   .nav .nav-sub a.on{background:color-mix(in srgb,var(--accent) 12%,transparent);color:var(--accent);box-shadow:none;font-weight:700}
   .wrap .subnav{display:none}
@@ -636,15 +636,15 @@ textarea::placeholder{color:#4A566A}
 
 /* Analyses économiques */
 .eco-note{color:var(--dim);font-size:12.5px;margin-top:6px}
-.bias-badge{display:inline-flex;align-items:center;gap:6px;padding:4px 12px;border-radius:999px;font-size:12px;font-weight:700;letter-spacing:.02em}
+.bias-badge{display:inline-flex;align-items:center;gap:5px;padding:3px 10px;border-radius:999px;font-size:10.5px;font-weight:700;letter-spacing:.02em}
 .bias-badge.bull{background:var(--green-dim);color:var(--green);border:1px solid var(--green)}
 .bias-badge.bear{background:var(--red-dim);color:var(--red);border:1px solid var(--red)}
 .bias-badge.neutral{background:var(--panel);color:var(--muted);border:1px solid var(--line)}
-.mkt-card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:20px 22px;margin-bottom:16px}
-.mkt-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:12px;flex-wrap:wrap}
-.mkt-title{display:flex;align-items:center;gap:10px;font-size:18px;font-weight:700}
-.mkt-icon{font-size:26px;line-height:1}
-.mkt-levels{display:flex;gap:18px;margin-top:12px;font-size:12.5px;color:var(--muted);flex-wrap:wrap}
+.mkt-card{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:12px 16px;margin-bottom:8px}
+.mkt-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:6px;flex-wrap:wrap}
+.mkt-title{display:flex;align-items:center;gap:7px;font-size:14.5px;font-weight:700}
+.mkt-icon{font-size:18px;line-height:1}
+.mkt-levels{display:flex;gap:14px;margin-top:6px;font-size:11px;color:var(--muted);flex-wrap:wrap}
 .mkt-levels b{color:var(--txt);font-variant-numeric:tabular-nums}
 .pmi-explain{display:flex;gap:14px;margin:10px 0 16px;flex-wrap:wrap}
 .pmi-pill{flex:1 1 220px;border-radius:10px;padding:12px 14px;font-size:13px}
@@ -657,10 +657,17 @@ textarea::placeholder{color:#4A566A}
 .eco-tbl th{padding:6px 8px;font-size:10px}
 .eco-tbl td{padding:6px 8px;font-size:12.5px}
 .eco-tbl td:first-child{color:var(--muted)}
+.eco-strip{display:flex;flex-wrap:wrap;gap:6px}
+.eco-chip{flex:0 0 auto;min-width:64px;padding:6px 4px;border-radius:8px;text-align:center;line-height:1.3}
+.eco-chip .m{font-size:9px;font-weight:600;letter-spacing:.02em;text-transform:uppercase;opacity:.75}
+.eco-chip .v{font-size:13px;font-weight:800;font-variant-numeric:tabular-nums}
+.eco-chip.pos{background:var(--green-dim);color:var(--green)}
+.eco-chip.neg{background:var(--red-dim);color:var(--red)}
+.eco-chip.flat{background:var(--panel);color:var(--muted);border:1px dashed var(--line)}
 .scn-card{border:1px solid var(--line);border-left:3px solid var(--accent);border-radius:10px;padding:14px 16px;margin-top:12px;background:var(--panel)}
 .scn-head{font-weight:700;font-size:14px;margin-bottom:6px}
 .scn-head .scn-num{color:var(--accent);margin-right:6px}
-.scn-body{font-size:13.5px;color:var(--txt);line-height:1.6}
+.scn-body{font-size:12px;line-height:1.45;color:var(--txt);line-height:1.6}
 .scn-reactions{display:flex;flex-wrap:wrap;gap:8px 18px;margin-top:10px;padding-top:10px;border-top:1px solid var(--line)}
 .scn-reactions span{font-size:12.5px;color:var(--muted);display:flex;align-items:center;gap:4px}
 .scn-reactions b{font-size:14px}
@@ -1356,7 +1363,8 @@ textarea::placeholder{color:#4A566A}
       <div class="eco-cal-row"><span><strong>CPI</strong> (inflation US, septembre)</span><span class="eco-cal-date">mer. 14/10, 14h30 <span style="color:var(--dim);font-weight:500">(8h30 ET)</span></span></div>
       <div class="eco-cal-row"><span><strong>Décision Fed</strong> (FOMC)</span><span class="eco-cal-date">mer. 28/10, 19h00 <span style="color:var(--dim);font-weight:500">(14h00 ET)</span></span></div>
       <div class="eco-cal-row"><span><strong>Décision BCE</strong></span><span class="eco-cal-date">jeu. 29/10, 14h15</span></div>
-      <div class="eco-cal-row"><span><strong>ISM Manufacturing PMI</strong> (US)</span><span class="eco-cal-date">1er jour ouvré du mois, ~16h00</span></div>
+      <div class="eco-cal-row"><span><strong>ISM Services PMI</strong> (US, sept.)</span><span class="eco-cal-date">lun. 05/10, 16h00</span></div>
+      <div class="eco-cal-row"><span><strong>PMI flash</strong> (zone euro, oct.)</span><span class="eco-cal-date">ven. 23/10, 10h00</span></div>
     </div>
   </div>
 
@@ -1415,43 +1423,37 @@ textarea::placeholder{color:#4A566A}
 
   <div class="tool-card">
     <div class="tool-card-title">Inflation — CPI (variation sur 12 mois)</div>
-    <div class="tbl-wrap"><table class="pg-tbl eco-tbl">
-      <thead><tr><th>Mois</th><th>CPI global (YoY)</th></tr></thead>
-      <tbody>
-        <tr class="cur"><td>Août 2026</td><td class="neg"><b>3,4 %</b></td></tr>
-        <tr><td>Juillet 2026</td><td class="neg">3,4 %</td></tr>
-        <tr><td>Juin 2026</td><td class="neg">3,5 %</td></tr>
-        <tr><td>Mai 2026</td><td class="neg">4,2 % <span style="color:var(--muted);font-size:11px">(pic)</span></td></tr>
-        <tr><td>Avril 2026</td><td class="neg">3,8 %</td></tr>
-        <tr><td>Mars 2026</td><td class="neg">3,3 %</td></tr>
-        <tr><td>Février 2026</td><td class="pos">2,4 %</td></tr>
-        <tr><td>Janvier 2026</td><td class="pos">2,4 %</td></tr>
-        <tr><td>Décembre 2025</td><td class="neg">2,7 %</td></tr>
-        <tr><td>Novembre 2025</td><td class="neg">2,7 %</td></tr>
-        <tr><td>Octobre 2025</td><td style="color:var(--dim)">— non trouvée</td></tr>
-        <tr><td>Septembre 2025</td><td class="neg">3,0 %</td></tr>
-        <tr><td>Août 2025</td><td class="neg">2,9 %</td></tr>
-      </tbody>
-    </table></div>
-    <p class="eco-note">🟢 proche de la cible Fed (2 %) · 🔴 nettement au-dessus. CPI cœur (hors alimentation/énergie) en août 2026 : <strong>2,4 %</strong> sur un an, +0,4 % sur le mois. Réaccélération nette entre janvier (2,4 %) et mai (4,2 %), stabilisée autour de 3,4–3,5 % depuis juin — ce qui explique la hausse de taux de la Fed en septembre plutôt qu'une baisse. Source : BLS, communiqué du 11/09/2026.</p>
+    <div class="eco-strip">
+      <div class="eco-chip neg"><div class="m">Août 25</div><div class="v">2,9 %</div></div>
+      <div class="eco-chip neg"><div class="m">Sept. 25</div><div class="v">3,0 %</div></div>
+      <div class="eco-chip flat"><div class="m">Oct. 25</div><div class="v">—</div></div>
+      <div class="eco-chip neg"><div class="m">Nov. 25</div><div class="v">2,7 %</div></div>
+      <div class="eco-chip neg"><div class="m">Déc. 25</div><div class="v">2,7 %</div></div>
+      <div class="eco-chip pos"><div class="m">Jan. 26</div><div class="v">2,4 %</div></div>
+      <div class="eco-chip pos"><div class="m">Fév. 26</div><div class="v">2,4 %</div></div>
+      <div class="eco-chip neg"><div class="m">Mars 26</div><div class="v">3,3 %</div></div>
+      <div class="eco-chip neg"><div class="m">Avr. 26</div><div class="v">3,8 %</div></div>
+      <div class="eco-chip neg"><div class="m">Mai 26</div><div class="v">4,2 %</div></div>
+      <div class="eco-chip neg"><div class="m">Juin 26</div><div class="v">3,5 %</div></div>
+      <div class="eco-chip neg"><div class="m">Juil. 26</div><div class="v">3,4 %</div></div>
+      <div class="eco-chip neg" style="box-shadow:0 0 0 2px var(--accent)"><div class="m">Août 26</div><div class="v">3,4 %</div></div>
+    </div>
+    <p class="eco-note">🟢 proche de la cible Fed (2 %) · 🔴 nettement au-dessus · Octobre 2025 non trouvée. CPI cœur en août 2026 : <strong>2,4 %</strong> sur un an, +0,4 % sur le mois. Réaccélération nette entre janvier (2,4 %) et mai (4,2 %), stabilisée autour de 3,4–3,5 % depuis juin — ce qui explique la hausse de taux de la Fed en septembre plutôt qu'une baisse. Source : BLS, communiqué du 11/09/2026.</p>
   </div>
 
   <div class="tool-card" style="margin-top:12px">
     <div class="tool-card-title">Emploi — Non-Farm Payrolls (NFP)</div>
-    <div class="tbl-wrap"><table class="pg-tbl eco-tbl">
-      <thead><tr><th>Mois</th><th>Créations</th><th>vs attendu</th></tr></thead>
-      <tbody>
-        <tr class="cur"><td>Août 2026</td><td class="pos"><b>+162 K</b></td><td style="color:var(--muted)">attendu 42 K</td></tr>
-        <tr><td>Juillet 2026</td><td class="neg">−23 K</td><td style="color:var(--muted)">attendu +79 K</td></tr>
-        <tr><td>Juin 2026</td><td class="pos">+57 K</td><td style="color:var(--muted)">attendu +110 K</td></tr>
-        <tr><td>Mai 2026</td><td class="pos">+172 K</td><td style="color:var(--muted)">attendu +102 K</td></tr>
-        <tr><td colspan="3" style="color:var(--dim);font-size:11px">Janvier à avril 2026 : non trouvées</td></tr>
-        <tr><td>Décembre 2025</td><td class="pos">+215 K</td><td style="color:var(--muted)">attendu +180 K</td></tr>
-        <tr><td>Novembre 2025</td><td class="pos">+150 K</td><td style="color:var(--muted)">attendu +170 K</td></tr>
-        <tr><td>Octobre 2025</td><td class="pos">+210 K</td><td style="color:var(--muted)">attendu +175 K</td></tr>
-      </tbody>
-    </table></div>
-    <p class="eco-note">Série heurtée en 2026 : juillet négatif (−23 K) encadré par deux mois nettement positifs (mai +172 K, août +162 K). Prochaine publication demain, vendredi 02/10 à 14h30 — prévision 90 K. Trois scénarios détaillés dans l'onglet « Calendrier &amp; taux ».</p>
+    <div class="eco-strip">
+      <div class="eco-chip pos"><div class="m">Oct. 25</div><div class="v">+210 K</div></div>
+      <div class="eco-chip pos"><div class="m">Nov. 25</div><div class="v">+150 K</div></div>
+      <div class="eco-chip pos"><div class="m">Déc. 25</div><div class="v">+215 K</div></div>
+      <div class="eco-chip flat"><div class="m">Jan.–Avr. 26</div><div class="v">—</div></div>
+      <div class="eco-chip pos"><div class="m">Mai 26</div><div class="v">+172 K</div></div>
+      <div class="eco-chip pos"><div class="m">Juin 26</div><div class="v">+57 K</div></div>
+      <div class="eco-chip neg"><div class="m">Juil. 26</div><div class="v">−23 K</div></div>
+      <div class="eco-chip pos" style="box-shadow:0 0 0 2px var(--accent)"><div class="m">Août 26</div><div class="v">+162 K</div></div>
+    </div>
+    <p class="eco-note">Série heurtée en 2026 : juillet négatif (−23 K, attendu +79 K) encadré par deux mois nettement positifs (mai +172 K, août +162 K vs 42 K attendu). Prochaine publication demain, vendredi 02/10 à 14h30 — prévision 90 K. Trois scénarios détaillés dans l'onglet « Calendrier &amp; taux ».</p>
   </div>
   </div>
 
@@ -1468,30 +1470,30 @@ textarea::placeholder{color:#4A566A}
   <div class="tool-card">
     <div class="tool-card-title">US vs zone euro</div>
     <div class="tbl-wrap"><table class="pg-tbl eco-tbl">
-      <thead><tr><th>Indice</th><th>Valeur</th><th>Évolution</th></tr></thead>
+      <thead><tr><th>Indice</th><th>Valeur</th><th>🟢 depuis</th><th>Prochaine publication</th></tr></thead>
       <tbody>
-        <tr><td>🇺🇸 ISM Manufacturing (août)</td><td class="pos"><b>54,6</b></td><td style="color:var(--muted)">vs 55,6 en juillet — 8ᵉ mois d'expansion</td></tr>
-        <tr><td>🇺🇸 ISM Services (mai)</td><td class="pos">54,5</td><td style="color:var(--dim)">la plus récente trouvée, à rafraîchir</td></tr>
-        <tr><td>🇪🇺 HCOB Manufacturing (sept.)</td><td class="pos"><b>52,9</b></td><td style="color:var(--muted)">production au plus haut en 55 mois</td></tr>
-        <tr><td>🇪🇺 HCOB Services (sept.)</td><td class="pos"><b>53,0</b></td><td style="color:var(--muted)">vs 51,4 attendu, 51,6 en août</td></tr>
-        <tr><td>🇪🇺 HCOB Composite (sept.)</td><td class="pos"><b>53,1</b></td><td style="color:var(--muted)">rythme le plus rapide en ~3,5 ans</td></tr>
+        <tr><td>🇺🇸 ISM Manufacturing (sept.)</td><td class="pos"><b>54,5</b></td><td>janv. 2026 (9 mois)</td><td class="eco-cal-date" style="font-size:12px">lun. 02/11, ~16h00</td></tr>
+        <tr><td>🇺🇸 ISM Services (mai)</td><td class="pos">54,5</td><td style="color:var(--dim)">non confirmé</td><td class="eco-cal-date" style="font-size:12px">lun. 05/10, 16h00</td></tr>
+        <tr><td>🇪🇺 HCOB Manufacturing (sept.)</td><td class="pos"><b>52,9</b></td><td>févr. 2026 (8 mois)</td><td class="eco-cal-date" style="font-size:12px">ven. 23/10, 10h00 (flash)</td></tr>
+        <tr><td>🇪🇺 HCOB Services (sept.)</td><td class="pos"><b>53,0</b></td><td style="color:var(--dim)">non confirmé</td><td class="eco-cal-date" style="font-size:12px">ven. 23/10, 10h00 (flash)</td></tr>
+        <tr><td>🇪🇺 HCOB Composite (sept.)</td><td class="pos"><b>53,1</b></td><td>juil. 2026 (3 mois)</td><td class="eco-cal-date" style="font-size:12px">ven. 23/10, 10h00 (flash)</td></tr>
       </tbody>
     </table></div>
-    <p class="eco-note">Les deux sont en expansion, mais la dynamique s'inverse : le Manufacturing US ralentit (55,6 → 54,6) pendant que la zone euro accélère nettement (composite à 53,1). Vu isolément, ça devrait plutôt soutenir l'euro — voir « Biais marché » → EUR/USD pour pourquoi ce n'est pas ce qui domine en ce moment.</p>
+    <p class="eco-note">ISM Manufacturing américain à 54,5 en septembre (vs 54,6 en août, 9ᵉ mois d'expansion d'affilée depuis janvier). HCOB Manufacturing zone euro en expansion plus courte (8 mois, depuis février — sorti de 3 mois de contraction) mais le Composite accélère, 53,1, son meilleur rythme en ~3,5 ans. Les deux sont en expansion, mais la dynamique s'inverse : l'US ralentit légèrement pendant que la zone euro accélère. Vu isolément, ça devrait plutôt soutenir l'euro — voir « Biais marché » → EUR/USD pour pourquoi ce n'est pas ce qui domine en ce moment.</p>
   </div>
   </div>
 
   <div class="subview" data-subview="biais">
-  <p class="eyebrow">Analyses économiques</p>
-  <h1>Biais marché</h1>
-  <p class="sub">Lecture du contexte macro/technique du moment — à vérifier toi-même avant d'agir, pas une consigne de trade.</p>
+  <p class="eyebrow" style="margin-bottom:2px">Analyses économiques</p>
+  <h1 style="font-size:22px;margin-bottom:4px">Biais marché</h1>
+  <p class="sub" style="font-size:12.5px;margin-bottom:10px">Lecture du contexte macro/technique du moment — à vérifier toi-même avant d'agir, pas une consigne de trade.</p>
 
   <div class="mkt-card">
     <div class="mkt-head">
       <div class="mkt-title"><span class="mkt-icon">🥇</span> Or (XAU/USD)</div>
       <span class="bias-badge bear">🔻 Baissier</span>
     </div>
-    <p class="eco-note" style="font-size:13.5px;color:var(--txt)">Prix autour de 4 176 $ après avoir cassé le support des 4 200 $ (−2,1 % la semaine précédente). Les rendements du Trésor US à 10 ans, au plus haut depuis plus de 20 ans (~5,3 %), et un pétrole cher pèsent sur l'or malgré une inflation un peu plus docile. Une clôture journalière sous 4 200 $ renforcerait le signal baissier vers 4 000 $.</p>
+    <p class="eco-note" style="font-size:12px;line-height:1.45;color:var(--txt)">Prix autour de 4 176 $ après avoir cassé le support des 4 200 $ (−2,1 % la semaine précédente). Les rendements du Trésor US à 10 ans, au plus haut depuis plus de 20 ans (~5,3 %), et un pétrole cher pèsent sur l'or malgré une inflation un peu plus docile. Une clôture journalière sous 4 200 $ renforcerait le signal baissier vers 4 000 $.</p>
     <div class="mkt-levels"><span>Support : <b>4 000 $</b></span><span>Résistance : <b>4 300 $</b></span><span>Invalidation : clôture au-dessus de 4 300 $</span></div>
   </div>
 
@@ -1500,7 +1502,7 @@ textarea::placeholder{color:#4A566A}
       <div class="mkt-title"><span class="mkt-icon">🛢️</span> Pétrole (WTI)</div>
       <span class="bias-badge neutral">↔️ Volatil, biais haussier</span>
     </div>
-    <p class="eco-note" style="font-size:13.5px;color:var(--txt)">Tensions géopolitiques élevées (risques de frappes sur des infrastructures pétrolières) et offre resserrée poussent vers le haut, avec une volatilité forte attendue toute la semaine. Les analystes voient une fourchette large en octobre, avec un risque haussier vers 100 $ si la prime géopolitique s'accentue.</p>
+    <p class="eco-note" style="font-size:12px;line-height:1.45;color:var(--txt)">Tensions géopolitiques élevées (risques de frappes sur des infrastructures pétrolières) et offre resserrée poussent vers le haut, avec une volatilité forte attendue toute la semaine. Les analystes voient une fourchette large en octobre, avec un risque haussier vers 100 $ si la prime géopolitique s'accentue.</p>
     <div class="mkt-levels"><span>Plancher attendu : <b>82,50 $</b></span><span>Plafond attendu : <b>97,50 $</b></span><span>Niveau psychologique : <b>100 $</b></span></div>
   </div>
 
@@ -1509,7 +1511,7 @@ textarea::placeholder{color:#4A566A}
       <div class="mkt-title"><span class="mkt-icon">💶</span> EUR/USD</div>
       <span class="bias-badge bear">🔻 Baissier</span>
     </div>
-    <p class="eco-note" style="font-size:13.5px;color:var(--txt)">Support clé entre 1,1360 et 1,1370 : une cassure ouvrirait la voie vers 1,1300 et plus bas. Le DXY (indice dollar, où l'euro pèse environ 57,6 % du panier — corrélation inverse quasi mécanique) est au plus haut depuis 2025 (~101,6–102), porté par des rendements US à leur plus haut en deux décennies et les anticipations de hausse de la Fed. Paradoxe à noter : les PMI zone euro accélèrent plus vite que les PMI US en ce moment (onglet PMI), ce qui devrait normalement soutenir l'euro — mais l'écart de rendements/taux domine largement cette dynamique pour l'instant. Semaine à risque : Fed le 28/10 et BCE le 29/10, décisions à moins de 24h d'intervalle.</p>
+    <p class="eco-note" style="font-size:12px;line-height:1.45;color:var(--txt)">Support clé entre 1,1360 et 1,1370 : une cassure ouvrirait la voie vers 1,1300 et plus bas. Le DXY (indice dollar, où l'euro pèse environ 57,6 % du panier — corrélation inverse quasi mécanique) est au plus haut depuis 2025 (~101,6–102), porté par des rendements US à leur plus haut en deux décennies et les anticipations de hausse de la Fed. Paradoxe à noter : les PMI zone euro accélèrent plus vite que les PMI US en ce moment (onglet PMI), ce qui devrait normalement soutenir l'euro — mais l'écart de rendements/taux domine largement cette dynamique pour l'instant. Semaine à risque : Fed le 28/10 et BCE le 29/10, décisions à moins de 24h d'intervalle.</p>
     <div class="mkt-levels"><span>Support : <b>1,1300–1,1360</b></span><span>Résistance : <b>1,1500</b></span><span>DXY : <b>~101,6–102</b> (plus haut depuis 2025)</span></div>
   </div>
   </div>
