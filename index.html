@@ -654,6 +654,9 @@ textarea::placeholder{color:#4A566A}
 .eco-cal-row{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid var(--line);font-size:13.5px}
 .eco-cal-row:last-child{border-bottom:none}
 .eco-cal-date{color:var(--accent);font-weight:700;white-space:nowrap}
+.eco-tbl th{padding:6px 8px;font-size:10px}
+.eco-tbl td{padding:6px 8px;font-size:12.5px}
+.eco-tbl td:first-child{color:var(--muted)}
 /* Écrans peu hauts (13" en 1280×720/800) : on gagne de la place verticale en haut de page */
 @media(min-width:960px) and (max-height:820px){
   .wrap{padding-top:26px}
@@ -1327,22 +1330,31 @@ textarea::placeholder{color:#4A566A}
 </section>
 
 <section class="view" id="view-eco">
-  <h2>Analyses économiques</h2>
-  <p class="sub">Contexte macro US/zone euro et biais de marché sur l'or, le pétrole et l'EUR/USD — données publiques (BLS, Fed, ISM, S&amp;P Global/HCOB), recoupées au moment de la rédaction. <strong style="color:var(--accent)">Données au 01/10/2026.</strong> Les biais de marché sont une lecture du contexte, pas un ordre à exécuter — à rafraîchir chaque dimanche, dis-moi quand le faire.</p>
+  <div class="subnav" id="eco-subnav">
+    <button class="sn-btn active" data-sub="overview" data-nosidebar>🗓️ Calendrier &amp; taux</button>
+    <button class="sn-btn" data-sub="inflation">💰 Inflation &amp; emploi</button>
+    <button class="sn-btn" data-sub="pmi">🏭 PMI</button>
+    <button class="sn-btn" data-sub="biais">🎯 Biais marché</button>
+  </div>
+
+  <div class="subview active" data-subview="overview">
+  <p class="eyebrow">Analyses économiques</p>
+  <h1>Calendrier &amp; taux</h1>
+  <p class="sub">Contexte macro US/zone euro — données publiques (BLS, Fed, ISM, S&amp;P Global/HCOB), recoupées au moment de la rédaction. <strong style="color:var(--accent)">Données au 01/10/2026.</strong> Horaires en heure de Paris. À rafraîchir chaque dimanche — dis-moi quand le faire.</p>
 
   <div class="tool-card">
-    <div class="tool-card-title">🗓️ Prochaines publications</div>
+    <div class="tool-card-title">Prochaines publications</div>
     <div class="eco-cal">
-      <div class="eco-cal-row"><span><strong>NFP</strong> (emploi US, septembre)</span><span class="eco-cal-date">ven. 02/10/2026, 8h30 ET</span></div>
-      <div class="eco-cal-row"><span><strong>Décision Fed</strong> (FOMC)</span><span class="eco-cal-date">mer. 28/10/2026, 14h00 ET</span></div>
-      <div class="eco-cal-row"><span><strong>Décision BCE</strong></span><span class="eco-cal-date">jeu. 29/10/2026</span></div>
-      <div class="eco-cal-row"><span><strong>CPI</strong> (inflation US, septembre)</span><span class="eco-cal-date">mer. 14/10/2026, 8h30 ET</span></div>
-      <div class="eco-cal-row"><span><strong>ISM Manufacturing PMI</strong> (US, septembre)</span><span class="eco-cal-date">1er jour ouvré du mois</span></div>
+      <div class="eco-cal-row"><span><strong>NFP</strong> (emploi US, septembre)</span><span class="eco-cal-date">ven. 02/10, 14h30 <span style="color:var(--dim);font-weight:500">(8h30 ET)</span></span></div>
+      <div class="eco-cal-row"><span><strong>CPI</strong> (inflation US, septembre)</span><span class="eco-cal-date">mer. 14/10, 14h30 <span style="color:var(--dim);font-weight:500">(8h30 ET)</span></span></div>
+      <div class="eco-cal-row"><span><strong>Décision Fed</strong> (FOMC)</span><span class="eco-cal-date">mer. 28/10, 19h00 <span style="color:var(--dim);font-weight:500">(14h00 ET)</span></span></div>
+      <div class="eco-cal-row"><span><strong>Décision BCE</strong></span><span class="eco-cal-date">jeu. 29/10, 14h15</span></div>
+      <div class="eco-cal-row"><span><strong>ISM Manufacturing PMI</strong> (US)</span><span class="eco-cal-date">1er jour ouvré du mois, ~16h00</span></div>
     </div>
   </div>
 
   <div class="tool-card" style="margin-top:12px">
-    <div class="tool-card-title">🏦 Taux d'intérêt — Fed Funds Rate</div>
+    <div class="tool-card-title">Taux d'intérêt — Fed Funds Rate</div>
     <div class="score-total" style="margin-top:0;padding-top:0;border-top:none">
       <div>
         <span class="score-total-num">3,75–4,00 %</span>
@@ -1351,68 +1363,84 @@ textarea::placeholder{color:#4A566A}
     </div>
     <p class="eco-note">Relevée de 25 points de base le 16/09/2026 — premier changement de taux de l'année 2026, après plusieurs mois de statu quo. Le marché price environ <strong>67 %</strong> de probabilité d'une nouvelle hausse à la réunion du 28/10. Calendrier FOMC restant 2026 : 27–28/10, 8–9/12.</p>
   </div>
+  </div>
 
-  <div class="tool-card" style="margin-top:12px">
-    <div class="tool-card-title">📈 Inflation — CPI (variation sur 12 mois)</div>
-    <div class="tbl-wrap"><table class="pg-tbl">
+  <div class="subview" data-subview="inflation">
+  <p class="eyebrow">Analyses économiques</p>
+  <h1>Inflation &amp; emploi</h1>
+  <p class="sub">CPI et NFP, les deux chiffres qui bougent le marché le plus chaque mois.</p>
+
+  <div class="tool-card">
+    <div class="tool-card-title">Inflation — CPI (variation sur 12 mois)</div>
+    <div class="tbl-wrap"><table class="pg-tbl eco-tbl">
       <thead><tr><th>Mois</th><th>CPI global (YoY)</th></tr></thead>
       <tbody>
-        <tr class="cur"><td>Août 2026</td><td><b>3,4 %</b></td></tr>
-        <tr><td>Juillet 2026</td><td>3,4 %</td></tr>
-        <tr><td>Juin 2026</td><td>3,5 %</td></tr>
-        <tr><td>Mai 2026</td><td>4,2 % <span style="color:var(--muted);font-size:11.5px">(pic de la période)</span></td></tr>
-        <tr><td>Avril 2026</td><td>3,8 %</td></tr>
-        <tr><td>Mars 2026</td><td>3,3 %</td></tr>
-        <tr><td>Février 2026</td><td>2,4 %</td></tr>
-        <tr><td>Janvier 2026</td><td>2,4 %</td></tr>
-        <tr><td>Décembre 2025</td><td>2,7 %</td></tr>
-        <tr><td>Novembre 2025</td><td>2,7 %</td></tr>
-        <tr><td>Octobre 2025</td><td style="color:var(--dim)">— donnée non trouvée</td></tr>
-        <tr><td>Septembre 2025</td><td>3,0 %</td></tr>
-        <tr><td>Août 2025</td><td>2,9 %</td></tr>
+        <tr class="cur"><td>Août 2026</td><td class="neg"><b>3,4 %</b></td></tr>
+        <tr><td>Juillet 2026</td><td class="neg">3,4 %</td></tr>
+        <tr><td>Juin 2026</td><td class="neg">3,5 %</td></tr>
+        <tr><td>Mai 2026</td><td class="neg">4,2 % <span style="color:var(--muted);font-size:11px">(pic)</span></td></tr>
+        <tr><td>Avril 2026</td><td class="neg">3,8 %</td></tr>
+        <tr><td>Mars 2026</td><td class="neg">3,3 %</td></tr>
+        <tr><td>Février 2026</td><td class="pos">2,4 %</td></tr>
+        <tr><td>Janvier 2026</td><td class="pos">2,4 %</td></tr>
+        <tr><td>Décembre 2025</td><td class="neg">2,7 %</td></tr>
+        <tr><td>Novembre 2025</td><td class="neg">2,7 %</td></tr>
+        <tr><td>Octobre 2025</td><td style="color:var(--dim)">— non trouvée</td></tr>
+        <tr><td>Septembre 2025</td><td class="neg">3,0 %</td></tr>
+        <tr><td>Août 2025</td><td class="neg">2,9 %</td></tr>
       </tbody>
     </table></div>
-    <p class="eco-note">CPI cœur (hors alimentation/énergie) en août 2026 : <strong>2,4 %</strong> sur un an, +0,4 % sur le mois. L'inflation a nettement réaccéléré entre janvier (2,4 %) et mai (4,2 %) avant de se stabiliser autour de 3,4–3,5 % depuis juin — c'est cette réaccélération qui explique la hausse de taux de la Fed en septembre plutôt qu'une baisse. Source : BLS, communiqué du 11/09/2026 (données d'août).</p>
+    <p class="eco-note">🟢 proche de la cible Fed (2 %) · 🔴 nettement au-dessus. CPI cœur (hors alimentation/énergie) en août 2026 : <strong>2,4 %</strong> sur un an, +0,4 % sur le mois. Réaccélération nette entre janvier (2,4 %) et mai (4,2 %), stabilisée autour de 3,4–3,5 % depuis juin — ce qui explique la hausse de taux de la Fed en septembre plutôt qu'une baisse. Source : BLS, communiqué du 11/09/2026.</p>
   </div>
 
   <div class="tool-card" style="margin-top:12px">
-    <div class="tool-card-title">💼 Emploi — Non-Farm Payrolls (NFP)</div>
-    <div class="tbl-wrap"><table class="pg-tbl">
-      <thead><tr><th>Mois</th><th>Créations d'emplois</th><th>vs attendu</th></tr></thead>
+    <div class="tool-card-title">Emploi — Non-Farm Payrolls (NFP)</div>
+    <div class="tbl-wrap"><table class="pg-tbl eco-tbl">
+      <thead><tr><th>Mois</th><th>Créations</th><th>vs attendu</th></tr></thead>
       <tbody>
-        <tr class="cur"><td>Août 2026</td><td class="pos"><b>+162 K</b></td><td style="color:var(--muted)">attendu 42 K — net dépassement</td></tr>
+        <tr class="cur"><td>Août 2026</td><td class="pos"><b>+162 K</b></td><td style="color:var(--muted)">attendu 42 K</td></tr>
         <tr><td>Juillet 2026</td><td class="neg">−23 K</td><td style="color:var(--muted)">attendu +79 K</td></tr>
         <tr><td>Juin 2026</td><td class="pos">+57 K</td><td style="color:var(--muted)">attendu +110 K</td></tr>
         <tr><td>Mai 2026</td><td class="pos">+172 K</td><td style="color:var(--muted)">attendu +102 K</td></tr>
-        <tr><td colspan="3" style="color:var(--dim);font-size:11.5px">Janvier à avril 2026 : données non trouvées</td></tr>
+        <tr><td colspan="3" style="color:var(--dim);font-size:11px">Janvier à avril 2026 : non trouvées</td></tr>
         <tr><td>Décembre 2025</td><td class="pos">+215 K</td><td style="color:var(--muted)">attendu +180 K</td></tr>
         <tr><td>Novembre 2025</td><td class="pos">+150 K</td><td style="color:var(--muted)">attendu +170 K</td></tr>
         <tr><td>Octobre 2025</td><td class="pos">+210 K</td><td style="color:var(--muted)">attendu +175 K</td></tr>
       </tbody>
     </table></div>
-    <p class="eco-note">Série heurtée en 2026 : un mois de juillet négatif (−23 K) encadré par deux mois nettement positifs (mai +172 K, août +162 K). Prochaine publication demain, vendredi 02/10/2026 — données de septembre.</p>
+    <p class="eco-note">Série heurtée en 2026 : juillet négatif (−23 K) encadré par deux mois nettement positifs (mai +172 K, août +162 K). Prochaine publication demain, vendredi 02/10 à 14h30.</p>
+  </div>
   </div>
 
-  <div class="tool-card" style="margin-top:12px">
-    <div class="tool-card-title">🏭 PMI — indices directeurs d'achat</div>
-    <div class="pmi-explain">
-      <div class="pmi-pill up">✓ <strong>Au-dessus de 50</strong> — l'économie du secteur est en expansion</div>
-      <div class="pmi-pill down">✗ <strong>En-dessous de 50</strong> — le secteur se contracte</div>
-    </div>
-    <div class="tbl-wrap"><table class="pg-tbl">
-      <thead><tr><th>Indice</th><th>Dernière valeur</th><th>Évolution</th></tr></thead>
+  <div class="subview" data-subview="pmi">
+  <p class="eyebrow">Analyses économiques</p>
+  <h1>PMI</h1>
+  <p class="sub">Indices directeurs d'achat — le signal le plus rapide sur la santé réelle de l'économie.</p>
+
+  <div class="pmi-explain">
+    <div class="pmi-pill up">✓ <strong>Au-dessus de 50</strong> — l'économie du secteur est en expansion</div>
+    <div class="pmi-pill down">✗ <strong>En-dessous de 50</strong> — le secteur se contracte</div>
+  </div>
+
+  <div class="tool-card">
+    <div class="tool-card-title">US vs zone euro</div>
+    <div class="tbl-wrap"><table class="pg-tbl eco-tbl">
+      <thead><tr><th>Indice</th><th>Valeur</th><th>Évolution</th></tr></thead>
       <tbody>
-        <tr><td>🇺🇸 ISM Manufacturing (août 2026)</td><td class="pos"><b>54,6</b></td><td style="color:var(--muted)">contre 55,6 en juillet — 8ᵉ mois d'expansion d'affilée</td></tr>
-        <tr><td>🇺🇸 ISM Services (mai 2026)</td><td class="pos">54,5</td><td style="color:var(--dim)">donnée la plus récente trouvée, à rafraîchir</td></tr>
-        <tr><td>🇪🇺 HCOB Manufacturing (sept. 2026)</td><td class="pos"><b>52,9</b></td><td style="color:var(--muted)">production au plus haut en 55 mois</td></tr>
-        <tr><td>🇪🇺 HCOB Services (sept. 2026)</td><td class="pos"><b>53,0</b></td><td style="color:var(--muted)">contre 51,4 attendu, 51,6 en août</td></tr>
-        <tr><td>🇪🇺 HCOB Composite (sept. 2026)</td><td class="pos"><b>53,1</b></td><td style="color:var(--muted)">rythme le plus rapide en ~3,5 ans</td></tr>
+        <tr><td>🇺🇸 ISM Manufacturing (août)</td><td class="pos"><b>54,6</b></td><td style="color:var(--muted)">vs 55,6 en juillet — 8ᵉ mois d'expansion</td></tr>
+        <tr><td>🇺🇸 ISM Services (mai)</td><td class="pos">54,5</td><td style="color:var(--dim)">la plus récente trouvée, à rafraîchir</td></tr>
+        <tr><td>🇪🇺 HCOB Manufacturing (sept.)</td><td class="pos"><b>52,9</b></td><td style="color:var(--muted)">production au plus haut en 55 mois</td></tr>
+        <tr><td>🇪🇺 HCOB Services (sept.)</td><td class="pos"><b>53,0</b></td><td style="color:var(--muted)">vs 51,4 attendu, 51,6 en août</td></tr>
+        <tr><td>🇪🇺 HCOB Composite (sept.)</td><td class="pos"><b>53,1</b></td><td style="color:var(--muted)">rythme le plus rapide en ~3,5 ans</td></tr>
       </tbody>
     </table></div>
-    <p class="eco-note">US vs zone euro : les deux sont en expansion, mais la dynamique s'inverse — le Manufacturing US ralentit légèrement (55,6 → 54,6) pendant que la zone euro accélère nettement (composite à 53,1, son meilleur rythme depuis environ 3 ans et demi). Vu isolément, ça devrait plutôt soutenir l'euro — voir la carte EUR/USD ci-dessous pour pourquoi ce n'est pas ce qui domine en ce moment.</p>
+    <p class="eco-note">Les deux sont en expansion, mais la dynamique s'inverse : le Manufacturing US ralentit (55,6 → 54,6) pendant que la zone euro accélère nettement (composite à 53,1). Vu isolément, ça devrait plutôt soutenir l'euro — voir « Biais marché » → EUR/USD pour pourquoi ce n'est pas ce qui domine en ce moment.</p>
+  </div>
   </div>
 
-  <h2 style="margin-top:32px">Biais de marché</h2>
+  <div class="subview" data-subview="biais">
+  <p class="eyebrow">Analyses économiques</p>
+  <h1>Biais marché</h1>
   <p class="sub">Lecture du contexte macro/technique du moment — à vérifier toi-même avant d'agir, pas une consigne de trade.</p>
 
   <div class="mkt-card">
@@ -1421,7 +1449,7 @@ textarea::placeholder{color:#4A566A}
       <span class="bias-badge bear">🔻 Baissier</span>
     </div>
     <p class="eco-note" style="font-size:13.5px;color:var(--txt)">Prix autour de 4 176 $ après avoir cassé le support des 4 200 $ (−2,1 % la semaine précédente). Les rendements du Trésor US à 10 ans, au plus haut depuis plus de 20 ans (~5,3 %), et un pétrole cher pèsent sur l'or malgré une inflation un peu plus docile. Une clôture journalière sous 4 200 $ renforcerait le signal baissier vers 4 000 $.</p>
-    <div class="mkt-levels"><span>Support : <b>4 000 $</b></span><span>Résistance : <b>4 300 $</b></span><span>Invalidation du biais : clôture au-dessus de 4 300 $</span></div>
+    <div class="mkt-levels"><span>Support : <b>4 000 $</b></span><span>Résistance : <b>4 300 $</b></span><span>Invalidation : clôture au-dessus de 4 300 $</span></div>
   </div>
 
   <div class="mkt-card">
@@ -1438,8 +1466,9 @@ textarea::placeholder{color:#4A566A}
       <div class="mkt-title"><span class="mkt-icon">💶</span> EUR/USD</div>
       <span class="bias-badge bear">🔻 Baissier</span>
     </div>
-    <p class="eco-note" style="font-size:13.5px;color:var(--txt)">Support clé entre 1,1360 et 1,1370 : une cassure ouvrirait la voie vers 1,1300 et plus bas. Le DXY (indice dollar, où l'euro pèse environ 57,6 % du panier — corrélation inverse quasi mécanique) est au plus haut depuis 2025 (~101,6–102), porté par des rendements US à leur plus haut en deux décennies et les anticipations de hausse de la Fed. Paradoxe à noter : les PMI zone euro accélèrent plus vite que les PMI US en ce moment (voir tableau ci-dessus), ce qui devrait normalement soutenir l'euro — mais l'écart de rendements/taux domine largement cette dynamique pour l'instant. Semaine à risque : Fed le 28/10 et BCE le 29/10, décisions à moins de 24h d'intervalle.</p>
+    <p class="eco-note" style="font-size:13.5px;color:var(--txt)">Support clé entre 1,1360 et 1,1370 : une cassure ouvrirait la voie vers 1,1300 et plus bas. Le DXY (indice dollar, où l'euro pèse environ 57,6 % du panier — corrélation inverse quasi mécanique) est au plus haut depuis 2025 (~101,6–102), porté par des rendements US à leur plus haut en deux décennies et les anticipations de hausse de la Fed. Paradoxe à noter : les PMI zone euro accélèrent plus vite que les PMI US en ce moment (onglet PMI), ce qui devrait normalement soutenir l'euro — mais l'écart de rendements/taux domine largement cette dynamique pour l'instant. Semaine à risque : Fed le 28/10 et BCE le 29/10, décisions à moins de 24h d'intervalle.</p>
     <div class="mkt-levels"><span>Support : <b>1,1300–1,1360</b></span><span>Résistance : <b>1,1500</b></span><span>DXY : <b>~101,6–102</b> (plus haut depuis 2025)</span></div>
+  </div>
   </div>
 
 </section>
@@ -3646,7 +3675,7 @@ window.WEEKLY_RECAPS = {
 
   document.addEventListener('DOMContentLoaded', function(){
     analyse(); renderSessions(); comptes(); risque();
-    initSubnav('dash-subnav'); initSubnav('brief-subnav');
+    initSubnav('dash-subnav'); initSubnav('brief-subnav'); initSubnav('eco-subnav');
   });
 })();
 </script>
@@ -3936,7 +3965,7 @@ window.WEEKLY_RECAPS = {
 <script>/* Menu latéral : les sous-onglets (Tableau de bord, Brief séance) deviennent des sous-entrées du menu, dépliées sous l'onglet actif */
 (function(){
   document.addEventListener('DOMContentLoaded', function(){
-    [['dashboard', 'dash-subnav'], ['brief', 'brief-subnav']].forEach(function(pair){
+    [['dashboard', 'dash-subnav'], ['brief', 'brief-subnav'], ['eco', 'eco-subnav']].forEach(function(pair){
       var main = document.querySelector('.nav a[data-goto="' + pair[0] + '"]');
       var bar = document.getElementById(pair[1]);
       if(!main || !bar) return;
