@@ -3765,7 +3765,24 @@ window.WEEKLY_RECAPS = {
     "Journée positive. Pense à Giuliana, pense à Olympe : c'est ce genre de séance, répétée, qui construit quelque chose qui dure pour elles.",
     "Bonne séance. Chaque journée disciplinée comme celle-ci rapproche un peu plus le compte de ce que tu veux offrir à Giuliana et à Olympe."
   ];
-  var BANNER_BAD = [
+  var BANNER_BAD_DISCIPLINE = [
+    "Journée rouge, mais plan respecté. Tu ne peux pas gagner tous les jours — et c'est OK.",
+    "Perte aujourd'hui, règles tenues. C'est exactement comme ça qu'un trader qui dure est censé perdre.",
+    "Rouge ce soir, mais rien à te reprocher : le plan a tenu du début à la fin. Le marché ne te doit rien tous les jours.",
+    "Séance perdante, séance propre. Tu as suivi tes règles — le résultat du jour ne juge pas ça.",
+    "Journée négative, mais disciplinée. Une perte dans les clous vaut mieux qu'un gain hors plan.",
+    "Ce soir c'est rouge, mais tu as fait ce qu'il fallait faire. Le reste, c'est de la variance, pas de l'erreur.",
+    "Perte aujourd'hui, plan intact. Tu ne contrôles pas le résultat d'un trade, seulement la façon dont tu le prends.",
+    "Journée dans le rouge, mais aucune règle cassée. C'est la version du métier que tu peux refaire demain sans honte.",
+    "Rouge aujourd'hui, et alors ? Le plan a été suivi — c'est la seule chose que tu avais à contrôler, et tu l'as fait.",
+    "Séance perdante mais disciplinée. Dix journées comme celle-ci valent mieux qu'une victoire obtenue en cassant les règles.",
+    "Perte ce soir, plan respecté. Pas besoin de se racheter demain — il n'y a rien à racheter.",
+    "Journée rouge, mais tu as tenu ta taille et ton R:R jusqu'au bout. C'est exactement ce qui est demandé.",
+    "Ça finit dans le rouge, mais proprement. Gagner tous les jours n'est pas l'objectif — tenir le plan tous les jours, oui.",
+    "Rouge aujourd'hui, règles entières. Une perte encaissée dans le plan n'a jamais cramé un compte — seules les sorties de route le font.",
+    "Mauvaise séance, bonne discipline. Le marché a dit non aujourd'hui — tu n'as pas insisté. C'est tout ce qui compte."
+  ];
+  var BANNER_BAD_VIOLATION = [
     "Journée rouge. Ça arrive — la question qui compte, c'est : le plan a-t-il été suivi malgré tout ?",
     "Perte aujourd'hui. Un jour dans le rouge où le plan a tenu vaut mieux qu'un jour vert sans plan.",
     "Séance difficile. Respire, relis tes règles, et laisse la prochaine entrée attendre son setup.",
@@ -3830,7 +3847,7 @@ window.WEEKLY_RECAPS = {
       host.innerHTML = '<span class="db-icon">🌤️</span><span>Nouvelle séance — rien d\'enregistré pour aujourd\'hui pour l\'instant.</span>';
       return;
     }
-    var msg = good ? pick(BANNER_GOOD, todayKey) : pick(BANNER_BAD, todayKey);
+    var msg = good ? pick(BANNER_GOOD, todayKey) : (sess && sess.planOk === true ? pick(BANNER_BAD_DISCIPLINE, todayKey) : pick(BANNER_BAD_VIOLATION, todayKey));
     host.className = 'day-banner ' + (good ? 'good' : 'bad') + ' show';
     host.innerHTML = '<span class="db-icon">' + (good ? '🟢' : '🔴') + '</span><span>' + msg + '</span>';
   });
