@@ -389,7 +389,7 @@ function sjInitTradeCopy(){
 }
 
 /* ---------- Menu latéral : même navigation que index.html, thème partagé (clé localStorage « journal-theme ») ---------- */
-var SJ_NAV = [['dashboard','📊 Tableau de bord'],['brief','🧭 Brief séance'],['brouillon','📝 Brouillon'],['sessions','🗓️ Sessions'],['regles','⛔ Règles']];
+var SJ_NAV = [['dashboard','📊 Tableau de bord'],['brief','🧭 Brief séance'],['eco','🌐 Analyses éco'],['sessions','🗓️ Sessions'],['regles','⛔ Règles']];
 var SJ_THEMES = ['system','dark','light'];
 var SJ_THEME_LABELS = {system:'⚙️ Système', dark:'🌙 Sombre', light:'☀️ Clair'};
 function sjApplyTheme(t){

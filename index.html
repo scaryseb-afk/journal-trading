@@ -634,32 +634,26 @@ textarea::placeholder{color:#4A566A}
 .viol-del:hover{color:var(--muted)}
 .viol-empty{font-size:12px;color:var(--muted);text-align:center;padding:12px 0}
 
-/* Plan du jour (brouillon d'avant-séance) */
-.plan-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px;margin-bottom:12px}
-.plan-label{display:flex;flex-direction:column;gap:4px;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin:0}
-.plan-input{border:1px solid var(--border);background:var(--bg);color:var(--txt);border-radius:6px;padding:8px 10px;font:inherit;font-size:13px;font-family:'IBM Plex Mono',monospace;width:100%;box-sizing:border-box;outline:none;transition:.12s}
-.plan-input:focus{border-color:var(--gold)}
-select.plan-input{cursor:pointer}
-.plan-side{display:flex;gap:6px}
-.plan-side-btn{flex:1;border:1px solid var(--border);background:var(--bg);color:var(--muted);border-radius:6px;padding:8px 10px;font:inherit;font-size:12px;font-weight:650;cursor:pointer;transition:.12s}
-.plan-side-btn.active[data-side="Long"]{background:var(--green-dim);border-color:var(--green);color:var(--green)}
-.plan-side-btn.active[data-side="Short"]{background:var(--red-dim);border-color:var(--red);color:var(--red)}
-.plan-add{border:1px solid var(--gold);background:var(--gold);color:var(--on-accent);border-radius:6px;padding:9px 16px;font:inherit;font-size:12.5px;font-weight:700;cursor:pointer;transition:opacity .12s}
-.plan-add:hover{opacity:.85}
-.plan-msg{font-size:12px;color:var(--red);margin-top:8px;min-height:0}
-.plan-item{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;padding:10px 0;border-bottom:1px solid var(--border);font-size:12.5px}
-.plan-item:last-child{border-bottom:none}
-.plan-item-main{flex:1;min-width:0}
-.plan-item-top{font-family:'IBM Plex Mono',monospace;font-weight:700;color:var(--txt)}
-.plan-copy-one{margin-top:6px;background:none;border:1px solid var(--border);color:var(--muted);border-radius:6px;padding:4px 10px;font:inherit;font-size:11.5px;font-weight:600;cursor:pointer;transition:.12s}
-.plan-copy-one:hover{color:var(--txt);border-color:var(--muted)}
-.plan-item-top .long{color:var(--green)}
-.plan-item-top .short{color:var(--red)}
-.plan-item-lv{color:var(--muted);font-family:'IBM Plex Mono',monospace;font-size:11.5px;margin-top:2px}
-.plan-note-edit{width:100%;margin-top:6px;border:1px solid var(--border);background:var(--bg);color:var(--txt);border-radius:6px;padding:6px 9px;font:inherit;font-size:12.5px;box-sizing:border-box;outline:none;transition:.12s}
-.plan-note-edit:focus{border-color:var(--gold)}
-.plan-note-edit.missing{border-color:var(--red);background:var(--red-dim)}
-.plan-note-edit.missing::placeholder{color:var(--red);opacity:.9}
+/* Analyses économiques */
+.eco-note{color:var(--dim);font-size:12.5px;margin-top:6px}
+.bias-badge{display:inline-flex;align-items:center;gap:6px;padding:4px 12px;border-radius:999px;font-size:12px;font-weight:700;letter-spacing:.02em}
+.bias-badge.bull{background:var(--green-dim);color:var(--green);border:1px solid var(--green)}
+.bias-badge.bear{background:var(--red-dim);color:var(--red);border:1px solid var(--red)}
+.bias-badge.neutral{background:var(--panel);color:var(--muted);border:1px solid var(--line)}
+.mkt-card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:20px 22px;margin-bottom:16px}
+.mkt-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:12px;flex-wrap:wrap}
+.mkt-title{display:flex;align-items:center;gap:10px;font-size:18px;font-weight:700}
+.mkt-icon{font-size:26px;line-height:1}
+.mkt-levels{display:flex;gap:18px;margin-top:12px;font-size:12.5px;color:var(--muted);flex-wrap:wrap}
+.mkt-levels b{color:var(--txt);font-variant-numeric:tabular-nums}
+.pmi-explain{display:flex;gap:14px;margin:10px 0 16px;flex-wrap:wrap}
+.pmi-pill{flex:1 1 220px;border-radius:10px;padding:12px 14px;font-size:13px}
+.pmi-pill.up{background:var(--green-dim);border:1px solid var(--green);color:var(--green)}
+.pmi-pill.down{background:var(--red-dim);border:1px solid var(--red);color:var(--red)}
+.eco-cal{display:flex;flex-direction:column;gap:0}
+.eco-cal-row{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid var(--line);font-size:13.5px}
+.eco-cal-row:last-child{border-bottom:none}
+.eco-cal-date{color:var(--accent);font-weight:700;white-space:nowrap}
 /* Écrans peu hauts (13" en 1280×720/800) : on gagne de la place verticale en haut de page */
 @media(min-width:960px) and (max-height:820px){
   .wrap{padding-top:26px}
@@ -678,7 +672,7 @@ select.plan-input{cursor:pointer}
   <div class="nav-brand"><b>Journal de trading</b><span>Futures · Tradovate / Lucid</span></div>
   <a href="#dashboard" data-goto="dashboard">📊 Tableau de bord</a>
   <a href="#brief" data-goto="brief">🧭 Brief séance</a>
-  <a href="#brouillon" data-goto="brouillon">📝 Brouillon</a>
+  <a href="#eco" data-goto="eco">🌐 Analyses éco</a>
   <a href="#sessions" data-goto="sessions">🗓️ Sessions</a>
   <a href="#regles" data-goto="regles">⛔ Règles</a>
   <button id="theme-toggle" title="Changer le thème" style="background:var(--panel);border:1px solid var(--line);color:var(--muted);border-radius:999px;padding:6px 14px;font-size:12.5px;font-weight:650;cursor:pointer;letter-spacing:.04em;transition:.15s;font-family:inherit">⚙️ Système</button>
@@ -792,7 +786,7 @@ select.plan-input{cursor:pointer}
   <div class="plan-widget" id="plan-widget"></div>
 
   <div class="kpis kpis-top">
-    <div class="kpi"><div class="lbl">Règle de séance</div><div class="val" id="kpi-regle-val">250 $ / signal</div><div class="note" id="kpi-regle-note">1 seul compte à la fois · R:R ≥ 2 · 3 trades max par jour</div></div>
+    <div class="kpi"><div class="lbl">Règle de séance</div><div class="val" id="kpi-regle-val">300 $ / signal</div><div class="note" id="kpi-regle-note">1 seul compte à la fois · R:R ≥ 2 · 3 trades max par jour · 500 $ dès le 05/10</div></div>
     <div class="kpi"><div class="lbl">Cumul 4 comptes</div><div class="val neg">−3 919,25 $</div><div class="note">recalculé sur les CSV bruts · −418 $ le 29/09 (4 trades, comptes 001, 003 et 02b/nouveau, qui prend la suite du 002) · +742 $ le 28/09 · −403 $ le 25/09</div></div>
     <div class="kpi"><div class="lbl">Meilleure session</div><div class="val pos">+2 529 $</div><div class="note">08/09 — TraderSyncer, 3 comptes</div></div>
     <div class="kpi"><div class="lbl">Pire session</div><div class="val neg">−2 095 $</div><div class="note">18/09 — nouveau compte A en 8 contrats dès le 1er jour, −1 176 $ à lui seul</div></div>
@@ -1332,69 +1326,121 @@ select.plan-input{cursor:pointer}
 
 </section>
 
-<section class="view" id="view-brouillon">
-  <h2>Plan du jour</h2>
-  <p class="sub">Brouillon d'avant-séance : note tes trades prévus (entrée, stop, objectif) avant même d'avoir le CSV — la date du jour se détecte toute seule. Le R:R se calcule en direct. « Copier pour Claude » me l'envoie, je le croise avec le CSV quand il arrive. Reste dans ton navigateur.</p>
+<section class="view" id="view-eco">
+  <h2>Analyses économiques</h2>
+  <p class="sub">Contexte macro US/zone euro et biais de marché sur l'or, le pétrole et l'EUR/USD — données publiques (BLS, Fed, ISM, S&amp;P Global/HCOB), recoupées au moment de la rédaction. <strong style="color:var(--accent)">Données au 01/10/2026.</strong> Les biais de marché sont une lecture du contexte, pas un ordre à exécuter — à rafraîchir chaque dimanche, dis-moi quand le faire.</p>
 
   <div class="tool-card">
-    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;">
-      <div class="tool-card-title" style="margin-bottom:0">📝 Nouveau trade prévu</div>
-      <span style="font-size:11px;color:var(--muted)" id="plan-date">—</span>
+    <div class="tool-card-title">🗓️ Prochaines publications</div>
+    <div class="eco-cal">
+      <div class="eco-cal-row"><span><strong>NFP</strong> (emploi US, septembre)</span><span class="eco-cal-date">ven. 02/10/2026, 8h30 ET</span></div>
+      <div class="eco-cal-row"><span><strong>Décision Fed</strong> (FOMC)</span><span class="eco-cal-date">mer. 28/10/2026, 14h00 ET</span></div>
+      <div class="eco-cal-row"><span><strong>Décision BCE</strong></span><span class="eco-cal-date">jeu. 29/10/2026</span></div>
+      <div class="eco-cal-row"><span><strong>CPI</strong> (inflation US, septembre)</span><span class="eco-cal-date">mer. 14/10/2026, 8h30 ET</span></div>
+      <div class="eco-cal-row"><span><strong>ISM Manufacturing PMI</strong> (US, septembre)</span><span class="eco-cal-date">1er jour ouvré du mois</span></div>
     </div>
-    <div class="plan-grid">
-      <label class="plan-label">Compte
-        <input type="text" id="plan-compte" class="plan-input" placeholder="ex. 001">
-      </label>
-      <label class="plan-label">Actif tradé
-        <select id="plan-instr" class="plan-input">
-          <option value="MNQ" selected>MNQ — Micro Nasdaq</option>
-          <option value="MGC">MGC — Micro or</option>
-          <option value="MCL">MCL — Micro pétrole</option>
-          <option value="6E">6E — Euro FX</option>
-        </select>
-      </label>
-      <div class="plan-label">Sens
-        <div class="plan-side">
-          <button type="button" class="plan-side-btn active" data-side="Long" onclick="planSetSide('Long',this)">Long</button>
-          <button type="button" class="plan-side-btn" data-side="Short" onclick="planSetSide('Short',this)">Short</button>
-        </div>
-      </div>
-    </div>
-    <div class="plan-grid">
-      <label class="plan-label">Entrée prévue
-        <input type="text" inputmode="decimal" id="plan-entree" class="plan-input" placeholder="ex. 30870.25">
-      </label>
-      <label class="plan-label">Stop
-        <input type="text" inputmode="decimal" id="plan-stop" class="plan-input" placeholder="ex. 30820.25">
-      </label>
-      <label class="plan-label">Objectif
-        <input type="text" inputmode="decimal" id="plan-obj" class="plan-input" placeholder="ex. 31000.25">
-      </label>
-      <label class="plan-label" title="Si tu n'as pas noté le stop et l'objectif : ton R:R à la main">R:R manuel
-        <input type="text" inputmode="decimal" id="plan-rr-manuel" class="plan-input" placeholder="ex. 2">
-      </label>
-    </div>
-    <label class="plan-label" style="margin-bottom:12px">Raison du trade (setup)
-      <input type="text" id="plan-note" class="plan-input" style="font-family:inherit" placeholder="ex. 2e IFVG 5M, biais haussier">
-    </label>
-    <div class="score-total" style="margin-top:0;padding-top:12px">
-      <div>
-        <span class="score-total-num" id="plan-rr">—</span>
-        <span class="score-total-sub" id="plan-rr-sub">R:R</span>
-      </div>
-      <button type="button" class="plan-add" onclick="planAdd()">+ Ajouter au plan</button>
-    </div>
-    <div class="plan-msg" id="plan-msg"></div>
   </div>
 
   <div class="tool-card" style="margin-top:12px">
-    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;">
-      <div class="tool-card-title" style="margin-bottom:0">📋 Plan d'aujourd'hui</div>
-      <button type="button" class="reset-btn" id="plan-copy-btn" onclick="planCopy()" style="margin-top:0;font-size:10px;padding:4px 10px" disabled>📋 Copier pour Claude</button>
+    <div class="tool-card-title">🏦 Taux d'intérêt — Fed Funds Rate</div>
+    <div class="score-total" style="margin-top:0;padding-top:0;border-top:none">
+      <div>
+        <span class="score-total-num">3,75–4,00 %</span>
+        <span class="score-total-sub">fourchette cible actuelle</span>
+      </div>
     </div>
-    <div id="plan-list"></div>
+    <p class="eco-note">Relevée de 25 points de base le 16/09/2026 — premier changement de taux de l'année 2026, après plusieurs mois de statu quo. Le marché price environ <strong>67 %</strong> de probabilité d'une nouvelle hausse à la réunion du 28/10. Calendrier FOMC restant 2026 : 27–28/10, 8–9/12.</p>
   </div>
-  
+
+  <div class="tool-card" style="margin-top:12px">
+    <div class="tool-card-title">📈 Inflation — CPI (variation sur 12 mois)</div>
+    <div class="tbl-wrap"><table class="pg-tbl">
+      <thead><tr><th>Mois</th><th>CPI global (YoY)</th></tr></thead>
+      <tbody>
+        <tr class="cur"><td>Août 2026</td><td><b>3,4 %</b></td></tr>
+        <tr><td>Juillet 2026</td><td>3,4 %</td></tr>
+        <tr><td>Juin 2026</td><td>3,5 %</td></tr>
+        <tr><td>Mai 2026</td><td>4,2 % <span style="color:var(--muted);font-size:11.5px">(pic de la période)</span></td></tr>
+        <tr><td>Avril 2026</td><td>3,8 %</td></tr>
+        <tr><td>Mars 2026</td><td>3,3 %</td></tr>
+        <tr><td>Février 2026</td><td>2,4 %</td></tr>
+        <tr><td>Janvier 2026</td><td>2,4 %</td></tr>
+        <tr><td>Décembre 2025</td><td>2,7 %</td></tr>
+        <tr><td>Novembre 2025</td><td>2,7 %</td></tr>
+        <tr><td>Octobre 2025</td><td style="color:var(--dim)">— donnée non trouvée</td></tr>
+        <tr><td>Septembre 2025</td><td>3,0 %</td></tr>
+        <tr><td>Août 2025</td><td>2,9 %</td></tr>
+      </tbody>
+    </table></div>
+    <p class="eco-note">CPI cœur (hors alimentation/énergie) en août 2026 : <strong>2,4 %</strong> sur un an, +0,4 % sur le mois. L'inflation a nettement réaccéléré entre janvier (2,4 %) et mai (4,2 %) avant de se stabiliser autour de 3,4–3,5 % depuis juin — c'est cette réaccélération qui explique la hausse de taux de la Fed en septembre plutôt qu'une baisse. Source : BLS, communiqué du 11/09/2026 (données d'août).</p>
+  </div>
+
+  <div class="tool-card" style="margin-top:12px">
+    <div class="tool-card-title">💼 Emploi — Non-Farm Payrolls (NFP)</div>
+    <div class="tbl-wrap"><table class="pg-tbl">
+      <thead><tr><th>Mois</th><th>Créations d'emplois</th><th>vs attendu</th></tr></thead>
+      <tbody>
+        <tr class="cur"><td>Août 2026</td><td class="pos"><b>+162 K</b></td><td style="color:var(--muted)">attendu 42 K — net dépassement</td></tr>
+        <tr><td>Juillet 2026</td><td class="neg">−23 K</td><td style="color:var(--muted)">attendu +79 K</td></tr>
+        <tr><td>Juin 2026</td><td class="pos">+57 K</td><td style="color:var(--muted)">attendu +110 K</td></tr>
+        <tr><td>Mai 2026</td><td class="pos">+172 K</td><td style="color:var(--muted)">attendu +102 K</td></tr>
+        <tr><td colspan="3" style="color:var(--dim);font-size:11.5px">Janvier à avril 2026 : données non trouvées</td></tr>
+        <tr><td>Décembre 2025</td><td class="pos">+215 K</td><td style="color:var(--muted)">attendu +180 K</td></tr>
+        <tr><td>Novembre 2025</td><td class="pos">+150 K</td><td style="color:var(--muted)">attendu +170 K</td></tr>
+        <tr><td>Octobre 2025</td><td class="pos">+210 K</td><td style="color:var(--muted)">attendu +175 K</td></tr>
+      </tbody>
+    </table></div>
+    <p class="eco-note">Série heurtée en 2026 : un mois de juillet négatif (−23 K) encadré par deux mois nettement positifs (mai +172 K, août +162 K). Prochaine publication demain, vendredi 02/10/2026 — données de septembre.</p>
+  </div>
+
+  <div class="tool-card" style="margin-top:12px">
+    <div class="tool-card-title">🏭 PMI — indices directeurs d'achat</div>
+    <div class="pmi-explain">
+      <div class="pmi-pill up">✓ <strong>Au-dessus de 50</strong> — l'économie du secteur est en expansion</div>
+      <div class="pmi-pill down">✗ <strong>En-dessous de 50</strong> — le secteur se contracte</div>
+    </div>
+    <div class="tbl-wrap"><table class="pg-tbl">
+      <thead><tr><th>Indice</th><th>Dernière valeur</th><th>Évolution</th></tr></thead>
+      <tbody>
+        <tr><td>🇺🇸 ISM Manufacturing (août 2026)</td><td class="pos"><b>54,6</b></td><td style="color:var(--muted)">contre 55,6 en juillet — 8ᵉ mois d'expansion d'affilée</td></tr>
+        <tr><td>🇺🇸 ISM Services (mai 2026)</td><td class="pos">54,5</td><td style="color:var(--dim)">donnée la plus récente trouvée, à rafraîchir</td></tr>
+        <tr><td>🇪🇺 HCOB Manufacturing (sept. 2026)</td><td class="pos"><b>52,9</b></td><td style="color:var(--muted)">production au plus haut en 55 mois</td></tr>
+        <tr><td>🇪🇺 HCOB Services (sept. 2026)</td><td class="pos"><b>53,0</b></td><td style="color:var(--muted)">contre 51,4 attendu, 51,6 en août</td></tr>
+        <tr><td>🇪🇺 HCOB Composite (sept. 2026)</td><td class="pos"><b>53,1</b></td><td style="color:var(--muted)">rythme le plus rapide en ~3,5 ans</td></tr>
+      </tbody>
+    </table></div>
+    <p class="eco-note">US vs zone euro : les deux sont en expansion, mais la dynamique s'inverse — le Manufacturing US ralentit légèrement (55,6 → 54,6) pendant que la zone euro accélère nettement (composite à 53,1, son meilleur rythme depuis environ 3 ans et demi). Vu isolément, ça devrait plutôt soutenir l'euro — voir la carte EUR/USD ci-dessous pour pourquoi ce n'est pas ce qui domine en ce moment.</p>
+  </div>
+
+  <h2 style="margin-top:32px">Biais de marché</h2>
+  <p class="sub">Lecture du contexte macro/technique du moment — à vérifier toi-même avant d'agir, pas une consigne de trade.</p>
+
+  <div class="mkt-card">
+    <div class="mkt-head">
+      <div class="mkt-title"><span class="mkt-icon">🥇</span> Or (XAU/USD)</div>
+      <span class="bias-badge bear">🔻 Baissier</span>
+    </div>
+    <p class="eco-note" style="font-size:13.5px;color:var(--txt)">Prix autour de 4 176 $ après avoir cassé le support des 4 200 $ (−2,1 % la semaine précédente). Les rendements du Trésor US à 10 ans, au plus haut depuis plus de 20 ans (~5,3 %), et un pétrole cher pèsent sur l'or malgré une inflation un peu plus docile. Une clôture journalière sous 4 200 $ renforcerait le signal baissier vers 4 000 $.</p>
+    <div class="mkt-levels"><span>Support : <b>4 000 $</b></span><span>Résistance : <b>4 300 $</b></span><span>Invalidation du biais : clôture au-dessus de 4 300 $</span></div>
+  </div>
+
+  <div class="mkt-card">
+    <div class="mkt-head">
+      <div class="mkt-title"><span class="mkt-icon">🛢️</span> Pétrole (WTI)</div>
+      <span class="bias-badge neutral">↔️ Volatil, biais haussier</span>
+    </div>
+    <p class="eco-note" style="font-size:13.5px;color:var(--txt)">Tensions géopolitiques élevées (risques de frappes sur des infrastructures pétrolières) et offre resserrée poussent vers le haut, avec une volatilité forte attendue toute la semaine. Les analystes voient une fourchette large en octobre, avec un risque haussier vers 100 $ si la prime géopolitique s'accentue.</p>
+    <div class="mkt-levels"><span>Plancher attendu : <b>82,50 $</b></span><span>Plafond attendu : <b>97,50 $</b></span><span>Niveau psychologique : <b>100 $</b></span></div>
+  </div>
+
+  <div class="mkt-card">
+    <div class="mkt-head">
+      <div class="mkt-title"><span class="mkt-icon">💶</span> EUR/USD</div>
+      <span class="bias-badge bear">🔻 Baissier</span>
+    </div>
+    <p class="eco-note" style="font-size:13.5px;color:var(--txt)">Support clé entre 1,1360 et 1,1370 : une cassure ouvrirait la voie vers 1,1300 et plus bas. Le DXY (indice dollar, où l'euro pèse environ 57,6 % du panier — corrélation inverse quasi mécanique) est au plus haut depuis 2025 (~101,6–102), porté par des rendements US à leur plus haut en deux décennies et les anticipations de hausse de la Fed. Paradoxe à noter : les PMI zone euro accélèrent plus vite que les PMI US en ce moment (voir tableau ci-dessus), ce qui devrait normalement soutenir l'euro — mais l'écart de rendements/taux domine largement cette dynamique pour l'instant. Semaine à risque : Fed le 28/10 et BCE le 29/10, décisions à moins de 24h d'intervalle.</p>
+    <div class="mkt-levels"><span>Support : <b>1,1300–1,1360</b></span><span>Résistance : <b>1,1500</b></span><span>DXY : <b>~101,6–102</b> (plus haut depuis 2025)</span></div>
+  </div>
 
 </section>
 
@@ -2707,179 +2753,6 @@ window.WEEKLY_RECAPS = {
     discRenderTotal();
     discRenderHistory();
   })();
-</script>
-<script>/* Plan du jour — brouillon d'avant-séance : la date du jour vient du navigateur, rien à créer côté fichiers */
-  var planSide = 'Long';
-  function planPad(n){ return n < 10 ? '0'+n : n; }
-  function planTodayKey(){
-    var d = new Date();
-    return 'plan_' + d.getFullYear() + '-' + planPad(d.getMonth()+1) + '-' + planPad(d.getDate());
-  }
-  function planEsc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
-  function planLoad(){ try{ return JSON.parse(localStorage.getItem(planTodayKey())||'[]'); }catch(e){ return []; } }
-  function planSave(arr){ try{ localStorage.setItem(planTodayKey(), JSON.stringify(arr)); }catch(e){} }
-  function planRaw(id){ return String(document.getElementById(id).value).trim().replace(',', '.'); }
-  function planNum(id){ return parseFloat(planRaw(id)); }
-  function planSetSide(side, btn){
-    planSide = side;
-    btn.parentElement.querySelectorAll('.plan-side-btn').forEach(function(b){ b.classList.toggle('active', b === btn); });
-    planPreview();
-  }
-  function planCheck(e, s, o){
-    if(planSide === 'Long' && !(s < e && e < o)) return 'Long : il faut stop < entrée < objectif.';
-    if(planSide === 'Short' && !(o < e && e < s)) return 'Short : il faut objectif < entrée < stop.';
-    return '';
-  }
-  function planRRManual(){
-    var n = parseFloat(planRaw('plan-rr-manuel').replace(/:\s*1$/, ''));
-    return (isFinite(n) && n > 0) ? n : null;
-  }
-  function planLevel(id){ return isFinite(planNum(id)) ? planRaw(id) : ''; }
-  function planPreview(){
-    var e = planNum('plan-entree'), s = planNum('plan-stop'), o = planNum('plan-obj');
-    var out = document.getElementById('plan-rr'), sub = document.getElementById('plan-rr-sub'), msg = document.getElementById('plan-msg');
-    msg.textContent = '';
-    out.style.color = '';
-    if(!isFinite(e) || !isFinite(s) || !isFinite(o)){
-      var man = planRRManual();
-      if(man){
-        out.textContent = man.toFixed(2) + ' : 1';
-        out.style.color = man >= 2 ? 'var(--green)' : 'var(--red)';
-        sub.textContent = 'manuel · ' + (man >= 2 ? 'ton minimum est respecté' : 'sous ton minimum de 2:1');
-      } else { out.textContent = '—'; sub.textContent = 'R:R'; }
-      return;
-    }
-    var err = planCheck(e, s, o);
-    if(err){ out.textContent = '—'; sub.textContent = 'R:R'; msg.textContent = err; return; }
-    var rr = Math.abs(o - e) / Math.abs(e - s);
-    out.textContent = rr.toFixed(2) + ' : 1';
-    out.style.color = rr >= 2 ? 'var(--green)' : 'var(--red)';
-    sub.textContent = rr >= 2 ? 'ton minimum est respecté' : 'sous ton minimum de 2:1';
-  }
-  function planAdd(){
-    var e = planNum('plan-entree'), s = planNum('plan-stop'), o = planNum('plan-obj');
-    var msg = document.getElementById('plan-msg');
-    var levelsOk = isFinite(e) && isFinite(s) && isFinite(o);
-    var man = planRRManual();
-    if(!levelsOk && !man){ msg.textContent = 'Entrée, stop et objectif sont requis (des nombres) — ou un R:R manuel si tu ne les as pas.'; return; }
-    var err = levelsOk ? planCheck(e, s, o) : '';
-    if(err){ msg.textContent = err; return; }
-    if(!String(document.getElementById('plan-compte').value).trim()){ msg.textContent = 'Indique le compte (ex. 001) avant de valider.'; document.getElementById('plan-compte').focus(); return; }
-    if(!String(document.getElementById('plan-note').value).trim()){ msg.textContent = 'Écris la raison du trade avant de valider — pas de position sans justification.'; document.getElementById('plan-note').focus(); return; }
-    var d = new Date();
-    var arr = planLoad();
-    arr.push({
-      compte: String(document.getElementById('plan-compte').value).trim(),
-      instr: String(document.getElementById('plan-instr').value).trim() || 'MNQ',
-      side: planSide,
-      entree: planLevel('plan-entree'), stop: planLevel('plan-stop'), objectif: planLevel('plan-obj'),
-      note: String(document.getElementById('plan-note').value).trim(),
-      rr: levelsOk ? Math.abs(o - e) / Math.abs(e - s) : man,
-      rrManuel: !levelsOk,
-      time: planPad(d.getHours()) + ':' + planPad(d.getMinutes())
-    });
-    planSave(arr);
-    ['plan-entree','plan-stop','plan-obj','plan-rr-manuel','plan-note'].forEach(function(id){ document.getElementById(id).value = ''; });
-    planPreview();
-    planRender();
-  }
-  function planSetNote(i, input){
-    var arr = planLoad();
-    if(!arr[i]) return;
-    arr[i].note = String(input.value).trim();
-    planSave(arr);
-    input.classList.toggle('missing', !arr[i].note);
-  }
-  function planDel(i){
-    var arr = planLoad();
-    arr.splice(i, 1);
-    planSave(arr);
-    planRender();
-  }
-  function planRender(){
-    var host = document.getElementById('plan-list');
-    if(!host) return;
-    var arr = planLoad();
-    var dateEl = document.getElementById('plan-date');
-    if(dateEl) dateEl.textContent = planTodayKey().replace('plan_', '');
-    var btn = document.getElementById('plan-copy-btn');
-    if(btn) btn.disabled = !arr.length;
-    if(!arr.length){ host.innerHTML = '<div class="viol-empty">Aucun trade prévu aujourd\'hui</div>'; return; }
-    host.innerHTML = arr.map(function(t, i){
-      var rrTxt = t.rr != null ? t.rr.toFixed(2) + ':1' + (t.rrManuel ? ' (manuel)' : '') : '—';
-      return '<div class="plan-item"><div class="plan-item-main">'
-        + '<div class="plan-item-top">' + (t.compte ? planEsc(t.compte) + ' · ' : '') + planEsc(t.instr) + ' <span class="' + (t.side === 'Long' ? 'long' : 'short') + '">' + t.side + '</span> · R:R ' + rrTxt + '</div>'
-        + '<div class="plan-item-lv">entrée ' + planEsc(t.entree || '—') + ' · stop ' + planEsc(t.stop || '—') + ' · objectif ' + planEsc(t.objectif || '—') + ' · ' + t.time + '</div>'
-        + '<input type="text" class="plan-note-edit' + (t.note ? '' : ' missing') + '" value="' + planEsc(t.note || '').replace(/"/g, '&quot;') + '" placeholder="⚠️ raison manquante — écris-la ici" onchange="planSetNote(' + i + ', this)">'
-        + '<button type="button" class="plan-copy-one" onclick="planCopyOne(' + i + ', this)">📋 Copier ce trade</button>'
-        + '</div><button class="viol-del" onclick="planDel(' + i + ')" title="Supprimer">×</button></div>';
-    }).join('');
-  }
-  function planCopy(){
-    var arr = planLoad();
-    if(!arr.length) return;
-    var btn0 = document.getElementById('plan-copy-btn');
-    var missing = arr.filter(function(t){ return !t.note; }).length;
-    if(missing){
-      btn0.textContent = '⚠️ ' + missing + ' raison(s) manquante(s) — complète-les d\'abord';
-      setTimeout(function(){ btn0.textContent = '📋 Copier pour Claude'; }, 2600);
-      return;
-    }
-    var lines = ['Plan du jour — ' + planTodayKey().replace('plan_', '')];
-    arr.forEach(function(t, i){ lines.push((i + 1) + '. ' + planLine(t)); });
-    var text = lines.join('\n');
-    var btn = document.getElementById('plan-copy-btn');
-    planCopyText(text, function(ok){
-      btn.textContent = ok ? '✓ Copié — colle-le dans le chat Claude' : 'Échec de la copie';
-      setTimeout(function(){ btn.textContent = '📋 Copier pour Claude'; }, 2200);
-    });
-  }
-  function planLine(t){
-    return (t.compte ? 'Compte ' + t.compte + ' · ' : '') + t.instr + ' ' + t.side
-      + ' · entrée ' + (t.entree || '—') + ' · stop ' + (t.stop || '—') + ' · objectif ' + (t.objectif || '—')
-      + ' · R:R ' + (t.rr != null ? t.rr.toFixed(2) + ':1' + (t.rrManuel ? ' (manuel)' : '') : '—')
-      + ' — ' + t.note;
-  }
-  function planCopyText(text, done){
-    function fallback(){
-      try{
-        var ta = document.createElement('textarea');
-        ta.value = text; ta.style.position = 'fixed'; ta.style.opacity = '0';
-        document.body.appendChild(ta); ta.select();
-        var ok = document.execCommand('copy'); document.body.removeChild(ta); done(ok);
-      }catch(e){ done(false); }
-    }
-    if(navigator.clipboard && navigator.clipboard.writeText){
-      navigator.clipboard.writeText(text).then(function(){ done(true); }, fallback);
-    } else { fallback(); }
-  }
-  function planCopyOne(i, btn){
-    var t = planLoad()[i];
-    if(!t) return;
-    var old = '📋 Copier ce trade';
-    if(!t.note){
-      btn.textContent = '⚠️ écris d\'abord la raison';
-      setTimeout(function(){ btn.textContent = old; }, 2200);
-      return;
-    }
-    planCopyText(planTodayKey().replace('plan_', '') + ' · ' + planLine(t), function(ok){
-      btn.textContent = ok ? '✓ Copié' : 'Échec de la copie';
-      setTimeout(function(){ btn.textContent = old; }, 1800);
-    });
-  }
-  ['plan-entree','plan-stop','plan-obj','plan-rr-manuel'].forEach(function(id){
-    var el = document.getElementById(id);
-    if(el) el.addEventListener('input', planPreview);
-  });
-  var planInstr = document.getElementById('plan-instr');
-  if(planInstr){
-    try{
-      var lastInstr = localStorage.getItem('plan-last-instr');
-      if(lastInstr && planInstr.querySelector('option[value="' + lastInstr + '"]')) planInstr.value = lastInstr;
-    }catch(e){}
-    planInstr.addEventListener('change', function(){ try{ localStorage.setItem('plan-last-instr', planInstr.value); }catch(e){} });
-  }
-  planRender();
 </script>
 <script>/* KPI « Règle de séance » : budget de risque par signal selon la date du navigateur (voir Règle 1) */
 (function(){

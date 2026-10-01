@@ -4,8 +4,11 @@ Site statique (un seul `index.html` + `sessions/*.html`), publié sur
 GitHub Pages (`scaryseb-afk.github.io/journal-trading`) depuis la branche
 `main`. Pas de build : ce qui est commité est ce qui est publié.
 
-`index.html` regroupe Tableau de bord, Brief séance, Brouillon (« Plan du
-jour », trades prévus avant le CSV), Sessions et Règles dans une seule page
+`index.html` regroupe Tableau de bord, Brief séance, Analyses économiques
+(contexte macro US/zone euro — CPI, Fed, NFP, PMI — et biais de marché sur
+or/pétrole/EUR-USD, rédigés par Claude à partir de données publiques, à
+rafraîchir sur demande ; a remplacé le Brouillon/« Plan du jour » le 01/10/2026),
+Sessions et Règles dans une seule page
 (`data-goto`/`.view` — pas de rechargement, l'onglet actif est dans le hash :
 `#brief`, `#sessions`…). Le menu est une bannière fixe à gauche dès 960 px
 (barre du haut en dessous), thème en bas du menu. Sur grand écran, les
@@ -92,8 +95,7 @@ trade, relecture) — ne pas dupliquer ce CSS/JS dans le fichier de session.
 - Stop / objectif / R:R par trade : Tradovate n'exporte ni stop ni objectif,
   l'utilisateur les saisit dans les champs sous chaque trade, le R:R se
   recalcule alors tout seul. S'il ne les a pas notés, il peut saisir son R:R
-  à la main (champ « R:R » sous chaque trade, et « R:R manuel » dans le
-  Brouillon) : « Copier pour Claude » le remonte marqué « saisi à la main »
+  à la main (champ « R:R » sous chaque trade) : « Copier pour Claude » le remonte marqué « saisi à la main »
   — une donnée déclarée, pas recalculée. **100% local au navigateur**, ne
   modifie jamais `index.html`/la page de session tant que Claude n'a pas relu
   et validé — ne pas considérer ce contenu comme publié.
