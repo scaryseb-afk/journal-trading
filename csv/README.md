@@ -23,7 +23,7 @@ explicite :
 
 | Compte | Plage buyFillId |
 |---|---|
-| 001 | 630057150xxx – 630057151xxx |
+| 001 | 630057150xxx – 630057152xxx |
 | 002 | 631159020xxx |
 | 004a | 619589860xxx (ancien compte, cramé et clôturé le 10/09 — fichier `004.csv`) |
 | 005 | 620520920xxx – 620520921xxx |
@@ -65,6 +65,8 @@ explicite :
    l'utilisateur plutôt que de l'absorber silencieusement.
 
 ## Progression semaine par semaine
+
+(Les montants ≥ 1 000 $ sont exportés entre guillemets — `"$(1,200.00)"`, virgule des milliers incluse : `calc-semaine.js` et `calc-instruments.js` lisent le CSV en respectant les guillemets, pas un simple découpage sur les virgules. Premier cas : la perte de −1 200 $ du 02b le 02/10.)
 
 `node csv/calc-semaine.js [AAAA-MM-JJ]` recalcule depuis `csv/comptes/*.csv`,
 jour par jour, le nombre de trades (une position en plusieurs fills = 1, copy

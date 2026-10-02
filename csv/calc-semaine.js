@@ -7,13 +7,14 @@
 const fs = require('fs');
 const from = process.argv[2] || '2026-08-21';
 const ts = s => { const m = s.match(/(\d+)\/(\d+)\/(\d+) (\d+):(\d+):(\d+)/); return new Date(+m[3], +m[1] - 1, +m[2], +m[4], +m[5], +m[6]).getTime() / 1000; };
+const splitCsv = l => { const out = []; let cur = '', q = false; for (const ch of l) { if (ch === '"') q = !q; else if (ch === ',' && !q) { out.push(cur); cur = ''; } else cur += ch; } out.push(cur); return out; }; // les montants >= 1 000 $ sont exportés entre guillemets ("$(1,200.00)")
 const money = s => { const neg = /\(/.test(s); const v = parseFloat(s.replace(/[$(),]/g, '')); return neg ? -v : v; };
 let rows = [];
 for (const f of fs.readdirSync(__dirname + '/comptes')) {
   if (!f.endsWith('.csv')) continue;
   const acct = f.replace('.csv', '');
   fs.readFileSync(__dirname + '/comptes/' + f, 'utf8').split(/\r?\n/).filter(Boolean).slice(1).forEach(l => {
-    const c = l.split(','); const b = ts(c[10]), s = ts(c[11]); const long = b < s;
+    const c = splitCsv(l); const b = ts(c[10]), s = ts(c[11]); const long = b < s;
     rows.push({ acct, sym: c[0], bid: c[4], sid: c[5], long, entry: Math.min(b, s), exit: Math.max(b, s), ep: long ? +c[7] : +c[8], tick: +c[3], pnl: money(c[9]) });
   });
 }
