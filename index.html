@@ -1386,7 +1386,7 @@ details.scn-card[open]>summary::before{content:"▾ "}
   <p class="sub">Huit comptes suivis (001, 003, 004, 005, 005b, 006, 02b, A) — le 002 a breaché le 29/09 et a été remplacé le jour même par le 02b, le 005b est un rachat du 005 tradé une seule fois, le 004 a été racheté le 17/09 après la clôture de l'ancien le 10/09. Soldes Lucid du 30/09 (buffer, jours de trading, seuil MLL — des infos que le CSV Tradovate ne donne pas), puis recalculés au 02/10 en leur appliquant le P&L des CSV du jour : Lucid n'a pas été consulté depuis, ces soldes sont donc à confirmer. Quand un solde recalculé sur CSV existe, l'écart avec Lucid est signalé plutôt que lissé. Compte A confirmé toujours actif par un trade le 01/10, malgré son absence de la page Lucid du 30/09.</p>
   <div class="obs warn" style="margin-bottom:16px">
     <div class="t">🔴 Vendredi 02/10 : −2 117 $ sur 6 comptes, plan non respecté</div>
-    <div class="d">02b : MGC Long 4 contrats, entré 6 s après le NFP, −1 200 $. 003/001/006 : le même MNQ Long 3 contrats à la seconde près, −300 $, −300 $, −61,50 $. 004b : −297 $, ré-entrée 2 min 14 s après une perte. A : +41,50 $. 4 signaux (max 3), les deux derniers après 2 pertes. Détail dans la séance du 02/10.</div>
+    <div class="d">02b : MGC Long 4 contrats, entré 6 s après le NFP, −1 200 $. 003/001/006 : le même MNQ Long 3 contrats à la seconde près, −300 $, −300 $, −61,50 $. 004b : −297 $, ré-entrée 2 min 14 s après une perte. A : +41,50 $. 4 signaux (max 3), les deux derniers après 2 pertes. Tout fait à la main, sans SL ni TP posés. Détail dans la séance du 02/10.</div>
   </div>
   <div class="obs warn" style="margin-bottom:16px">
     <div class="t">🔴 Le 002 a breaché le 29/09</div>
@@ -1438,12 +1438,12 @@ details.scn-card[open]>summary::before{content:"▾ "}
     <div class="r">
       <div class="n">Compte …4680003 — Tradovate / Lucid</div>
       <div class="t">48 553,00 $ · <span style="color:var(--red)">−1 447,00 $ depuis le départ</span></div>
-      <div class="d">−300 $ le 02/10 : Long MNQ 3 contrats copié à la seconde près avec 001 et 006 (règle 8), stoppé à 31 127,75 — buffer 302 $. −199 $ le 30/09 : Short MNQ 2 contrats, 49,75 pts contre toi en 13 min 54 (stop touché), sur le solde Lucid du 30/09 (49 052 $, lui-même avec 92 $ d'écart vs le calcul CSV du 29/09 à 49 144 $, non résolu). −175 $ le 29/09, entré 30 min après la perte du 001 (règle 6 respectée). Avant : −262,50 $ le 18/09, copié avec 001/002.</div>
+      <div class="d">−300 $ le 02/10 : Long MNQ 3 contrats saisi à la main à la seconde près sur 001, 003 et 006 (règle 8), sans SL/TP, fermé à la main à 31 127,75 — buffer 302 $. −199 $ le 30/09 : Short MNQ 2 contrats, 49,75 pts contre toi en 13 min 54 (stop touché), sur le solde Lucid du 30/09 (49 052 $, lui-même avec 92 $ d'écart vs le calcul CSV du 29/09 à 49 144 $, non résolu). −175 $ le 29/09, entré 30 min après la perte du 001 (règle 6 respectée). Avant : −262,50 $ le 18/09, copié avec 001/002.</div>
     </div>
     <div class="r">
       <div class="n">Compte …4680004 — Tradovate / Lucid (nouveau)</div>
       <div class="t">49 636,00 $ · <span style="color:var(--red)">−364,00 $ depuis le départ</span></div>
-      <div class="d">−297 $ le 02/10 : Long MNQ 3 contrats, 1 h 09, entré 2 min 14 s après la sortie à −300 $ des 001/003 (ré-entrée précipitée, 3e signal du jour). Solde calculé : 49 933 $ Lucid du 30/09 − 297 $ ; écart de 20 $ avec le calcul CSV du 18/09 (49 953 $). Racheté et tradé dès le 17/09 — remplace l'ancien 004 cramé le 10/09.</div>
+      <div class="d">−297 $ le 02/10 : Long MNQ 3 contrats, 1 h 09, sans SL/TP (fermé à la main), entré 2 min 14 s après la sortie à −300 $ des 001/003 (ré-entrée précipitée, 3e signal du jour). Solde calculé : 49 933 $ Lucid du 30/09 − 297 $ ; écart de 20 $ avec le calcul CSV du 18/09 (49 953 $). Racheté et tradé dès le 17/09 — remplace l'ancien 004 cramé le 10/09.</div>
     </div>
     <div class="r">
       <div class="n">Compte A — Tradovate / Lucid (nouveau)</div>
@@ -2216,7 +2216,7 @@ window.COMPTES = [
     objectif: 53000,
     mll: 48087,
     maxContrats: null,
-    note: "−297 $ le 02/10 : Long MNQ 3 contrats, 1 h 09 (15h57→17h07), entré 2 min 14 s après la sortie à −300 $ des 001/003 — ré-entrée précipitée, 3e signal du jour après 2 pertes. Solde calculé : 49 933 $ (Lucid 30/09) − 297 $ (Lucid non consulté depuis). Avant : −152 $ le 18/09 (1 trade). Racheté et tradé dès le 17/09 — remplace l'ancien 004 cramé et clôturé le 10/09. Écart de 20 $ entre Lucid (49 933 $) et le calcul CSV du 18/09 (49 953 $), probablement des frais non repris dans l'export Tradovate.",
+    note: "−297 $ le 02/10 : Long MNQ 3 contrats, 1 h 09 (15h57→17h07), sans SL/TP (fermé à la main), entré 2 min 14 s après la sortie à −300 $ des 001/003 — ré-entrée précipitée, 3e signal du jour après 2 pertes. Solde calculé : 49 933 $ (Lucid 30/09) − 297 $ (Lucid non consulté depuis). Avant : −152 $ le 18/09 (1 trade). Racheté et tradé dès le 17/09 — remplace l'ancien 004 cramé et clôturé le 10/09. Écart de 20 $ entre Lucid (49 933 $) et le calcul CSV du 18/09 (49 953 $), probablement des frais non repris dans l'export Tradovate.",
     aConfirmer: null
   },
   {
@@ -2234,7 +2234,7 @@ window.COMPTES = [
     objectif: 53000,
     mll: 48251,
     maxContrats: null,
-    note: "🔴 −300 $ le 02/10 : Long MNQ 3 contrats, copié à la seconde près avec 001 et 006 (règle 8), stoppé à 31 127,75 (−50 pts, 10 min 37). Solde calculé : 48 853 $ − 300 $ (Lucid non consulté depuis le 30/09) — buffer 302 $. −199 $ le 30/09 — Short MNQ 2 contrats, stop touché (solde Lucid du 30/09 : 49 052 $, avec 92 $ d'écart non résolu vs le calcul CSV du 29/09). −175 $ le 29/09, entré 30 min après la perte du 001 (règle 6 respectée). Avant : −262,50 $ le 18/09, copié avec 001/002.",
+    note: "🔴 −300 $ le 02/10 : Long MNQ 3 contrats, saisi à la main à la seconde près sur 001, 003 et 006 (règle 8), sans SL/TP, fermé à la main à 31 127,75 (−50 pts, 10 min 37). Solde calculé : 48 853 $ − 300 $ (Lucid non consulté depuis le 30/09) — buffer 302 $. −199 $ le 30/09 — Short MNQ 2 contrats, stop touché (solde Lucid du 30/09 : 49 052 $, avec 92 $ d'écart non résolu vs le calcul CSV du 29/09). −175 $ le 29/09, entré 30 min après la perte du 001 (règle 6 respectée). Avant : −262,50 $ le 18/09, copié avec 001/002.",
     aConfirmer: null
   },
   {
@@ -2306,7 +2306,7 @@ window.COMPTES = [
     objectif: 53000,
     mll: 49186,
     maxContrats: null,
-    note: "−300 $ le 02/10 : même Long MNQ 3 contrats que 003 et 006 (entrée 15h44:59, sortie 15h55:36 à 31 127,75, −50 pts). Solde calculé : 50 503 $ − 300 $ (Lucid non consulté depuis le 30/09). Avant : solde Lucid du 30/09 avec 196 $ d'écart vs le calcul CSV du 29/09 (50 699,25 $), à surveiller. −263 $ le 29/09 (Short MNQ 2 contrats, 65,75 pts contre toi en 41 min), +742 $ le 28/09.",
+    note: "−300 $ le 02/10 : même Long MNQ 3 contrats que 003 et 006, saisi à la main (entrée 15h44:59, sans SL/TP, fermé à la main à 15h55:36 à 31 127,75, −50 pts). Solde calculé : 50 503 $ − 300 $ (Lucid non consulté depuis le 30/09). Avant : solde Lucid du 30/09 avec 196 $ d'écart vs le calcul CSV du 29/09 (50 699,25 $), à surveiller. −263 $ le 29/09 (Short MNQ 2 contrats, 65,75 pts contre toi en 41 min), +742 $ le 28/09.",
     aConfirmer: null
   },
   {
@@ -2581,7 +2581,7 @@ window.TRADES = [
    vérifié depuis les CSV bruts. N'évalue pas la qualité de l'entrée.
    Absent = pas encore évalué (jours avant le 14/09). Sert au KPI "Respect du plan". */
 window.SESSIONS = [
-  { jour:"02/10", label:"Vendredi 2 oct.", fichier:"2026-10-02-vendredi.html", pnl:-2117.00, trades:4, gagnants:1, neutres:0, planOk:false, planWhy:"4 trades (max 3), 3e et 4e après 2 pertes, MGC 4 contrats 6 s après le NFP (−1 200 $ pour un budget de 300 $), même signal MNQ sur 3 comptes à la fois", rt:[4,2,-255.5], note:"Jour de NFP (+29 K, 89 K attendus), 4 signaux sur 6 comptes, un seul gagnant. 02b MGC Long 4 contrats entré à 14h30:06, 6 s après la publication : −1 200 $ (30 pts contre, 46 min). Puis le même MNQ Long 3 contrats sur 003/001/006 à la seconde près (15h44:58) : −300 $, −300 $, −61,50 $ (le 006 passe 0,50 $ sous son seuil de 48 000 $ — breach probable). 004b MNQ Long 3 contrats −297 $, entré 2 min 14 s après la sortie, et A MNQ Short 1 contrat +41,50 $, 3 min 33 s après la perte du 004b. Plan non respecté : 4 trades (max 3), 3e et 4e après 2 pertes, même signal sur 3 comptes, entrée 6 s après le NFP en 4 contrats." },
+  { jour:"02/10", label:"Vendredi 2 oct.", fichier:"2026-10-02-vendredi.html", pnl:-2117.00, trades:4, gagnants:1, neutres:0, planOk:false, planWhy:"4 trades (max 3), 3e et 4e après 2 pertes, MGC 4 contrats 6 s après le NFP (−1 200 $ pour un budget de 300 $), même signal MNQ saisi à la main sur 3 comptes, aucun SL/TP posé", rt:[4,2,-255.5], note:"Jour de NFP (+29 K, 89 K attendus), 4 signaux sur 6 comptes, un seul gagnant. 02b MGC Long 4 contrats entré à 14h30:06, 6 s après la publication : −1 200 $ (30 pts contre, 46 min). Puis le même MNQ Long 3 contrats sur 003/001/006 à la seconde près (15h44:58) : −300 $, −300 $, −61,50 $ (le 006 passe 0,50 $ sous son seuil de 48 000 $ — breach probable). 004b MNQ Long 3 contrats −297 $, entré 2 min 14 s après la sortie, et A MNQ Short 1 contrat +41,50 $, 3 min 33 s après la perte du 004b. Plan non respecté : 4 trades (max 3), 3e et 4e après 2 pertes, même signal saisi à la main sur 3 comptes, aucun SL/TP posé (sorties à la main), entrée 6 s après le NFP en 4 contrats." },
   { jour:"01/10", label:"Jeudi 1 oct.", fichier:"2026-10-01-jeudi.html", pnl:-416.00, trades:1, gagnants:0, neutres:0, planOk:true, rt:[1,0,0], note:"Un seul trade, perdant : compte A, Long MNQ 4 contrats (plafond pile) −416 $ (18h35→18h53, 52 pts contre). Confirme que le compte A est toujours actif. 1 trade (max 3), 4 contrats (max 4), un seul compte." },
   { jour:"30/09", label:"Mercredi 30 sept.", fichier:"2026-09-30-mercredi.html", pnl:-199.00, trades:1, gagnants:0, neutres:0, planOk:true, rt:[1,0,0], note:"Un seul trade, perdant : 003 MNQ Short 2 contrats −199 $ (16h35→16h49, stop touché). 1 trade (max 3), 2 contrats (max 4), un seul compte." },
   { jour:"29/09", label:"Mardi 29 sept.", fichier:"2026-09-29-mardi.html", pnl:-418.00, trades:4, gagnants:2, neutres:0, planOk:true, rt:[4,0,0], note:"Quatre trades sur trois comptes différents : 001 MNQ Short 2 contrats −263 $ (15h38, 41 min), 003 MNQ Short 2 contrats −175 $ (16h49, 2 min, entré 30 min après la perte du 001 — règle 6 respectée), et deux trades sur le 02b (compte racheté le jour même pour remplacer le 002 breaché) — MNQ Short 1 contrat +16 $ (17h12→20h23) puis 1 contrat +4 $ (17h13→20h25), entrés 20 min après la perte du 003. Capture 16h50 : biais baissier, chute de folie, entrée retardée à la clôture de bougie (>350 ticks), doute sur le timing." },
