@@ -90,6 +90,16 @@ trade, relecture) — ne pas dupliquer ce CSS/JS dans le fichier de session.
 - À chaque séance ajoutée, lancer `node csv/calc-semaine.js` et recopier la
   ligne `rt:[trades, ré-entrées, P&L des ré-entrées]` du jour dans
   `window.SESSIONS` : la page « Progression » (semaine après semaine) en dépend.
+- À chaque séance ajoutée, relancer aussi `node csv/calc-instruments.js` et
+  remplacer la ligne `window.PAR_INSTRUMENT = {...}` d'`index.html` : la
+  sous-page « Par instrument » du Tableau de bord (MNQ / or / pétrole / euro :
+  P&L, win rate, moyenne par signal, pire trade) et ses phrases de synthèse en
+  dépendent. Même total que les autres cartes (−7 224,25 $ / 186 signaux au 01/10).
+- Brief séance → Checklist : carte « Note du jour » (ressenti avant de trader).
+  Saisie locale au navigateur (`daynote_AAAA-MM-JJ`) ; « Copier pour Claude »
+  la remonte dans le chat, et Claude l'inscrit dans `window.DAY_NOTES`
+  (`index.html`, clé `AAAA-MM-JJ`, `m` = bien | neutre | pas-bien) pour qu'elle
+  soit rapprochée du P&L du jour. Sans ce copier-coller, Claude ne la voit pas.
 - Pas d'import CSV dans les pages : c'est Claude qui crée la page de séance
   à partir des exports que l'utilisateur envoie dans le chat.
 - Stop / objectif / R:R par trade : Tradovate n'exporte ni stop ni objectif,

@@ -74,3 +74,13 @@ ré-entrées, P&L des ré-entrées]` sont à recopier dans `window.SESSIONS`
 (index.html) à chaque nouvelle séance : elles alimentent la page
 « Progression » du tableau de bord et les chiffres du Brief séance.
 
+## Résultat par instrument
+
+`node csv/calc-instruments.js` applique le même pipeline (fills fusionnés, copy
+trading = 1 signal) puis regroupe par famille : **MNQ**, **Or** (MGC + GC),
+**Pétrole** (MCL + CL), **Euro** (6E). Il imprime la ligne
+`window.PAR_INSTRUMENT = {...}` à recopier dans `index.html` (sous-page « Par
+instrument » du Tableau de bord). Le total doit toujours égaler celui des autres
+cartes (au 01/10 : −7 224,25 $, 186 signaux). Un signal est « gagnant » si son
+P&L est > 0 : les break-even déclarés (ex. les deux du 23/09) n'y sont pas isolés,
+le CSV n'en garde pas la trace.

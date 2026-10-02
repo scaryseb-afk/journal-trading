@@ -707,9 +707,75 @@ details.scn-card[open]>summary::before{content:"▾ "}
   #view-eco .eco-ov-fed{grid-column:1;grid-row:3}
   #view-eco .eco-cal-row{flex-wrap:wrap;gap:0 10px}
 }
+/* Page « Par instrument » */
+.ins-sum{background:var(--panel);border:1px solid var(--line);border-left:3px solid var(--accent);border-radius:10px;padding:9px 14px;margin:8px 0 10px;font-size:12.5px;line-height:1.45}
+.ins-sum p{margin:0 0 3px}
+.ins-sum p:last-child{margin-bottom:0}
+.ins-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:10px}
+.ins-card{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:11px 14px}
+.ins-card.worst{border-color:var(--red)}
+.ins-head{display:flex;align-items:center;gap:7px;font-weight:700;font-size:14px;flex-wrap:wrap}
+.ins-ic{font-size:18px;line-height:1}
+.ins-badge{margin-left:auto;font-size:10px;font-weight:700;background:var(--red-dim);color:var(--red);border-radius:10px;padding:2px 8px;white-space:nowrap}
+.ins-badge+.ins-badge{margin-left:0}
+.ins-sub{font-size:10.5px;color:var(--muted);margin:1px 0 4px}
+.ins-pnl{font-size:26px;font-weight:800;letter-spacing:-.02em;font-variant-numeric:tabular-nums;line-height:1.15}
+.ins-bar{height:6px;border-radius:3px;background:var(--line);margin:5px 0 7px;overflow:hidden}
+.ins-bar>i{display:block;height:100%;border-radius:3px}
+.ins-bar>i.neg{background:var(--red)}
+.ins-bar>i.pos{background:var(--green)}
+.ins-row{display:flex;justify-content:space-between;gap:8px;font-size:12px;padding:2px 0;color:var(--muted)}
+.ins-row b{color:var(--txt);font-weight:600;font-variant-numeric:tabular-nums}
+.ins-row b.pos{color:var(--green)}
+.ins-row b.neg{color:var(--red)}
+.ins-note{font-size:10.5px;color:var(--dim);margin:8px 0 0;line-height:1.45}
+/* Checklist + Note du jour */
+@media(min-width:960px){
+  .chk-grid .rules{display:grid;grid-template-columns:1fr 1fr;column-gap:32px}
+  .chk-grid .dn-card{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);column-gap:22px;align-items:start}
+  .chk-grid .dn-card>*{grid-column:1}
+  .chk-grid .dn-card>.dn-hist{grid-column:2;grid-row:1/span 5;margin-top:0;border-top:none;padding-top:0}
+}
+.chk-grid .dn-card{margin-top:8px}
+.chk-grid .rules{padding:2px 20px}
+.chk-grid .r{padding:5px 0}
+.chk-grid .r .n{margin-bottom:2px;font-size:11px}
+.chk-grid .r .t{font-size:14px;margin-bottom:2px}
+.chk-grid .r .d{font-size:11.5px;line-height:1.3}
+.dn-card{background:var(--panel);border:1px solid var(--line);border-left:3px solid var(--accent);border-radius:14px;padding:10px 14px}
+.dn-title{font-weight:700;font-size:14px}
+.dn-date{color:var(--muted);font-weight:500;font-size:12px;margin-left:6px}
+.dn-sub{color:var(--muted);font-size:11px;margin:1px 0 6px}
+.dn-moods{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:6px}
+.dn-mood{border:1px solid var(--line);background:var(--surface);color:var(--muted);border-radius:20px;padding:5px 11px;font-size:12.5px;font-weight:600;cursor:pointer;font-family:inherit}
+.dn-mood:hover{border-color:var(--accent);color:var(--txt)}
+.dn-mood.on{background:var(--accent);border-color:var(--accent);color:var(--on-accent)}
+#dn-text{width:100%;box-sizing:border-box;min-height:44px;resize:vertical;background:var(--surface);color:var(--txt);border:1px solid var(--line);border-radius:8px;padding:8px 10px;font-family:inherit;font-size:13px;line-height:1.4}
+#dn-text:focus{outline:none;border-color:var(--accent)}
+.dn-actions{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:6px}
+.dn-saved{font-size:11px;color:var(--dim)}
+#dn-copy{border:1px solid var(--line);background:var(--panel);color:var(--txt);border-radius:8px;padding:5px 10px;font-size:12px;cursor:pointer;font-family:inherit}
+#dn-copy:hover{border-color:var(--accent)}
+.dn-hist{margin-top:10px;border-top:1px solid var(--line);padding-top:8px;font-size:12px}
+.dn-row{display:flex;gap:8px;align-items:baseline;padding:3px 0;color:var(--muted)}
+.dn-d{flex:0 0 38px;font-variant-numeric:tabular-nums}
+.dn-t{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:var(--txt)}
+.dn-p{flex:0 0 auto;font-weight:700;font-variant-numeric:tabular-nums}
+.dn-agg{color:var(--dim);font-size:11px;margin-top:6px;line-height:1.4}
 /* Écrans peu hauts (13" en 1280×720/800) : on gagne de la place verticale en haut de page */
 @media(min-width:960px) and (max-height:820px){
   .wrap{padding-top:26px;padding-bottom:28px}
+  .foot{margin-top:20px}
+  .nav{padding-top:14px;padding-bottom:12px}
+  .nav-brand{padding-bottom:10px;margin-bottom:4px}
+  .nav a{padding:6px 12px}
+  .nav-sub{margin-bottom:4px}
+  .nav-sub a{padding:3px 8px}
+  #view-brief{margin-top:-26px}
+  #view-brief h1{font-size:19px;margin-bottom:2px}
+  #view-brief p.sub{font-size:11.5px;margin-bottom:4px;line-height:1.35}
+  #view-brief p.eyebrow{font-size:10.5px;margin-bottom:0;line-height:1.3}
+  #view-brief .subview[data-subview="checklist"] h2{font-size:15px;margin:2px 0 6px}
   h1{font-size:30px}
   .plan-widget .pw-rule{display:none}
   .plan-widget{padding:9px 14px}
@@ -734,6 +800,7 @@ details.scn-card[open]>summary::before{content:"▾ "}
   <div class="subnav" id="dash-subnav">
     <button class="sn-btn active" data-sub="overview" data-nosidebar>🔎 Vue d'ensemble</button>
     <button class="sn-btn" data-sub="progression">📈 Progression</button>
+    <button class="sn-btn" data-sub="instrument">🪙 Par instrument</button>
     <button class="sn-btn" data-sub="comptes">🧮 Comptes &amp; Analyse</button>
     <button class="sn-btn" data-sub="risque">⚖️ Risque &amp; R:R</button>
     <button class="sn-btn" data-sub="bilan">📑 Bilan &amp; Règles</button>
@@ -871,6 +938,13 @@ details.scn-card[open]>summary::before{content:"▾ "}
   <h1>Progression</h1>
   <p class="sub">Semaine après semaine : nombre de trades, ré-entrées après une perte, résultat et respect du plan. Vert = mieux que la semaine précédente, rouge = moins bien.</p>
   <div id="progression"></div>
+  </div>
+
+  <div class="subview" data-subview="instrument">
+  <p class="eyebrow">Tableau de bord</p>
+  <h1>Par instrument</h1>
+  <p class="sub">Où part l'argent : MNQ, or, pétrole ou euro ? Recalculé depuis les CSV de tous les comptes, copy-trading compté une seule fois.</p>
+  <div id="instr"></div>
   </div>
 
   <div class="subview" data-subview="comptes">
@@ -1281,6 +1355,7 @@ details.scn-card[open]>summary::before{content:"▾ "}
 
   <div class="subview" data-subview="checklist">
   <h2 id="brief-questions">Les sept questions avant d'appuyer</h2>
+  <div class="chk-grid">
   <div class="rules">
     <div class="r" style="border-color:rgba(224,85,79,.4)"><div class="n">0</div><div class="t">Suis-je en état de trader, là, maintenant ?</div><div class="d">La question du 20/08. Si non, tu fermes la plateforme — tout le reste de cette liste ne sert à rien ce jour-là.</div></div>
     <div class="r"><div class="n">1</div><div class="t">Quelle phase AMD suis-je en train de jouer ?</div><div class="d">Si tu ne peux pas répondre en une phrase, tu ne rentres pas.</div></div>
@@ -1289,6 +1364,19 @@ details.scn-card[open]>summary::before{content:"▾ "}
     <div class="r"><div class="n">4</div><div class="t">Ma quantité est-elle la bonne ? Je la lis à voix haute.</div><div class="d">14 lots au lieu de 2, le 18/08. Trois secondes de lecture évitent 959 $ d'exposition.</div></div>
     <div class="r"><div class="n">5</div><div class="t">Mes trois ordres sont posés — je m'engage à n'en déplacer aucun.</div><div class="d">Aucune exception, aucun sens — sauf une règle écrite avant l'entrée et appliquée mécaniquement.</div></div>
     <div class="r"><div class="n">6</div><div class="t">Ma dernière perte date de plus de 10 minutes ?</div><div class="d">Sinon, tu attends. La montre décide, pas toi.</div></div>
+  </div>
+  <div class="dn-card" id="daynote">
+    <div class="dn-title">📝 Note du jour <span class="dn-date" id="dn-date"></span></div>
+    <div class="dn-sub">Question 0 en pratique : comment tu te sens, là, avant de trader ?</div>
+    <div class="dn-moods">
+      <button type="button" class="dn-mood" data-mood="bien">😌 Je le sens bien</button>
+      <button type="button" class="dn-mood" data-mood="neutre">😐 Neutre</button>
+      <button type="button" class="dn-mood" data-mood="pas-bien">😟 Pas bien</button>
+    </div>
+    <textarea id="dn-text" rows="2" placeholder="Une phrase : ton ressenti, ton biais, ce que tu attends de la séance…"></textarea>
+    <div class="dn-actions"><span class="dn-saved" id="dn-saved"></span><button type="button" id="dn-copy">📋 Copier pour Claude</button></div>
+    <div class="dn-hist" id="dn-hist"></div>
+  </div>
   </div>
 
   </div>
@@ -2535,6 +2623,17 @@ window.SESSIONS = [
    Clé = même format que weekOf()/mondayOf() ailleurs dans la page : "AAAA-M-J" du lundi de la semaine. */
 window.WEEKLY_RECAPS = {
   /* "2026-9-28": { forts:["..."], travailler:["..."], verdict:"..." } */
+};
+
+/* Répartition du résultat par instrument (page « Par instrument ») — généré par `node csv/calc-instruments.js`
+   depuis csv/comptes/*.csv : à relancer et recopier à chaque nouvelle séance. */
+window.PAR_INSTRUMENT = {"du":"13/08","au":"01/10","fichiers":9,"signaux":186,"pnl":-7224.25,"items":[{"id":"MNQ","pnl":-6305.5,"n":143,"w":45,"l":98,"gains":10978,"pertes":17283.5,"pire":-769.5,"meilleur":2529,"sous":[["MNQ",-6305.5]]},{"id":"Or","pnl":-1272,"n":23,"w":11,"l":12,"gains":364,"pertes":1636,"pire":-282,"meilleur":127,"sous":[["MGC",-732],["GC",-540]]},{"id":"Euro","pnl":-18.75,"n":4,"w":1,"l":2,"gains":225,"pertes":243.75,"pire":-187.5,"meilleur":225,"sous":[["6E",-18.75]]},{"id":"Pétrole","pnl":372,"n":16,"w":4,"l":12,"gains":1860,"pertes":1488,"pire":-249,"meilleur":840,"sous":[["MCL",-1028],["CL",1400]]}]};
+
+/* Notes du jour (Brief séance → Checklist) — ressenti avant de trader. Clé = AAAA-MM-JJ, m = bien | neutre | pas-bien.
+   Les notes saisies dans la page restent locales au navigateur : « Copier pour Claude », colle-les dans le chat
+   et Claude les inscrit ici (elles seront alors visibles partout et rapprochées du P&L du jour). */
+window.DAY_NOTES = {
+  "2026-10-02": { m:"bien", t:"Je le sens bien." }
 };
 </script>
 <script>/* Score de confluence — un seul état, deux affichages (widget compact du Dashboard + carte complète de l'onglet Règles), synchronisés en direct */
@@ -3976,7 +4075,7 @@ window.WEEKLY_RECAPS = {
     return dt;
   }
   function keyOf(dt){ return dt.getFullYear() + '-' + (dt.getMonth() + 1) + '-' + dt.getDate(); }
-  function money(v){ return (v > 0 ? '+' : (v < 0 ? '−' : '')) + Math.abs(Math.round(v)).toLocaleString('fr-FR') + ' $'; }
+  function money(v){ return (v > 0 ? '+' : (v < 0 ? '−' : '')) + Math.round(Math.abs(v)).toLocaleString('fr-FR') + ' $'; }
   function chip(delta, goodWhen, fmt, title){
     if(delta === null) return '';
     var dir = delta > 0 ? '▲' : (delta < 0 ? '▼' : '=');
@@ -4085,6 +4184,155 @@ window.WEEKLY_RECAPS = {
     host.innerHTML = h;
   }
   document.addEventListener('DOMContentLoaded', build);
+})();
+</script>
+<script>/* Page « Par instrument » — rendue depuis window.PAR_INSTRUMENT (généré par csv/calc-instruments.js) */
+(function(){
+  var ICON = {'MNQ':'📈','Or':'🥇','Pétrole':'🛢️','Euro':'💶'};
+  var DESC = {'MNQ':'Micro Nasdaq','Or':'Or','Pétrole':'Pétrole','Euro':'Euro FX (6E)'};
+  function money(v){ return (v > 0 ? '+' : (v < 0 ? '−' : '')) + Math.round(Math.abs(v)).toLocaleString('fr-FR') + ' $'; }
+  function cls(v){ return v > 0 ? 'pos' : (v < 0 ? 'neg' : ''); }
+  function row(l, v, c){ return '<div class="ins-row"><span>' + l + '</span><b' + (c ? ' class="' + c + '"' : '') + '>' + v + '</b></div>'; }
+  function build(){
+    var D = window.PAR_INSTRUMENT, host = document.getElementById('instr');
+    if(!D || !host) return;
+    var items = D.items.map(function(o){
+      return Object.assign({}, o, { moy: o.n ? o.pnl / o.n : 0, gm: o.w ? o.gains / o.w : 0, pm: o.l ? o.pertes / o.l : 0 });
+    });
+    var worst = items[0];
+    var worstPer = items.slice().sort(function(a, b){ return a.moy - b.moy; })[0];
+    var maxAbs = Math.max.apply(null, items.map(function(o){ return Math.abs(o.pnl); })) || 1;
+    var sum = [];
+    if(worst.pnl < 0){
+      sum.push('<strong>En dollars, c’est ' + worst.id + '</strong> qui te coûte le plus : <b class="neg">' + money(worst.pnl) + '</b>'
+        + (D.pnl < 0 ? ' (' + Math.round(worst.pnl / D.pnl * 100) + ' % de la perte nette de ' + money(D.pnl) + ')' : '')
+        + ' — sur ' + worst.n + ' signaux, soit ' + Math.round(worst.n / D.signaux * 100) + ' % de tous tes trades.');
+    }
+    if(worstPer.id !== worst.id && worstPer.moy < 0){
+      sum.push('<strong>Par signal, c’est ' + worstPer.id + '</strong> qui pèse le plus : <b class="neg">' + money(worstPer.moy) + '</b> en moyenne, contre '
+        + money(worst.moy) + ' pour ' + worst.id + '. ' + worstPer.w + ' gagnants sur ' + worstPer.n + ' (' + Math.round(worstPer.w / worstPer.n * 100)
+        + ' %), mais gain moyen ' + money(worstPer.gm) + ' contre perte moyenne ' + money(-worstPer.pm) + '.');
+    }
+    items.filter(function(o){ return o.pnl > 0; }).forEach(function(o){
+      sum.push('<strong>' + o.id + '</strong> est dans le vert : <b class="pos">' + money(o.pnl) + '</b> — ' + o.w + ' gagnants sur ' + o.n
+        + ' seulement ; le meilleur signal pèse ' + money(o.meilleur) + ' sur ' + money(o.gains) + ' de gains.');
+    });
+    var petits = items.filter(function(o){ return o.n < 30; });
+    if(petits.length){
+      sum.push('<span style="color:var(--muted)">Petits échantillons : ' + petits.map(function(o){ return o.id + ' ' + o.n; }).join(', ')
+        + ' signaux (' + worst.id + ' ' + items.filter(function(o){ return o.n >= 30; }).map(function(o){ return o.n; }).join('/') + ') — à lire avec prudence.</span>');
+    }
+    var h = '<div class="ins-sum">' + sum.map(function(p){ return '<p>' + p + '</p>'; }).join('') + '</div><div class="ins-grid">';
+    items.forEach(function(o){
+      var isWorst = (o === worst && o.pnl < 0);
+      var sub = o.sous.length > 1
+        ? o.sous.map(function(s){ return s[0] + ' <b class="' + cls(s[1]) + '">' + money(s[1]) + '</b>'; }).join(' · ')
+        : (DESC[o.id] || '');
+      var badges = (isWorst ? '<span class="ins-badge">perd le plus</span>' : '')
+        + ((o.id === worstPer.id && !isWorst && o.moy < 0) ? '<span class="ins-badge">pire par trade</span>' : '');
+      h += '<div class="ins-card' + (isWorst ? ' worst' : '') + '">'
+        + '<div class="ins-head"><span class="ins-ic">' + (ICON[o.id] || '') + '</span>' + o.id + badges + '</div>'
+        + '<div class="ins-sub">' + sub + '</div>'
+        + '<div class="ins-pnl ' + cls(o.pnl) + '">' + money(o.pnl) + '</div>'
+        + '<div class="ins-bar"><i class="' + (o.pnl < 0 ? 'neg' : 'pos') + '" style="width:' + Math.max(2, Math.round(Math.abs(o.pnl) / maxAbs * 100)) + '%"></i></div>'
+        + row('Signaux', o.n + ' (' + Math.round(o.n / D.signaux * 100) + ' %)')
+        + row('Gagnants', o.w + ' / ' + o.n + ' (' + Math.round(o.w / o.n * 100) + ' %)')
+        + row('Gain moy. / perte moy.', money(o.gm) + ' / ' + money(-o.pm))
+        + row('Moyenne par signal', money(o.moy), cls(o.moy))
+        + row('Pire / meilleur', money(o.pire) + ' / ' + money(o.meilleur))
+        + '</div>';
+    });
+    h += '</div><p class="ins-note">' + D.du + ' → ' + D.au + ' · ' + D.fichiers + ' fichiers CSV (csv/comptes) · ' + D.signaux + ' signaux, P&amp;L net ' + money(D.pnl)
+      + ' (même total que les autres pages) · copy-trading compté 1 fois · gagnant = P&amp;L du signal &gt; 0, comme les autres cartes — les 2 break-even du 23/09 y sont donc comptés gagnants · TopstepX (clôturé, sans CSV) exclu · recalcul : <code>node csv/calc-instruments.js</code></p>';
+    host.innerHTML = h;
+  }
+  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', build); else build();
+})();
+</script>
+<script>/* Note du jour — ressenti avant de trader (Brief séance → Checklist). Sauvegarde locale (localStorage daynote_AAAA-MM-JJ),
+   fusionnée avec window.DAY_NOTES (notes inscrites par Claude) et rapprochée du P&L du jour dans window.SESSIONS. */
+(function(){
+  var MOODS = { 'bien': { e: '😌', l: 'Je le sens bien' }, 'neutre': { e: '😐', l: 'Neutre' }, 'pas-bien': { e: '😟', l: 'Pas bien' } };
+  function pad(n){ return (n < 10 ? '0' : '') + n; }
+  function todayKey(){ var d = new Date(); return d.getFullYear() + '-' + pad(d.getMonth() + 1) + '-' + pad(d.getDate()); }
+  function lsGet(k){ try{ return localStorage.getItem(k); }catch(e){ return null; } }
+  function lsSet(k, v){ try{ localStorage.setItem(k, v); return true; }catch(e){ return false; } }
+  function lsDel(k){ try{ localStorage.removeItem(k); }catch(e){} }
+  function readLocal(key){
+    var raw = lsGet('daynote_' + key); if(!raw) return null;
+    try{ var o = JSON.parse(raw); return (o && typeof o === 'object') ? o : null; }catch(e){ return null; }
+  }
+  function localKeys(){
+    var out = [];
+    try{ for(var i = 0; i < localStorage.length; i++){ var k = localStorage.key(i); if(k && k.indexOf('daynote_') === 0) out.push(k.slice(8)); } }catch(e){}
+    return out;
+  }
+  function committed(key){ return (window.DAY_NOTES || {})[key] || null; }
+  function entryOf(key){ return readLocal(key) || committed(key); }
+  function money(v){ return (v > 0 ? '+' : (v < 0 ? '−' : '')) + Math.round(Math.abs(v)).toLocaleString('fr-FR') + ' $'; }
+  function dm(key){ return key.slice(8) + '/' + key.slice(5, 7); }
+  function esc(s){ return String(s).replace(/[&<>"]/g, function(c){ return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
+  function pnlOf(key){
+    var j = dm(key), r = null;
+    (window.SESSIONS || []).forEach(function(s){ if(s.jour === j && key.slice(0, 4) === '2026') r = s.pnl; });
+    return r;
+  }
+  function init(){
+    var card = document.getElementById('daynote'); if(!card) return;
+    var TK = todayKey(), ta = document.getElementById('dn-text'), saved = document.getElementById('dn-saved');
+    var cur = Object.assign({ m: '', t: '' }, entryOf(TK) || {});
+    document.getElementById('dn-date').textContent = TK.slice(8) + '/' + TK.slice(5, 7) + '/' + TK.slice(0, 4);
+    function paint(){
+      card.querySelectorAll('.dn-mood').forEach(function(b){ b.classList.toggle('on', b.dataset.mood === cur.m); });
+      ta.value = cur.t || '';
+    }
+    function save(){
+      var c = committed(TK);
+      if(!cur.m && !cur.t){ lsDel('daynote_' + TK); saved.textContent = ''; }
+      else if(c && c.m === cur.m && c.t === cur.t){ lsDel('daynote_' + TK); saved.textContent = '✓ identique à la note inscrite'; }
+      else { saved.textContent = lsSet('daynote_' + TK, JSON.stringify(cur)) ? '✓ enregistré (sur ce navigateur)' : '⚠ non enregistré (stockage bloqué)'; }
+      hist();
+    }
+    function hist(){
+      var keys = {}; Object.keys(window.DAY_NOTES || {}).forEach(function(k){ keys[k] = 1; }); localKeys().forEach(function(k){ keys[k] = 1; });
+      var list = Object.keys(keys).sort().reverse().slice(0, 8), byMood = {}, withRes = 0, h = '';
+      list.forEach(function(k){
+        var e = entryOf(k) || {}, m = MOODS[e.m], p = pnlOf(k), loc = readLocal(k) && !(committed(k) && committed(k).m === e.m && committed(k).t === e.t);
+        if(p !== null && m){ var a = byMood[e.m] = byMood[e.m] || { n: 0, s: 0 }; a.n++; a.s += p; withRes++; }
+        h += '<div class="dn-row"><span class="dn-d">' + dm(k) + '</span><span>' + (m ? m.e : '·') + '</span><span class="dn-t" title="' + esc(e.t || '') + '">'
+          + esc(e.t || (m ? m.l : '')) + (loc ? ' <span style="color:var(--dim)">(local)</span>' : '') + '</span>'
+          + '<span class="dn-p ' + (p === null ? '' : (p > 0 ? 'pos' : (p < 0 ? 'neg' : ''))) + '">' + (p === null ? (k === TK ? 'en cours' : '—') : money(p)) + '</span></div>';
+      });
+      if(withRes){
+        h += '<div class="dn-agg">' + Object.keys(MOODS).filter(function(k){ return byMood[k]; }).map(function(k){
+          return MOODS[k].e + ' ' + byMood[k].n + ' jour' + (byMood[k].n > 1 ? 's' : '') + ' : ' + money(byMood[k].s);
+        }).join(' · ') + (withRes < 10 ? ' — trop peu de jours pour en tirer quoi que ce soit.' : '') + '</div>';
+      }
+      document.getElementById('dn-hist').innerHTML = h;
+    }
+    card.querySelectorAll('.dn-mood').forEach(function(b){
+      b.addEventListener('click', function(){ cur.m = (cur.m === b.dataset.mood) ? '' : b.dataset.mood; paint(); save(); });
+    });
+    var timer = null;
+    ta.addEventListener('input', function(){ cur.t = ta.value; clearTimeout(timer); timer = setTimeout(save, 300); });
+    document.getElementById('dn-copy').addEventListener('click', function(){
+      var btn = this, lines = [];
+      localKeys().sort().forEach(function(k){
+        var e = readLocal(k), c = committed(k);
+        if(!e || (c && c.m === e.m && c.t === e.t)) return;
+        var m = MOODS[e.m];
+        lines.push(k + ' — ' + (m ? m.e + ' ' + m.l : 'ressenti non choisi') + (e.t ? ' — « ' + e.t + ' »' : ''));
+      });
+      function done(msg){ btn.textContent = msg; setTimeout(function(){ btn.textContent = '📋 Copier pour Claude'; }, 2200); }
+      if(!lines.length){ done('Rien de nouveau à copier'); return; }
+      var text = 'Notes du jour à inscrire dans window.DAY_NOTES :\n' + lines.join('\n');
+      if(navigator.clipboard && navigator.clipboard.writeText){
+        navigator.clipboard.writeText(text).then(function(){ done('✓ Copié — colle-le dans le chat'); }, function(){ done('Échec de la copie'); });
+      } else { done('Échec de la copie'); }
+    });
+    paint(); hist();
+  }
+  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init); else init();
 })();
 </script>
 <script>/* Menu latéral : les sous-onglets (Tableau de bord, Brief séance) deviennent des sous-entrées du menu, dépliées sous l'onglet actif */
