@@ -777,6 +777,21 @@ details.scn-card[open]>summary::before{content:"▾ "}
 .calc-line b{color:var(--txt);font-weight:650;font-variant-numeric:tabular-nums}
 .calc-hint{font-size:13px;color:var(--dim);padding-top:14px}
 .calc-out .score-verdict{display:inline-block;margin-top:6px}
+/* Plan type V2 + types d'ordres */
+.pt-wrap{background:var(--panel);border:1px solid var(--line);border-left:3px solid var(--accent);border-radius:12px;padding:12px 16px;margin:0 0 28px}
+.pt-title{font-weight:700;font-size:14px;margin-bottom:8px}
+.pt-tag{font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);border:1px solid var(--line);border-radius:10px;padding:2px 8px;margin-left:6px;vertical-align:middle}
+.pt-step{display:grid;grid-template-columns:26px 1fr;gap:10px;align-items:start;padding:8px 0;border-top:1px solid var(--line)}
+.pt-n{font-family:'IBM Plex Mono',monospace;font-size:13px;font-weight:700;color:var(--accent);padding-top:1px}
+.pt-t{font-size:14px;font-weight:650}
+.pt-d{font-size:12.5px;color:var(--muted);line-height:1.5;margin-top:2px}
+.pt-more{font-size:12px;color:var(--dim);border-top:1px solid var(--line);padding-top:8px;margin-top:2px}
+.ord-tbl{width:100%;border-collapse:collapse;font-size:12.5px}
+.ord-tbl th{text-align:left;font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);padding:6px 8px;border-bottom:1px solid var(--line)}
+.ord-tbl td{padding:7px 8px;border-bottom:1px solid var(--line);vertical-align:top;color:var(--muted);line-height:1.4}
+.ord-tbl td:first-child{color:var(--txt);white-space:nowrap}
+.ord-ex{font-size:12.5px;color:var(--muted);line-height:1.55;margin:10px 0 0}
+.ord-ex b{color:var(--txt)}
 /* Écrans peu hauts (13" en 1280×720/800) : on gagne de la place verticale en haut de page */
 @media(min-width:960px) and (max-height:820px){
   .wrap{padding-top:26px;padding-bottom:28px}
@@ -1202,7 +1217,7 @@ details.scn-card[open]>summary::before{content:"▾ "}
     <div class="d">Le <strong>01/09</strong> : deux trades seulement, +6 $ puis <strong>+715,50 $</strong> sur une position tenue 43 minutes. Total +721,50 $, la meilleure séance depuis le 21/08 — et la plus calme. À l'inverse, les journées à 10-15 trades dispersés sur plusieurs comptes (21/08, 24/08, 04/09) sont toutes négatives. Le nombre de trades n'est pas un signe d'activité productive, c'est souvent un signe que tu ne laisses rien se développer.</div>
   </div>
 
-  <h2 id="brief-actions">Les sept actions de la prochaine séance</h2>
+  <h2 id="brief-actions">Les neuf actions de la prochaine séance</h2>
 
   <div class="dont do" style="border-left-color:var(--red)">
     <div class="no" style="color:var(--red)">1</div>
@@ -1264,6 +1279,23 @@ details.scn-card[open]>summary::before{content:"▾ "}
       <div class="t">Envoyer les CSV de tous les comptes actifs, pas juste un ou deux</div>
       <div class="d">Le 07/09 et le 09/09, seul le compte 001 a été transmis — impossible de savoir si les 4 autres ont aussi tradé ce jour-là. Un journal incomplet donne des conclusions fausses sur ces journées, pas des conclusions partielles.</div>
       <div class="ev2">4 comptes actifs (001, 002, 005, 006) depuis la clôture du 004 le 10/09 — le réflexe : les exporter tous, même sans trade.</div>
+    </div>
+  </div>
+
+  <div class="dont do">
+    <div class="no">8</div>
+    <div>
+      <div class="t">Enlever la limite sur Tradovate et me la mettre moi</div>
+      <div class="d">Écrit par toi le 02/10 : « je dois enlever la limite sur Tradovate et me la mettre moi ». Le même jour, aucun SL ni TP n'était posé sur les trades MNQ : toutes les sorties étaient manuelles.</div>
+      <div class="ev2">À préciser avec moi : de quelle limite parles-tu — l'ordre limit du bracket par défaut, ou une limite de risque du compte ?</div>
+    </div>
+  </div>
+
+  <div class="dont do">
+    <div class="no">9</div>
+    <div>
+      <div class="t">Savoir ce que sont le Stop et le Stop Limit</div>
+      <div class="d">Noté dans l'onglet Règles, carte « Stop, Stop Limit, Limit, Market » : le Stop garantit la sortie mais pas le prix, le Stop Limit garantit le prix mais pas la sortie.</div>
     </div>
   </div>
 
@@ -1398,18 +1430,22 @@ details.scn-card[open]>summary::before{content:"▾ "}
 
   <div class="subview" data-subview="comptes">
   <h2 id="brief-comptes">Où en sont tes comptes</h2>
-  <p class="sub">Huit comptes suivis (001, 003, 004, 005, 005b, 006, 02b, A) — le 002 a breaché le 29/09 et a été remplacé le jour même par le 02b, le 005b est un rachat du 005 tradé une seule fois, le 004 a été racheté le 17/09 après la clôture de l'ancien le 10/09. Soldes Lucid du 30/09 (buffer, jours de trading, seuil MLL — des infos que le CSV Tradovate ne donne pas), puis recalculés au 02/10 en leur appliquant le P&L des CSV du jour : Lucid n'a pas été consulté depuis, ces soldes sont donc à confirmer. Quand un solde recalculé sur CSV existe, l'écart avec Lucid est signalé plutôt que lissé. Compte A confirmé toujours actif par un trade le 01/10, malgré son absence de la page Lucid du 30/09.</p>
+  <p class="sub">Huit comptes suivis (001, 003, 004, 005, 005b, 006, 02b, A) — le 002 a breaché le 29/09 et a été remplacé le jour même par le 02b, le 006 a breaché le 02/10, le 005b est un rachat du 005 tradé une seule fois, le 004 a été racheté le 17/09 après la clôture de l'ancien le 10/09. Soldes Lucid du 30/09 (buffer, jours de trading, seuil MLL — des infos que le CSV Tradovate ne donne pas), puis recalculés au 02/10 en leur appliquant le P&L des CSV du jour : Lucid n'a pas été consulté depuis, ces soldes sont donc à confirmer. Quand un solde recalculé sur CSV existe, l'écart avec Lucid est signalé plutôt que lissé. Compte A confirmé toujours actif par un trade le 01/10, malgré son absence de la page Lucid du 30/09.</p>
   <div class="obs warn" style="margin-bottom:16px">
     <div class="t">🔴 Vendredi 02/10 : −2 117 $ sur 6 comptes, plan non respecté</div>
-    <div class="d">02b : MGC Long 4 contrats, entré 6 s après le NFP, −1 200 $. 003/001/006 : le même MNQ Long 3 contrats à la seconde près, −300 $, −300 $, −61,50 $. 004b : −297 $, ré-entrée 2 min 14 s après une perte. A : +41,50 $. 4 signaux (max 3), les deux derniers après 2 pertes. Tout fait à la main, sans SL ni TP posés. Détail dans la séance du 02/10.</div>
+    <div class="d">02b : MGC Long 4 contrats, entré 6 s après le NFP, −1 200 $ (une erreur d'entrer à la minute, écris-tu). 003/001/006 : le même MNQ Long 3 contrats à la seconde près, −300 $, −300 $, −61,50 $. 004b : −297 $, ré-entrée 2 min 14 s après une perte. A : +41,50 $. 4 signaux (max 3), les deux derniers après 2 pertes. Tout fait à la main, sans SL ni TP posés. Détail dans la séance du 02/10.</div>
   </div>
   <div class="obs warn" style="margin-bottom:16px">
     <div class="t">🔴 Le 002 a breaché le 29/09</div>
     <div class="d">Confirmé par Sébastien. Dernier solde 49 098 $, sous le seuil de clôture (49 120 $). Remplacé le jour même par le 02b (…4680006, LucidFlex), déjà tradé une fois : +18 $ net.</div>
   </div>
   <div class="obs warn" style="margin-bottom:16px">
-    <div class="t">🔴🔴 Quatre comptes sous les 900 $ de buffer : 006 (−0,50 $, breach probable), 003 (302 $), A (449,50 $), 02b (800 $)</div>
-    <div class="d">Le 006 (48 061 $ le 30/09 − 61,50 $ le 02/10) passe 0,50 $ sous son seuil de 48 000 $ : à confirmer sur Lucid. Soldes calculés = Lucid du 30/09 + P&L CSV du 02/10. NE PAS TOUCHER 005/006 avant d'en reparler ensemble.</div>
+    <div class="t">🔴 Le 006 a breaché le 02/10</div>
+    <div class="d">Confirmé par Sébastien. 48 061 $ (Lucid 30/09) − 61,50 $ = 47 999,50 $, 0,50 $ sous le seuil de 48 000 $. Il ne lui restait presque rien (« logique », écrit-il) : 3 lots au lieu de 2, et le mouvement est allé chercher la limite de perte.</div>
+  </div>
+  <div class="obs warn" style="margin-bottom:16px">
+    <div class="t">🔴🔴 Trois comptes sous les 900 $ de buffer : 003 (302 $), A (449,50 $), 02b (800 $)</div>
+    <div class="d">Soldes calculés = Lucid du 30/09 + P&L CSV du 02/10 (Lucid non consulté depuis). NE PAS TOUCHER le 005 avant d'en reparler ensemble.</div>
   </div>
   <div class="obs warn" style="margin-bottom:16px">
     <div class="t">⚠️ Le 005b a touché sa limite journalière dès son 1er jour</div>
@@ -1436,9 +1472,9 @@ details.scn-card[open]>summary::before{content:"▾ "}
       <div class="d">−1 200 $ le 02/10 : Long MGC (or) 4 contrats entré 6 s après le NFP, 30 pts contre — quatre fois le budget, pile le montant d'une limite journalière de 1 200 $ (à confirmer sur Lucid). Buffer 800 $. Racheté le 29/09. Premier trade : Short MNQ 2 contrats en 2 fills (17h12/17h13), sortis 20h23/20h25, +16 $ puis +4 $ — +18 $ net après frais. Entré 20 min après la perte du 003, règle 6 respectée.</div>
     </div>
     <div class="r">
-      <div class="n">Compte …4680006 — Tradovate / Lucid</div>
+      <div class="n">Compte …4680006 — Tradovate / Lucid · breaché</div>
       <div class="t">47 999,50 $ · <span style="color:var(--red)">−2 000,50 $ depuis le départ</span></div>
-      <div class="d">🔴 Breach probable : −61,50 $ le 02/10 (même Long MNQ que 001/003, sorti 7 min plus tôt, à 15h48) — 48 061 $ (Lucid 30/09) − 61,50 $ = 47 999,50 $, 0,50 $ sous le seuil de 48 000 $. À confirmer sur Lucid. Avant : buffer de 61 $ au 30/09 (166 $ au 17/09).</div>
+      <div class="d">Cramé le 02/10, confirmé par Sébastien : Long MNQ en 3 lots au lieu de 2 (15h44→15h48, −61,50 $) — 48 061 $ (Lucid 30/09) − 61,50 $ = 47 999,50 $, 0,50 $ sous le seuil de 48 000 $. Il ne lui restait presque rien : « logique », écrit-il. Sortie 7 min avant celle des 001/003 sur le même signal.</div>
     </div>
     <div class="r">
       <div class="n">Compte …4680005 — Tradovate / Lucid</div>
@@ -1559,7 +1595,7 @@ details.scn-card[open]>summary::before{content:"▾ "}
         <span>Bitcoin <b class="pos">↑ explose</b></span>
         <span>Indices US <b class="pos">↑ montent</b></span>
       </div>
-      <div class="scn-body" style="margin-top:6px;color:var(--red)">⚠️ Ta note vocale s'arrêtait à « Mais attention, parce qu'il pourrait y avoir un piège » — la suite me manque, dis-la-moi et je la mets ici.</div>
+      <div class="scn-body" style="margin-top:6px;color:var(--red)">⚠️ Le piège, vécu le 02/10 : entrer à la minute de la publication. Tes mots : les boîtes avaient toutes acheté puis revendu à la seconde de la parution — le MGC Long entré 6 s après a perdu 30 pts (−1 200 $).</div>
     </div>
   </div>
 
@@ -1832,6 +1868,21 @@ details.scn-card[open]>summary::before{content:"▾ "}
     </div>
   </div>
 
+  <div class="tool-card" style="grid-column:1/-1" id="order-types">
+    <div class="tool-card-title">📘 Stop, Stop Limit, Limit, Market</div>
+    <div class="calc-help">À noter, écrit par Claude d'après les définitions standard des ordres (Tradovate les propose tous) — à relire et corriger si ton courtier fait autrement. Exemple en Long ; pour un Short, les sens sont inversés.</div>
+    <div class="tbl-wrap"><table class="ord-tbl">
+      <thead><tr><th>Ordre</th><th>Il se déclenche</th><th>Il garantit</th><th>Il ne garantit pas</th><th>Usage typique</th></tr></thead>
+      <tbody>
+        <tr><td><b>Market</b></td><td>tout de suite</td><td>l'exécution</td><td>le prix (glissement possible)</td><td>entrer / sortir maintenant</td></tr>
+        <tr><td><b>Limit</b></td><td>au prix limite ou mieux</td><td>le prix</td><td>l'exécution : peut ne jamais être rempli</td><td>objectif (TP), entrée à un meilleur prix</td></tr>
+        <tr><td><b>Stop</b></td><td>quand le prix touche le prix stop → devient un ordre Market</td><td>la sortie</td><td>le prix : en mouvement rapide (annonce), tu sors plus loin que le stop</td><td>stop-loss (SL)</td></tr>
+        <tr><td><b>Stop Limit</b></td><td>quand le prix touche le prix stop → devient un ordre Limit</td><td>un prix pas pire que la limite</td><td>la sortie : si le prix saute au-delà de la limite, pas d'exécution et tu restes en position</td><td>SL qui refuse de glisser — au risque de ne pas sortir</td></tr>
+      </tbody>
+    </table></div>
+    <p class="ord-ex"><b>Exemple Long MNQ, entrée 31 178.</b> Stop (market) à 31 128 : si le prix touche 31 128, vente au marché au meilleur prix disponible — peut être 31 127,25 ou pire. Stop Limit déclenché à 31 128 avec limite à 31 126 : la vente ne se fait qu'à 31 126 ou mieux ; si le prix passe de 31 129 à 31 120 d'un coup, l'ordre reste en attente et la position reste ouverte, perte en cours. Un <b>bracket</b> lie entrée + SL (Stop) + TP (Limit) : quand l'un s'exécute, l'autre est annulé.</p>
+  </div>
+
   <div class="tool-card" style="grid-column:1/-1">
     <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;">
       <div class="tool-card-title" style="margin-bottom:0">✅ Checklist avant d'entrer</div>
@@ -1980,7 +2031,7 @@ details.scn-card[open]>summary::before{content:"▾ "}
     <div class="rule-body">
       <span class="rule-tag tag-warn">Annonces macro</span>
       <div class="rule-stmt">CPI, NFP, FOMC, chiffres du chômage : 1–2 contrats ou rien. Jamais en position au moment de l'annonce.</div>
-      <div class="rule-detail">Fermer toutes positions <strong>5 min avant</strong> le release. Pas d'entrée dans les <strong>10 min qui suivent</strong>. Le spike est injouable : <strong>entrer dans la minute de l'annonce ne sert à rien.</strong> Le 4 septembre : −290 $ sur chiffres du chômage avec TraderSyncer actif sur 4 comptes simultanément.</div>
+      <div class="rule-detail">Fermer toutes positions <strong>5 min avant</strong> le release. Pas d'entrée dans les <strong>10 min qui suivent</strong>. Le spike est injouable : <strong>entrer dans la minute de l'annonce ne sert à rien.</strong> Le 4 septembre : −290 $ sur chiffres du chômage avec TraderSyncer actif sur 4 comptes simultanément. <strong>Le 2 octobre :</strong> −1 200 $ sur l'or (MGC, 4 contrats), entré 6 s après le NFP — tu l'écris toi-même : une erreur, les boîtes avaient toutes acheté puis revendu à la seconde de la parution, et tu arrêtes ce type d'entrée.</div>
     </div>
   </div>
 
@@ -2073,6 +2124,13 @@ details.scn-card[open]>summary::before{content:"▾ "}
     </div>
   </div>
 
+</div>
+
+<div class="pt-wrap">
+  <div class="pt-title">Plan type V2 — les étapes <span class="pt-tag">en cours de rédaction</span></div>
+  <div class="pt-step"><div class="pt-n">1</div><div><div class="pt-t">Biais haussier</div><div class="pt-d">Point de départ du scénario Long. Le biais n'est pas figé : traverser la MME 1H rouge peut le faire changer de direction (règle 12).</div></div></div>
+  <div class="pt-step"><div class="pt-n">2</div><div><div class="pt-t">Chercher une FVG baissière</div><div class="pt-d">Dans un biais haussier, c'est la FVG baissière qu'on cherche — celle qui, inversée, donne l'iFVG d'entrée (lecture à confirmer). Symétrie pour le Short : à confirmer.</div></div></div>
+  <div class="pt-more">Étapes suivantes : à compléter — dis-les-moi, je les ajoute telles quelles (entrée, stop, objectif : rien d'inventé).</div>
 </div>
 
 <div class="section-divider">
@@ -2307,14 +2365,14 @@ window.COMPTES = [
     objectif: 53000,
     mll: 48018,
     maxContrats: null,
-    note: "🔴 −1 200 $ le 02/10 : Long MGC (or) 4 contrats, entré 14h30:06 — 6 s après le NFP —, sorti 15h16:38 : 30 pts contre toi, 46 min 32. Quatre fois le budget de 300 $, et pile le montant d'une limite journalière de 1 200 $ : à confirmer sur Lucid si le compte a été verrouillé. Solde calculé : 50 018 $ − 1 200 $ (Lucid non consulté depuis le 29/09). Avant : racheté le 29/09 pour remplacer le 002 (breaché) ; premier trade : Short MNQ 2 contrats, +20 $ brut / +18 $ net après frais Tradovate.",
+    note: "🔴 −1 200 $ le 02/10 : Long MGC (or) 4 contrats, entré 14h30:06 — 6 s après le NFP —, sorti 15h16:38 : 30 pts contre toi, 46 min 32. Quatre fois le budget de 300 $, et pile le montant d'une limite journalière de 1 200 $ : à confirmer sur Lucid si le compte a été verrouillé. Sébastien l'écrit lui-même : une erreur d'entrer à la minute de l'annonce (les boîtes avaient toutes acheté puis revendu à la seconde de la publication). Solde calculé : 50 018 $ − 1 200 $ (Lucid non consulté depuis le 29/09). Avant : racheté le 29/09 pour remplacer le 002 (breaché) ; premier trade : Short MNQ 2 contrats, +20 $ brut / +18 $ net après frais Tradovate.",
     aConfirmer: null
   },
   {
     nom: "Tradovate / Lucid — …4680006",
     ref: "Compte 06",
-    statut: "evaluation",
-    statutLabel: "Breach probable — à confirmer",
+    statut: "breached",
+    statutLabel: "Compte cramé (breach)",
     devise: "$",
     depart: 50000,
     solde: 47999.50,
@@ -2325,7 +2383,7 @@ window.COMPTES = [
     objectif: 52999,
     mll: 48000,
     maxContrats: null,
-    note: "🔴🔴 Breach probable : −61,50 $ le 02/10 (Long MNQ 3 contrats, 15h44:59 → 15h48:29 à 31 167,75, 3 min 29) — 48 061 $ (Lucid 30/09) − 61,50 $ = 47 999,50 $, soit 0,50 $ sous le seuil de 48 000 $. Sortie 7 min avant les 001/003 sur le même signal : ressemble à une liquidation automatique. À confirmer sur Lucid. Avant : buffer de 61 $ au 30/09 (166 $ au 17/09).",
+    note: "🔴 Compte cramé (breach), confirmé par Sébastien le 02/10. Dernier trade : Long MNQ 3 lots — il en voulait 2, erreur de quantité — le 02/10, 15h44:59 → 15h48:29 à 31 167,75, −61,50 $ : 48 061 $ (Lucid 30/09) − 61,50 $ = 47 999,50 $, soit 0,50 $ sous le seuil de 48 000 $. Il lui restait presque rien avant ce trade (« 50E » dans ses mots ; Lucid : 61 $ au 30/09) — « logique », écrit-il. Sortie 7 min avant celle des 001/003 sur le même signal. Avant : buffer de 61 $ au 30/09 (166 $ au 17/09).",
     aConfirmer: null
   },
   {
@@ -2618,7 +2676,7 @@ window.TRADES = [
    vérifié depuis les CSV bruts. N'évalue pas la qualité de l'entrée.
    Absent = pas encore évalué (jours avant le 14/09). Sert au KPI "Respect du plan". */
 window.SESSIONS = [
-  { jour:"02/10", label:"Vendredi 2 oct.", fichier:"2026-10-02-vendredi.html", pnl:-2117.00, trades:4, gagnants:1, neutres:0, planOk:false, planWhy:"4 trades (max 3), 3e et 4e après 2 pertes, MGC 4 contrats 6 s après le NFP (−1 200 $ pour un budget de 300 $), même signal MNQ saisi à la main sur 3 comptes, aucun SL/TP posé", rt:[4,2,-255.5], note:"Jour de NFP (+29 K, 89 K attendus), 4 signaux sur 6 comptes, un seul gagnant. 02b MGC Long 4 contrats entré à 14h30:06, 6 s après la publication : −1 200 $ (30 pts contre, 46 min). Puis le même MNQ Long 3 contrats sur 003/001/006 à la seconde près (15h44:58) : −300 $, −300 $, −61,50 $ (le 006 passe 0,50 $ sous son seuil de 48 000 $ — breach probable). 004b MNQ Long 3 contrats −297 $, entré 2 min 14 s après la sortie, et A MNQ Short 1 contrat +41,50 $, 3 min 33 s après la perte du 004b. Plan non respecté : 4 trades (max 3), 3e et 4e après 2 pertes, même signal saisi à la main sur 3 comptes, aucun SL/TP posé (sorties à la main), entrée 6 s après le NFP en 4 contrats." },
+  { jour:"02/10", label:"Vendredi 2 oct.", fichier:"2026-10-02-vendredi.html", pnl:-2117.00, trades:4, gagnants:1, neutres:0, planOk:false, planWhy:"4 trades (max 3), 3e et 4e après 2 pertes, MGC 4 contrats 6 s après le NFP (−1 200 $ pour un budget de 300 $), même signal MNQ saisi à la main sur 3 comptes, aucun SL/TP posé", rt:[4,2,-255.5], note:"Jour de NFP (+29 K, 89 K attendus), 4 signaux sur 6 comptes, un seul gagnant. 02b MGC Long 4 contrats entré à 14h30:06, 6 s après la publication : −1 200 $ (30 pts contre, 46 min). Puis le même MNQ Long 3 contrats sur 003/001/006 à la seconde près (15h44:58) : −300 $, −300 $, −61,50 $ (le 006 passe 0,50 $ sous son seuil de 48 000 $ — breach confirmé par toi, 3 lots au lieu de 2). 004b MNQ Long 3 contrats −297 $, entré 2 min 14 s après la sortie, et A MNQ Short 1 contrat +41,50 $, 3 min 33 s après la perte du 004b. Plan non respecté : 4 trades (max 3), 3e et 4e après 2 pertes, même signal saisi à la main sur 3 comptes, aucun SL/TP posé (sorties à la main), entrée 6 s après le NFP en 4 contrats." },
   { jour:"01/10", label:"Jeudi 1 oct.", fichier:"2026-10-01-jeudi.html", pnl:-416.00, trades:1, gagnants:0, neutres:0, planOk:true, rt:[1,0,0], note:"Un seul trade, perdant : compte A, Long MNQ 4 contrats (plafond pile) −416 $ (18h35→18h53, 52 pts contre). Confirme que le compte A est toujours actif. 1 trade (max 3), 4 contrats (max 4), un seul compte." },
   { jour:"30/09", label:"Mercredi 30 sept.", fichier:"2026-09-30-mercredi.html", pnl:-199.00, trades:1, gagnants:0, neutres:0, planOk:true, rt:[1,0,0], note:"Un seul trade, perdant : 003 MNQ Short 2 contrats −199 $ (16h35→16h49, stop touché). 1 trade (max 3), 2 contrats (max 4), un seul compte." },
   { jour:"29/09", label:"Mardi 29 sept.", fichier:"2026-09-29-mardi.html", pnl:-418.00, trades:4, gagnants:2, neutres:0, planOk:true, rt:[4,0,0], note:"Quatre trades sur trois comptes différents : 001 MNQ Short 2 contrats −263 $ (15h38, 41 min), 003 MNQ Short 2 contrats −175 $ (16h49, 2 min, entré 30 min après la perte du 001 — règle 6 respectée), et deux trades sur le 02b (compte racheté le jour même pour remplacer le 002 breaché) — MNQ Short 1 contrat +16 $ (17h12→20h23) puis 1 contrat +4 $ (17h13→20h25), entrés 20 min après la perte du 003. Capture 16h50 : biais baissier, chute de folie, entrée retardée à la clôture de bougie (>350 ticks), doute sur le timing." },
