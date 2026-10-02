@@ -33,7 +33,11 @@ saisie forcés à 16px sous 700px (sinon Safari zoome au focus), marges
 Les règles avaient leur propre fichier (`rules.html`) jusqu'au 23/09/2026 ;
 tout son contenu et sa logique (score de confluence, checklist, trades du
 jour, score de discipline, violations, streak, pause) vivent maintenant
-dans `#view-regles`. Le score de confluence existe en deux affichages
+dans `#view-regles`. L'onglet Règles porte aussi une « Calculette de lots — MNQ » (budget 250 / 300 / 500 $
+en menu déroulant + stop en ticks → contrats = ⌊budget ÷ (ticks × 0,50 $)⌋, plafonné à
+4 contrats par trade comme le plan, avec alerte V2 dès 400 ticks) ; le budget par défaut suit
+le même barème par date que le KPI « Règle de séance » (à modifier aux deux endroits).
+Le score de confluence existe en deux affichages
 (widget compact du Dashboard + carte complète de l'onglet Règles) qui
 partagent un seul état JS (`confluenceState`/`confluenceSet`/
 `confluenceRender`) et la même clé localStorage (`trading_score`) — les

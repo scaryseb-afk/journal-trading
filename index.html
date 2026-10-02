@@ -762,6 +762,21 @@ details.scn-card[open]>summary::before{content:"▾ "}
 .dn-t{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:var(--txt)}
 .dn-p{flex:0 0 auto;font-weight:700;font-variant-numeric:tabular-nums}
 .dn-agg{color:var(--dim);font-size:11px;margin-top:6px;line-height:1.4}
+/* Calculette de lots (onglet Règles) */
+.calc-help{font-size:12px;color:var(--muted);margin-bottom:10px}
+.calc-grid{display:grid;grid-template-columns:minmax(150px,200px) minmax(150px,200px) minmax(0,1fr);gap:14px;align-items:start}
+@media(max-width:700px){.calc-grid{grid-template-columns:1fr 1fr}.calc-out{grid-column:1/-1}}
+.calc-f label{display:block;font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-bottom:5px}
+.calc-f select,.calc-f input{width:100%;box-sizing:border-box;background:var(--surface);color:var(--txt);border:1px solid var(--line);border-radius:8px;padding:9px 10px;font:inherit;font-size:15px;font-weight:600;font-variant-numeric:tabular-nums}
+.calc-f select:focus,.calc-f input:focus{outline:none;border-color:var(--accent)}
+.calc-sub{font-size:11px;color:var(--dim);margin-top:4px;min-height:14px}
+.calc-out{background:var(--panel);border:1px solid var(--line);border-left:3px solid var(--accent);border-radius:10px;padding:10px 14px;min-height:62px}
+.calc-big{font-size:30px;font-weight:800;letter-spacing:-.02em;font-variant-numeric:tabular-nums;line-height:1.1}
+.calc-big small{font-size:14px;font-weight:600;color:var(--muted);letter-spacing:0;margin-left:4px}
+.calc-line{font-size:12.5px;color:var(--muted);margin-top:5px;line-height:1.45}
+.calc-line b{color:var(--txt);font-weight:650;font-variant-numeric:tabular-nums}
+.calc-hint{font-size:13px;color:var(--dim);padding-top:14px}
+.calc-out .score-verdict{display:inline-block;margin-top:6px}
 /* Écrans peu hauts (13" en 1280×720/800) : on gagne de la place verticale en haut de page */
 @media(min-width:960px) and (max-height:820px){
   .wrap{padding-top:26px;padding-bottom:28px}
@@ -1792,6 +1807,28 @@ details.scn-card[open]>summary::before{content:"▾ "}
         <span class="score-total-sub">/ 9 points minimum</span>
       </div>
       <span class="score-verdict no" id="score-verdict">Pas assez — n'entre pas</span>
+    </div>
+  </div>
+
+  <div class="tool-card" style="grid-column:1/-1" id="lot-calc">
+    <div class="tool-card-title">🧮 Calculette de lots — MNQ</div>
+    <div class="calc-help">Contrats = ⌊ budget ÷ (ticks de stop × 0,50 $) ⌋, toujours arrondi vers le bas. 1 tick MNQ = 0,25 pt = 0,50 $ par contrat.</div>
+    <div class="calc-grid">
+      <div class="calc-f">
+        <label for="calc-budget">Budget à perdre</label>
+        <select id="calc-budget">
+          <option value="250">250 $</option>
+          <option value="300">300 $</option>
+          <option value="500">500 $</option>
+        </select>
+        <div class="calc-sub" id="calc-rule"></div>
+      </div>
+      <div class="calc-f">
+        <label for="calc-ticks">Stop en ticks</label>
+        <input id="calc-ticks" type="number" inputmode="numeric" min="1" step="1" placeholder="ex. 200" autocomplete="off">
+        <div class="calc-sub" id="calc-pts">&nbsp;</div>
+      </div>
+      <div class="calc-out" id="calc-out" aria-live="polite"></div>
     </div>
   </div>
 
@@ -4338,6 +4375,63 @@ window.DAY_NOTES = {
       } else { done('Échec de la copie'); }
     });
     paint(); hist();
+  }
+  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init); else init();
+})();
+</script>
+<script>/* Calculette de lots MNQ (onglet Règles) : contrats = ⌊budget ÷ (ticks × 0,50 $)⌋, arrondi vers le bas, plafonné à 4 contrats par trade (plan) */
+(function(){
+  var TICK_USD = 0.5;      // 1 tick MNQ = 0,25 pt = 0,50 $ par contrat
+  var MAX_LOTS = 4;        // plan : 4 contrats max par trade
+  var V2_NO_ENTRY = 400;   // stratégie V2, règle 9 : SL de 400 ticks ou plus = pas d'entrée
+  // même barème que le KPI « Règle de séance » et la règle 1 : 250 $ (21→27/09), 300 $ (28→04/10), 500 $ dès le 05/10
+  var SCHED = [['2026-09-21', 250], ['2026-09-28', 300], ['2026-10-05', 500]];
+  function pad(n){ return (n < 10 ? '0' : '') + n; }
+  function ruleBudget(){
+    var d = new Date(), k = d.getFullYear() + '-' + pad(d.getMonth() + 1) + '-' + pad(d.getDate()), b = null;
+    SCHED.forEach(function(r){ if(k >= r[0]) b = r[1]; });
+    return b;
+  }
+  function init(){
+    var sel = document.getElementById('calc-budget'), inp = document.getElementById('calc-ticks'),
+        out = document.getElementById('calc-out'), pts = document.getElementById('calc-pts'), rule = document.getElementById('calc-rule');
+    if(!sel || !inp || !out) return;
+    var rb = ruleBudget();
+    if(rb && sel.querySelector('option[value="' + rb + '"]')) sel.value = String(rb);
+    rule.textContent = rb ? 'Règle du jour : ' + rb + ' $ par signal' : '';
+    function usd(v){ return (Math.round(v * 100) / 100).toLocaleString('fr-FR') + ' $'; }
+    function render(){
+      var budget = +sel.value, t = parseInt(inp.value, 10);
+      if(!(t >= 1)){
+        pts.innerHTML = '&nbsp;';
+        out.innerHTML = '<div class="calc-hint">Entre le stop en ticks : je te donne le nombre de contrats.</div>';
+        return;
+      }
+      pts.textContent = '= ' + (t / 4).toLocaleString('fr-FR') + ' pts de stop';
+      var n = Math.floor(2 * budget / t + 1e-9);          // budget ÷ (t × 0,50) sans erreur d'arrondi flottant
+      var one = t * TICK_USD, h = '';
+      if(n < 1){
+        h += '<div class="calc-big">0<small>contrat</small></div>'
+          + '<span class="score-verdict no">Pas d\'entrée</span>'
+          + '<div class="calc-line">Un seul contrat risquerait <b>' + usd(one) + '</b> — plus que ton budget de <b>' + usd(budget) + '</b>. Stop trop large pour ce budget.</div>';
+      } else {
+        var lots = Math.min(n, MAX_LOTS), risk = lots * one;
+        h += '<div class="calc-big">' + lots + '<small>contrat' + (lots > 1 ? 's' : '') + (n > MAX_LOTS ? ' (plafond)' : '') + '</small></div>';
+        h += '<div class="calc-line">Risque réel : ' + lots + ' × ' + t + ' ticks × 0,50 $ = <b>' + usd(risk) + '</b>'
+          + (risk < budget ? ' — il reste ' + usd(budget - risk) + ' sous le budget de ' + usd(budget) : ' — pile le budget de ' + usd(budget)) + '.</div>';
+        if(n > MAX_LOTS){
+          h += '<div class="calc-line">Le calcul donne <b>' + n + '</b> contrats, mais ton plan plafonne à <b>' + MAX_LOTS + ' contrats par trade</b>.</div>';
+        }
+        h += '<div class="calc-line">R:R minimum 2:1 (règle 1) : objectif à au moins <b>' + (2 * t) + ' ticks</b> (' + (t / 2).toLocaleString('fr-FR') + ' pts).</div>';
+      }
+      if(t >= V2_NO_ENTRY){
+        h += '<span class="score-verdict no">V2 : pas d\'entrée</span><div class="calc-line"><b>Stratégie V2 (règle 9) :</b> stop de ' + V2_NO_ENTRY + ' ticks ou plus = pas d\'entrée, même si le calcul de lots passe.</div>';
+      }
+      out.innerHTML = h;
+    }
+    sel.addEventListener('change', render);
+    inp.addEventListener('input', render);
+    render();
   }
   if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init); else init();
 })();
