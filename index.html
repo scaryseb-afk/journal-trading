@@ -668,6 +668,22 @@ textarea::placeholder{color:#4A566A}
 .scn-head{font-weight:700;font-size:12.5px;margin-bottom:3px}
 .scn-head .scn-num{color:var(--accent);margin-right:4px}
 .scn-body{font-size:12px;line-height:1.4;color:var(--txt)}
+.nfp-res-wrap{display:flex;gap:14px;align-items:flex-start;flex-wrap:wrap}
+.nfp-tiles{display:flex;gap:6px;flex:0 0 auto;flex-wrap:wrap}
+.nfp-tile{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:6px 10px;min-width:120px}
+.nfp-tile .nt-l{font-size:9.5px;font-weight:600;letter-spacing:.03em;text-transform:uppercase;color:var(--muted)}
+.nfp-tile .nt-v{font-size:21px;font-weight:800;font-variant-numeric:tabular-nums;line-height:1.15}
+.nfp-tile .nt-s{font-size:10px;color:var(--muted)}
+.nfp-clair{flex:1 1 320px;font-size:11.5px;line-height:1.4;color:var(--txt)}
+.nfp-clair p{margin:0 0 3px}
+.nfp-flag{color:var(--dim);font-size:10.5px}
+.nfp-rule{color:var(--accent);font-weight:600}
+details.scn-card>summary{cursor:pointer;list-style:none}
+details.scn-card>summary::-webkit-details-marker{display:none}
+details.scn-card>summary::before{content:"▸ ";color:var(--accent)}
+details.scn-card[open]>summary::before{content:"▾ "}
+.scn-card.scn-done{border-color:var(--accent);border-left-width:4px}
+.scn-badge{background:var(--accent);color:var(--on-accent);border-radius:10px;padding:1px 8px;font-size:10.5px;font-weight:700;margin-left:8px;white-space:nowrap}
 .scn-reactions{display:flex;flex-wrap:wrap;gap:3px 9px;margin-top:3px;padding-top:3px;border-top:1px solid var(--line)}
 .scn-reactions span{font-size:11px;color:var(--muted);display:flex;align-items:center;gap:3px}
 .scn-reactions b{font-size:12px}
@@ -683,11 +699,12 @@ textarea::placeholder{color:#4A566A}
 #view-eco .score-total-sub{font-size:10.5px}
 #view-eco .eco-note{font-size:12px;line-height:1.45}
 @media(min-width:960px){
-  #view-eco .eco-ov-grid{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);grid-template-rows:auto 1fr;gap:8px;align-items:start}
+  #view-eco .eco-ov-grid{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);grid-template-rows:auto auto 1fr;gap:8px;align-items:start}
   #view-eco .eco-ov-grid>.tool-card{margin-top:0!important}
-  #view-eco .eco-ov-cal{grid-column:1;grid-row:1}
-  #view-eco .eco-ov-scn{grid-column:2;grid-row:1/span 2}
-  #view-eco .eco-ov-fed{grid-column:1;grid-row:2}
+  #view-eco .eco-ov-res{grid-column:1/-1;grid-row:1}
+  #view-eco .eco-ov-cal{grid-column:1;grid-row:2}
+  #view-eco .eco-ov-scn{grid-column:2;grid-row:2/span 2}
+  #view-eco .eco-ov-fed{grid-column:1;grid-row:3}
   #view-eco .eco-cal-row{flex-wrap:wrap;gap:0 10px}
 }
 /* Écrans peu hauts (13" en 1280×720/800) : on gagne de la place verticale en haut de page */
@@ -1373,13 +1390,28 @@ textarea::placeholder{color:#4A566A}
   <div class="subview active" data-subview="overview">
   <p class="eyebrow">Analyses économiques</p>
   <h1>Calendrier &amp; taux</h1>
-  <p class="sub">Contexte macro US/zone euro — données publiques (BLS, Fed, ISM, S&amp;P Global/HCOB), recoupées au moment de la rédaction. <strong style="color:var(--accent)">Données au 01/10/2026.</strong> Horaires en heure de Paris. À rafraîchir chaque dimanche — dis-moi quand le faire.</p>
+  <p class="sub">Contexte macro US/zone euro — données publiques (BLS, Fed, ISM, S&amp;P Global/HCOB), recoupées au moment de la rédaction. <strong style="color:var(--accent)">Données au 02/10/2026, NFP inclus.</strong> Horaires en heure de Paris. À rafraîchir chaque dimanche — dis-moi quand le faire.</p>
 
   <div class="eco-ov-grid">
+  <div class="tool-card eco-ov-res">
+    <div class="tool-card-title">✅ NFP publié — vendredi 02/10, 14h30</div>
+    <div class="nfp-res-wrap">
+      <div class="nfp-tiles">
+        <div class="nfp-tile"><div class="nt-l">Emplois créés (NFP)</div><div class="nt-v neg">+29 K</div><div class="nt-s">prévu 89 K · préc. 133 K*</div></div>
+        <div class="nfp-tile"><div class="nt-l">Taux de chômage</div><div class="nt-v neg">4,2 %</div><div class="nt-s">prévu 4,1 % · préc. 4,1 %</div></div>
+        <div class="nfp-tile"><div class="nt-l">Salaire horaire (m/m)</div><div class="nt-v neg">+0,1 %</div><div class="nt-s">prévu +0,3 % · préc. +0,3 %</div></div>
+      </div>
+      <div class="nfp-clair">
+        <p><strong>En clair :</strong> le NFP compte les <strong>emplois créés</strong> dans le mois (hors agriculture). +29 K = 29 000 emplois créés, pas perdus — mais un tiers des 89 000 attendus. Chômage un peu plus haut que prévu, salaires qui montent beaucoup moins vite : <strong>le marché du travail refroidit</strong>. C'est le <strong>scénario 3</strong>.</p>
+        <p class="nfp-rule">Règle 3 : entrer dans la minute de l'annonce ne sert à rien — pas d'entrée dans les 10 min qui suivent.</p>
+        <p class="nfp-flag">* Août : 133 K dans ton calendrier, +162 K sur ma page — probablement révisé, à confirmer sur bls.gov. Réaction réelle du marché non vérifiée.</p>
+      </div>
+    </div>
+  </div>
+
   <div class="tool-card eco-ov-cal">
     <div class="tool-card-title">Prochaines publications</div>
     <div class="eco-cal">
-      <div class="eco-cal-row"><span><strong>NFP</strong> (emploi US, septembre)</span><span class="eco-cal-date">ven. 02/10, 14h30 <span style="color:var(--dim);font-weight:500">(8h30 ET)</span></span></div>
       <div class="eco-cal-row"><span><strong>ISM Services PMI</strong> (US, sept.)</span><span class="eco-cal-date">lun. 05/10, 16h00</span></div>
       <div class="eco-cal-row"><span><strong>CPI</strong> (inflation US, septembre)</span><span class="eco-cal-date">mer. 14/10, 14h30 <span style="color:var(--dim);font-weight:500">(8h30 ET)</span></span></div>
       <div class="eco-cal-row"><span><strong>PMI flash</strong> (zone euro, oct.)</span><span class="eco-cal-date">ven. 23/10, 10h00</span></div>
@@ -1389,11 +1421,10 @@ textarea::placeholder{color:#4A566A}
   </div>
 
   <div class="tool-card eco-ov-scn" style="margin-top:6px">
-    <div class="tool-card-title">Scénarios — NFP de vendredi 02/10, 14h30</div>
-    <p class="eco-note" style="font-size:13px">Précédent (août) : <strong class="pos">+162 K</strong>. Prévision (septembre) : <strong>90 K</strong>.</p>
+    <div class="tool-card-title">Les 3 scénarios NFP — rappel</div>
 
-    <div class="scn-card">
-      <div class="scn-head"><span class="scn-num">Scénario 1</span>NFP largement supérieur aux attentes — ex. 100 K, 120 K, 150 K, 180 K</div>
+    <details class="scn-card">
+      <summary class="scn-head"><span class="scn-num">Scénario 1</span>NFP largement supérieur — beaucoup plus d'emplois créés, ex. 100 K, 120 K, 150 K, 180 K</summary>
       <div class="scn-body">Vraie surprise positive : l'économie US est solide, le marché du travail résilient, la Fed n'a nul besoin d'assouplir sa politique monétaire.</div>
       <div class="scn-reactions">
         <span>Dollar <b class="pos">↑ explose</b></span>
@@ -1403,24 +1434,25 @@ textarea::placeholder{color:#4A566A}
         <span>Bitcoin <b class="neg">↓ sous pression</b></span>
         <span>Indices US <b class="neg">↓ sous pression</b></span>
       </div>
-    </div>
+    </details>
 
-    <div class="scn-card">
-      <div class="scn-head"><span class="scn-num">Scénario 2</span>NFP proche des attentes — environ 80 à 100 K</div>
+    <details class="scn-card">
+      <summary class="scn-head"><span class="scn-num">Scénario 2</span>NFP proche des attentes — environ 80 à 100 K</summary>
       <div class="scn-body">Pas de gros choc : le marché a déjà plus ou moins intégré un ralentissement du marché du travail, réaction probablement limitée. L'important se joue ailleurs dans le rapport : le <strong>taux de chômage global</strong> et la <strong>croissance des salaires</strong> (mensuelle et annuelle) — le nombre d'emplois créés n'est pas le seul élément qui compte pour la Fed. Si l'emploi ralentit mais que les salaires restent élevés, l'inflation salariale peut continuer à poser problème.</div>
-    </div>
+    </details>
 
-    <div class="scn-card">
-      <div class="scn-head"><span class="scn-num">Scénario 3</span>NFP nettement inférieur aux attentes — ex. 50 K, 30 K, voire proche de zéro</div>
+    <div class="scn-card scn-done">
+      <div class="scn-head"><span class="scn-num">Scénario 3</span>NFP nettement inférieur — très peu d'emplois créés, ex. 50 K, 30 K, voire proche de zéro<span class="scn-badge">✔ c'est celui-ci : +29 K</span></div>
       <div class="scn-body">Ça pourrait devenir très violent : marché du travail qui ralentit, offres d'emploi en baisse, confiance des consommateurs faible, inflation qui commence à montrer des signes de modération. Les marchés pourraient se dire que la Fed doit devenir beaucoup plus accommodante (dovish).</div>
       <div class="scn-reactions">
+        <span style="color:var(--dim)">Réaction attendue (à vérifier sur ton écran) :</span>
         <span>Dollar <b class="neg">↓ chute</b></span>
         <span>Rendements US <b class="neg">↓ chutent</b></span>
         <span>Or <b class="pos">↑ explose</b></span>
         <span>Bitcoin <b class="pos">↑ explose</b></span>
         <span>Indices US <b class="pos">↑ montent</b></span>
       </div>
-      <div class="scn-body" style="margin-top:10px;color:var(--red)">⚠️ Phrase coupée dans ta note vocale : « Mais attention, parce qu'il pourrait y avoir un piège. » — je n'ai que le début, dis-moi la suite pour que je la mette ici.</div>
+      <div class="scn-body" style="margin-top:6px;color:var(--red)">⚠️ Ta note vocale s'arrêtait à « Mais attention, parce qu'il pourrait y avoir un piège » — la suite me manque, dis-la-moi et je la mets ici.</div>
     </div>
   </div>
 
@@ -1432,7 +1464,7 @@ textarea::placeholder{color:#4A566A}
         <span class="score-total-sub">fourchette cible actuelle</span>
       </div>
     </div>
-    <p class="eco-note">Relevée de 25 points de base le 16/09/2026 — premier changement de taux de l'année 2026, après plusieurs mois de statu quo. Le marché price environ <strong>67 %</strong> de probabilité d'une nouvelle hausse à la réunion du 28/10. Calendrier FOMC restant 2026 : 27–28/10, 8–9/12.</p>
+    <p class="eco-note">Relevée de 25 pb le 16/09/2026 (1<sup>er</sup> changement de 2026). Avant le NFP, le marché pricait ~<strong>67 %</strong> d'une nouvelle hausse le 28/10 — <strong>non rafraîchi depuis les +29 K</strong>. FOMC restants : 27–28/10, 8–9/12.</p>
   </div>
   </div>
   </div>
@@ -1472,9 +1504,10 @@ textarea::placeholder{color:#4A566A}
       <div class="eco-chip pos"><div class="m">Mai 26</div><div class="v">+172 K</div></div>
       <div class="eco-chip pos"><div class="m">Juin 26</div><div class="v">+57 K</div></div>
       <div class="eco-chip neg"><div class="m">Juil. 26</div><div class="v">−23 K</div></div>
-      <div class="eco-chip pos" style="box-shadow:0 0 0 2px var(--accent)"><div class="m">Août 26</div><div class="v">+162 K</div></div>
+      <div class="eco-chip pos"><div class="m">Août 26</div><div class="v">+133 K*</div></div>
+      <div class="eco-chip pos" style="box-shadow:0 0 0 2px var(--accent)"><div class="m">Sept. 26</div><div class="v">+29 K</div></div>
     </div>
-    <p class="eco-note">Série heurtée en 2026 : juillet négatif (−23 K, attendu +79 K) encadré par deux mois nettement positifs (mai +172 K, août +162 K vs 42 K attendu). Prochaine publication demain, vendredi 02/10 à 14h30 — prévision 90 K. Trois scénarios détaillés dans l'onglet « Calendrier &amp; taux ».</p>
+    <p class="eco-note"><strong>C'est quoi ?</strong> Le NFP = nombre d'emplois <em>créés</em> (net) dans le mois, hors agriculture : plus il est haut, plus on embauche ; il ne mesure pas des travailleurs « en moins ». Série heurtée en 2026 : juillet négatif (−23 K), puis août +162 K à la première publication, et septembre <strong>+29 K</strong> (prévu 89 K) — publié le 02/10 avec un chômage à <strong>4,2 %</strong> (prévu 4,1 %) et des salaires horaires à <strong>+0,1 %</strong> sur le mois (prévu +0,3 %). * Août : 133 K dans ton calendrier, +162 K à la première publication — probablement révisé, à confirmer sur bls.gov. Détail et scénarios dans « Calendrier &amp; taux ».</p>
   </div>
   </div>
 
@@ -1818,7 +1851,7 @@ textarea::placeholder{color:#4A566A}
     <div class="rule-body">
       <span class="rule-tag tag-warn">Annonces macro</span>
       <div class="rule-stmt">CPI, NFP, FOMC, chiffres du chômage : 1–2 contrats ou rien. Jamais en position au moment de l'annonce.</div>
-      <div class="rule-detail">Fermer toutes positions <strong>5 min avant</strong> le release. Pas d'entrée dans les <strong>10 min qui suivent</strong>. Le spike est injouable. Le 4 septembre : −290 $ sur chiffres du chômage avec TraderSyncer actif sur 4 comptes simultanément.</div>
+      <div class="rule-detail">Fermer toutes positions <strong>5 min avant</strong> le release. Pas d'entrée dans les <strong>10 min qui suivent</strong>. Le spike est injouable : <strong>entrer dans la minute de l'annonce ne sert à rien.</strong> Le 4 septembre : −290 $ sur chiffres du chômage avec TraderSyncer actif sur 4 comptes simultanément.</div>
     </div>
   </div>
 
@@ -1870,7 +1903,7 @@ textarea::placeholder{color:#4A566A}
 </div>
 
 <div class="section-divider">
-  <span>Stratégie V2 — iFVG M5 (9 à 11)</span>
+  <span>Stratégie V2 — iFVG M5 (9 à 12)</span>
 </div>
 
 <div class="rules-list">
@@ -1899,6 +1932,15 @@ textarea::placeholder{color:#4A566A}
       <span class="rule-tag tag-proc">BE V2</span>
       <div class="rule-stmt">Le stop passe à break-even dans deux cas : à 50 % du chemin vers le TP, ou si le prix repasse du mauvais côté des 3 MME.</div>
       <div class="rule-detail"><strong>1.</strong> 50 % du chemin vers le TP atteint.<br><strong>2.</strong> En Long, le prix repasse <strong>sous</strong> les 3 MME (en Short, l'inverse : au-dessus — symétrie à confirmer). C'est ce qui a déclenché le BE du 23/09 sur le compte 001.<br>Un trade ressorti à BE compte comme <strong>neutre</strong> : ni gagnant, ni perdant.</div>
+    </div>
+  </div>
+
+  <div class="rc-rule warn">
+    <div class="rc-rule-num">12</div>
+    <div class="rule-body">
+      <span class="rule-tag tag-warn">Biais V2 · brouillon</span>
+      <div class="rule-stmt">Si le prix traverse la MME 1H (la rouge), le biais peut changer de direction.</div>
+      <div class="rule-detail"><strong>Posé par toi le 02/10 :</strong> la MME 1H rouge n'est pas seulement un filtre d'entrée (règle 9) — la traverser remet le biais en question.<br><strong>À préciser avant d'en faire une règle fermée</strong> (je n'invente rien, dis-moi et je complète) :<br><strong>1.</strong> « Traverser » = une <strong>clôture</strong> H1 de l'autre côté, ou une simple mèche ?<br><strong>2.</strong> Quelle <strong>période</strong> pour cette MME 1H rouge ? (pas notée dans le plan).<br><strong>3.</strong> Une fois traversée : on attend un nouvel iFVG M5 dans le <strong>nouveau</strong> sens, ou on passe son tour jusqu'à la fin de séance ?<br><strong>4.</strong> C'est une <strong>exception à la règle 4</strong> (« une direction pour la journée ») ? Si oui, c'est le seul déclencheur objectif qui autorise à changer de sens — jamais l'avis de quelqu'un d'autre.</div>
     </div>
   </div>
 
