@@ -231,22 +231,48 @@ function sjDelTradeShot(key, i){
   sjSaveTradeImgs(key, imgs);
   sjRenderTradeShots(key);
 }
+/* Zone de capture (clé = trade, ou trade + « :fix » pour « ce que j'aurais dû faire ») */
+function sjShotsBox(key, label){
+  return '<div class="trade-shots" data-key="' + key + '">'
+    + '<div class="screenshots trade-shots-list"></div>'
+    + '<div class="trade-shots-drop">📸 ' + label + ' <span>— glisser, cliquer, ou survoler puis Ctrl+V</span></div>'
+    + '<input type="file" accept="image/*" multiple style="display:none">'
+    + '</div>';
+}
+/* Sous chaque trade : à gauche ce qui s'est passé, à côté « ce que j'aurais dû faire » (capture + petite remarque).
+   Visible d'office quand le trade est perdant ; sinon repliée derrière un bouton (un trade gagnant peut aussi être raté). */
 function sjInitTradeShots(){
   document.querySelectorAll('tr.note-row').forEach(function(row){
     var ta = row.querySelector('textarea.trade-note'), cell = row.querySelector('td');
-    if(!ta || !cell || cell.querySelector('.trade-shots')) return;
-    var key = ta.getAttribute('data-key');
-    var box = document.createElement('div');
-    box.className = 'trade-shots';
-    box.setAttribute('data-key', key);
-    box.innerHTML = '<div class="screenshots trade-shots-list"></div>'
-      + '<div class="trade-shots-drop">📸 Ajouter une capture sous ce trade <span>— glisser, cliquer, ou survoler la ligne puis Ctrl+V</span></div>'
-      + '<input type="file" accept="image/*" multiple style="display:none">';
-    cell.appendChild(box);
-    sjSetupDropEl(box.querySelector('.trade-shots-drop'), box.querySelector('input'), function(f){ sjReadImage(f, key); });
+    if(!ta || !cell || cell.querySelector('.shots-pair')) return;
+    var key = ta.getAttribute('data-key'), fixKey = key + ':fix';
+    var tr = row.previousElementSibling;
+    var failed = !!(tr && tr.querySelector('.td-pnl.td-l'));
+    var fixNote = sjLoadNotes()[fixKey] || '';
+    var pair = document.createElement('div');
+    pair.className = 'shots-pair' + ((failed || fixNote || sjLoadTradeImgs(fixKey).length) ? '' : ' no-fix');
+    pair.innerHTML =
+        '<div class="shots-col main"><div class="shots-col-h">Ce qui s\'est passé</div>' + sjShotsBox(key, 'Ajouter une capture sous ce trade')
+      + '<button type="button" class="fix-toggle">＋ Ce que j\'aurais dû faire</button></div>'
+      + '<div class="shots-col fix"><div class="shots-col-h">✅ Ce que j\'aurais dû faire</div>' + sjShotsBox(fixKey, 'Capture de ce que tu aurais dû faire')
+      + '<textarea class="fix-note" rows="2" data-key="' + fixKey + '" placeholder="Petite remarque : ce que tu aurais fait à la place…"></textarea></div>';
+    cell.appendChild(pair);
+    var fixTa = pair.querySelector('.fix-note');
+    fixTa.value = fixNote;
+    fixTa.addEventListener('blur', function(){ sjSaveNote(fixTa); });
+    fixTa.addEventListener('change', function(){ sjSaveNote(fixTa); });
+    pair.querySelector('.fix-toggle').addEventListener('click', function(){ pair.classList.remove('no-fix'); });
+    pair.querySelectorAll('.trade-shots').forEach(function(box){
+      var k = box.getAttribute('data-key');
+      sjSetupDropEl(box.querySelector('.trade-shots-drop'), box.querySelector('input'), function(f){ sjReadImage(f, k); });
+      sjRenderTradeShots(k);
+    });
+    // Ctrl+V : la capture va dans la zone survolée (la colonne « ce que j'aurais dû faire » ou le reste de la ligne)
     row.addEventListener('mouseenter', function(){ sjHoverKey = key; });
-    row.addEventListener('mouseleave', function(){ if(sjHoverKey === key) sjHoverKey = null; });
-    sjRenderTradeShots(key);
+    row.addEventListener('mouseleave', function(){ if(sjHoverKey === key || sjHoverKey === fixKey) sjHoverKey = null; });
+    var fixCol = pair.querySelector('.shots-col.fix');
+    fixCol.addEventListener('mouseenter', function(){ sjHoverKey = fixKey; });
+    fixCol.addEventListener('mouseleave', function(){ if(sjHoverKey === fixKey) sjHoverKey = key; });
   });
 }
 
@@ -296,7 +322,8 @@ function sjInitPaste(){
     if(!key){
       var ae = document.activeElement, row = ae && ae.closest ? ae.closest('tr.note-row') : null;
       var ta = row ? row.querySelector('textarea.trade-note') : null;
-      if(ta) key = ta.getAttribute('data-key');
+      if(ae && ae.classList && ae.classList.contains('fix-note')) key = ae.getAttribute('data-key');
+      else if(ta) key = ta.getAttribute('data-key');
     }
     if(!key) return;  // pas de trade ciblé (survolé ou en cours d'écriture) : rien à faire, plus de zone générale
     for(var i = 0; i < items.length; i++){
@@ -368,7 +395,8 @@ function sjTradeText(noteRow){
   var rr = sjRRText(key ? sjFindAcctTrade(key) : null, st);
   if(rr !== '—') parts.push('R:R ' + rr);
   var reason = ta ? ta.value.trim() : '';
-  return parts.join(' · ') + ' — ' + (reason ? 'Raison : ' + reason : 'raison non renseignée');
+  var fix = key ? (sjLoadNotes()[key + ':fix'] || '') : '';
+  return parts.join(' · ') + ' — ' + (reason ? 'Raison : ' + reason : 'raison non renseignée') + (fix ? ' · Ce que j\'aurais dû faire : ' + fix : '');
 }
 function sjInitTradeCopy(){
   document.querySelectorAll('tr.note-row').forEach(function(row){
@@ -389,7 +417,7 @@ function sjInitTradeCopy(){
 }
 
 /* ---------- Menu latéral : même navigation que index.html, thème partagé (clé localStorage « journal-theme ») ---------- */
-var SJ_NAV = [['dashboard','📊 Tableau de bord'],['brief','🧭 Brief séance'],['eco','🌐 Analyses éco'],['sessions','🗓️ Sessions'],['regles','⛔ Règles']];
+var SJ_NAV = [['dashboard','📊 Tableau de bord'],['brief','🧭 Avant la séance'],['eco','🌐 Analyses éco'],['sessions','🗓️ Sessions'],['regles','⛔ Règles']];
 var SJ_THEMES = ['system','dark','light'];
 var SJ_THEME_LABELS = {system:'⚙️ Système', dark:'🌙 Sombre', light:'☀️ Clair'};
 function sjApplyTheme(t){

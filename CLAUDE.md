@@ -4,7 +4,7 @@ Site statique (un seul `index.html` + `sessions/*.html`), publié sur
 GitHub Pages (`scaryseb-afk.github.io/journal-trading`) depuis la branche
 `main`. Pas de build : ce qui est commité est ce qui est publié.
 
-`index.html` regroupe Tableau de bord, Brief séance, Analyses économiques
+`index.html` regroupe Tableau de bord, Avant la séance (anciennement « Brief séance » ; id `#brief`), Analyses économiques
 (contexte macro US/zone euro — CPI, Fed, NFP, PMI — et biais de marché sur
 or/pétrole/EUR-USD, rédigés par Claude à partir de données publiques, à
 rafraîchir sur demande ; a remplacé le Brouillon/« Plan du jour » le 01/10/2026),
@@ -16,9 +16,9 @@ sous-onglets du Tableau de bord et du Brief (`.subnav`/`.sn-btn`) sont
 reproduits en sous-entrées du menu sous l'onglet actif (générées depuis
 `.sn-btn` : un nouveau `.sn-btn` apparaît tout seul ; le premier, marqué
 `data-nosidebar`, n'est pas répété : le lien parent du menu ouvre cette
-sous-page) et la barre dans la page est masquée. Les deux sous-menus (Tableau
-de bord, Brief séance) restent toujours dépliés dans le menu, quel que soit
-l'onglet actif (`.nav-sub{display:flex}` inconditionnel dès 960px) — seul le
+sous-page) et la barre dans la page est masquée. Les trois sous-menus (Tableau
+de bord, Avant la séance, Analyses éco) restent toujours dépliés dans le menu, quel que soit
+l'onglet actif — cliquer une sous-entrée ouvre d'abord son onglet parent puis la sous-page (`.nav-sub{display:flex}` inconditionnel dès 960px) — seul le
 sous-élément survolé/actif est mis en évidence. Chaque entrée du menu (site et
 pages de séance, `SJ_NAV` dans `session.js`) porte un emoji devant son nom. Chaque sous-page du Tableau de bord a son propre titre ; l'en-tête
 et les widgets du haut (score de confluence, respect du plan, cartes) ne sont que
@@ -73,6 +73,10 @@ d'un ancien fichier copié-collé. Le template s'appuie sur `_systeme/style.css`
 et `_systeme/session.js` (logique partagée : captures d'écran, notes par
 trade, relecture) — ne pas dupliquer ce CSS/JS dans le fichier de session.
 
+- « Ce que j'aurais dû faire » : à côté de la capture de chaque trade (2 colonnes), une
+  seconde zone avec capture + petite remarque (clés `imgs_<séance>__<compte>_<n>:fix` et
+  `<compte>_<n>:fix`), ouverte d'office sur les trades perdants, derrière un bouton
+  « ＋ Ce que j'aurais dû faire » pour les autres ; la remarque suit « Copier ce trade ».
 - Captures d'écran : une seule zone, sous chaque trade
   (`imgs_<séance>__<compte>_<n>`, glisser/cliquer/Ctrl+V en survolant la
   ligne) — pas de zone générale au niveau de la séance (retirée le 28/09,
@@ -99,7 +103,14 @@ trade, relecture) — ne pas dupliquer ce CSS/JS dans le fichier de session.
   sous-page « Par instrument » du Tableau de bord (MNQ / or / pétrole / euro :
   P&L, win rate, moyenne par signal, pire trade) et ses phrases de synthèse en
   dépendent. Même total que les autres cartes (−7 224,25 $ / 186 signaux au 01/10).
-- Brief séance → Checklist : carte « Note du jour » (ressenti avant de trader).
+- À chaque séance ajoutée, relancer aussi `node csv/calc-comptes.js` et remplacer la
+  ligne `window.PAR_COMPTE = {...}` d'`index.html` : la table « R & % par compte »
+  (Tableau de bord → Comptes & Analyse) en dépend. 1 R = le budget de risque du jour
+  (`window.budgetOf`, défini dans le script Progression : ≈ 275 $ en septembre, 300 $
+  jusqu'au 04/10, 500 $ dès le 05/10 ; août = pas de budget, donc hors R) — ce n'est
+  pas le R réel de chaque trade, aucun stop n'étant enregistré. Les % viennent des
+  soldes de `window.COMPTES` ; un écart avec le P&L des CSV est signalé (≠), pas lissé.
+- Avant la séance → Checklist : carte « Note du jour » (ressenti avant de trader).
   Saisie locale au navigateur (`daynote_AAAA-MM-JJ`) ; « Copier pour Claude »
   la remonte dans le chat, et Claude l'inscrit dans `window.DAY_NOTES`
   (`index.html`, clé `AAAA-MM-JJ`, `m` = bien | neutre | pas-bien) pour qu'elle

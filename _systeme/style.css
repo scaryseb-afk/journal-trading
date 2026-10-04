@@ -389,6 +389,20 @@ textarea::placeholder{color:var(--dim)}
 .trade-shots-drop span{font-weight:400;color:var(--dim)}
 .trade-shots-drop:hover,.trade-shots-drop.drag-over{border-color:var(--muted);color:var(--txt)}
 
+/* ── « Ce qui s'est passé » / « Ce que j'aurais dû faire » côte à côte sous chaque trade ── */
+.shots-pair{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:10px;align-items:start}
+.shots-pair .trade-shots{margin-top:0}
+.shots-col-h{font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
+.shots-col.fix{border:1px solid var(--line);border-left:3px solid var(--accent);border-radius:8px;padding:8px 10px;background:var(--panel)}
+.shots-col.fix .shots-col-h{color:var(--accent)}
+.fix-note{margin-top:8px;min-height:44px;font-size:13px;resize:vertical}
+.fix-toggle{display:none;margin-top:8px;background:none;border:1px solid var(--line);border-radius:8px;color:var(--muted);font:inherit;font-size:12px;padding:5px 10px;cursor:pointer}
+.fix-toggle:hover{border-color:var(--accent);color:var(--txt)}
+.shots-pair.no-fix{grid-template-columns:1fr}
+.shots-pair.no-fix .shots-col.fix{display:none}
+.shots-pair.no-fix .fix-toggle{display:inline-block}
+@media(max-width:700px){.shots-pair{grid-template-columns:1fr}}
+
 /* ── Aperçu en grand au survol d'une capture (souris uniquement) ── */
 .shot-preview{position:fixed;inset:0;z-index:9990;display:none;align-items:center;justify-content:center;background:rgba(0,0,0,.72);pointer-events:none}
 .shot-preview.show{display:flex}

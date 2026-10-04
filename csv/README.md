@@ -74,7 +74,7 @@ trading = 1), les **ré-entrées** (entrée moins de 10 min après la dernière
 perte terminée, tous comptes) et leur P&L. Les valeurs `rt:[trades,
 ré-entrées, P&L des ré-entrées]` sont à recopier dans `window.SESSIONS`
 (index.html) à chaque nouvelle séance : elles alimentent la page
-« Progression » du tableau de bord et les chiffres du Brief séance.
+« Progression » du tableau de bord et les chiffres de l'onglet « Avant la séance ».
 
 ## Résultat par instrument
 
@@ -86,3 +86,12 @@ instrument » du Tableau de bord). Le total doit toujours égaler celui des autr
 cartes (au 01/10 : −7 224,25 $, 186 signaux). Un signal est « gagnant » si son
 P&L est > 0 : les break-even déclarés (ex. les deux du 23/09) n'y sont pas isolés,
 le CSV n'en garde pas la trace.
+
+## R et % par compte
+
+`node csv/calc-comptes.js` imprime `window.PAR_COMPTE = {...}` : le P&L de chaque compte
+jour par jour (somme des lignes du CSV, jour = jour d'entrée), à recopier dans `index.html`.
+La table « R & % par compte » du Tableau de bord en tire un R cumulé (P&L du jour ÷ budget de
+risque du jour) et le compare au solde de `window.COMPTES`. Le 005b n'a pas de CSV : seul son
+−1 200 $ du 29/09 (Lucid) est repris à la main dans la page.
+

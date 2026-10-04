@@ -668,22 +668,6 @@ textarea::placeholder{color:#4A566A}
 .scn-head{font-weight:700;font-size:12.5px;margin-bottom:3px}
 .scn-head .scn-num{color:var(--accent);margin-right:4px}
 .scn-body{font-size:12px;line-height:1.4;color:var(--txt)}
-.nfp-res-wrap{display:flex;gap:14px;align-items:flex-start;flex-wrap:wrap}
-.nfp-tiles{display:flex;gap:6px;flex:0 0 auto;flex-wrap:wrap}
-.nfp-tile{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:6px 10px;min-width:120px}
-.nfp-tile .nt-l{font-size:9.5px;font-weight:600;letter-spacing:.03em;text-transform:uppercase;color:var(--muted)}
-.nfp-tile .nt-v{font-size:21px;font-weight:800;font-variant-numeric:tabular-nums;line-height:1.15}
-.nfp-tile .nt-s{font-size:10px;color:var(--muted)}
-.nfp-clair{flex:1 1 320px;font-size:11.5px;line-height:1.4;color:var(--txt)}
-.nfp-clair p{margin:0 0 3px}
-.nfp-flag{color:var(--dim);font-size:10.5px}
-.nfp-rule{color:var(--accent);font-weight:600}
-details.scn-card>summary{cursor:pointer;list-style:none}
-details.scn-card>summary::-webkit-details-marker{display:none}
-details.scn-card>summary::before{content:"▸ ";color:var(--accent)}
-details.scn-card[open]>summary::before{content:"▾ "}
-.scn-card.scn-done{border-color:var(--accent);border-left-width:4px}
-.scn-badge{background:var(--accent);color:var(--on-accent);border-radius:10px;padding:1px 8px;font-size:10.5px;font-weight:700;margin-left:8px;white-space:nowrap}
 .scn-reactions{display:flex;flex-wrap:wrap;gap:3px 9px;margin-top:3px;padding-top:3px;border-top:1px solid var(--line)}
 .scn-reactions span{font-size:11px;color:var(--muted);display:flex;align-items:center;gap:3px}
 .scn-reactions b{font-size:12px}
@@ -699,12 +683,11 @@ details.scn-card[open]>summary::before{content:"▾ "}
 #view-eco .score-total-sub{font-size:10.5px}
 #view-eco .eco-note{font-size:12px;line-height:1.45}
 @media(min-width:960px){
-  #view-eco .eco-ov-grid{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);grid-template-rows:auto auto 1fr;gap:8px;align-items:start}
+  #view-eco .eco-ov-grid{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);grid-template-rows:auto 1fr;gap:8px;align-items:start}
   #view-eco .eco-ov-grid>.tool-card{margin-top:0!important}
-  #view-eco .eco-ov-res{grid-column:1/-1;grid-row:1}
-  #view-eco .eco-ov-cal{grid-column:1;grid-row:2}
-  #view-eco .eco-ov-scn{grid-column:2;grid-row:2/span 2}
-  #view-eco .eco-ov-fed{grid-column:1;grid-row:3}
+  #view-eco .eco-ov-cal{grid-column:1;grid-row:1}
+  #view-eco .eco-ov-scn{grid-column:2;grid-row:1/span 2}
+  #view-eco .eco-ov-fed{grid-column:1;grid-row:2}
   #view-eco .eco-cal-row{flex-wrap:wrap;gap:0 10px}
 }
 /* Page « Par instrument » */
@@ -792,6 +775,20 @@ details.scn-card[open]>summary::before{content:"▾ "}
 .ord-tbl td:first-child{color:var(--txt);white-space:nowrap}
 .ord-ex{font-size:12.5px;color:var(--muted);line-height:1.55;margin:10px 0 0}
 .ord-ex b{color:var(--txt)}
+/* R & % par compte */
+.rc-tbl{width:100%;border-collapse:collapse;font-size:13px;background:var(--panel);border:1px solid var(--line);border-radius:12px;overflow:hidden}
+.rc-tbl th{text-align:right;font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);padding:9px 12px;border-bottom:1px solid var(--line);font-weight:600}
+.rc-tbl th:first-child,.rc-tbl th:nth-child(2){text-align:left}
+.rc-tbl td{padding:8px 12px;border-bottom:1px solid var(--line);text-align:right;font-variant-numeric:tabular-nums}
+.rc-tbl td:first-child,.rc-tbl td:nth-child(2){text-align:left}
+.rc-tbl tr:last-child td{border-bottom:none}
+.rc-tbl td:first-child{font-weight:700}
+.rc-tbl td.rc-st{color:var(--muted);font-size:12px}
+.rc-tbl tr.rc-dead td{opacity:.62}
+.rc-tbl tr.rc-tot td{font-weight:700;border-top:2px solid var(--line);background:var(--white-dim)}
+.rc-tbl .rc-gap{color:var(--dim);font-size:10.5px;margin-left:4px;cursor:help}
+.rc-note{font-size:11.5px;color:var(--dim);line-height:1.5;margin:8px 0 22px}
+.rc-wrap{overflow-x:auto}
 /* Écrans peu hauts (13" en 1280×720/800) : on gagne de la place verticale en haut de page */
 @media(min-width:960px) and (max-height:820px){
   .wrap{padding-top:26px;padding-bottom:28px}
@@ -820,7 +817,7 @@ details.scn-card[open]>summary::before{content:"▾ "}
 <nav class="nav">
   <div class="nav-brand"><b>Journal de trading</b><span>Futures · Tradovate / Lucid</span></div>
   <a href="#dashboard" data-goto="dashboard">📊 Tableau de bord</a>
-  <a href="#brief" data-goto="brief">🧭 Brief séance</a>
+  <a href="#brief" data-goto="brief">🧭 Avant la séance</a>
   <a href="#eco" data-goto="eco">🌐 Analyses éco</a>
   <a href="#sessions" data-goto="sessions">🗓️ Sessions</a>
   <a href="#regles" data-goto="regles">⛔ Règles</a>
@@ -980,6 +977,9 @@ details.scn-card[open]>summary::before{content:"▾ "}
   <div class="subview" data-subview="comptes">
   <p class="eyebrow">Tableau de bord</p>
   <h1>Comptes &amp; Analyse</h1>
+  <h2>R &amp; % par compte</h2>
+  <div id="r-comptes"></div>
+
   <h2>Données &amp; Analyse</h2>
   <div id="analyse-section"></div>
 
@@ -1536,22 +1536,6 @@ details.scn-card[open]>summary::before{content:"▾ "}
   <p class="sub">Contexte macro US/zone euro — données publiques (BLS, Fed, ISM, S&amp;P Global/HCOB), recoupées au moment de la rédaction. <strong style="color:var(--accent)">Données au 02/10/2026, NFP inclus.</strong> Horaires en heure de Paris. À rafraîchir chaque dimanche — dis-moi quand le faire.</p>
 
   <div class="eco-ov-grid">
-  <div class="tool-card eco-ov-res">
-    <div class="tool-card-title">✅ NFP publié — vendredi 02/10, 14h30</div>
-    <div class="nfp-res-wrap">
-      <div class="nfp-tiles">
-        <div class="nfp-tile"><div class="nt-l">Emplois créés (NFP)</div><div class="nt-v neg">+29 K</div><div class="nt-s">prévu 89 K · préc. 133 K*</div></div>
-        <div class="nfp-tile"><div class="nt-l">Taux de chômage</div><div class="nt-v neg">4,2 %</div><div class="nt-s">prévu 4,1 % · préc. 4,1 %</div></div>
-        <div class="nfp-tile"><div class="nt-l">Salaire horaire (m/m)</div><div class="nt-v neg">+0,1 %</div><div class="nt-s">prévu +0,3 % · préc. +0,3 %</div></div>
-      </div>
-      <div class="nfp-clair">
-        <p><strong>En clair :</strong> le NFP compte les <strong>emplois créés</strong> dans le mois (hors agriculture). +29 K = 29 000 emplois créés, pas perdus — mais un tiers des 89 000 attendus. Chômage un peu plus haut que prévu, salaires qui montent beaucoup moins vite : <strong>le marché du travail refroidit</strong>. C'est le <strong>scénario 3</strong>.</p>
-        <p class="nfp-rule">Règle 3 : entrer dans la minute de l'annonce ne sert à rien — pas d'entrée dans les 10 min qui suivent.</p>
-        <p class="nfp-flag">* Août : 133 K dans ton calendrier, +162 K sur ma page — probablement révisé, à confirmer sur bls.gov. Réaction réelle du marché non vérifiée.</p>
-      </div>
-    </div>
-  </div>
-
   <div class="tool-card eco-ov-cal">
     <div class="tool-card-title">Prochaines publications</div>
     <div class="eco-cal">
@@ -1564,10 +1548,10 @@ details.scn-card[open]>summary::before{content:"▾ "}
   </div>
 
   <div class="tool-card eco-ov-scn" style="margin-top:6px">
-    <div class="tool-card-title">Les 3 scénarios NFP — rappel</div>
+    <div class="tool-card-title">Les 3 scénarios NFP — à chaque publication</div>
 
-    <details class="scn-card">
-      <summary class="scn-head"><span class="scn-num">Scénario 1</span>NFP largement supérieur — beaucoup plus d'emplois créés, ex. 100 K, 120 K, 150 K, 180 K</summary>
+    <div class="scn-card">
+      <div class="scn-head"><span class="scn-num">Scénario 1</span>NFP largement supérieur — beaucoup plus d'emplois créés, ex. 100 K, 120 K, 150 K, 180 K</div>
       <div class="scn-body">Vraie surprise positive : l'économie US est solide, le marché du travail résilient, la Fed n'a nul besoin d'assouplir sa politique monétaire.</div>
       <div class="scn-reactions">
         <span>Dollar <b class="pos">↑ explose</b></span>
@@ -1577,25 +1561,23 @@ details.scn-card[open]>summary::before{content:"▾ "}
         <span>Bitcoin <b class="neg">↓ sous pression</b></span>
         <span>Indices US <b class="neg">↓ sous pression</b></span>
       </div>
-    </details>
+    </div>
 
-    <details class="scn-card">
-      <summary class="scn-head"><span class="scn-num">Scénario 2</span>NFP proche des attentes — environ 80 à 100 K</summary>
+    <div class="scn-card">
+      <div class="scn-head"><span class="scn-num">Scénario 2</span>NFP proche des attentes — environ 80 à 100 K</div>
       <div class="scn-body">Pas de gros choc : le marché a déjà plus ou moins intégré un ralentissement du marché du travail, réaction probablement limitée. L'important se joue ailleurs dans le rapport : le <strong>taux de chômage global</strong> et la <strong>croissance des salaires</strong> (mensuelle et annuelle) — le nombre d'emplois créés n'est pas le seul élément qui compte pour la Fed. Si l'emploi ralentit mais que les salaires restent élevés, l'inflation salariale peut continuer à poser problème.</div>
-    </details>
+    </div>
 
-    <div class="scn-card scn-done">
-      <div class="scn-head"><span class="scn-num">Scénario 3</span>NFP nettement inférieur — très peu d'emplois créés, ex. 50 K, 30 K, voire proche de zéro<span class="scn-badge">✔ c'est celui-ci : +29 K</span></div>
+    <div class="scn-card">
+      <div class="scn-head"><span class="scn-num">Scénario 3</span>NFP nettement inférieur — très peu d'emplois créés, ex. 50 K, 30 K, voire proche de zéro</div>
       <div class="scn-body">Ça pourrait devenir très violent : marché du travail qui ralentit, offres d'emploi en baisse, confiance des consommateurs faible, inflation qui commence à montrer des signes de modération. Les marchés pourraient se dire que la Fed doit devenir beaucoup plus accommodante (dovish).</div>
       <div class="scn-reactions">
-        <span style="color:var(--dim)">Réaction attendue (à vérifier sur ton écran) :</span>
         <span>Dollar <b class="neg">↓ chute</b></span>
         <span>Rendements US <b class="neg">↓ chutent</b></span>
         <span>Or <b class="pos">↑ explose</b></span>
         <span>Bitcoin <b class="pos">↑ explose</b></span>
         <span>Indices US <b class="pos">↑ montent</b></span>
       </div>
-      <div class="scn-body" style="margin-top:6px;color:var(--red)">⚠️ Le piège, vécu le 02/10 : entrer à la minute de la publication. Tes mots : les boîtes avaient toutes acheté puis revendu à la seconde de la parution — le MGC Long entré 6 s après a perdu 30 pts (−1 200 $).</div>
     </div>
   </div>
 
@@ -2732,7 +2714,11 @@ window.WEEKLY_RECAPS = {
    depuis csv/comptes/*.csv : à relancer et recopier à chaque nouvelle séance. */
 window.PAR_INSTRUMENT = {"du":"13/08","au":"02/10","fichiers":9,"signaux":190,"pnl":-9341.25,"items":[{"id":"MNQ","pnl":-7222.5,"n":146,"w":46,"l":100,"gains":11019.5,"pertes":18242,"pire":-769.5,"meilleur":2529,"sous":[["MNQ",-7222.5]]},{"id":"Or","pnl":-2472,"n":24,"w":11,"l":13,"gains":364,"pertes":2836,"pire":-1200,"meilleur":127,"sous":[["MGC",-1932],["GC",-540]]},{"id":"Euro","pnl":-18.75,"n":4,"w":1,"l":2,"gains":225,"pertes":243.75,"pire":-187.5,"meilleur":225,"sous":[["6E",-18.75]]},{"id":"Pétrole","pnl":372,"n":16,"w":4,"l":12,"gains":1860,"pertes":1488,"pire":-249,"meilleur":840,"sous":[["MCL",-1028],["CL",1400]]}]};
 
-/* Notes du jour (Brief séance → Checklist) — ressenti avant de trader. Clé = AAAA-MM-JJ, m = bien | neutre | pas-bien.
+/* P&L jour par jour de chaque compte (table « R & % par compte ») — généré par `node csv/calc-comptes.js`
+   depuis csv/comptes/*.csv : à relancer et recopier à chaque nouvelle séance. */
+window.PAR_COMPTE = {"001":{"20/08":18,"21/08":-507,"24/08":-506.75,"28/08":131,"02/09":414.5,"03/09":-295.5,"04/09":-281.5,"07/09":893,"08/09":844.5,"09/09":594,"10/09":-293,"14/09":-319,"15/09":-290,"16/09":172.5,"17/09":-298.5,"18/09":-251,"21/09":549,"22/09":204,"23/09":8,"24/09":-252,"25/09":-314,"28/09":742,"29/09":-263,"02/10":-300},"002":{"21/08":123,"24/08":484,"04/09":-290,"08/09":843,"10/09":-228,"11/09":-312,"14/09":-292,"15/09":-187.5,"17/09":-298.5,"18/09":-253.5,"23/09":19,"24/09":-314,"25/09":-89},"003":{"10/09":-266,"11/09":560,"14/09":-300,"15/09":-286,"16/09":171,"17/09":-297.5,"18/09":-262.5,"29/09":-175,"30/09":-199,"02/10":-300},"004":{"13/08":1214,"14/08":-307,"18/08":-310,"19/08":-300,"20/08":-296,"24/08":-376,"25/08":-301,"02/09":-110},"004b":{"17/09":105,"18/09":-152,"02/10":-297},"005":{"14/08":-390,"17/08":7,"18/08":-457,"19/08":98.5,"20/08":-438,"21/08":-490,"02/09":445.5,"03/09":-291,"04/09":-290,"08/09":841.5,"10/09":-317,"11/09":-205.5,"14/09":-300,"15/09":-48},"006":{"21/08":-381.5,"25/08":-156,"26/08":160.5,"27/08":-72,"28/08":-298,"01/09":721.5,"04/09":-294,"10/09":-299,"11/09":-318,"14/09":-310,"15/09":-296.5,"17/09":-291,"02/10":-61.5},"02b":{"29/09":20,"02/10":-1200},"A":{"18/09":-1176,"01/10":-416,"02/10":41.5}};
+
+/* Notes du jour (Avant la séance → Checklist) — ressenti avant de trader. Clé = AAAA-MM-JJ, m = bien | neutre | pas-bien.
    Les notes saisies dans la page restent locales au navigateur : « Copier pour Claude », colle-les dans le chat
    et Claude les inscrit ici (elles seront alors visibles partout et rapprochées du P&L du jour). */
 window.DAY_NOTES = {
@@ -3179,7 +3165,7 @@ window.DAY_NOTES = {
   });
 })();
 </script>
-<script>/* Brief séance : replie les paragraphes longs derrière "Voir le détail" */
+<script>/* Avant la séance (#brief) : replie les paragraphes longs derrière "Voir le détail" */
 (function(){
   document.addEventListener('DOMContentLoaded', function(){
     var host = document.getElementById('view-brief');
@@ -4174,6 +4160,7 @@ window.DAY_NOTES = {
   var RISK_MID = 275;  // milieu de la fourchette 250–300 $ retenue pour septembre
   // budget de risque par signal selon le jour (même barème que le KPI « Règle de séance ») : septembre ≈ 275 $, octobre 300 $ jusqu'au 04/10, 500 $ dès le 05/10 ; avant septembre, pas de budget défini
   function budgetOf(j){ var m = j.slice(3), d = +j.slice(0, 2); if(m === '09') return RISK_MID; if(m === '10') return d >= 5 ? 500 : 300; return null; }
+  window.budgetOf = budgetOf;  // réutilisé par la table « R & % par compte »
   function mondayOf(j){
     var p = j.split('/'), dt = new Date(2026, +p[1] - 1, +p[0]);
     dt.setDate(dt.getDate() - ((dt.getDay() + 6) % 7));
@@ -4354,7 +4341,7 @@ window.DAY_NOTES = {
   if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', build); else build();
 })();
 </script>
-<script>/* Note du jour — ressenti avant de trader (Brief séance → Checklist). Sauvegarde locale (localStorage daynote_AAAA-MM-JJ),
+<script>/* Note du jour — ressenti avant de trader (Avant la séance → Checklist). Sauvegarde locale (localStorage daynote_AAAA-MM-JJ),
    fusionnée avec window.DAY_NOTES (notes inscrites par Claude) et rapprochée du P&L du jour dans window.SESSIONS. */
 (function(){
   var MOODS = { 'bien': { e: '😌', l: 'Je le sens bien' }, 'neutre': { e: '😐', l: 'Neutre' }, 'pas-bien': { e: '😟', l: 'Pas bien' } };
@@ -4497,7 +4484,61 @@ window.DAY_NOTES = {
   if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init); else init();
 })();
 </script>
-<script>/* Menu latéral : les sous-onglets (Tableau de bord, Brief séance) deviennent des sous-entrées du menu, dépliées sous l'onglet actif */
+<script>/* R & % par compte (Tableau de bord → Comptes & Analyse) — P&L jour par jour : window.PAR_COMPTE (csv/calc-comptes.js) ;
+   budget de risque du jour : window.budgetOf (script Progression) ; soldes : window.COMPTES */
+(function(){
+  // [ref dans COMPTES, fichier csv/comptes, libellé] — le 005b n'a pas de CSV : seul son résultat Lucid du 29/09 est connu
+  var MAP = [['Compte 01','001','001'],['Compte 03','003','003'],['Compte 04b','004b','004b'],['Compte 02b','02b','02b'],['Compte A','A','A'],
+             ['Compte 06','006','006'],['Compte 02','002','002'],['Compte 05','005','005'],['Compte 05b',null,'005b']];
+  var LUCID_ONLY = { 'Compte 05b': { '29/09': -1200 } };
+  function cls(v){ return v > 0.004 ? 'pos' : (v < -0.004 ? 'neg' : ''); }
+  function sgn(v){ return v > 0.004 ? '+' : (v < -0.004 ? '−' : ''); }
+  function usd(v, d){ return sgn(v) + Math.abs(v).toLocaleString('fr-FR', { minimumFractionDigits: d || 0, maximumFractionDigits: d || 0 }) + ' $'; }
+  function pct(v){ return sgn(v) + Math.abs(v).toFixed(1).replace('.', ',') + ' %'; }
+  function rs(v){ return sgn(v) + Math.abs(v).toFixed(1).replace('.', ',') + ' R'; }
+  function build(){
+    var host = document.getElementById('r-comptes');
+    if(!host || !window.COMPTES) return;
+    var rows = MAP.map(function(m){
+      var c = window.COMPTES.filter(function(x){ return x.ref === m[0]; })[0];
+      if(!c) return null;
+      var days = m[1] ? ((window.PAR_COMPTE || {})[m[1]] || {}) : (LUCID_ONLY[m[0]] || {});
+      var pnl = 0, r = 0, off = 0;
+      Object.keys(days).forEach(function(j){
+        var p = days[j], b = window.budgetOf ? window.budgetOf(j) : null;
+        pnl += p;
+        if(b) r += p / b; else off += p;
+      });
+      var res = c.solde - c.depart;
+      return { label: m[2], c: c, lucid: !m[1], pnl: pnl, r: r, off: off, pct: (c.solde / c.depart - 1) * 100, gap: res - pnl, dead: c.statut === 'breached' };
+    }).filter(Boolean);
+    rows.sort(function(a, b){ return (a.dead - b.dead) || (b.pct - a.pct); });
+    var tot = { pnl: 0, r: 0 };
+    var h = '<div class="rc-wrap"><table class="rc-tbl"><thead><tr><th>Compte</th><th>État</th><th>Solde</th><th>% du compte</th><th>R cumulé</th><th>P&amp;L CSV</th></tr></thead><tbody>';
+    rows.forEach(function(x){
+      if(!x.lucid){ tot.pnl += x.pnl; tot.r += x.r; }
+      var gapMark = (!x.lucid && Math.abs(x.gap) > 5)
+        ? '<span class="rc-gap" title="Écart de ' + usd(Math.abs(x.gap), 2) + ' entre le solde (Lucid / calculé) et le P&amp;L des CSV — signalé, pas lissé">≠</span>' : '';
+      h += '<tr class="' + (x.dead ? 'rc-dead' : '') + '"><td>' + x.label + '</td><td class="rc-st">' + (x.c.statutLabel || '') + '</td>'
+        + '<td>' + x.c.solde.toLocaleString('fr-FR', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + ' $</td>'
+        + '<td class="' + cls(x.pct) + '">' + pct(x.pct) + '</td>'
+        + '<td class="' + cls(x.r) + '">' + rs(x.r) + '</td>'
+        + '<td class="' + cls(x.pnl) + '">' + (x.lucid ? usd(x.pnl) + ' <span class="rc-gap" title="Pas de CSV pour ce compte : résultat du 29 septembre repris de Lucid">Lucid</span>' : usd(x.pnl, 2)) + gapMark + '</td></tr>';
+    });
+    h += '<tr class="rc-tot"><td>Total</td><td class="rc-st">comptes avec CSV</td><td></td><td></td><td class="' + cls(tot.r) + '">' + rs(tot.r) + '</td><td class="' + cls(tot.pnl) + '">' + usd(tot.pnl, 2) + '</td></tr>';
+    h += '</tbody></table></div>';
+    var offTot = rows.reduce(function(a, x){ return a + x.off; }, 0);
+    h += '<p class="rc-note"><b>1 R = le budget de risque par signal du jour</b> : ≈ 275 $ en septembre (milieu de 250–300 $, comme l\'onglet Sessions), 300 $ du 1er au 4 octobre, 500 $ dès le 5 octobre. '
+      + 'Ce n\'est pas le vrai R de chaque trade — aucun stop n\'est enregistré — mais le résultat exprimé en budgets de risque. '
+      + 'Août n\'a pas de budget défini : ' + usd(offTot, 2) + ' d\'août restent hors R (ils sont dans la colonne P&amp;L). '
+      + '<b>% du compte</b> = solde ÷ solde de départ (50 000 $ supposé), soldes Lucid du 30/09 + P&amp;L des CSV des jours suivants. '
+      + '<b>≠</b> : écart entre ce solde et le P&amp;L des CSV, signalé plutôt que lissé. Comptes clôturés (ancien 004, TopstepX) non repris ; le total R additionne les comptes, un signal copié sur trois comptes y compte trois fois.</p>';
+    host.innerHTML = h;
+  }
+  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', build); else build();
+})();
+</script>
+<script>/* Menu latéral : les sous-onglets (Tableau de bord, Avant la séance, Analyses éco) deviennent des sous-entrées du menu, dépliées sous l'onglet actif */
 (function(){
   document.addEventListener('DOMContentLoaded', function(){
     [['dashboard', 'dash-subnav'], ['brief', 'brief-subnav'], ['eco', 'eco-subnav']].forEach(function(pair){
@@ -4513,7 +4554,8 @@ window.DAY_NOTES = {
         var a = document.createElement('a');
         a.href = '#';
         a.textContent = btn.textContent;
-        a.addEventListener('click', function(e){ e.preventDefault(); btn.click(); window.scrollTo(0, 0); });
+        // les sous-entrées sont toujours dépliées : si l'onglet parent n'est pas ouvert (ex. on est sur Analyses éco), on l'ouvre d'abord, puis on choisit la sous-page
+        a.addEventListener('click', function(e){ e.preventDefault(); main.click(); btn.click(); window.scrollTo(0, 0); });
         box.appendChild(a);
         links.push([a, btn]);
       });
