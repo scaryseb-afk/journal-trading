@@ -110,6 +110,8 @@ trade, relecture) — ne pas dupliquer ce CSS/JS dans le fichier de session.
   jusqu'au 04/10, 500 $ dès le 05/10 ; août = pas de budget, donc hors R) — ce n'est
   pas le R réel de chaque trade, aucun stop n'étant enregistré. Les % viennent des
   soldes de `window.COMPTES` ; un écart avec le P&L des CSV est signalé (≠), pas lissé.
+- Règles → « Objectif : 50 % de trades gagnants » : calculée dans la page depuis `window.PAR_INSTRUMENT`
+  (gagnants, signaux, gain/perte moyens) — rien à recopier à la main ; elle suit `calc-instruments.js`.
 - Avant la séance → Checklist : carte « Note du jour » (ressenti avant de trader).
   Saisie locale au navigateur (`daynote_AAAA-MM-JJ`) ; « Copier pour Claude »
   la remonte dans le chat, et Claude l'inscrit dans `window.DAY_NOTES`

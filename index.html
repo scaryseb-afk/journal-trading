@@ -789,6 +789,14 @@ textarea::placeholder{color:#4A566A}
 .rc-tbl .rc-gap{color:var(--dim);font-size:10.5px;margin-left:4px;cursor:help}
 .rc-note{font-size:11.5px;color:var(--dim);line-height:1.5;margin:8px 0 22px}
 .rc-wrap{overflow-x:auto}
+/* Objectif 50 % de win + repère timeframes */
+.w50-big{font-size:15px;line-height:1.5;margin:0 0 6px}
+.w50-big b{font-size:24px;font-weight:800;font-variant-numeric:tabular-nums}
+.w50-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:18px;align-items:start;margin-top:8px}
+@media(max-width:800px){.w50-grid{grid-template-columns:1fr}}
+.w50-sub{font-size:12.5px;color:var(--muted);line-height:1.55}
+.w50-sub b{color:var(--txt)}
+.tf-wrap{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:12px 16px;margin:0 0 28px}
 /* Écrans peu hauts (13" en 1280×720/800) : on gagne de la place verticale en haut de page */
 @media(min-width:960px) and (max-height:820px){
   .wrap{padding-top:26px;padding-bottom:28px}
@@ -1742,6 +1750,8 @@ textarea::placeholder{color:#4A566A}
     <div class="streak-label">jours écoulés depuis la dernière violation cochée ci-dessous</div>
   </div>
 
+  <div class="tool-card" style="grid-column:1/-1" id="win50"></div>
+
   <div class="tool-card" style="grid-column:1/-1">
     <div class="tool-card-title">⏱ Pause obligatoire après une perte</div>
     <div class="timer-display" id="timer-display">10:00</div>
@@ -2116,6 +2126,20 @@ textarea::placeholder{color:#4A566A}
   <div class="pt-step"><div class="pt-n">4</div><div><div class="pt-t">Si le prix croise la MME H1, le sens change</div><div class="pt-d">Le biais peut passer de haussier à baissier, ou l'inverse (règle 12). Les questions encore ouvertes — clôture ou mèche, attendre un nouvel iFVG dans le nouveau sens — sont dans la règle 12.</div></div></div>
   <div class="pt-step"><div class="pt-n">5</div><div><div class="pt-t">Poser les 3 niveaux de protection</div><div class="pt-d">Sous la FVG ; sous la mèche de la bougie ; et le 3e niveau de la règle 10 (sous l'avant-dernier swing low 5M), que tu n'as pas repris cette fois — à confirmer. La règle 10 dit « création de la bougie » : est-ce la même chose que la mèche ? Pour un Short : au-dessus.</div></div></div>
   <div class="pt-more">TP : pas encore décrit dans ce plan (R:R minimum 2:1, règle 1). Break-even : règle 11. Dis-moi la suite et je l'ajoute telle quelle — rien d'inventé.</div>
+</div>
+
+<div class="tf-wrap">
+  <div class="pt-title">📎 Repère — la logique des timeframes <span class="pt-tag">externe, pas une règle</span></div>
+  <div class="calc-help">Tiré d'une vidéo Instagram (justvivien.fx, « Le pouvoir des timeframes »). Je la note comme repère de lecture, pas comme règle du plan : ton biais reste le tien (règle 4).</div>
+  <div class="tbl-wrap"><table class="ord-tbl">
+    <thead><tr><th>Rôle</th><th>Timeframes</th><th>Ce qu'on y regarde</th></tr></thead>
+    <tbody>
+      <tr><td><b>Direction</b></td><td>H4 – 1D</td><td>supply &amp; demand · liquidité</td></tr>
+      <tr><td><b>Contexte</b></td><td>H1 – M15</td><td>FVG · breakout · reversals</td></tr>
+      <tr><td><b>Exécution</b></td><td>M5 – M1</td><td>entrée · confirmation · management</td></tr>
+    </tbody>
+  </table></div>
+  <p class="ord-ex">Par rapport à tes étapes V2 écrites plus haut : le biais y vient des MME 5M, 15M et H1, et l'entrée de l'iFVG 5M. Rien n'y est écrit sur H4/1D ni sur la liquidité (la V1 parle de liquidité HTF). Si ce cadre t'inspire, dis-moi ce que tu veux en reprendre et je l'ajoute dans ton plan — sinon cette carte se supprime.</p>
 </div>
 
 <div class="section-divider">
@@ -4533,6 +4557,44 @@ window.DAY_NOTES = {
       + 'Août n\'a pas de budget défini : ' + usd(offTot, 2) + ' d\'août restent hors R (ils sont dans la colonne P&amp;L). '
       + '<b>% du compte</b> = solde ÷ solde de départ (50 000 $ supposé), soldes Lucid du 30/09 + P&amp;L des CSV des jours suivants. '
       + '<b>≠</b> : écart entre ce solde et le P&amp;L des CSV, signalé plutôt que lissé. Comptes clôturés (ancien 004, TopstepX) non repris ; le total R additionne les comptes, un signal copié sur trois comptes y compte trois fois.</p>';
+    host.innerHTML = h;
+  }
+  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', build); else build();
+})();
+</script>
+<script>/* Objectif 50 % de win (onglet Règles) — calculé depuis window.PAR_INSTRUMENT (même comptage que la carte Statistiques :
+   signaux dédoublonnés, copy-trading = 1). Il faut gagner (non-gagnants − gagnants) trades de plus que ceux qu'on rate. */
+(function(){
+  var BE_NEUTRES = 2;  // les deux break-even du 23/09, comptés gagnants par la carte Statistiques (voir csv/README.md)
+  function pc(v){ return v.toFixed(1).replace('.', ',') + ' %'; }
+  function usd(v){ return Math.round(v).toLocaleString('fr-FR') + ' $'; }
+  function build(){
+    var host = document.getElementById('win50'), D = window.PAR_INSTRUMENT;
+    if(!host || !D) return;
+    var W = 0, L = 0, G = 0, P = 0;
+    D.items.forEach(function(o){ W += o.w; L += o.l; G += o.gains; P += o.pertes; });
+    var N = D.signaux, gap = (N - W) - W;
+    var h = '<div class="tool-card-title">🎯 Objectif : 50 % de trades gagnants</div>';
+    if(gap <= 0){
+      h += '<p class="w50-big">Tu es déjà à <b>' + pc(W / N * 100) + '</b> (' + W + ' / ' + N + ').</p>';
+    } else {
+      h += '<p class="w50-big">Au dernier relevé (CSV du ' + D.au + ') : <b>' + W + ' / ' + N + ' = ' + pc(W / N * 100) + '</b>. Pour atteindre 50 %, il te faut <b>' + gap + ' trades gagnants de plus que de trades non gagnants</b> à partir de maintenant — '
+        + gap + ' gagnants d\'affilée donnent ' + (W + gap) + ' / ' + (N + gap) + ' = 50 %.</p>';
+      var rows = [gap, 100, 150, 200, 300, 500].filter(function(n, i, a){ return n >= gap && a.indexOf(n) === i; }).sort(function(a, b){ return a - b; });
+      h += '<div class="w50-grid"><div><div class="tbl-wrap"><table class="ord-tbl"><thead><tr><th>Sur les prochains trades</th><th>Gagnants nécessaires</th><th>Taux requis</th></tr></thead><tbody>';
+      rows.forEach(function(n){
+        var need = Math.ceil((n + gap) / 2);
+        h += '<tr><td><b>' + n + '</b></td><td>' + need + '</td><td>' + pc(need / n * 100) + '</td></tr>';
+      });
+      h += '</tbody></table></div></div><div class="w50-sub">'
+        + '<b>La règle à retenir :</b> sur N trades, il faut au moins <b>N ÷ 2 + ' + (gap / 2) + '</b> gagnants. Chaque trade perdu de plus ajoute un gagnant à trouver.<br><br>'
+        + 'En dessous de 50 % de réussite sur la suite, la moyenne ne remonte jamais jusqu\'à 50 % : l\'écart ne se comble qu\'avec plus de la moitié de trades gagnants.<br><br>';
+    }
+    var aw = W ? G / W : 0, al = L ? P / L : 0;
+    if(aw && al){
+      h += '<b>50 % n\'est pas le seuil de rentabilité.</b> Avec ton gain moyen (' + usd(aw) + ') et ta perte moyenne (' + usd(al) + '), l\'équilibre est autour de <b>' + pc(al / (aw + al) * 100) + '</b> de trades gagnants : le win rate seul ne dit pas si tu gagnes de l\'argent (profit factor actuel : ' + (G / P).toFixed(2).replace('.', ',') + ').<br><br>';
+    }
+    h += '<span style="color:var(--dim)">Comptage identique à la carte Statistiques ; les ' + BE_NEUTRES + ' break-even du 23/09 y sont comptés gagnants. S\'ils étaient neutres, comme ta règle : ' + (W - BE_NEUTRES) + ' / ' + N + ', soit ' + ((N - (W - BE_NEUTRES)) - (W - BE_NEUTRES)) + ' gagnants de plus à trouver.</span></div></div>';
     host.innerHTML = h;
   }
   if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', build); else build();
