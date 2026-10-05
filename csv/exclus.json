@@ -1,0 +1,8 @@
+[
+  {
+    "compte": "001",
+    "date": "05/10/2026",
+    "fills": ["630057152495", "630057152465", "630057152532", "630057152504"],
+    "raison": "Bug de plateforme : deux allers-retours d'une seconde (−8 $ et −2 $), signalés par Sébastien le 05/10 (« entré et sorti tout de suite, il y a eu un bug »). Exclus des statistiques ; les lignes restent dans le CSV et le solde du compte les inclut (argent réellement débité)."
+  }
+]

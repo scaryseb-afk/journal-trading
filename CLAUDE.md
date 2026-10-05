@@ -101,6 +101,11 @@ trade, relecture) — ne pas dupliquer ce CSS/JS dans le fichier de session.
 - À chaque séance ajoutée, lancer `node csv/calc-semaine.js` et recopier la
   ligne `rt:[trades, ré-entrées, P&L des ré-entrées]` du jour dans
   `window.SESSIONS` : la page « Progression » (semaine après semaine) en dépend.
+- Trades dus à un bug de plateforme (signalés par Sébastien) : on ne supprime JAMAIS la ligne du CSV (trace,
+  et le solde du compte les inclut) — on liste ses fill IDs dans `csv/exclus.json` ; les trois scripts
+  (`calc-semaine`, `calc-instruments`, `calc-comptes`) les ignorent, donc ni trades, ni win rate, ni ré-entrées,
+  ni plan, ni instruments, ni R. Dans la page de séance, la ligne est affichée en grisé (`bug:true`) sans zone de
+  note, et le total précise « hors bug ». Premier cas : 2 allers-retours d'une seconde sur le 001 le 05/10.
 - À chaque séance ajoutée, relancer aussi `node csv/calc-instruments.js` et
   remplacer la ligne `window.PAR_INSTRUMENT = {...}` d'`index.html` : la
   sous-page « Par instrument » du Tableau de bord (MNQ / or / pétrole / euro :

@@ -95,3 +95,10 @@ La table « R & % par compte » du Tableau de bord en tire un R cumulé (P&L du 
 risque du jour) et le compare au solde de `window.COMPTES`. Le 005b n'a pas de CSV : seul son
 −1 200 $ du 29/09 (Lucid) est repris à la main dans la page.
 
+## Lignes exclues (bugs de plateforme)
+
+`csv/exclus.json` liste les fill IDs de trades à ne pas compter (ex. deux allers-retours d'une seconde dus à un
+bug, le 05/10 sur le 001) avec la raison. La ligne reste dans `csv/comptes/<compte>.csv` — c'est la trace de ce
+que la plateforme a réellement fait, et le solde du compte l'inclut — mais `calc-semaine.js`, `calc-instruments.js`
+et `calc-comptes.js` l'ignorent : pas de trade, pas de ré-entrée, pas de win rate, pas de R.
+

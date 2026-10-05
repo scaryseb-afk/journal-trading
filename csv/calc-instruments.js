@@ -9,13 +9,14 @@
 const fs = require('fs');
 const ts = s => { const m = s.match(/(\d+)\/(\d+)\/(\d+) (\d+):(\d+):(\d+)/); return new Date(+m[3], +m[1] - 1, +m[2], +m[4], +m[5], +m[6]).getTime() / 1000; };
 const splitCsv = l => { const out = []; let cur = '', q = false; for (const ch of l) { if (ch === '"') q = !q; else if (ch === ',' && !q) { out.push(cur); cur = ''; } else cur += ch; } out.push(cur); return out; }; // les montants >= 1 000 $ sont exportés entre guillemets ("$(1,200.00)")
+const EXCL = new Set(JSON.parse(require('fs').readFileSync(__dirname + '/exclus.json', 'utf8')).flatMap(e => e.fills)); // lignes du CSV exclues des statistiques (bug de plateforme…) : voir exclus.json
 const money = s => { const neg = /\(/.test(s); const v = parseFloat(s.replace(/[$(),]/g, '')); return neg ? -v : v; };
 const files = fs.readdirSync(__dirname + '/comptes').filter(f => f.endsWith('.csv'));
 let rows = [];
 for (const f of files) {
   const acct = f.replace('.csv', '');
   fs.readFileSync(__dirname + '/comptes/' + f, 'utf8').split(/\r?\n/).filter(Boolean).slice(1).forEach(l => {
-    const c = splitCsv(l); const b = ts(c[10]), s = ts(c[11]); const long = b < s;
+    const c = splitCsv(l); if (EXCL.has(c[4]) || EXCL.has(c[5])) return; const b = ts(c[10]), s = ts(c[11]); const long = b < s;
     rows.push({ acct, sym: c[0], bid: c[4], sid: c[5], long, entry: Math.min(b, s), exit: Math.max(b, s), ep: long ? +c[7] : +c[8], tick: +c[3], pnl: money(c[9]) });
   });
 }

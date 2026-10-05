@@ -8,6 +8,7 @@
 const fs = require('fs');
 const splitCsv = l => { const out = []; let cur = '', q = false; for (const ch of l) { if (ch === '"') q = !q; else if (ch === ',' && !q) { out.push(cur); cur = ''; } else cur += ch; } out.push(cur); return out; }; // montants >= 1 000 $ entre guillemets
 const ts = s => { const m = s.match(/(\d+)\/(\d+)\/(\d+) (\d+):(\d+):(\d+)/); return new Date(+m[3], +m[1] - 1, +m[2], +m[4], +m[5], +m[6]).getTime() / 1000; };
+const EXCL = new Set(JSON.parse(require('fs').readFileSync(__dirname + '/exclus.json', 'utf8')).flatMap(e => e.fills)); // lignes du CSV exclues des statistiques (bug de plateforme…) : voir exclus.json
 const money = s => { const neg = /\(/.test(s); const v = parseFloat(s.replace(/[$(),]/g, '')); return neg ? -v : v; };
 const pad = n => (n < 10 ? '0' : '') + n;
 const r2 = v => Math.round(v * 100) / 100;
@@ -16,7 +17,7 @@ for (const f of fs.readdirSync(__dirname + '/comptes').filter(f => f.endsWith('.
   const acct = f.replace('.csv', '');
   const days = {};
   fs.readFileSync(__dirname + '/comptes/' + f, 'utf8').split(/\r?\n/).filter(Boolean).slice(1).forEach(l => {
-    const c = splitCsv(l);
+    const c = splitCsv(l); if (EXCL.has(c[4]) || EXCL.has(c[5])) return;
     const d = new Date(Math.min(ts(c[10]), ts(c[11])) * 1000);
     const k = pad(d.getDate()) + '/' + pad(d.getMonth() + 1);
     days[k] = (days[k] || 0) + money(c[9]);
