@@ -239,8 +239,9 @@ function sjShotsBox(key, label){
     + '<input type="file" accept="image/*" multiple style="display:none">'
     + '</div>';
 }
-/* Sous chaque trade : à gauche ce qui s'est passé, à côté « ce que j'aurais dû faire » (capture + petite remarque).
-   Visible d'office quand le trade est perdant ; sinon repliée derrière un bouton (un trade gagnant peut aussi être raté). */
+/* Sous chaque trade : deux colonnes identiques — à gauche ce qui s'est passé, à côté « ce que j'aurais dû faire » — puis une petite
+   remarque pleine largeur dessous. Visible d'office quand le trade est perdant ; sinon repliée derrière un bouton (un trade
+   gagnant peut aussi être raté). Au survol d'une capture, l'aperçu montre les deux côte à côte (voir sjInitHoverPreview). */
 function sjInitTradeShots(){
   document.querySelectorAll('tr.note-row').forEach(function(row){
     var ta = row.querySelector('textarea.trade-note'), cell = row.querySelector('td');
@@ -252,10 +253,11 @@ function sjInitTradeShots(){
     var pair = document.createElement('div');
     pair.className = 'shots-pair' + ((failed || fixNote || sjLoadTradeImgs(fixKey).length) ? '' : ' no-fix');
     pair.innerHTML =
-        '<div class="shots-col main"><div class="shots-col-h">Ce qui s\'est passé</div>' + sjShotsBox(key, 'Ajouter une capture sous ce trade')
+        '<div class="shots-col main"><div class="shots-col-h">Ce qui s\'est passé</div>' + sjShotsBox(key, 'Ajouter une capture')
       + '<button type="button" class="fix-toggle">＋ Ce que j\'aurais dû faire</button></div>'
-      + '<div class="shots-col fix"><div class="shots-col-h">✅ Ce que j\'aurais dû faire</div>' + sjShotsBox(fixKey, 'Capture de ce que tu aurais dû faire')
-      + '<textarea class="fix-note" rows="2" data-key="' + fixKey + '" placeholder="Petite remarque : ce que tu aurais fait à la place…"></textarea></div>';
+      + '<div class="shots-col fix"><div class="shots-col-h">✅ Ce que j\'aurais dû faire</div>' + sjShotsBox(fixKey, 'Ajouter une capture') + '</div>'
+      + '<div class="fix-remark"><div class="shots-col-h">✅ Ce que j\'aurais dû faire — petite remarque</div>'
+      + '<textarea class="fix-note" rows="2" data-key="' + fixKey + '" placeholder="Ce que tu aurais fait à la place, en une ou deux phrases…"></textarea></div>';
     cell.appendChild(pair);
     var fixTa = pair.querySelector('.fix-note');
     fixTa.value = fixNote;
@@ -267,12 +269,18 @@ function sjInitTradeShots(){
       sjSetupDropEl(box.querySelector('.trade-shots-drop'), box.querySelector('input'), function(f){ sjReadImage(f, k); });
       sjRenderTradeShots(k);
     });
-    // Ctrl+V : la capture va dans la zone survolée (la colonne « ce que j'aurais dû faire » ou le reste de la ligne)
-    row.addEventListener('mouseenter', function(){ sjHoverKey = key; });
-    row.addEventListener('mouseleave', function(){ if(sjHoverKey === key || sjHoverKey === fixKey) sjHoverKey = null; });
-    var fixCol = pair.querySelector('.shots-col.fix');
-    fixCol.addEventListener('mouseenter', function(){ sjHoverKey = fixKey; });
-    fixCol.addEventListener('mouseleave', function(){ if(sjHoverKey === fixKey) sjHoverKey = key; });
+    // Ctrl+V : la capture va dans la zone survolée ; la colonne qui la recevra est entourée (sinon le reste de la ligne = « ce qui s'est passé »)
+    var cols = { main: pair.querySelector('.shots-col.main'), fix: pair.querySelector('.shots-col.fix') };
+    function target(which){
+      cols.main.classList.remove('paste-target'); cols.fix.classList.remove('paste-target');
+      if(which && !pair.classList.contains('no-fix')) cols[which].classList.add('paste-target');
+    }
+    row.addEventListener('mouseenter', function(){ sjHoverKey = key; target('main'); });
+    row.addEventListener('mouseleave', function(){ if(sjHoverKey === key || sjHoverKey === fixKey) sjHoverKey = null; target(null); });
+    cols.fix.addEventListener('mouseenter', function(){ sjHoverKey = fixKey; target('fix'); });
+    cols.fix.addEventListener('mouseleave', function(){ if(sjHoverKey === fixKey) sjHoverKey = key; target('main'); });
+    fixTa.addEventListener('focus', function(){ target('fix'); });
+    fixTa.addEventListener('blur', function(){ target(null); });
   });
 }
 
@@ -295,17 +303,37 @@ document.addEventListener('keydown', function(e){
   }
 });
 
-/* ---------- Aperçu en grand au survol d'une capture (écrans à souris ; au toucher, le clic ouvre le zoom) ---------- */
+/* ---------- Aperçu en grand au survol d'une capture (écrans à souris ; au toucher, le clic ouvre le zoom) ----------
+   Dans une paire « ce qui s'est passé » / « ce que j'aurais dû faire », l'aperçu montre les deux côte à côte, chacun en grand
+   (ce qui s'est passé à gauche, ce que tu aurais dû faire à droite, la capture survolée soulignée) : on compare d'un coup d'œil. */
 function sjInitHoverPreview(){
   if(!(window.matchMedia && window.matchMedia('(hover: hover)').matches)) return;
   var pv = document.createElement('div');
   pv.className = 'shot-preview';
-  pv.innerHTML = '<img alt="">';
+  pv.innerHTML = '<div class="shot-pv-grid"></div>';
   document.body.appendChild(pv);
-  var big = pv.querySelector('img');
+  var grid = pv.querySelector('.shot-pv-grid');
+  function fig(src, label, hot){
+    return '<figure class="shot-pv-fig' + (hot ? ' hot' : '') + '">' + (label ? '<figcaption>' + label + '</figcaption>' : '') + '<img alt="" src="' + src + '"></figure>';
+  }
   document.addEventListener('mouseover', function(e){
     var t = e.target;
-    if(t && t.matches && t.matches('.screenshot-wrap img')){ big.src = t.src; pv.classList.add('show'); }
+    if(!(t && t.matches && t.matches('.screenshot-wrap img'))) return;
+    var col = t.closest('.shots-col'), pair = t.closest('.shots-pair'), h = '', two = false;
+    if(col && pair){
+      var mine = col.classList.contains('fix') ? 'fix' : 'main', oc = pair.querySelector('.shots-col.' + (mine === 'fix' ? 'main' : 'fix'));
+      var mineImgs = [].slice.call(col.querySelectorAll('.screenshot-wrap img')), idx = mineImgs.indexOf(t);
+      var oImgs = oc ? [].slice.call(oc.querySelectorAll('.screenshot-wrap img')) : [];
+      var o = oImgs.length ? (oImgs[idx] || oImgs[0]) : null;
+      if(o){
+        var m = mine === 'main' ? t : o, f = mine === 'main' ? o : t;
+        h = fig(m.src, 'Ce qui s\'est passé', mine === 'main') + fig(f.src, 'Ce que j\'aurais dû faire', mine === 'fix');
+        two = true;
+      }
+    }
+    grid.className = 'shot-pv-grid' + (two ? ' two' : '');
+    grid.innerHTML = h || fig(t.src, '', false);
+    pv.classList.add('show');
   });
   document.addEventListener('mouseout', function(e){
     var t = e.target;

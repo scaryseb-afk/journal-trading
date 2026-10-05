@@ -389,24 +389,35 @@ textarea::placeholder{color:var(--dim)}
 .trade-shots-drop span{font-weight:400;color:var(--dim)}
 .trade-shots-drop:hover,.trade-shots-drop.drag-over{border-color:var(--muted);color:var(--txt)}
 
-/* ── « Ce qui s'est passé » / « Ce que j'aurais dû faire » côte à côte sous chaque trade ── */
-.shots-pair{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:10px;align-items:start}
-.shots-pair .trade-shots{margin-top:0}
+/* ── « Ce qui s'est passé » / « Ce que j'aurais dû faire » : deux colonnes identiques sous chaque trade ── */
+.shots-pair{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:10px;align-items:stretch}
+.shots-col{display:flex;flex-direction:column;border:1px solid var(--line);border-radius:8px;padding:8px 10px;background:var(--panel);transition:border-color .12s,box-shadow .12s}
+.shots-col.paste-target{border-color:var(--accent);box-shadow:0 0 0 1px var(--accent)}
+.shots-col .trade-shots{margin-top:0;display:flex;flex-direction:column;flex:1}
+.shots-col .trade-shots-list{flex:1;align-content:center}
+.shots-col .trade-shots-drop{margin-top:auto}
 .shots-col-h{font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
-.shots-col.fix{border:1px solid var(--line);border-left:3px solid var(--accent);border-radius:8px;padding:8px 10px;background:var(--panel)}
-.shots-col.fix .shots-col-h{color:var(--accent)}
-.fix-note{margin-top:8px;min-height:44px;font-size:13px;resize:vertical}
+.shots-col.fix .shots-col-h,.fix-remark .shots-col-h{color:var(--accent)}
+.shots-col .screenshot-wrap img{max-height:200px}
+.fix-remark{grid-column:1/-1}
+.fix-note{min-height:44px;font-size:13px;resize:vertical}
 .fix-toggle{display:none;margin-top:8px;background:none;border:1px solid var(--line);border-radius:8px;color:var(--muted);font:inherit;font-size:12px;padding:5px 10px;cursor:pointer}
 .fix-toggle:hover{border-color:var(--accent);color:var(--txt)}
 .shots-pair.no-fix{grid-template-columns:1fr}
-.shots-pair.no-fix .shots-col.fix{display:none}
+.shots-pair.no-fix .shots-col.fix,.shots-pair.no-fix .fix-remark{display:none}
 .shots-pair.no-fix .fix-toggle{display:inline-block}
 @media(max-width:700px){.shots-pair{grid-template-columns:1fr}}
 
 /* ── Aperçu en grand au survol d'une capture (souris uniquement) ── */
 .shot-preview{position:fixed;inset:0;z-index:9990;display:none;align-items:center;justify-content:center;background:rgba(0,0,0,.72);pointer-events:none}
 .shot-preview.show{display:flex}
-.shot-preview img{max-width:94vw;max-height:92vh;object-fit:contain;border-radius:8px;box-shadow:0 8px 40px rgba(0,0,0,.6)}
+.shot-pv-grid{display:flex;gap:18px;align-items:center;justify-content:center;max-width:96vw;max-height:94vh}
+.shot-pv-fig{margin:0;display:flex;flex-direction:column;gap:8px;align-items:center;min-width:0}
+.shot-pv-fig img{max-width:94vw;max-height:90vh;object-fit:contain;border-radius:8px;box-shadow:0 8px 40px rgba(0,0,0,.6)}
+.shot-pv-grid.two .shot-pv-fig{flex:1 1 0}
+.shot-pv-grid.two .shot-pv-fig img{max-width:47vw;max-height:84vh}
+.shot-pv-fig figcaption{font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#fff;opacity:.6;padding-bottom:2px;border-bottom:2px solid transparent}
+.shot-pv-fig.hot figcaption{opacity:1;border-bottom-color:var(--accent)}
 
 /* Champs de saisie 16px minimum sur téléphone : empêche Safari iOS de zoomer automatiquement au focus */
 @media(max-width:700px){

@@ -76,7 +76,10 @@ trade, relecture) — ne pas dupliquer ce CSS/JS dans le fichier de session.
 - « Ce que j'aurais dû faire » : à côté de la capture de chaque trade (2 colonnes), une
   seconde zone avec capture + petite remarque (clés `imgs_<séance>__<compte>_<n>:fix` et
   `<compte>_<n>:fix`), ouverte d'office sur les trades perdants, derrière un bouton
-  « ＋ Ce que j'aurais dû faire » pour les autres ; la remarque suit « Copier ce trade ».
+  « ＋ Ce que j'aurais dû faire » pour les autres ; la remarque suit « Copier ce trade ». Deux colonnes
+  identiques (zones de dépôt alignées), remarque pleine largeur dessous ; Ctrl+V colle dans la colonne
+  survolée (elle est entourée) ; au survol d'une capture, l'aperçu montre les deux côte à côte
+  (« ce qui s'est passé » à gauche, « ce que j'aurais dû faire » à droite).
 - Captures d'écran : une seule zone, sous chaque trade
   (`imgs_<séance>__<compte>_<n>`, glisser/cliquer/Ctrl+V en survolant la
   ligne) — pas de zone générale au niveau de la séance (retirée le 28/09,
