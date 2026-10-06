@@ -16,8 +16,8 @@ sous-onglets du Tableau de bord et du Brief (`.subnav`/`.sn-btn`) sont
 reproduits en sous-entrées du menu sous l'onglet actif (générées depuis
 `.sn-btn` : un nouveau `.sn-btn` apparaît tout seul ; le premier, marqué
 `data-nosidebar`, n'est pas répété : le lien parent du menu ouvre cette
-sous-page) et la barre dans la page est masquée. Les trois sous-menus (Tableau
-de bord, Avant la séance, Analyses éco) restent toujours dépliés dans le menu, quel que soit
+sous-page) et la barre dans la page est masquée. Les quatre sous-menus (Tableau
+de bord, Avant la séance, Analyses éco, Règles) restent toujours dépliés dans le menu, quel que soit
 l'onglet actif — cliquer une sous-entrée ouvre d'abord son onglet parent puis la sous-page (`.nav-sub{display:flex}` inconditionnel dès 960px) — seul le
 sous-élément survolé/actif est mis en évidence. Chaque entrée du menu (site et
 pages de séance, `SJ_NAV` dans `session.js`) porte un emoji devant son nom. Chaque sous-page du Tableau de bord a son propre titre ; l'en-tête
@@ -33,7 +33,12 @@ saisie forcés à 16px sous 700px (sinon Safari zoome au focus), marges
 Les règles avaient leur propre fichier (`rules.html`) jusqu'au 23/09/2026 ;
 tout son contenu et sa logique (score de confluence, checklist, trades du
 jour, score de discipline, violations, streak, pause) vivent maintenant
-dans `#view-regles`. L'onglet Règles porte aussi une « Calculette de lots — MNQ » (budget 250 / 300 / 500 $
+dans `#view-regles`, découpé le 06/10/2026 en 5 sous-pages (`#regles-subnav`) : Outils du jour (trades du jour,
+pause, score de confluence, calculette, checklist, types d'ordres) · Bilan & discipline (statistiques, streak,
+objectif 50 %, discipline du soir, violations, infractions) · Règles communes (1 à 8) · Stratégie V2 iFVG M5
+(règles 9 à 12, plan type, repère timeframes) · Stratégie V1. Pas de stratégie CL : Sébastien n'en veut pas
+(le bloc « CL — plan séparé », M15 / fade du sweep, a été retiré le 06/10 ; il reste dans l'historique git, présent
+jusqu'au commit `c0b3772`). L'onglet Règles porte aussi une « Calculette de lots — MNQ » (budget 250 / 300 / 500 $
 en menu déroulant + stop en ticks → contrats = ⌊budget ÷ (ticks × 0,50 $)⌋, plafonné à
 4 contrats par trade comme le plan, avec alerte V2 dès 400 ticks) ; le budget par défaut suit
 le même barème par date que le KPI « Règle de séance » (à modifier aux deux endroits).

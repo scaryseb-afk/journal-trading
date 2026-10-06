@@ -805,7 +805,7 @@ textarea::placeholder{color:#4A566A}
   .nav-brand{padding-bottom:10px;margin-bottom:4px}
   .nav a{padding:6px 12px}
   .nav-sub{margin-bottom:4px}
-  .nav-sub a{padding:3px 8px}
+  .nav-sub a{padding:2px 8px;font-size:12px;line-height:1.3}
   #view-brief{margin-top:-26px}
   #view-brief h1{font-size:19px;margin-bottom:2px}
   #view-brief p.sub{font-size:11.5px;margin-bottom:4px;line-height:1.35}
@@ -1715,53 +1715,19 @@ textarea::placeholder{color:#4A566A}
 </section>
 
 <section class="view" id="view-regles">
-<h2>Règles actives</h2>
+  <div class="subnav" id="regles-subnav">
+    <button class="sn-btn active" data-sub="outils" data-nosidebar>⚙️ Outils du jour</button>
+    <button class="sn-btn" data-sub="bilan">🧾 Bilan &amp; discipline</button>
+    <button class="sn-btn" data-sub="communes">📜 Règles communes</button>
+    <button class="sn-btn" data-sub="v2">⚡ Stratégie V2 · iFVG M5</button>
+    <button class="sn-btn" data-sub="v1">🧩 Stratégie V1</button>
+  </div>
 
+  <div class="subview active" data-subview="outils">
+  <p class="eyebrow">Règles</p>
+  <h1>Outils du jour</h1>
+  <p class="sub">Ce qui sert pendant la séance : trades du jour, pause après une perte, score de confluence, taille de position, checklist.</p>
 <div class="tools-grid">
-
-  <div class="tool-card">
-    <div class="tool-card-title">📊 Statistiques</div>
-    <div class="stat-row">
-      <div class="stat-item">
-        <span class="stat-label">Total PnL</span>
-        <span class="stat-val neg">−9 840,25 $</span>
-        <div style="font-size:10px;color:var(--muted);margin-top:2px">Recalculé sur les CSV réels, 38 séances (13/08 → 05/10)</div>
-      </div>
-      <div class="stat-item">
-        <span class="stat-label">Win rate</span>
-        <span class="stat-val">32,1% <span style="font-size:10px;color:var(--muted);font-weight:400">(62/193)</span></span>
-        <div style="font-size:10px;color:var(--muted);margin-top:2px">10 comptes Tradovate (dont 004a et 002 cramés), dédupliqué (copy trading compté 1 fois) · un BE volontaire compte comme trade, pas comme gagnant · TopstepX (clôturé) exclu · 2 trades de bug du 05/10 (001, −10 $) exclus (csv/exclus.json)</div>
-      </div>
-      <div class="stat-item">
-        <span class="stat-label">Profit factor</span>
-        <span class="stat-val neg">0,58</span>
-        <div style="font-size:10px;color:var(--muted);margin-top:2px">13 469 $ de gains bruts ÷ 23 309 $ de pertes brutes, même dédoublonnage que le win rate · &lt; 1 = perdant sur la période, peu importe le win rate à côté</div>
-      </div>
-      <div class="stat-item">
-        <span class="stat-label">Meilleur jour</span>
-        <span class="stat-val pos">+2 529 $ <span style="font-size:10px;color:var(--muted);font-weight:400">08/09</span></span>
-      </div>
-      <div class="stat-item">
-        <span class="stat-label">Pire jour</span>
-        <span class="stat-val neg">−2 117 $ <span style="font-size:10px;color:var(--muted);font-weight:400">02/10</span></span>
-      </div>
-    </div>
-  </div>
-
-  <div class="tool-card">
-    <div class="tool-card-title">🔥 Streak sans violation</div>
-    <div class="streak-num" id="streak-num">0</div>
-    <div class="streak-label">jours écoulés depuis la dernière violation cochée ci-dessous</div>
-  </div>
-
-  <div class="tool-card" style="grid-column:1/-1" id="win50"></div>
-
-  <div class="tool-card" style="grid-column:1/-1">
-    <div class="tool-card-title">⏱ Pause obligatoire après une perte</div>
-    <div class="timer-display" id="timer-display">10:00</div>
-    <button class="timer-btn start" id="timer-start-btn" onclick="timerStart()">Je veux trader après une perte — démarre le compte</button>
-    <button class="timer-btn cancel" id="timer-cancel-btn" style="display:none" onclick="timerCancel()">Annuler</button>
-  </div>
 
   <div class="tool-card" style="grid-column:1/-1">
     <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px;">
@@ -1783,6 +1749,13 @@ textarea::placeholder{color:#4A566A}
       <button class="reset-btn" onclick="dtReset()" style="margin-top:0;font-size:10px;padding:4px 10px">↺ Effacer aujourd'hui</button>
     </div>
     <div class="viol-list" id="dt-list" style="margin-top:10px"></div>
+  </div>
+
+  <div class="tool-card" style="grid-column:1/-1">
+    <div class="tool-card-title">⏱ Pause obligatoire après une perte</div>
+    <div class="timer-display" id="timer-display">10:00</div>
+    <button class="timer-btn start" id="timer-start-btn" onclick="timerStart()">Je veux trader après une perte — démarre le compte</button>
+    <button class="timer-btn cancel" id="timer-cancel-btn" style="display:none" onclick="timerCancel()">Annuler</button>
   </div>
 
   <div class="tool-card" style="grid-column:1/-1">
@@ -1864,21 +1837,6 @@ textarea::placeholder{color:#4A566A}
     </div>
   </div>
 
-  <div class="tool-card" style="grid-column:1/-1" id="order-types">
-    <div class="tool-card-title">📘 Stop, Stop Limit, Limit, Market</div>
-    <div class="calc-help">À noter, écrit par Claude d'après les définitions standard des ordres (Tradovate les propose tous) — à relire et corriger si ton courtier fait autrement. Exemple en Long ; pour un Short, les sens sont inversés.</div>
-    <div class="tbl-wrap"><table class="ord-tbl">
-      <thead><tr><th>Ordre</th><th>Il se déclenche</th><th>Il garantit</th><th>Il ne garantit pas</th><th>Usage typique</th></tr></thead>
-      <tbody>
-        <tr><td><b>Market</b></td><td>tout de suite</td><td>l'exécution</td><td>le prix (glissement possible)</td><td>entrer / sortir maintenant</td></tr>
-        <tr><td><b>Limit</b></td><td>au prix limite ou mieux</td><td>le prix</td><td>l'exécution : peut ne jamais être rempli</td><td>objectif (TP), entrée à un meilleur prix</td></tr>
-        <tr><td><b>Stop</b></td><td>quand le prix touche le prix stop → devient un ordre Market</td><td>la sortie</td><td>le prix : en mouvement rapide (annonce), tu sors plus loin que le stop</td><td>stop-loss (SL)</td></tr>
-        <tr><td><b>Stop Limit</b></td><td>quand le prix touche le prix stop → devient un ordre Limit</td><td>un prix pas pire que la limite</td><td>la sortie : si le prix saute au-delà de la limite, pas d'exécution et tu restes en position</td><td>SL qui refuse de glisser — au risque de ne pas sortir</td></tr>
-      </tbody>
-    </table></div>
-    <p class="ord-ex"><b>Exemple Long MNQ, entrée 31 178.</b> Stop (market) à 31 128 : si le prix touche 31 128, vente au marché au meilleur prix disponible — peut être 31 127,25 ou pire. Stop Limit déclenché à 31 128 avec limite à 31 126 : la vente ne se fait qu'à 31 126 ou mieux ; si le prix passe de 31 129 à 31 120 d'un coup, l'ordre reste en attente et la position reste ouverte, perte en cours. Un <b>bracket</b> lie entrée + SL (Stop) + TP (Limit) : quand l'un s'exécute, l'autre est annulé.</p>
-  </div>
-
   <div class="tool-card" style="grid-column:1/-1">
     <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;">
       <div class="tool-card-title" style="margin-bottom:0">✅ Checklist avant d'entrer</div>
@@ -1927,6 +1885,67 @@ textarea::placeholder{color:#4A566A}
       </div>
     </div>
   </div>
+
+  <div class="tool-card" style="grid-column:1/-1" id="order-types">
+    <div class="tool-card-title">📘 Stop, Stop Limit, Limit, Market</div>
+    <div class="calc-help">À noter, écrit par Claude d'après les définitions standard des ordres (Tradovate les propose tous) — à relire et corriger si ton courtier fait autrement. Exemple en Long ; pour un Short, les sens sont inversés.</div>
+    <div class="tbl-wrap"><table class="ord-tbl">
+      <thead><tr><th>Ordre</th><th>Il se déclenche</th><th>Il garantit</th><th>Il ne garantit pas</th><th>Usage typique</th></tr></thead>
+      <tbody>
+        <tr><td><b>Market</b></td><td>tout de suite</td><td>l'exécution</td><td>le prix (glissement possible)</td><td>entrer / sortir maintenant</td></tr>
+        <tr><td><b>Limit</b></td><td>au prix limite ou mieux</td><td>le prix</td><td>l'exécution : peut ne jamais être rempli</td><td>objectif (TP), entrée à un meilleur prix</td></tr>
+        <tr><td><b>Stop</b></td><td>quand le prix touche le prix stop → devient un ordre Market</td><td>la sortie</td><td>le prix : en mouvement rapide (annonce), tu sors plus loin que le stop</td><td>stop-loss (SL)</td></tr>
+        <tr><td><b>Stop Limit</b></td><td>quand le prix touche le prix stop → devient un ordre Limit</td><td>un prix pas pire que la limite</td><td>la sortie : si le prix saute au-delà de la limite, pas d'exécution et tu restes en position</td><td>SL qui refuse de glisser — au risque de ne pas sortir</td></tr>
+      </tbody>
+    </table></div>
+    <p class="ord-ex"><b>Exemple Long MNQ, entrée 31 178.</b> Stop (market) à 31 128 : si le prix touche 31 128, vente au marché au meilleur prix disponible — peut être 31 127,25 ou pire. Stop Limit déclenché à 31 128 avec limite à 31 126 : la vente ne se fait qu'à 31 126 ou mieux ; si le prix passe de 31 129 à 31 120 d'un coup, l'ordre reste en attente et la position reste ouverte, perte en cours. Un <b>bracket</b> lie entrée + SL (Stop) + TP (Limit) : quand l'un s'exécute, l'autre est annulé.</p>
+  </div>
+
+</div>
+  </div>
+
+  <div class="subview" data-subview="bilan">
+  <p class="eyebrow">Règles</p>
+  <h1>Bilan &amp; discipline</h1>
+  <p class="sub">Ce qui se regarde après : statistiques, objectif 50 % de win, discipline du soir, violations.</p>
+<div class="tools-grid">
+
+  <div class="tool-card">
+    <div class="tool-card-title">📊 Statistiques</div>
+    <div class="stat-row">
+      <div class="stat-item">
+        <span class="stat-label">Total PnL</span>
+        <span class="stat-val neg">−9 840,25 $</span>
+        <div style="font-size:10px;color:var(--muted);margin-top:2px">Recalculé sur les CSV réels, 38 séances (13/08 → 05/10)</div>
+      </div>
+      <div class="stat-item">
+        <span class="stat-label">Win rate</span>
+        <span class="stat-val">32,1% <span style="font-size:10px;color:var(--muted);font-weight:400">(62/193)</span></span>
+        <div style="font-size:10px;color:var(--muted);margin-top:2px">10 comptes Tradovate (dont 004a et 002 cramés), dédupliqué (copy trading compté 1 fois) · un BE volontaire compte comme trade, pas comme gagnant · TopstepX (clôturé) exclu · 2 trades de bug du 05/10 (001, −10 $) exclus (csv/exclus.json)</div>
+      </div>
+      <div class="stat-item">
+        <span class="stat-label">Profit factor</span>
+        <span class="stat-val neg">0,58</span>
+        <div style="font-size:10px;color:var(--muted);margin-top:2px">13 469 $ de gains bruts ÷ 23 309 $ de pertes brutes, même dédoublonnage que le win rate · &lt; 1 = perdant sur la période, peu importe le win rate à côté</div>
+      </div>
+      <div class="stat-item">
+        <span class="stat-label">Meilleur jour</span>
+        <span class="stat-val pos">+2 529 $ <span style="font-size:10px;color:var(--muted);font-weight:400">08/09</span></span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-label">Pire jour</span>
+        <span class="stat-val neg">−2 117 $ <span style="font-size:10px;color:var(--muted);font-weight:400">02/10</span></span>
+      </div>
+    </div>
+  </div>
+
+  <div class="tool-card">
+    <div class="tool-card-title">🔥 Streak sans violation</div>
+    <div class="streak-num" id="streak-num">0</div>
+    <div class="streak-label">jours écoulés depuis la dernière violation cochée ci-dessous</div>
+  </div>
+
+  <div class="tool-card" style="grid-column:1/-1" id="win50"></div>
 
   <div class="tool-card" style="grid-column:1/-1">
     <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px;">
@@ -1997,11 +2016,12 @@ textarea::placeholder{color:#4A566A}
   </div>
 
 </div>
+  </div>
 
-<div class="section-divider" style="margin-top:32px">
-  <span>Règles communes — toutes stratégies (1 à 8)</span>
-</div>
-
+  <div class="subview" data-subview="communes">
+  <p class="eyebrow">Règles</p>
+  <h1>Règles communes (1 à 8)</h1>
+  <p class="sub">Elles valent pour toutes les stratégies.</p>
 <div class="rules-list">
 
   <div class="rc-rule stop">
@@ -2077,11 +2097,12 @@ textarea::placeholder{color:#4A566A}
   </div>
 
 </div>
+  </div>
 
-<div class="section-divider">
-  <span>Stratégie V2 — iFVG M5 (9 à 12)</span>
-</div>
-
+  <div class="subview" data-subview="v2">
+  <p class="eyebrow">Règles</p>
+  <h1>Stratégie V2 — iFVG M5 (9 à 12)</h1>
+  <p class="sub">iFVG 5M : règles d'entrée, de stop et de break-even, plan en étapes, repère de lecture.</p>
 <div class="rules-list">
 
   <div class="rc-rule stop">
@@ -2114,9 +2135,9 @@ textarea::placeholder{color:#4A566A}
   <div class="rc-rule warn">
     <div class="rc-rule-num">12</div>
     <div class="rule-body">
-      <span class="rule-tag tag-warn">Biais V2 · brouillon</span>
-      <div class="rule-stmt">Si le prix traverse la MME 1H (la rouge), le biais peut changer de direction.</div>
-      <div class="rule-detail"><strong>Posé par toi le 02/10 :</strong> la MME 1H rouge n'est pas seulement un filtre d'entrée (règle 9) — la traverser remet le biais en question.<br><strong>À préciser avant d'en faire une règle fermée</strong> (je n'invente rien, dis-moi et je complète) :<br><strong>1.</strong> « Traverser » = une <strong>clôture</strong> H1 de l'autre côté, ou une simple mèche ?<br><strong>2.</strong> Quelle <strong>période</strong> pour cette MME 1H rouge ? (pas notée dans le plan).<br><strong>3.</strong> Une fois traversée : on attend un nouvel iFVG M5 dans le <strong>nouveau</strong> sens, ou on passe son tour jusqu'à la fin de séance ?<br><strong>4.</strong> C'est une <strong>exception à la règle 4</strong> (« une direction pour la journée ») ? Si oui, c'est le seul déclencheur objectif qui autorise à changer de sens — jamais l'avis de quelqu'un d'autre.</div>
+      <span class="rule-tag tag-warn">Biais V2 · à compléter</span>
+      <div class="rule-stmt">Si une bougie clôture de l'autre côté de la MME 1H (la rouge), il peut y avoir un retournement : on peut prendre un deuxième trade dans le sens de la clôture.</div>
+      <div class="rule-detail"><strong>Posé par toi le 06/10 :</strong> la MME 1H rouge n'est pas seulement un filtre d'entrée (règle 9). Ce qui compte, c'est la <strong>clôture</strong> d'une bougie de l'autre côté — pas une simple mèche — et elle ouvre la possibilité d'un <strong>deuxième trade dans le sens de cette clôture</strong>.<br><strong>Encore à préciser</strong> (je n'invente rien, dis-moi et je complète) :<br><strong>1.</strong> Quelle bougie : une bougie <strong>5M</strong>, <strong>15M</strong> ou <strong>H1</strong> ?<br><strong>2.</strong> Quelle <strong>période</strong> pour cette MME 1H rouge ? (pas notée dans le plan)<br><strong>3.</strong> Ce 2e trade se prend-il sur un <strong>nouvel iFVG 5M</strong> dans le nouveau sens, ou autrement ?<br><strong>4.</strong> Ce 2e trade reste-t-il soumis aux limites du plan (3 trades par jour, pas de trade après 2 pertes, 4 contrats maximum) ? Et c'est une <strong>exception à la règle 4</strong> (« une direction pour la journée ») — jamais l'avis de quelqu'un d'autre.<br>Pour un Short : tout est inversé, symétrie à confirmer. <em>(Ta phrase disait « sans le sens de clôture » : j'ai lu « dans le sens de la clôture ».)</em></div>
     </div>
   </div>
 
@@ -2127,7 +2148,7 @@ textarea::placeholder{color:#4A566A}
   <div class="pt-step"><div class="pt-n">1</div><div><div class="pt-t">Regarder le biais — MME 5M, 15M et H1</div><div class="pt-d">Biais haussier → scénario Long (biais baissier → Short : symétrie à confirmer). Ce sont probablement les « 3 MME » de la règle 11 — à confirmer.</div></div></div>
   <div class="pt-step"><div class="pt-n">2</div><div><div class="pt-t">Chercher une FVG baissière</div><div class="pt-d">Dans un biais haussier, c'est la FVG baissière qu'on cherche — celle qui, inversée, donne l'iFVG d'entrée (lecture à confirmer).</div></div></div>
   <div class="pt-step"><div class="pt-n">3</div><div><div class="pt-t">Rentrer sur l'iFVG 5M, dans le sens du biais</div><div class="pt-d">Pas d'entrée si l'iFVG est du mauvais côté de la MME 1H, ni si le SL demande 400 ticks ou plus (règle 9).</div></div></div>
-  <div class="pt-step"><div class="pt-n">4</div><div><div class="pt-t">Si le prix croise la MME H1, le sens change</div><div class="pt-d">Le biais peut passer de haussier à baissier, ou l'inverse (règle 12). Les questions encore ouvertes — clôture ou mèche, attendre un nouvel iFVG dans le nouveau sens — sont dans la règle 12.</div></div></div>
+  <div class="pt-step"><div class="pt-n">4</div><div><div class="pt-t">Si une bougie clôture de l'autre côté de la MME 1H, retournement possible</div><div class="pt-d">Le biais peut se retourner : on peut prendre un deuxième trade dans le sens de la clôture (règle 12). Les questions encore ouvertes — quelle bougie, 2e trade sur un nouvel iFVG 5M ?, limites du plan — sont dans la règle 12.</div></div></div>
   <div class="pt-step"><div class="pt-n">5</div><div><div class="pt-t">Poser les 3 niveaux de protection</div><div class="pt-d">Sous la FVG ; sous la mèche de la bougie ; et le 3e niveau de la règle 10 (sous l'avant-dernier swing low 5M), que tu n'as pas repris cette fois — à confirmer. La règle 10 dit « création de la bougie » : est-ce la même chose que la mèche ? Pour un Short : au-dessus.</div></div></div>
   <div class="pt-more">TP : pas encore décrit dans ce plan (R:R minimum 2:1, règle 1). Break-even : règle 11. Dis-moi la suite et je l'ajoute telle quelle — rien d'inventé.</div>
 </div>
@@ -2145,12 +2166,13 @@ textarea::placeholder{color:#4A566A}
   </table></div>
   <p class="ord-ex">Par rapport à tes étapes V2 écrites plus haut : le biais y vient des MME 5M, 15M et H1, et l'entrée de l'iFVG 5M. Rien n'y est écrit sur H4/1D ni sur la liquidité (la V1 parle de liquidité HTF). Si ce cadre t'inspire, dis-moi ce que tu veux en reprendre et je l'ajoute dans ton plan — sinon cette carte se supprime.</p>
 </div>
+  </div>
 
-<div class="section-divider">
-  <span>Stratégie V1 — SMT + BPR + CISD · plan type</span>
-</div>
-
-<div style="font-size:12.5px;color:var(--muted);margin:-16px 0 16px;">Pas encore de règles propres à la V1 (elles s'ajoutent ici). Le CISD n'est pas encore décrit dans ce plan type.</div>
+  <div class="subview" data-subview="v1">
+  <p class="eyebrow">Règles</p>
+  <h1>Stratégie V1 — SMT + BPR + CISD</h1>
+  <p class="sub">Plan type en 4 étapes.</p>
+<div style="font-size:12.5px;color:var(--muted);margin:0 0 16px;">Pas encore de règles propres à la V1 (elles s'ajoutent ici). Le CISD n'est pas encore décrit dans ce plan type.</div>
 
 <div style="display:flex;flex-direction:column;gap:10px;margin-bottom:32px;">
 
@@ -2216,58 +2238,7 @@ textarea::placeholder{color:#4A566A}
     Ces deux règles n'ont pas de seuil, pas d'exception, pas de "juste cette fois".
   </div>
 </div>
-
-<div class="section-divider">
-  <span>CL — Crude Oil · plan séparé</span>
-</div>
-
-<div style="background:var(--surface);border:1px solid var(--border);border-radius:8px;overflow:hidden;margin-bottom:32px;">
-  <div style="padding:14px 20px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px;">
-    <span style="font-family:'IBM Plex Mono',monospace;font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;background:var(--white-dim);color:var(--txt);padding:3px 10px;border-radius:3px;">MCL / CL</span>
-    <span style="font-size:13px;color:var(--muted);">Approche différente du MNQ — mécanique, pas directionnelle</span>
   </div>
-  <div style="display:grid;grid-template-columns:1fr 1fr;gap:0;border-bottom:1px solid var(--border);">
-    <div style="padding:16px 20px;border-right:1px solid var(--border);">
-      <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:8px;">Timeframe</div>
-      <div style="font-size:20.5px;font-weight:700;color:var(--head);">M15</div>
-    </div>
-    <div style="padding:16px 20px;">
-      <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:8px;">Direction</div>
-      <div style="font-size:20.5px;font-weight:700;color:var(--head);">Fade le sweep</div>
-    </div>
-  </div>
-  <div style="padding:20px;">
-    <div style="display:flex;flex-direction:column;gap:10px;">
-      <div style="display:flex;align-items:flex-start;gap:12px;">
-        <div style="width:20px;height:20px;min-width:20px;border-radius:50%;background:var(--white-dim);display:flex;align-items:center;justify-content:center;margin-top:1px;">
-          <span style="font-family:'IBM Plex Mono',monospace;font-size:10px;font-weight:700;color:var(--txt);">1</span>
-        </div>
-        <div>
-          <div style="font-size:14px;font-weight:600;color:var(--head);margin-bottom:3px;">Identifier les niveaux de liquidité en M15</div>
-          <div style="font-size:12.5px;color:var(--muted);line-height:1.6;">Highs et lows structurels récents, zones de BSL/SSL visibles sur le chart M15. Placer des alertes sur ces niveaux — tu n'as pas besoin de surveiller en continu.</div>
-        </div>
-      </div>
-      <div style="display:flex;align-items:flex-start;gap:12px;">
-        <div style="width:20px;height:20px;min-width:20px;border-radius:50%;background:var(--white-dim);display:flex;align-items:center;justify-content:center;margin-top:1px;">
-          <span style="font-family:'IBM Plex Mono',monospace;font-size:10px;font-weight:700;color:var(--txt);">2</span>
-        </div>
-        <div>
-          <div style="font-size:14px;font-weight:600;color:var(--head);margin-bottom:3px;">Alerte déclenchée → regarder le toucher</div>
-          <div style="font-size:12.5px;color:var(--muted);line-height:1.6;">Le prix atteint le niveau. Observer le comportement : est-ce un vrai sweep suivi d'un rejet ? Un engulf de bougie, une mèche longue, un retour rapide dans la range sont des signaux de retournement.</div>
-        </div>
-      </div>
-      <div style="display:flex;align-items:flex-start;gap:12px;">
-        <div style="width:20px;height:20px;min-width:20px;border-radius:50%;background:var(--white-dim);display:flex;align-items:center;justify-content:center;margin-top:1px;">
-          <span style="font-family:'IBM Plex Mono',monospace;font-size:10px;font-weight:700;color:var(--txt);">3</span>
-        </div>
-        <div>
-          <div style="font-size:14px;font-weight:600;color:var(--head);margin-bottom:3px;">Entrée à l'inverse du sweep</div>
-          <div style="font-size:12.5px;color:var(--muted);line-height:1.6;">Si le sweep est confirmé, entrer dans la direction opposée. Stop au-delà du niveau sweepé. Les règles de taille, de bracket et de délai s'appliquent identiquement au MNQ.</div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
 
 <div class="rc-footer">
   <span>Règles en vigueur au 4 septembre 2026</span>
@@ -4000,7 +3971,7 @@ window.DAY_NOTES = {
 
   document.addEventListener('DOMContentLoaded', function(){
     analyse(); renderSessions(); comptes(); risque();
-    initSubnav('dash-subnav'); initSubnav('brief-subnav'); initSubnav('eco-subnav');
+    initSubnav('dash-subnav'); initSubnav('brief-subnav'); initSubnav('eco-subnav'); initSubnav('regles-subnav');
   });
 })();
 </script>
@@ -4605,10 +4576,10 @@ window.DAY_NOTES = {
   if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', build); else build();
 })();
 </script>
-<script>/* Menu latéral : les sous-onglets (Tableau de bord, Avant la séance, Analyses éco) deviennent des sous-entrées du menu, dépliées sous l'onglet actif */
+<script>/* Menu latéral : les sous-onglets (Tableau de bord, Avant la séance, Analyses éco, Règles) deviennent des sous-entrées du menu, dépliées sous l'onglet actif */
 (function(){
   document.addEventListener('DOMContentLoaded', function(){
-    [['dashboard', 'dash-subnav'], ['brief', 'brief-subnav'], ['eco', 'eco-subnav']].forEach(function(pair){
+    [['dashboard', 'dash-subnav'], ['brief', 'brief-subnav'], ['eco', 'eco-subnav'], ['regles', 'regles-subnav']].forEach(function(pair){
       var main = document.querySelector('.nav a[data-goto="' + pair[0] + '"]');
       var bar = document.getElementById(pair[1]);
       if(!main || !bar) return;
