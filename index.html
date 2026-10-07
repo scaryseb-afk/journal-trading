@@ -543,9 +543,10 @@ textarea::placeholder{color:#4A566A}
 .rule-detail strong{color:var(--txt);font-weight:600}
 .rc-rule.stop{border-left:2px solid var(--red);padding-left:16px}
 .rc-rule.warn{border-left:2px solid var(--gold);padding-left:16px}
+.rc-rule-num.sub{font-size:17px;padding-top:8px;letter-spacing:-.03em}
 .rc-rule.stop .rc-rule-num{color:rgba(232,64,64,.18)}
 .rc-rule.warn .rc-rule-num{color:rgba(138,138,144,.28)}
-@media(max-width:520px){.rc-rule{grid-template-columns:36px 1fr;gap:0 16px}.rc-rule-num{font-size:20.5px}.rule-stmt{font-size:14px}}
+@media(max-width:520px){.rc-rule{grid-template-columns:36px 1fr;gap:0 16px}.rc-rule-num{font-size:20.5px}.rc-rule-num.sub{font-size:12.5px;padding-top:7px}.rule-stmt{font-size:14px}}
 
 .prohibition{background:var(--red-dim);border:1px solid rgba(232,64,64,.25);border-radius:6px;padding:16px 20px;margin:32px 0 0;display:flex;align-items:flex-start;gap:14px}
 .prohibition-icon{font-size:17px;flex-shrink:0;padding-top:1px}
@@ -2101,12 +2102,12 @@ textarea::placeholder{color:#4A566A}
 
   <div class="subview" data-subview="v2">
   <p class="eyebrow">Règles</p>
-  <h1>Stratégie V2 — iFVG M5 (9 à 15)</h1>
+  <h1>Stratégie V2 — iFVG M5 (V2.1 à V2.7)</h1>
   <p class="sub">iFVG 5M : règles d'entrée, de stop et de break-even, plan en étapes, repère de lecture.</p>
 <div class="rules-list">
 
   <div class="rc-rule stop">
-    <div class="rc-rule-num">9</div>
+    <div class="rc-rule-num sub">V2.1</div>
     <div class="rule-body">
       <span class="rule-tag tag-stop">Entrée V2</span>
       <div class="rule-stmt">Stratégie V2 (iFVG 5M, à partir de 15h30) : pas d'entrée si l'iFVG est du mauvais côté de la MME 1H, ni si le SL demande 400 ticks ou plus.</div>
@@ -2115,16 +2116,16 @@ textarea::placeholder{color:#4A566A}
   </div>
 
   <div class="rc-rule proc">
-    <div class="rc-rule-num">10</div>
+    <div class="rc-rule-num sub">V2.2</div>
     <div class="rule-body">
       <span class="rule-tag tag-proc">Stop V2</span>
       <div class="rule-stmt">Le SL se place à l'un des 3 niveaux de protection.</div>
-      <div class="rule-detail"><strong>1.</strong> Sous (Long) / au-dessus (Short) de la <strong>FVG 5M</strong>.<br><strong>2.</strong> Sous / au-dessus de la <strong>création de la bougie 5M</strong>.<br><strong>3.</strong> Sous / au-dessus de l'<strong>avant-dernier swing low / swing high 5M</strong>.<br>Quel que soit le niveau choisi, la règle 9 s'applique : si ça fait 400 ticks ou plus, pas d'entrée.</div>
+      <div class="rule-detail"><strong>1.</strong> Sous (Long) / au-dessus (Short) de la <strong>FVG 5M</strong>.<br><strong>2.</strong> Sous / au-dessus de la <strong>création de la bougie 5M</strong>.<br><strong>3.</strong> Sous / au-dessus de l'<strong>avant-dernier swing low / swing high 5M</strong>.<br>Quel que soit le niveau choisi, la règle V2.1 s'applique : si ça fait 400 ticks ou plus, pas d'entrée.</div>
     </div>
   </div>
 
   <div class="rc-rule proc">
-    <div class="rc-rule-num">11</div>
+    <div class="rc-rule-num sub">V2.3</div>
     <div class="rule-body">
       <span class="rule-tag tag-proc">BE V2</span>
       <div class="rule-stmt">Le stop passe à break-even dans deux cas : à 50 % du chemin vers le TP, ou si le prix repasse du mauvais côté des 3 MME.</div>
@@ -2133,38 +2134,38 @@ textarea::placeholder{color:#4A566A}
   </div>
 
   <div class="rc-rule warn">
-    <div class="rc-rule-num">12</div>
+    <div class="rc-rule-num sub">V2.4</div>
     <div class="rule-body">
       <span class="rule-tag tag-warn">Biais V2 · à compléter</span>
-      <div class="rule-stmt">Si une bougie clôture de l'autre côté de la MME 1H (la rouge), il peut y avoir un retournement : on peut prendre un deuxième trade dans le sens de la clôture.</div>
-      <div class="rule-detail"><strong>Posé par toi le 06/10 :</strong> la MME 1H rouge n'est pas seulement un filtre d'entrée (règle 9). Ce qui compte, c'est la <strong>clôture</strong> d'une bougie de l'autre côté — pas une simple mèche — et elle ouvre la possibilité d'un <strong>deuxième trade dans le sens de cette clôture</strong>.<br><strong>Encore à préciser</strong> (je n'invente rien, dis-moi et je complète) :<br><strong>1.</strong> Quelle bougie : une bougie <strong>5M</strong>, <strong>15M</strong> ou <strong>H1</strong> ?<br><strong>2.</strong> Quelle <strong>période</strong> pour cette MME 1H rouge ? (pas notée dans le plan)<br><strong>3.</strong> Ce 2e trade se prend-il sur un <strong>nouvel iFVG 5M</strong> dans le nouveau sens, ou autrement ?<br><strong>4.</strong> Ce 2e trade reste-t-il soumis aux limites du plan (3 trades par jour, pas de trade après 2 pertes, 4 contrats maximum) ? Et c'est une <strong>exception à la règle 4</strong> (« une direction pour la journée ») — jamais l'avis de quelqu'un d'autre.<br>Pour un Short : tout est inversé, symétrie à confirmer. <em>(Ta phrase disait « sans le sens de clôture » : j'ai lu « dans le sens de la clôture ».)</em></div>
+      <div class="rule-stmt">Si une bougie 5M clôture de l'autre côté de la MME 1H (la rouge), il peut y avoir un retournement : on peut prendre un deuxième trade dans le sens de la clôture, qui vise juste à revenir à BE.</div>
+      <div class="rule-detail"><strong>Posé par toi le 06/10 :</strong> la MME 1H rouge n'est pas seulement un filtre d'entrée (règle V2.1). Ce qui compte, c'est la <strong>clôture</strong> d'une bougie de l'autre côté — pas une simple mèche — et elle ouvre la possibilité d'un <strong>deuxième trade dans le sens de cette clôture</strong>.<br><strong>Précisé par toi le 07/10 :</strong> la bougie est une bougie <strong>5M</strong> ; pour la période de la MME, tu écris « en M5 aussi » ; le deuxième trade <strong>vise juste à revenir à BE</strong>.<br><strong>Encore à préciser</strong> (je n'invente rien, dis-moi et je complète) :<br><strong>1.</strong> « Revenir à BE » : le break-even de la <strong>journée</strong> (le 2e trade récupère la perte du 1er), ou le break-even de <strong>ce 2e trade</strong> (stop remonté à l'entrée, règle V2.3) ?<br><strong>2.</strong> « En M5 aussi » pour la MME rouge : elle se lit sur le graphique 5M — ou tu me donnes son nombre de périodes ? Ce nombre n'est toujours pas noté dans le plan.<br><strong>3.</strong> Ce 2e trade se prend-il sur un <strong>nouvel iFVG 5M</strong> dans le nouveau sens, ou autrement ?<br><strong>4.</strong> Ce 2e trade reste-t-il soumis aux limites du plan (3 trades par jour, pas de trade après 2 pertes, 4 contrats maximum) ? Et c'est une <strong>exception à la règle 4</strong> (« une direction pour la journée ») — jamais l'avis de quelqu'un d'autre.<br>Pour un Short : tout est inversé, symétrie à confirmer. <em>(Ta phrase disait « sans le sens de clôture » : j'ai lu « dans le sens de la clôture ».)</em></div>
     </div>
   </div>
 
   <div class="rc-rule warn">
-    <div class="rc-rule-num">13</div>
+    <div class="rc-rule-num sub">V2.5</div>
     <div class="rule-body">
       <span class="rule-tag tag-warn">Marché en range · à compléter</span>
       <div class="rule-stmt">Si le marché range toute la journée, la bougie d'entrée 5M peut décider de la direction : on peut entrer avec la stratégie.</div>
-      <div class="rule-detail"><strong>Posé par toi le 06/10 :</strong> un marché qui range toute la journée ne bloque pas la stratégie — c'est la <strong>bougie d'entrée 5M</strong> qui décide du sens du trade, et on entre avec la stratégie.<br><strong>Encore à préciser</strong> (je n'invente rien, dis-moi et je complète) :<br><strong>1.</strong> Quelle est la « bougie d'entrée 5M » : celle qui crée ou clôture l'iFVG, ou celle sur laquelle tu entres ? Elle décide du sens par la direction de sa clôture (haussière → Long, baissière → Short) ?<br><strong>2.</strong> À quoi reconnais-tu un marché qui « range toute la journée » (amplitude, MME 1H plate, haut et bas du range) ?<br><strong>3.</strong> Dans un range, le filtre de la règle 9 (pas d'entrée si l'iFVG est du mauvais côté de la MME 1H) s'applique-t-il encore ?<br><strong>4.</strong> Les limites du plan (3 trades par jour, pas de trade après 2 pertes, 4 contrats maximum) et la règle 4 (« une direction pour la journée ») : exception ici aussi ?</div>
+      <div class="rule-detail"><strong>Posé par toi le 06/10 :</strong> un marché qui range toute la journée ne bloque pas la stratégie — c'est la <strong>bougie d'entrée 5M</strong> qui décide du sens du trade, et on entre avec la stratégie.<br><strong>Encore à préciser</strong> (je n'invente rien, dis-moi et je complète) :<br><strong>1.</strong> Quelle est la « bougie d'entrée 5M » : celle qui crée ou clôture l'iFVG, ou celle sur laquelle tu entres ? Elle décide du sens par la direction de sa clôture (haussière → Long, baissière → Short) ?<br><strong>2.</strong> À quoi reconnais-tu un marché qui « range toute la journée » (amplitude, MME 1H plate, haut et bas du range) ?<br><strong>3.</strong> Dans un range, le filtre de la règle V2.1 (pas d'entrée si l'iFVG est du mauvais côté de la MME 1H) s'applique-t-il encore ?<br><strong>4.</strong> Les limites du plan (3 trades par jour, pas de trade après 2 pertes, 4 contrats maximum) et la règle 4 (« une direction pour la journée ») : exception ici aussi ?</div>
     </div>
   </div>
 
   <div class="rc-rule stop">
-    <div class="rc-rule-num">14</div>
+    <div class="rc-rule-num sub">V2.6</div>
     <div class="rule-body">
       <span class="rule-tag tag-stop">Interdit V2 · lundi · à compléter</span>
       <div class="rule-stmt">Le lundi, on ne trade pas les iFVG du pré-market.</div>
-      <div class="rule-detail"><strong>Posé par toi le 06/10.</strong><br><strong>Encore à préciser</strong> (je n'invente rien, dis-moi et je complète) :<br><strong>1.</strong> Le « pré-market » = avant 15h30 (heure de Paris), d'après ta règle 15 — c'est bien ça ? Et la règle 15 est-elle la suite de la 14 : le lundi, on ne trade pas l'iFVG fait avant 15h30, on en refait un deuxième après l'ouverture ?<br><strong>2.</strong> Seulement le <strong>lundi</strong>, ou d'autres jours aussi ?<br><strong>3.</strong> Seulement les iFVG <strong>5M</strong>, ou aussi ceux en 1M ?</div>
+      <div class="rule-detail"><strong>Posé par toi le 06/10.</strong><br><strong>Encore à préciser</strong> (je n'invente rien, dis-moi et je complète) :<br><strong>1.</strong> Le « pré-market » = avant 15h30 (heure de Paris), d'après ta règle V2.7 — c'est bien ça ? Et la règle V2.7 est-elle la suite de la règle V2.6 : le lundi, on ne trade pas l'iFVG fait avant 15h30, on en refait un deuxième après l'ouverture ?<br><strong>2.</strong> Seulement le <strong>lundi</strong>, ou d'autres jours aussi ?<br><strong>3.</strong> Seulement les iFVG <strong>5M</strong>, ou aussi ceux en 1M ?</div>
     </div>
   </div>
 
   <div class="rc-rule warn">
-    <div class="rc-rule-num">15</div>
+    <div class="rc-rule-num sub">V2.7</div>
     <div class="rule-body">
       <span class="rule-tag tag-warn">Entrée V2 · avant 15h30 · à compléter</span>
       <div class="rule-stmt">Quand l'iFVG 5M est fait avant 15h30, on en refait un deuxième après l'ouverture, pour voir.</div>
-      <div class="rule-detail"><strong>Posé par toi le 07/10.</strong><br><strong>Encore à préciser</strong> (je n'invente rien, dis-moi et je complète) :<br><strong>1.</strong> « Pour voir » : tu observes seulement la réaction avant d'entrer, ou tu prends le trade sur ce deuxième iFVG ?<br><strong>2.</strong> Ce deuxième iFVG doit-il être dans le même sens que le premier ?<br><strong>3.</strong> Tous les jours, ou seulement le lundi (règle 14) ?<br><strong>4.</strong> « Après l'ouverture » : un iFVG 5M formé à partir de 15h30 — ou à partir de la première bougie 5M clôturée après l'ouverture ?</div>
+      <div class="rule-detail"><strong>Posé par toi le 07/10.</strong><br><strong>Encore à préciser</strong> (je n'invente rien, dis-moi et je complète) :<br><strong>1.</strong> « Pour voir » : tu observes seulement la réaction avant d'entrer, ou tu prends le trade sur ce deuxième iFVG ?<br><strong>2.</strong> Ce deuxième iFVG doit-il être dans le même sens que le premier ?<br><strong>3.</strong> Tous les jours, ou seulement le lundi (règle V2.6) ?<br><strong>4.</strong> « Après l'ouverture » : un iFVG 5M formé à partir de 15h30 — ou à partir de la première bougie 5M clôturée après l'ouverture ?</div>
     </div>
   </div>
 
@@ -2172,12 +2173,12 @@ textarea::placeholder{color:#4A566A}
 
 <div class="pt-wrap">
   <div class="pt-title">Plan type V2 — iFVG M5 <span class="pt-tag">en cours de rédaction</span></div>
-  <div class="pt-step"><div class="pt-n">1</div><div><div class="pt-t">Regarder le biais — MME 5M, 15M et H1</div><div class="pt-d">Biais haussier → scénario Long (biais baissier → Short : symétrie à confirmer). Ce sont probablement les « 3 MME » de la règle 11 — à confirmer. Marché qui range toute la journée : la bougie d'entrée 5M décide du sens (règle 13).</div></div></div>
+  <div class="pt-step"><div class="pt-n">1</div><div><div class="pt-t">Regarder le biais — MME 5M, 15M et H1</div><div class="pt-d">Biais haussier → scénario Long (biais baissier → Short : symétrie à confirmer). Ce sont probablement les « 3 MME » de la règle V2.3 — à confirmer. Marché qui range toute la journée : la bougie d'entrée 5M décide du sens (règle V2.5).</div></div></div>
   <div class="pt-step"><div class="pt-n">2</div><div><div class="pt-t">Chercher une FVG baissière</div><div class="pt-d">Dans un biais haussier, c'est la FVG baissière qu'on cherche — celle qui, inversée, donne l'iFVG d'entrée (lecture à confirmer).</div></div></div>
-  <div class="pt-step"><div class="pt-n">3</div><div><div class="pt-t">Rentrer sur l'iFVG 5M, dans le sens du biais</div><div class="pt-d">Pas d'entrée si l'iFVG est du mauvais côté de la MME 1H, ni si le SL demande 400 ticks ou plus (règle 9). Le lundi : pas les iFVG du pré-market (règle 14). iFVG 5M fait avant 15h30 : en refaire un deuxième après l'ouverture, pour voir (règle 15).</div></div></div>
-  <div class="pt-step"><div class="pt-n">4</div><div><div class="pt-t">Si une bougie clôture de l'autre côté de la MME 1H, retournement possible</div><div class="pt-d">Le biais peut se retourner : on peut prendre un deuxième trade dans le sens de la clôture (règle 12). Les questions encore ouvertes — quelle bougie, 2e trade sur un nouvel iFVG 5M ?, limites du plan — sont dans la règle 12.</div></div></div>
-  <div class="pt-step"><div class="pt-n">5</div><div><div class="pt-t">Poser les 3 niveaux de protection</div><div class="pt-d">Sous la FVG ; sous la mèche de la bougie ; et le 3e niveau de la règle 10 (sous l'avant-dernier swing low 5M), que tu n'as pas repris cette fois — à confirmer. La règle 10 dit « création de la bougie » : est-ce la même chose que la mèche ? Pour un Short : au-dessus.</div></div></div>
-  <div class="pt-more">TP : pas encore décrit dans ce plan (R:R minimum 2:1, règle 1). Break-even : règle 11. Dis-moi la suite et je l'ajoute telle quelle — rien d'inventé.</div>
+  <div class="pt-step"><div class="pt-n">3</div><div><div class="pt-t">Rentrer sur l'iFVG 5M, dans le sens du biais</div><div class="pt-d">Pas d'entrée si l'iFVG est du mauvais côté de la MME 1H, ni si le SL demande 400 ticks ou plus (règle V2.1). Le lundi : pas les iFVG du pré-market (règle V2.6). iFVG 5M fait avant 15h30 : en refaire un deuxième après l'ouverture, pour voir (règle V2.7).</div></div></div>
+  <div class="pt-step"><div class="pt-n">4</div><div><div class="pt-t">Si une bougie 5M clôture de l'autre côté de la MME 1H, retournement possible</div><div class="pt-d">Le biais peut se retourner : on peut prendre un deuxième trade dans le sens de la clôture, qui vise juste à revenir à BE (règle V2.4). Les questions encore ouvertes — BE de la journée ou du trade ?, période de la MME, 2e trade sur un nouvel iFVG 5M ?, limites du plan — sont dans la règle V2.4.</div></div></div>
+  <div class="pt-step"><div class="pt-n">5</div><div><div class="pt-t">Poser les 3 niveaux de protection</div><div class="pt-d">Sous la FVG ; sous la mèche de la bougie ; et le 3e niveau de la règle V2.2 (sous l'avant-dernier swing low 5M), que tu n'as pas repris cette fois — à confirmer. La règle V2.2 dit « création de la bougie » : est-ce la même chose que la mèche ? Pour un Short : au-dessus.</div></div></div>
+  <div class="pt-more">TP : pas encore décrit dans ce plan (R:R minimum 2:1, règle 1). Break-even : règle V2.3. Dis-moi la suite et je l'ajoute telle quelle — rien d'inventé.</div>
 </div>
 
 <div class="tf-wrap">
@@ -4459,7 +4460,7 @@ window.DAY_NOTES = {
 (function(){
   var TICK_USD = 0.5;      // 1 tick MNQ = 0,25 pt = 0,50 $ par contrat
   var MAX_LOTS = 4;        // plan : 4 contrats max par trade
-  var V2_NO_ENTRY = 400;   // stratégie V2, règle 9 : SL de 400 ticks ou plus = pas d'entrée
+  var V2_NO_ENTRY = 400;   // stratégie V2, règle V2.1 : SL de 400 ticks ou plus = pas d'entrée
   // même barème que le KPI « Règle de séance » et la règle 1 : 250 $ (21→27/09), 300 $ (28→04/10), 500 $ dès le 05/10
   var SCHED = [['2026-09-21', 250], ['2026-09-28', 300], ['2026-10-05', 500]];
   function pad(n){ return (n < 10 ? '0' : '') + n; }
@@ -4501,7 +4502,7 @@ window.DAY_NOTES = {
         h += '<div class="calc-line">R:R minimum 2:1 (règle 1) : objectif à au moins <b>' + (2 * t) + ' ticks</b> (' + (t / 2).toLocaleString('fr-FR') + ' pts).</div>';
       }
       if(t >= V2_NO_ENTRY){
-        h += '<span class="score-verdict no">V2 : pas d\'entrée</span><div class="calc-line"><b>Stratégie V2 (règle 9) :</b> stop de ' + V2_NO_ENTRY + ' ticks ou plus = pas d\'entrée, même si le calcul de lots passe.</div>';
+        h += '<span class="score-verdict no">V2 : pas d\'entrée</span><div class="calc-line"><b>Stratégie V2 (règle V2.1) :</b> stop de ' + V2_NO_ENTRY + ' ticks ou plus = pas d\'entrée, même si le calcul de lots passe.</div>';
       }
       out.innerHTML = h;
     }
