@@ -114,7 +114,7 @@ trade, relecture) — ne pas dupliquer ce CSS/JS dans le fichier de session.
 - À chaque séance ajoutée, relancer aussi `node csv/calc-instruments.js` et
   remplacer la ligne `window.PAR_INSTRUMENT = {...}` d'`index.html` : la
   sous-page « Par instrument » du Tableau de bord (MNQ / or / pétrole / euro :
-  P&L, win rate, moyenne par signal, pire trade) et ses phrases de synthèse en
+  P&L, win rate, moyenne par signal, pire trade — plus le comparatif Long / Short, global et par instrument) et ses phrases de synthèse en
   dépendent. Même total que les autres cartes (−7 224,25 $ / 186 signaux au 01/10).
 - À chaque séance ajoutée, relancer aussi `node csv/calc-comptes.js` et remplacer la
   ligne `window.PAR_COMPTE = {...}` d'`index.html` : la table « R & % par compte »

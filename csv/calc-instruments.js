@@ -34,18 +34,25 @@ const r2 = v => Math.round(v * 100) / 100;
 const pad = n => (n < 10 ? '0' : '') + n;
 const jj = t => { const d = new Date(t * 1000); return pad(d.getDate()) + '/' + pad(d.getMonth() + 1); };
 const S = {}; let tot = 0;
+// Sens du signal : Long = acheté avant d'être vendu. Tous les comptes d'un signal copié vont dans le même sens (condition du dédoublonnage).
+const blank = () => ({ n: 0, w: 0, l: 0, pnl: 0, gains: 0, pertes: 0 });
+const addSens = (b, p) => { b.n++; b.pnl += p; if (p > 0) { b.w++; b.gains += p; } else if (p < 0) { b.l++; b.pertes -= p; } };
+const fmtSens = b => ({ n: b.n, w: b.w, l: b.l, pnl: r2(b.pnl), gains: r2(b.gains), pertes: r2(b.pertes) });
+const SENS = { Long: blank(), Short: blank() };
 clusters.forEach(c => {
   const sym = root(c[0].sym); const id = FAMILLE[sym] || sym;
   const p = c.reduce((s, x) => s + x.pnl, 0);
-  const o = S[id] = S[id] || { id, pnl: 0, n: 0, w: 0, l: 0, gains: 0, pertes: 0, pire: 0, meilleur: 0, sous: {} };
+  const o = S[id] = S[id] || { id, pnl: 0, n: 0, w: 0, l: 0, gains: 0, pertes: 0, pire: 0, meilleur: 0, sous: {}, sens: { Long: blank(), Short: blank() } };
   o.pnl += p; o.n++; tot += p;
   if (p > 0) { o.w++; o.gains += p; } else if (p < 0) { o.l++; o.pertes -= p; }
   o.pire = Math.min(o.pire, p); o.meilleur = Math.max(o.meilleur, p);
+  const sens = c[0].long ? 'Long' : 'Short'; addSens(o.sens[sens], p); addSens(SENS[sens], p);
   c.forEach(x => { const k = root(x.sym); o.sous[k] = (o.sous[k] || 0) + x.pnl; });
 });
 const items = Object.values(S).sort((a, b) => a.pnl - b.pnl).map(o => ({
   id: o.id, pnl: r2(o.pnl), n: o.n, w: o.w, l: o.l, gains: r2(o.gains), pertes: r2(o.pertes),
-  pire: r2(o.pire), meilleur: r2(o.meilleur), sous: Object.entries(o.sous).map(([k, v]) => [k, r2(v)])
+  pire: r2(o.pire), meilleur: r2(o.meilleur), sous: Object.entries(o.sous).map(([k, v]) => [k, r2(v)]),
+  sens: { Long: fmtSens(o.sens.Long), Short: fmtSens(o.sens.Short) }
 }));
-const out = { du: jj(clusters[0][0].entry), au: jj(clusters[clusters.length - 1][0].entry), fichiers: files.length, signaux: clusters.length, pnl: r2(tot), items };
+const out = { du: jj(clusters[0][0].entry), au: jj(clusters[clusters.length - 1][0].entry), fichiers: files.length, signaux: clusters.length, pnl: r2(tot), sens: { Long: fmtSens(SENS.Long), Short: fmtSens(SENS.Short) }, items };
 console.log('window.PAR_INSTRUMENT = ' + JSON.stringify(out) + ';');

@@ -82,7 +82,8 @@ ré-entrées, P&L des ré-entrées]` sont à recopier dans `window.SESSIONS`
 trading = 1 signal) puis regroupe par famille : **MNQ**, **Or** (MGC + GC),
 **Pétrole** (MCL + CL), **Euro** (6E). Il imprime la ligne
 `window.PAR_INSTRUMENT = {...}` à recopier dans `index.html` (sous-page « Par
-instrument » du Tableau de bord). Le total doit toujours égaler celui des autres
+instrument » du Tableau de bord). Il sort aussi le **sens** de chaque signal (Long = acheté avant d'être vendu) :
+signaux, gagnants et P&L en Long et en Short, global et par famille. Le total doit toujours égaler celui des autres
 cartes (au 01/10 : −7 224,25 $, 186 signaux). Un signal est « gagnant » si son
 P&L est > 0 : les break-even déclarés (ex. les deux du 23/09) n'y sont pas isolés,
 le CSV n'en garde pas la trace.

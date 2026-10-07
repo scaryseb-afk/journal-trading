@@ -713,6 +713,15 @@ textarea::placeholder{color:#4A566A}
 .ins-row b.pos{color:var(--green)}
 .ins-row b.neg{color:var(--red)}
 .ins-note{font-size:10.5px;color:var(--dim);margin:8px 0 0;line-height:1.45}
+.ls-strip{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:10px 14px;margin:0 0 10px}
+.ls-head{display:flex;justify-content:space-between;align-items:baseline;gap:4px 12px;flex-wrap:wrap;font-size:13px;font-weight:700}
+.ls-head span{font-weight:600;color:var(--muted);font-size:12px;font-variant-numeric:tabular-nums}
+.ls-bar{height:6px;border-radius:3px;background:var(--line);margin:6px 0 8px;overflow:hidden}
+.ls-bar>i{display:block;height:100%;background:var(--accent)}
+.ls-cols{display:grid;grid-template-columns:1fr 1fr;gap:6px 24px}
+.ls-t{font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);font-weight:700}
+.ls-pnl{font-size:20px;font-weight:800;letter-spacing:-.02em;font-variant-numeric:tabular-nums;line-height:1.2}
+@media(max-width:520px){.ls-cols{grid-template-columns:1fr}}
 /* Checklist + Note du jour */
 @media(min-width:960px){
   .chk-grid .rules{display:grid;grid-template-columns:1fr 1fr;column-gap:32px}
@@ -979,7 +988,7 @@ textarea::placeholder{color:#4A566A}
   <div class="subview" data-subview="instrument">
   <p class="eyebrow">Tableau de bord</p>
   <h1>Par instrument</h1>
-  <p class="sub">Où part l'argent : MNQ, or, pétrole ou euro ? Recalculé depuis les CSV de tous les comptes, copy-trading compté une seule fois.</p>
+  <p class="sub">Où part l'argent : MNQ, or, pétrole ou euro ? Et dans quel sens : plus de Long ou de Short ? Recalculé depuis les CSV de tous les comptes, copy-trading compté une seule fois.</p>
   <div id="instr"></div>
   </div>
 
@@ -2741,7 +2750,7 @@ window.WEEKLY_RECAPS = {
 
 /* Répartition du résultat par instrument (page « Par instrument ») — généré par `node csv/calc-instruments.js`
    depuis csv/comptes/*.csv : à relancer et recopier à chaque nouvelle séance. */
-window.PAR_INSTRUMENT = {"du":"13/08","au":"06/10","fichiers":9,"signaux":195,"pnl":-9952.25,"items":[{"id":"MNQ","pnl":-7833.5,"n":151,"w":46,"l":105,"gains":11019.5,"pertes":18853,"pire":-769.5,"meilleur":2529,"sous":[["MNQ",-7833.5]]},{"id":"Or","pnl":-2472,"n":24,"w":11,"l":13,"gains":364,"pertes":2836,"pire":-1200,"meilleur":127,"sous":[["MGC",-1932],["GC",-540]]},{"id":"Euro","pnl":-18.75,"n":4,"w":1,"l":2,"gains":225,"pertes":243.75,"pire":-187.5,"meilleur":225,"sous":[["6E",-18.75]]},{"id":"Pétrole","pnl":372,"n":16,"w":4,"l":12,"gains":1860,"pertes":1488,"pire":-249,"meilleur":840,"sous":[["MCL",-1028],["CL",1400]]}]};
+window.PAR_INSTRUMENT = {"du":"13/08","au":"06/10","fichiers":9,"signaux":195,"pnl":-9952.25,"sens":{"Long":{"n":102,"w":38,"l":64,"pnl":-5575,"gains":7385,"pertes":12960},"Short":{"n":93,"w":24,"l":68,"pnl":-4377.25,"gains":6083.5,"pertes":10460.75}},"items":[{"id":"MNQ","pnl":-7833.5,"n":151,"w":46,"l":105,"gains":11019.5,"pertes":18853,"pire":-769.5,"meilleur":2529,"sous":[["MNQ",-7833.5]],"sens":{"Long":{"n":83,"w":30,"l":53,"pnl":-4769.5,"gains":5752,"pertes":10521.5},"Short":{"n":68,"w":16,"l":52,"pnl":-3064,"gains":5267.5,"pertes":8331.5}}},{"id":"Or","pnl":-2472,"n":24,"w":11,"l":13,"gains":364,"pertes":2836,"pire":-1200,"meilleur":127,"sous":[["MGC",-1932],["GC",-540]],"sens":{"Long":{"n":9,"w":5,"l":4,"pnl":-1241,"gains":168,"pertes":1409},"Short":{"n":15,"w":6,"l":9,"pnl":-1231,"gains":196,"pertes":1427}}},{"id":"Euro","pnl":-18.75,"n":4,"w":1,"l":2,"gains":225,"pertes":243.75,"pire":-187.5,"meilleur":225,"sous":[["6E",-18.75]],"sens":{"Long":{"n":2,"w":1,"l":1,"pnl":37.5,"gains":225,"pertes":187.5},"Short":{"n":2,"w":0,"l":1,"pnl":-56.25,"gains":0,"pertes":56.25}}},{"id":"Pétrole","pnl":372,"n":16,"w":4,"l":12,"gains":1860,"pertes":1488,"pire":-249,"meilleur":840,"sous":[["MCL",-1028],["CL",1400]],"sens":{"Long":{"n":8,"w":2,"l":6,"pnl":398,"gains":1240,"pertes":842},"Short":{"n":8,"w":2,"l":6,"pnl":-26,"gains":620,"pertes":646}}}]};
 
 /* P&L jour par jour de chaque compte (table « R & % par compte ») — généré par `node csv/calc-comptes.js`
    depuis csv/comptes/*.csv : à relancer et recopier à chaque nouvelle séance. */
@@ -4343,7 +4352,29 @@ window.DAY_NOTES = {
       sum.push('<span style="color:var(--muted)">Petits échantillons : ' + petits.map(function(o){ return o.id + ' ' + o.n; }).join(', ')
         + ' signaux (' + worst.id + ' ' + items.filter(function(o){ return o.n >= 30; }).map(function(o){ return o.n; }).join('/') + ') — à lire avec prudence.</span>');
     }
-    var h = '<div class="ins-sum">' + sum.map(function(p){ return '<p>' + p + '</p>'; }).join('') + '</div><div class="ins-grid">';
+    var SN = D.sens, strip = '';
+    if(SN && SN.Long && SN.Short){
+      var L = SN.Long, S = SN.Short, tN = L.n + S.n || 1;
+      var pct = function(w, n){ return n ? Math.round(w / n * 100) + ' %' : '—'; };
+      var shL = Math.round(L.n / tN * 100), shS = 100 - shL;
+      var wrL = L.n ? L.w / L.n : 0, wrS = S.n ? S.w / S.n : 0;
+      var hi = wrL >= wrS ? 'Long' : 'Short';
+      var eq = Math.abs(L.n - S.n) / tN <= 0.2;
+      sum.unshift('<strong>Long ou Short ?</strong> ' + (eq ? 'Tu prends à peu près autant de Long que de Short' : 'Tu prends plus de ' + (L.n > S.n ? 'Long' : 'Short') + ' que de ' + (L.n > S.n ? 'Short' : 'Long'))
+        + ' : ' + L.n + ' Long (' + shL + ' %) contre ' + S.n + ' Short (' + shS + ' %). Les ' + hi + ' gagnent plus souvent (' + pct(hi === 'Long' ? L.w : S.w, hi === 'Long' ? L.n : S.n)
+        + ' contre ' + pct(hi === 'Long' ? S.w : L.w, hi === 'Long' ? S.n : L.n) + ' de gagnants). Résultat net : <b class="' + cls(L.pnl) + '">' + money(L.pnl) + '</b> en Long, <b class="' + cls(S.pnl) + '">' + money(S.pnl) + '</b> en Short.');
+      var col = function(nom, o, sh){
+        return '<div class="ls-col"><div class="ls-t">' + nom + ' · ' + o.n + ' signaux (' + sh + ' %)</div>'
+          + '<div class="ls-pnl ' + cls(o.pnl) + '">' + money(o.pnl) + '</div>'
+          + row('Gagnants', o.w + ' / ' + o.n + ' (' + pct(o.w, o.n) + ')')
+          + row('Moyenne par signal', money(o.n ? o.pnl / o.n : 0), cls(o.pnl))
+          + row('Gain moy. / perte moy.', money(o.w ? o.gains / o.w : 0) + ' / ' + money(o.l ? -o.pertes / o.l : 0)) + '</div>';
+      };
+      strip = '<div class="ls-strip"><div class="ls-head"><span style="color:var(--txt);font-size:13px;font-weight:700">↕️ Long ou Short</span><span>' + L.n + ' Long · ' + S.n + ' Short</span></div>'
+        + '<div class="ls-bar" title="Part de Long parmi les signaux"><i style="width:' + shL + '%"></i></div>'
+        + '<div class="ls-cols">' + col('Long', L, shL) + col('Short', S, shS) + '</div></div>';
+    }
+    var h = '<div class="ins-sum">' + sum.map(function(p){ return '<p>' + p + '</p>'; }).join('') + '</div>' + strip + '<div class="ins-grid">';
     items.forEach(function(o){
       var isWorst = (o === worst && o.pnl < 0);
       var sub = o.sous.length > 1
@@ -4361,10 +4392,11 @@ window.DAY_NOTES = {
         + row('Gain moy. / perte moy.', money(o.gm) + ' / ' + money(-o.pm))
         + row('Moyenne par signal', money(o.moy), cls(o.moy))
         + row('Pire / meilleur', money(o.pire) + ' / ' + money(o.meilleur))
+        + (o.sens ? row('Long / Short', o.sens.Long.n + ' / ' + o.sens.Short.n) : '')
         + '</div>';
     });
     h += '</div><p class="ins-note">' + D.du + ' → ' + D.au + ' · ' + D.fichiers + ' fichiers CSV (csv/comptes) · ' + D.signaux + ' signaux, P&amp;L net ' + money(D.pnl)
-      + ' (même total que les autres pages) · copy-trading compté 1 fois · gagnant = P&amp;L du signal &gt; 0, comme les autres cartes — les 2 break-even du 23/09 y sont donc comptés gagnants · TopstepX (clôturé, sans CSV) exclu · 2 trades de bug du 05/10 (001, −10 $) exclus · recalcul : <code>node csv/calc-instruments.js</code></p>';
+      + ' (même total que les autres pages) · copy-trading compté 1 fois · gagnant = P&amp;L du signal &gt; 0, comme les autres cartes — les 2 break-even du 23/09 y sont donc comptés gagnants · Long = acheté avant d’être vendu, Short = l’inverse · TopstepX (clôturé, sans CSV) exclu · 13 allers-retours de bug du 05/10 (001, −32,50 $) exclus · recalcul : <code>node csv/calc-instruments.js</code></p>';
     host.innerHTML = h;
   }
   if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', build); else build();
