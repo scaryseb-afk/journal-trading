@@ -16,17 +16,18 @@
 
 <div class="sp-header">
   <h1 class="sp-title">Lundi 5 oct.</h1>
-  <span class="sp-pnl td-l">−499,00 $</span>
+  <span class="sp-pnl td-l">−584,00 $</span>
 </div>
-<div class="sp-meta">3 trades (3 lignes CSV) &nbsp;·&nbsp; 1 compte (004b) &nbsp;·&nbsp; + 2 lignes de bug sur le 001, hors statistiques</div>
+<div class="sp-meta">4 trades (4 lignes CSV) &nbsp;·&nbsp; 2 comptes (004b, 001) &nbsp;·&nbsp; + 13 lignes de bug sur le 001, hors statistiques</div>
 
 <div class="note-block">
-  <strong>−499,00 $ — 3 Shorts perdants, compte 004b.</strong><br><br>
+  <strong>−584,00 $ — 4 Shorts perdants : 3 sur le 004b (−499 $), 1 sur le 001 (−85 $).</strong><br><br>
   <strong>1 · MNQ Short 4 contrats : −260 $.</strong> Vente à 15h47:21 à 31 170,50, rachat à 16h16:07 à 31 203,00 : 32,5 pts contre toi en 28 min 46 (4 contrats × 32,5 pts × 2 $).<br><br>
   <strong>2 · MNQ Short 5 contrats : −185 $.</strong> Vente à 16h30:48 à 31 212,00, rachat à 16h50:14 à 31 230,50 : 18,5 pts contre toi en 19 min 26. Entré 14 min 41 s après la sortie du premier trade : au-delà des 10 min, règle 6 respectée. Mais 5 contrats, pour un plafond de 4 par trade ✗. À 500 $ de budget, 5 contrats correspondent à un stop de 167 à 200 ticks ; le plan plafonne à 4.<br><br>
   <strong>3 · 004b — MNQ Short 2 contrats : −54 $.</strong> Vente à 17h10:17 à 31 222,00, rachat à 17h20:11 à 31 235,50 : 13,5 pts contre toi en 9 min 54 (2 contrats × 13,5 pts × 2 $). Entré 20 min 3 s après la sortie du 2e trade : au-delà des 10 min (règle 6 respectée), mais c'est le 3e trade du jour, pris après 2 pertes ✗.<br><br>
-  <strong>Bug de plateforme sur le 001 — hors statistiques.</strong> Deux allers-retours d'une seconde, à 17h08:56 (4 contrats, −8 $) et 17h09:27 (2 contrats, −2 $). Tu m'as écrit : entré et sorti tout de suite, il y a eu un bug. Je ne les compte ni comme trades, ni comme ré-entrées, ni dans le contrôle du plan, ni dans les statistiques. Ils restent dans le CSV (trace de ce que la plateforme a fait) et dans le solde du 001 : −10 $ réellement débités. Ils sont listés dans <code>csv/exclus.json</code>.<br><br>
-  <strong>Ton constat : « j'aurais dû prendre un long ».</strong> Tes propres prix d'exécution vont dans ce sens : entre 15h47 et 17h20, le prix est passé de 31 170,50 à 31 235,50 (+65 pts) — sur les trois trades, le marché montait contre tes Shorts. Je n'ai pas de capture de ces entrées ; tes raisons sont notées plus bas. La consigne n°2 (ne pas rajouter un troisième Short perdant dans un marché qui monte) n'est pas tenue : le 3e trade est un troisième Short perdant ✗. Tu peux aussi écrire ton « long » dans la zone « Ce que j'aurais dû faire » sous chaque trade.<br><br>
+  <strong>4 · 001 — MNQ Short 2 contrats : −85 $.</strong> Vente à 20h38:41 à 31 307,75, rachat à 21h01:34 à 31 329,00 : 21,25 pts contre toi en 22 min 52 (2 contrats × 21,25 pts × 2 $). Entré 3 h 18 min 30 s après la sortie du 3e trade : au-delà des 10 min (règle 6 respectée), mais c'est le 4e trade du jour (max 3) ✗, pris après 3 pertes ✗. Un 4e Short, 72 pts au-dessus de la sortie du 3e (31 235,50) : le marché a continué à monter contre toi. Je l'ai compté comme un vrai trade (22 min, pas une ligne de bug) — dis-moi si ce n'est pas le cas.<br><br>
+  <strong>Bug de plateforme sur le 001 — hors statistiques.</strong> Treize allers-retours de 1 à 2 secondes, tous des Shorts MNQ de 1 à 4 contrats, pour −32,50 $ au total : deux à 17h08:56 (4 contrats, −8 $) et 17h09:27 (2 contrats, −2 $) — ceux-là, tu m'as écrit : entré et sorti tout de suite, il y a eu un bug — puis onze autres entre 19h26 et 20h12 (de +1 $ à −9 $), de même signature, que j'ai rangés dans le même bug par application de ta consigne (ne pas prendre en compte les trades comme les deux derniers) : à confirmer. Je ne les compte ni comme trades, ni comme ré-entrées, ni dans le contrôle du plan, ni dans les statistiques. Ils restent dans le CSV (trace de ce que la plateforme a fait) et dans le solde du 001 : −32,50 $ réellement débités. Ils sont listés dans <code>csv/exclus.json</code>.<br><br>
+  <strong>Ton constat : « j'aurais dû prendre un long ».</strong> Tes propres prix d'exécution vont dans ce sens : entre 15h47 et 17h20, le prix est passé de 31 170,50 à 31 235,50 (+65 pts) — sur les trois trades du 004b, le marché montait contre tes Shorts ; le 4e Short du 001 entre à 31 307,75 et sort à 31 329,00 : encore 21 pts contre toi. Je n'ai pas de capture de ces entrées ; tes raisons sont notées plus bas. La consigne n°2 (ne pas rajouter un troisième Short perdant dans un marché qui monte) n'est pas tenue : le 3e trade est un troisième Short perdant, et le 4e (001) un quatrième ✗. Tu peux aussi écrire ton « long » dans la zone « Ce que j'aurais dû faire » sous chaque trade.<br><br>
   <strong>Les raisons de tes deux entrées (tes notes) :</strong><br>
   <strong>1er Short, 4 contrats :</strong> prise de liquidité avec grosse mèche · IFVG 1M · FVG 1M · BPR 1M · CISD 1M.<br>
   <strong>2e Short, 5 contrats :</strong> « toujours sur le même schéma » — FVG M1 · CISD M1 · deux IFVG M1 · Equal High sur l'ES.<br>
@@ -36,7 +37,7 @@
   <strong>· Plan V2</strong> (iFVG 5M, biais avec les MME 5M, 15M et H1) : rien de 5M ni de MME dans tes notes — je ne peux pas dire si le biais MME a été regardé, dis-le-moi.<br>
   <strong>· Étape 1 de ton plan V1</strong> (« la liquidité est-elle touchée ? ») : si elle ne l'est pas, le marché cherche encore à l'atteindre, biais dans cette direction. Des Equal High sur l'ES sont de la liquidité au-dessus : si elle n'avait pas encore été prise à ton entrée (ta note ne le précise pas), ta propre étape 1 pointait vers le haut — comme ton « j'aurais dû prendre un long ».<br><br>
   <strong>Ton constat (05/10) :</strong> tu as joué le schéma <strong>V1</strong> (liquidité, BPR, CISD, IFVG/FVG) alors que tu aurais dû jouer le <strong>V2</strong> (iFVG 5M, biais avec les MME 5M, 15M et H1). À noter : dans ton plan écrit, la V1 elle-même descend jusqu'au M5 ; tes notes citent du M1.<br><br>
-  <strong>Contrôle du plan — non respecté :</strong> 3 trades (max 3) ✓ · le 3e trade pris après 2 pertes ✗ · 5 contrats sur le 2e trade (plafond 4) ✗ · aucune ré-entrée à moins de 10 min d'une perte ✓ (14 min 41 s puis 20 min 3 s) · un seul compte ✓ · schéma joué : V1 au lieu du V2 (ton constat) ✗ · SL/TP : non précisés, je ne les invente pas.
+  <strong>Contrôle du plan — non respecté :</strong> 4 trades (max 3) ✗ · le 3e trade pris après 2 pertes ✗ et le 4e après 3 ✗ · 5 contrats sur le 2e trade (plafond 4) ✗ · aucune ré-entrée à moins de 10 min d'une perte ✓ (14 min 41 s, 20 min 3 s, puis 3 h 18 min) · un seul compte à la fois ✓ (004b jusqu'à 17h20, 001 à 20h38) · schéma joué : V1 au lieu du V2 (ton constat) ✗ · SL/TP : non précisés, je ne les invente pas.
 </div>
 
 <div id="trades-section">
@@ -53,8 +54,8 @@
   </div>
 
   <div class="acct-header">
-    <span class="acct-label">Compte 001 — …4680001 · bug de plateforme (hors statistiques)</span>
-    <span class="acct-pnl td-l" style="opacity:.6">−10,00 $ · hors stats</span>
+    <span class="acct-label">Compte 001 — …4680001</span>
+    <span class="acct-pnl td-l">−85,00 $ <span style="font-size:11px;opacity:.7">+ 13 lignes de bug (−32,50 $) hors stats</span></span>
   </div>
   <div class="tbl-wrap">
     <table class="trades-table">
@@ -64,8 +65,8 @@
   </div>
 
   <div class="total-bar">
-    <span class="total-label">Total journée — 3 trades comptés (hors −10,00 $ de bug sur le 001)</span>
-    <span class="total-val " style="color:var(--red)">−499,00 $</span>
+    <span class="total-label">Total journée — 4 trades comptés (hors −32,50 $ de bug sur le 001)</span>
+    <span class="total-val " style="color:var(--red)">−584,00 $</span>
   </div>
 
 </div>
@@ -107,7 +108,19 @@ var ACCTS = {
   ],
   '001': [
     {n:1, contract:'MNQ', side:'Short', qty:'4', entry:'31229.50', exit:'31230.50', time:'17:08', pnl: -8.00, bug:true},
-    {n:2, contract:'MNQ', side:'Short', qty:'2', entry:'31225.25', exit:'31225.75', time:'17:09', pnl: -2.00, bug:true}
+    {n:2, contract:'MNQ', side:'Short', qty:'2', entry:'31225.25', exit:'31225.75', time:'17:09', pnl: -2.00, bug:true},
+    {n:3, contract:'MNQ', side:'Short', qty:'2', entry:'31273.00', exit:'31273.75', time:'19:26', pnl: -3.00, bug:true},
+    {n:4, contract:'MNQ', side:'Short', qty:'2', entry:'31274.75', exit:'31275.00', time:'19:27', pnl: -1.00, bug:true},
+    {n:5, contract:'MNQ', side:'Short', qty:'1', entry:'31280.00', exit:'31280.50', time:'19:39', pnl: -1.00, bug:true},
+    {n:6, contract:'MNQ', side:'Short', qty:'1', entry:'31278.75', exit:'31278.50', time:'19:41', pnl: 0.50, bug:true},
+    {n:7, contract:'MNQ', side:'Short', qty:'1', entry:'31280.00', exit:'31280.50', time:'19:42', pnl: -1.00, bug:true},
+    {n:8, contract:'MNQ', side:'Short', qty:'2', entry:'31282.25', exit:'31282.75', time:'19:42', pnl: -2.00, bug:true},
+    {n:9, contract:'MNQ', side:'Short', qty:'2', entry:'31293.25', exit:'31295.50', time:'19:44', pnl: -9.00, bug:true},
+    {n:10, contract:'MNQ', side:'Short', qty:'2', entry:'31296.25', exit:'31297.00', time:'19:48', pnl: -3.00, bug:true},
+    {n:11, contract:'MNQ', side:'Short', qty:'2', entry:'31299.75', exit:'31300.00', time:'19:48', pnl: -1.00, bug:true},
+    {n:12, contract:'MNQ', side:'Short', qty:'2', entry:'31288.75', exit:'31288.50', time:'20:12', pnl: 1.00, bug:true},
+    {n:13, contract:'MNQ', side:'Short', qty:'2', entry:'31286.25', exit:'31287.00', time:'20:12', pnl: -3.00, bug:true},
+    {n:14, contract:'MNQ', side:'Short', qty:'2', entry:'31307.75', exit:'31329.00', time:'20:38', pnl: -85.00}
   ]
 };
 function renderAcct(acctId, bodyId){
@@ -120,7 +133,8 @@ function renderAcct(acctId, bodyId){
     var key = acctId + '_' + t.n;
     var note = notes[key] || '';
     if(t.bug){   // bug de plateforme : ligne conservée pour la trace, sans zone de note ni de capture
-      html += '<tr class="trade-row" style="opacity:.55"><td>' + t.n + '</td><td><strong>' + sjEsc(t.contract) + '</strong> <span style="font-size:11px;color:var(--dim)">bug</span></td><td>' + sjEsc(t.side) + '</td><td>' + sjEsc(t.qty) + '</td><td>' + sjEsc(t.entry) + '</td><td>' + sjEsc(t.exit) + '</td><td style="color:var(--muted);font-size:12px">' + sjEsc(t.time) + '</td><td class="td-pnl td-l">' + t.pnl.toFixed(2) + ' $</td></tr>';
+      var bs = (t.pnl >= 0 ? '+' : '') + t.pnl.toFixed(2) + ' $', bc = t.pnl >= 0 ? 'td-w' : 'td-l';
+      html += '<tr class="trade-row" style="opacity:.55"><td>' + t.n + '</td><td><strong>' + sjEsc(t.contract) + '</strong> <span style="font-size:11px;color:var(--dim)">bug</span></td><td>' + sjEsc(t.side) + '</td><td>' + sjEsc(t.qty) + '</td><td>' + sjEsc(t.entry) + '</td><td>' + sjEsc(t.exit) + '</td><td style="color:var(--muted);font-size:12px">' + sjEsc(t.time) + '</td><td class="td-pnl ' + bc + '">' + bs + '</td></tr>';
       return;
     }
     html += '<tr class="trade-row">'

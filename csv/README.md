@@ -97,8 +97,8 @@ risque du jour) et le compare au solde de `window.COMPTES`. Le 005b n'a pas de C
 
 ## Lignes exclues (bugs de plateforme)
 
-`csv/exclus.json` liste les fill IDs de trades à ne pas compter (ex. deux allers-retours d'une seconde dus à un
-bug, le 05/10 sur le 001) avec la raison. La ligne reste dans `csv/comptes/<compte>.csv` — c'est la trace de ce
+`csv/exclus.json` liste les fill IDs de trades à ne pas compter (ex. 13 allers-retours de 1 à 2 secondes dus à un
+bug, le 05/10 sur le 001 : 2 signalés par Sébastien, 11 de même signature rangés avec) avec la raison. La ligne reste dans `csv/comptes/<compte>.csv` — c'est la trace de ce
 que la plateforme a réellement fait, et le solde du compte l'inclut — mais `calc-semaine.js`, `calc-instruments.js`
 et `calc-comptes.js` l'ignorent : pas de trade, pas de ré-entrée, pas de win rate, pas de R.
 

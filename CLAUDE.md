@@ -110,7 +110,7 @@ trade, relecture) — ne pas dupliquer ce CSS/JS dans le fichier de session.
   et le solde du compte les inclut) — on liste ses fill IDs dans `csv/exclus.json` ; les trois scripts
   (`calc-semaine`, `calc-instruments`, `calc-comptes`) les ignorent, donc ni trades, ni win rate, ni ré-entrées,
   ni plan, ni instruments, ni R. Dans la page de séance, la ligne est affichée en grisé (`bug:true`) sans zone de
-  note, et le total précise « hors bug ». Premier cas : 2 allers-retours d'une seconde sur le 001 le 05/10.
+  note, et le total précise « hors bug ». Premier cas : 13 allers-retours de 1 à 2 secondes sur le 001 le 05/10 (2 signalés par Sébastien, 11 de même signature rangés avec — « ne prends pas en compte les trades comme les deux derniers » ; à retirer d'`exclus.json` s'il dit que ce n'est pas un bug). Un vrai trade (22 min) du même compte le même soir reste compté.
 - À chaque séance ajoutée, relancer aussi `node csv/calc-instruments.js` et
   remplacer la ligne `window.PAR_INSTRUMENT = {...}` d'`index.html` : la
   sous-page « Par instrument » du Tableau de bord (MNQ / or / pétrole / euro :

@@ -4,5 +4,16 @@
     "date": "05/10/2026",
     "fills": ["630057152495", "630057152465", "630057152532", "630057152504"],
     "raison": "Bug de plateforme : deux allers-retours d'une seconde (−8 $ et −2 $), signalés par Sébastien le 05/10 (« entré et sorti tout de suite, il y a eu un bug »). Exclus des statistiques ; les lignes restent dans le CSV et le solde du compte les inclut (argent réellement débité)."
+  },
+  {
+    "compte": "001",
+    "date": "05/10/2026",
+    "fills": [
+      "630057152569", "630057152541", "630057152606", "630057152578", "630057152620", "630057152614",
+      "630057152657", "630057152629", "630057152694", "630057152666", "630057152708", "630057152702",
+      "630057152745", "630057152717", "630057152782", "630057152754", "630057152819", "630057152791",
+      "630057152856", "630057152828", "630057152870", "630057152864"
+    ],
+    "raison": "Onze autres allers-retours de 1 à 2 secondes sur le 001 entre 19h26 et 20h12 (−22,50 $ au total), même signature que les deux précédents. Rangés dans le même bug par application de ta consigne « ne prends pas en compte les trades comme les deux derniers » (07/10) — à confirmer par Sébastien. Le Short de 22 min du 001 (20h38→21h01, −85 $) n'en fait PAS partie : il est compté comme un vrai trade."
   }
 ]
