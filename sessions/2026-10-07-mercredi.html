@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<link rel="apple-touch-icon" href="../apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>Mercredi 7 oct. — Journal</title>
+<link rel="stylesheet" href="../_systeme/style.css">
+</head>
+<body>
+<div class="wrap">
+
+<a href="https://scaryseb-afk.github.io/journal-trading/#sessions" onclick="if(document.referrer){history.back();return false;}" class="sp-back">← Journal</a>
+
+<div class="sp-header">
+  <h1 class="sp-title">Mercredi 7 oct.</h1>
+  <span class="sp-pnl td-l">−834,00 $</span>
+</div>
+<div class="sp-meta">4 trades (4 lignes CSV) &nbsp;·&nbsp; 3 comptes (004b, 001, 003)</div>
+
+<div class="note-block">
+  <strong>−834,00 $ — quatre trades, un seul gagnant, sur trois comptes.</strong><br><br>
+  <strong>1 · 004b — MNQ Long 5 contrats : +17,50 $.</strong> Achat à 15h55:04 à 31 217,75, vente à 16h00:39 à 31 219,50 : 1,75 pt en ta faveur en 5 min 35 (5 contrats × 1,75 pt × 2 $). 5 contrats pour un plafond de 4 par trade ✗. Gain minuscule : je ne sais pas si c'était une sortie voulue ou un break-even.<br><br>
+  <strong>2 · 004b — MNQ Short 3 contrats : −451,50 $.</strong> Vente à 16h34:53 à 31 241,75, rachat à 17h35:58 à 31 317,00 : 75,25 pts contre toi en 1 h 01 min 05 (3 contrats × 75,25 pts × 2 $). Entré 34 min 14 s après la sortie du 1er trade. Avec un budget de 500 $ par signal, c'est environ −0,9 R (le R du tableau de bord = le budget du jour : aucun stop n'est enregistré, je n'ai pas le R réel).<br><br>
+  <strong>3 · 001 — MNQ Long 3 contrats : −90 $.</strong> Achat à 17h48:59 à 31 363,00, vente à 17h56:13 à 31 348,00 : 15 pts contre toi en 7 min 14. Entré 13 min 1 s après la sortie à −451,50 $ du trade précédent : au-delà des 10 min, règle 6 respectée. Sens inversé par rapport au Short précédent, 46 pts au-dessus de son prix de sortie (31 317,00).<br><br>
+  <strong>4 · 003 — MNQ Short 4 contrats : −310 $.</strong> Vente à 18h30:14 à 31 329,00, rachat à 19h02:59 à 31 367,75 : 38,75 pts contre toi en 32 min 44 (4 contrats × 38,75 pts × 2 $). Entré 34 min 1 s après la sortie du 3e trade : règle 6 respectée, mais c'est le <strong>4e trade du jour</strong> (max 3) ✗, pris <strong>après 2 pertes</strong> ✗.<br><br>
+  <strong>Le marché :</strong> d'après tes prix d'exécution, il est monté de 31 217,75 (15h55) à 31 367,75 (19h02), soit +150 pts. Tes deux Shorts (−451,50 $ et −310 $) ont été pris contre cette hausse, comme les trois Shorts du 05/10. Je n'ai pas de capture : je ne dis pas pourquoi tu es entré.<br><br>
+  <strong>Compte 003 :</strong> mon calcul (solde du 02/10 à 48 553 $ − 310 $) donne 48 243 $, soit <strong>8 $ sous son seuil de 48 251 $</strong> : breach probable. Lucid n'a pas été consulté depuis le 30/09 : à confirmer.<br><br>
+  <strong>Contrôle du plan — non respecté :</strong> 4 trades (max 3) ✗ · 5 contrats sur le 1er trade (plafond 4) ✗ · le 4e trade pris après 2 pertes ✗ · aucune ré-entrée à moins de 10 min d'une perte ✓ (34 min, 13 min, 34 min) · un seul compte à la fois ✓ (mais trois comptes dans la journée, un trade chacun sauf le 004b) · SL/TP : non précisés, je ne les invente pas.<br><br>
+  <strong>Ce qui manque :</strong> ni note ni capture : je ne sais pas quel schéma (V1 ou V2) ni quel biais MME. Si la journée n'est pas finie ou si d'autres comptes ont tradé, envoie leurs CSV.
+</div>
+
+<!-- Captures d'écran -->
+<!-- Trades par compte — dupliquer ce bloc pour chaque compte actif -->
+<div id="trades-section">
+
+  <div class="acct-header">
+    <span class="acct-label">Compte 004b — …4680004</span>
+    <span class="acct-pnl td-l">−434,00 $</span>
+  </div>
+  <div class="tbl-wrap">
+    <table class="trades-table">
+      <thead><tr><th>#</th><th>Contrat</th><th>Sens</th><th>Qté</th><th>Entrée</th><th>Sortie</th><th>Heure</th><th>P&amp;L</th></tr></thead>
+      <tbody id="body-004b"></tbody>
+    </table>
+  </div>
+
+  <div class="acct-header">
+    <span class="acct-label">Compte 001 — …4680001</span>
+    <span class="acct-pnl td-l">−90,00 $</span>
+  </div>
+  <div class="tbl-wrap">
+    <table class="trades-table">
+      <thead><tr><th>#</th><th>Contrat</th><th>Sens</th><th>Qté</th><th>Entrée</th><th>Sortie</th><th>Heure</th><th>P&amp;L</th></tr></thead>
+      <tbody id="body-001"></tbody>
+    </table>
+  </div>
+
+  <div class="acct-header">
+    <span class="acct-label">Compte 003 — …4680003</span>
+    <span class="acct-pnl td-l">−310,00 $</span>
+  </div>
+  <div class="tbl-wrap">
+    <table class="trades-table">
+      <thead><tr><th>#</th><th>Contrat</th><th>Sens</th><th>Qté</th><th>Entrée</th><th>Sortie</th><th>Heure</th><th>P&amp;L</th></tr></thead>
+      <tbody id="body-003"></tbody>
+    </table>
+  </div>
+
+  <div class="total-bar">
+    <span class="total-label">Total journée — 3 comptes</span>
+    <span class="total-val " style="color:var(--red)">−834,00 $</span>
+  </div>
+
+</div>
+
+<!-- Relecture — à remplir par Sébastien, sert à améliorer les séances suivantes -->
+<div class="section-title">🪞 Ta relecture</div>
+<div class="reflect-grid">
+  <div class="reflect-item err">
+    <label>Erreur commise</label>
+    <textarea class="reflect-note" data-key="reflect_erreur" placeholder="Qu'est-ce qui a foiré aujourd'hui, concrètement ?"></textarea>
+  </div>
+  <div class="reflect-item fix">
+    <label>Ce que j'aurais dû faire</label>
+    <textarea class="reflect-note" data-key="reflect_correction" placeholder="La version correcte de la décision"></textarea>
+  </div>
+  <div class="reflect-item ok">
+    <label>Ce qui a bien fonctionné</label>
+    <textarea class="reflect-note" data-key="reflect_ok" placeholder="À garder, à répéter"></textarea>
+  </div>
+</div>
+<div class="reflect-copy">
+  <button id="reflect-copy-btn" onclick="sjCopyReflect()" disabled>📋 Copier pour Claude</button>
+  <span class="hint">Colle ça dans le chat pour que ta prochaine séance en tienne compte.</span>
+</div>
+
+</div>
+<!-- Lightbox -->
+<div class="lb-overlay" id="lb" onclick="sjCloseLB(event)">
+  <span class="lb-close" onclick="document.getElementById('lb').classList.remove('open')">×</span>
+  <img id="lb-img" src="" alt="">
+</div>
+
+<script>
+var SESSION_KEY = '2026_10_07_mercredi';
+
+/* Trades hardcodés — un tableau par compte, rempli depuis les CSV */
+var ACCTS = {
+  '004b': [
+    {n:1, contract:'MNQ', side:'Long', qty:'5', entry:'31217.75', exit:'31219.50', time:'15:55', pnl: 17.50},
+    {n:2, contract:'MNQ', side:'Short', qty:'3', entry:'31241.75', exit:'31317.00', time:'16:34', pnl: -451.50}
+  ],
+  '001': [
+    {n:1, contract:'MNQ', side:'Long', qty:'3', entry:'31363.00', exit:'31348.00', time:'17:48', pnl: -90.00}
+  ],
+  '003': [
+    {n:1, contract:'MNQ', side:'Short', qty:'4', entry:'31329.00', exit:'31367.75', time:'18:30', pnl: -310.00}
+  ]
+};
+
+function renderAcct(acctId, bodyId){
+  var notes = sjLoadNotes();
+  var trades = ACCTS[acctId] || [];
+  var html = '';
+  trades.forEach(function(t){
+    var ps = (t.pnl >= 0 ? '+' : '') + t.pnl.toFixed(2) + ' $';
+    var pc = t.pnl >= 0 ? 'td-w' : 'td-l';
+    var key = acctId + '_' + t.n;
+    var note = notes[key] || '';
+    html += '<tr class="trade-row">'
+      + '<td>' + t.n + '</td>'
+      + '<td><strong>' + sjEsc(t.contract) + '</strong></td>'
+      + '<td>' + sjEsc(t.side) + '</td>'
+      + '<td>' + sjEsc(t.qty) + '</td>'
+      + '<td>' + sjEsc(t.entry) + '</td>'
+      + '<td>' + sjEsc(t.exit) + '</td>'
+      + '<td style="color:var(--muted);font-size:12px">' + sjEsc(t.time) + '</td>'
+      + '<td class="td-pnl ' + pc + '">' + ps + '</td>'
+      + '</tr>'
+      + '<tr class="note-row"><td colspan="8">'
+      + '<textarea class="trade-note" placeholder="Setup, raison du trade, erreurs…" data-key="' + key + '" onblur="sjSaveNote(this)">'
+      + sjEsc(note)
+      + '</textarea>'
+      + sjTradeRRRow(key)
+      + '</td></tr>';
+  });
+  document.getElementById(bodyId).innerHTML = html;
+}
+
+window.addEventListener('DOMContentLoaded', function(){
+  renderAcct('004b', 'body-004b');
+  renderAcct('001', 'body-001');
+  renderAcct('003', 'body-003');
+});
+</script>
+<script src="../_systeme/session.js"></script>
+</body>
+</html>
