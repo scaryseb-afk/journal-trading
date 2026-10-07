@@ -36,7 +36,7 @@ jour, score de discipline, violations, streak, pause) vivent maintenant
 dans `#view-regles`, découpé le 06/10/2026 en 5 sous-pages (`#regles-subnav`) : Outils du jour (trades du jour,
 pause, score de confluence, calculette, checklist, types d'ordres) · Bilan & discipline (statistiques, streak,
 objectif 50 %, discipline du soir, violations, infractions) · Règles communes (1 à 8) · Stratégie V2 iFVG M5
-(règles 9 à 14, plan type, repère timeframes) · Stratégie V1. Pas de stratégie CL : Sébastien n'en veut pas
+(règles 9 à 15, plan type, repère timeframes) · Stratégie V1. Pas de stratégie CL : Sébastien n'en veut pas
 (le bloc « CL — plan séparé », M15 / fade du sweep, a été retiré le 06/10 ; il reste dans l'historique git, présent
 jusqu'au commit `c0b3772`). L'onglet Règles porte aussi une « Calculette de lots — MNQ » (budget 250 / 300 / 500 $
 en menu déroulant + stop en ticks → contrats = ⌊budget ÷ (ticks × 0,50 $)⌋, plafonné à
