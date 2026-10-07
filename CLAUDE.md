@@ -125,6 +125,7 @@ trade, relecture) — ne pas dupliquer ce CSS/JS dans le fichier de session.
   soldes de `window.COMPTES` ; un écart avec le P&L des CSV est signalé (≠), pas lissé.
 - Règles → « Objectif : 50 % de trades gagnants » : calculée dans la page depuis `window.PAR_INSTRUMENT`
   (gagnants, signaux, gain/perte moyens) — rien à recopier à la main ; elle suit `calc-instruments.js`.
+- Tableau de bord → « Économie & risque » (💶) : espérance par signal et par groupe (instrument, Long/Short), buffers des comptes en budgets de risque et en pertes moyennes, risque simultané (perte du budget sur tous les comptes actifs + pires jours multi-comptes). Tout est calculé dans la page depuis `window.PAR_INSTRUMENT`, `window.COMPTES` (soldes/seuils), `window.PAR_COMPTE` et `window.budgetOf` — rien à recopier ; le budget affiché est celui du jour (500 $ dès le 05/10). Pas de bloc coût réel / ROI / taux de réussite des évaluations : ils demandent des données que Sébastien n'a pas encore données (prix payé par compte, payouts, règles Lucid).
 - Avant la séance → Checklist : carte « Note du jour » (ressenti avant de trader).
   Saisie locale au navigateur (`daynote_AAAA-MM-JJ`) ; « Copier pour Claude »
   la remonte dans le chat, et Claude l'inscrit dans `window.DAY_NOTES`

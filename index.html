@@ -722,6 +722,23 @@ textarea::placeholder{color:#4A566A}
 .ls-t{font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);font-weight:700}
 .ls-pnl{font-size:20px;font-weight:800;letter-spacing:-.02em;font-variant-numeric:tabular-nums;line-height:1.2}
 @media(max-width:520px){.ls-cols{grid-template-columns:1fr}}
+.ec-card{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:11px 14px}
+.ec-card h3{margin:0 0 7px;font-size:13px;font-weight:700}
+.ec-top{display:grid;grid-template-columns:minmax(210px,290px) 1fr;gap:6px 26px;align-items:start}
+.ec-two{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px;align-items:start}
+.ec-big{font-size:28px;font-weight:800;letter-spacing:-.02em;font-variant-numeric:tabular-nums;line-height:1.1}
+.ec-sub{font-size:11px;color:var(--muted);margin:2px 0 7px;line-height:1.4}
+.ec-txt{font-size:12px;color:var(--muted);margin:8px 0 0;line-height:1.45}
+.ec-tbl{width:100%;border-collapse:collapse;font-size:12px;font-variant-numeric:tabular-nums}
+.ec-tbl th{text-align:right;font-size:10px;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);padding:3px 6px;border-bottom:1px solid var(--line);font-weight:700}
+.ec-tbl td{text-align:right;padding:4px 6px;border-bottom:1px solid var(--line);color:var(--muted)}
+.ec-tbl th:first-child,.ec-tbl td:first-child{text-align:left}
+.ec-tbl td:first-child{color:var(--txt);font-weight:600;white-space:nowrap}
+.ec-tbl td.pos{color:var(--green)}
+.ec-tbl td.neg{color:var(--red)}
+.ec-tbl tr.ec-dim td{opacity:.55}
+.ec-tag{font-size:9.5px;font-weight:600;color:var(--dim);margin-left:4px}
+@media(max-width:820px){.ec-top,.ec-two{grid-template-columns:1fr}}
 /* Checklist + Note du jour */
 @media(min-width:960px){
   .chk-grid .rules{display:grid;grid-template-columns:1fr 1fr;column-gap:32px}
@@ -846,6 +863,7 @@ textarea::placeholder{color:#4A566A}
     <button class="sn-btn active" data-sub="overview" data-nosidebar>🔎 Vue d'ensemble</button>
     <button class="sn-btn" data-sub="progression">📈 Progression</button>
     <button class="sn-btn" data-sub="instrument">🪙 Par instrument</button>
+    <button class="sn-btn" data-sub="economie">💶 Économie &amp; risque</button>
     <button class="sn-btn" data-sub="comptes">🧮 Comptes &amp; Analyse</button>
     <button class="sn-btn" data-sub="risque">⚖️ Risque &amp; R:R</button>
     <button class="sn-btn" data-sub="bilan">📑 Bilan &amp; Règles</button>
@@ -990,6 +1008,13 @@ textarea::placeholder{color:#4A566A}
   <h1>Par instrument</h1>
   <p class="sub">Où part l'argent : MNQ, or, pétrole ou euro ? Et dans quel sens : plus de Long ou de Short ? Recalculé depuis les CSV de tous les comptes, copy-trading compté une seule fois.</p>
   <div id="instr"></div>
+  </div>
+
+  <div class="subview" data-subview="economie">
+  <p class="eyebrow">Tableau de bord</p>
+  <h1>Économie &amp; risque</h1>
+  <p class="sub">Ce que rapporte (ou coûte) un signal, combien de pertes tiennent tes comptes, et ce qui se passe quand plusieurs comptes perdent ensemble. Tout est recalculé depuis les CSV et les soldes.</p>
+  <div id="eco-risque"></div>
   </div>
 
   <div class="subview" data-subview="comptes">
@@ -4405,6 +4430,107 @@ window.DAY_NOTES = {
     host.innerHTML = h;
   }
   if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', build); else build();
+})();
+</script>
+<script>/* Économie & risque (Tableau de bord) — tout est calculé dans la page, rien à recopier à chaque séance :
+   window.PAR_INSTRUMENT (csv/calc-instruments.js), window.COMPTES (soldes, seuils), window.PAR_COMPTE (csv/calc-comptes.js), window.budgetOf */
+(function(){
+  function sgn(v){ return v > 0.004 ? "+" : (v < -0.004 ? "−" : ""); }
+  function cls(v){ return v > 0.004 ? "pos" : (v < -0.004 ? "neg" : ""); }
+  function plain(v, d){ return Math.abs(v).toLocaleString("fr-FR", { minimumFractionDigits: d || 0, maximumFractionDigits: d || 0 }) + " $"; }
+  function usd(v, d){ return sgn(v) + plain(v, d); }
+  function pc(x){ return x === null ? "—" : Math.round(x * 100) + " %"; }
+  function fr(x, d){ return x.toFixed(d).replace(".", ","); }
+  function rs(v){ return sgn(v) + fr(Math.abs(v), 2) + " R"; }
+  var LBL = { "Compte 01": "001", "Compte 03": "003", "Compte 04b": "004b", "Compte 02b": "02b", "Compte A": "A", "Compte 06": "006", "Compte 02": "002", "Compte 05": "005", "Compte 05b": "005b" };
+  function pad(n){ return (n < 10 ? "0" : "") + n; }
+  function row(l, v, c){ return '<div class="ins-row"><span>' + l + '</span><b' + (c ? ' class="' + c + '"' : "") + ">" + v + "</b></div>"; }
+  function budgetNow(){
+    var d = new Date(), k = pad(d.getDate()) + "/" + pad(d.getMonth() + 1);
+    return (window.budgetOf && window.budgetOf(k)) || 500;   // dernier budget connu si le mois n'a pas de barème
+  }
+  function grp(label, o){
+    var n = o.n, w = o.w, l = o.l, G = w ? o.gains / w : 0, L = l ? o.pertes / l : 0;
+    return { label: label, n: n, w: w, l: l, pnl: o.pnl, exp: n ? o.pnl / n : 0, wr: n ? w / n : 0, G: G, L: L,
+             be: (w && l) ? L / (G + L) : null, ratio: L ? G / L : null, need: w ? l / w : null };
+  }
+  function parseJ(s){ var m = s.match(/(\d+)\/(\d+)\/(\d+)/); return new Date(+m[3], +m[2] - 1, +m[1]).getTime(); }
+  function build(){
+    var host = document.getElementById("eco-risque"), D = window.PAR_INSTRUMENT, C = window.COMPTES;
+    if(!host || !D || !C) return;
+    var B = budgetNow();
+
+    /* ---------- A · espérance ---------- */
+    var tot = { n: 0, w: 0, l: 0, pnl: 0, gains: 0, pertes: 0 };
+    D.items.forEach(function(o){ Object.keys(tot).forEach(function(k){ tot[k] += o[k]; }); });
+    var T = grp("Tous", tot);
+    var groups = D.items.slice().sort(function(a, b){ return b.n - a.n; }).map(function(o){ return grp(o.id, o); });
+    if(D.sens){ groups.push(grp("Long", D.sens.Long)); groups.push(grp("Short", D.sens.Short)); }
+    var a = '<div class="ec-card"><h3>📉 Espérance par signal</h3><div class="ec-top"><div>'
+      + '<div class="ec-big ' + cls(T.exp) + '">' + usd(T.exp) + '</div>'
+      + '<div class="ec-sub">par signal · ≈ ' + rs(T.exp / B) + " au budget de " + plain(B) + " · " + T.n + " signaux</div>"
+      + row("Gagnants", pc(T.wr)) + row("Seuil d’équilibre", pc(T.be))
+      + row("Gain moy. / perte moy.", usd(T.G) + " / " + usd(-T.L))
+      + row("Ratio gain / perte", fr(T.ratio, 2) + " · équilibre " + fr(T.need, 2))
+      + row("10 signaux", usd(T.exp * 10), cls(T.exp))
+      + '</div><div><table class="ec-tbl"><thead><tr><th>Groupe</th><th>Signaux</th><th>Espérance</th><th>Gagnants</th><th>Équilibre</th></tr></thead><tbody>'
+      + groups.map(function(g){
+          return '<tr class="' + (g.n < 30 ? "ec-dim" : "") + '"><td>' + g.label + (g.n < 30 ? ' <span class="ec-tag">petit échantillon</span>' : "") + "</td><td>" + g.n + '</td><td class="' + cls(g.exp) + '">' + usd(g.exp) + "</td><td>" + pc(g.wr) + "</td><td>" + pc(g.be) + "</td></tr>";
+        }).join("")
+      + "</tbody></table></div></div></div>";
+
+    /* ---------- B · buffers en stops ---------- */
+    var latest = Math.max.apply(null, C.filter(function(c){ return c.soldeDate; }).map(function(c){ return parseJ(c.soldeDate); }));
+    var acc = C.filter(function(c){ return c.statut !== "breached" && c.solde != null && c.buffer !== undefined; }).map(function(c){
+      return { c: c, label: LBL[c.ref] || c.ref.replace("Compte ", ""), buffer: c.buffer, stale: c.soldeDate ? (latest - parseJ(c.soldeDate)) / 86400000 > 7 : true };
+    });
+    acc.sort(function(x, y){ return (x.stale - y.stale) || (x.buffer - y.buffer); });
+    var live = acc.filter(function(x){ return !x.stale && x.buffer > 0; });
+    var weak = live.filter(function(x){ return x.buffer < B; });
+    var under = acc.filter(function(x){ return !x.stale && x.buffer <= 0; });
+    var morts = C.filter(function(c){ return c.statut === "breached"; }).map(function(c){ return LBL[c.ref] || c.ref.replace("Compte ", ""); });
+    var b = '<div class="ec-card"><h3>🛟 Buffers en stops</h3>'
+      + '<table class="ec-tbl"><thead><tr><th>Compte</th><th>Buffer</th><th>En budgets</th><th>En pertes moy.</th></tr></thead><tbody>'
+      + acc.map(function(x){
+          var low = x.buffer > 0 && x.buffer < B && !x.stale;
+          return '<tr class="' + (x.stale ? "ec-dim" : "") + '"><td>' + x.label + (x.stale ? ' <span class="ec-tag">au ' + x.c.soldeDate.slice(0, 5) + "</span>" : "") + "</td>"
+            + '<td class="' + (x.buffer <= 0 ? "neg" : (low ? "neg" : "")) + '">' + (x.buffer <= 0 ? "sous le seuil" : plain(x.buffer, 2)) + "</td>"
+            + '<td class="' + (low ? "neg" : "") + '">' + (x.buffer > 0 ? fr(x.buffer / B, 1) : "—") + "</td>"
+            + "<td>" + (x.buffer > 0 && T.L ? fr(x.buffer / T.L, 1) : "—") + "</td></tr>";
+        }).join("")
+      + "</tbody></table>"
+      + '<p class="ec-txt">' + (weak.length
+          ? "Au budget de " + plain(B) + ", <b>" + weak.length + " compte" + (weak.length > 1 ? "s" : "") + " sur " + live.length + "</b> n’encaisse" + (weak.length > 1 ? "nt" : "") + " pas une perte pleine : " + weak.map(function(x){ return x.label; }).join(", ") + "."
+          : "Au budget de " + plain(B) + ", tous les comptes actifs encaissent au moins une perte pleine.")
+      + (under.length ? " " + under.map(function(x){ return x.label; }).join(", ") + (under.length > 1 ? " sont déjà sous leur seuil" : " est déjà sous son seuil") + " d’après le calcul." : "") + "</p></div>";
+
+    /* ---------- C · risque simultané ---------- */
+    var expo = live.length * B;
+    var cum = live.reduce(function(t, x){ return t + x.buffer; }, 0);
+    var days = {};
+    var PC = window.PAR_COMPTE || {};
+    Object.keys(PC).forEach(function(ac){ Object.keys(PC[ac]).forEach(function(j){
+      var x = days[j] = days[j] || { j: j, los: 0, loss: 0, net: 0 }; var v = PC[ac][j]; x.net += v; if(v < 0){ x.los++; x.loss += v; }
+    }); });
+    var list = Object.keys(days).map(function(k){ return days[k]; });
+    var multi = list.filter(function(x){ return x.los >= 2; });
+    var anyLoss = list.filter(function(x){ return x.los >= 1; });
+    var worst = multi.slice().sort(function(x, y){ return x.loss - y.loss; }).slice(0, 4);
+    var c = '<div class="ec-card"><h3>🧯 Risque simultané</h3>'
+      + '<div class="ec-sub">Si un même signal perdait ' + plain(B) + " sur tous les comptes actifs (la règle 8 interdit de copier un trade, c’est le pire cas) :</div>"
+      + row("Comptes actifs", live.length) + row("Perte cumulée", usd(-expo), "neg")
+      + row("Comptes qui sauteraient", weak.length ? weak.length + " (" + weak.map(function(x){ return x.label; }).join(", ") + ")" : "aucun", weak.length ? "neg" : "")
+      + row("Buffers cumulés", plain(cum, 2))
+      + '<div class="ec-sub" style="margin-top:9px">Jours où plusieurs comptes ont perdu ensemble : <b>' + multi.length + " sur " + anyLoss.length + "</b> jours avec une perte. Les pires :</div>"
+      + '<table class="ec-tbl"><thead><tr><th>Jour</th><th>Comptes en perte</th><th>Pertes cumulées</th><th>En budgets</th></tr></thead><tbody>'
+      + worst.map(function(x){ var bd = window.budgetOf ? window.budgetOf(x.j) : null; return "<tr><td>" + x.j + "</td><td>" + x.los + '</td><td class="neg">' + usd(x.loss) + "</td><td>" + (bd ? fr(Math.abs(x.loss) / bd, 1) : "—") + "</td></tr>"; }).join("")
+      + "</tbody></table></div>";
+
+    host.innerHTML = a + '<div class="ec-two">' + b + c + "</div>"
+      + '<p class="ins-note"><b>Seuil d’équilibre</b> = part de gagnants qui ne fait ni gagner ni perdre si ton gain moyen et ta perte moyenne restent ceux d’aujourd’hui ; <b>ratio d’équilibre</b> = ratio gain / perte nécessaire si ta part de gagnants reste la même. Arithmétique sur ' + T.n + " signaux (" + D.du + " → " + D.au + "), pas une prévision : quelques gros trades pèsent beaucoup. "
+      + "<b>1 budget = " + plain(B) + "</b> (le budget de risque du jour) — aucun stop n’est enregistré, donc ce n’est pas le R réel d’un trade. <b>Buffer</b> = solde − seuil de clôture, soldes Lucid du 30/09 + P&amp;L des CSV (Lucid non consulté depuis) ; « sous le seuil » = le calcul passe sous la clôture, à confirmer. Comptes exclus (cramés) : " + (morts.join(", ") || "aucun") + ". Les comptes dont le relevé a plus d’une semaine sont grisés et hors du risque simultané. Pertes cumulées = somme des comptes perdants du jour (CSV, hors lignes de bug).</p>";
+  }
+  if(document.readyState === "loading") document.addEventListener("DOMContentLoaded", build); else build();
 })();
 </script>
 <script>/* Note du jour — ressenti avant de trader (Avant la séance → Checklist). Sauvegarde locale (localStorage daynote_AAAA-MM-JJ),
