@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<link rel="apple-touch-icon" href="../apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>Jeudi 8 oct. — Journal</title>
+<link rel="stylesheet" href="../_systeme/style.css">
+</head>
+<body>
+<div class="wrap">
+
+<a href="https://scaryseb-afk.github.io/journal-trading/#sessions" onclick="if(document.referrer){history.back();return false;}" class="sp-back">← Journal</a>
+
+<div class="sp-header">
+  <h1 class="sp-title">Jeudi 8 oct.</h1>
+  <span class="sp-pnl td-l">−1 302,50 $</span>
+</div>
+<div class="sp-meta">7 trades (8 lignes CSV) &nbsp;·&nbsp; 4 comptes (004b, A, 02b, 001)</div>
+
+<div class="note-block">
+  <strong>−1 302,50 $ — sept trades sur quatre comptes : deux gagnants (+352 $), cinq perdants (−1 654,50 $).</strong><br><br>
+  <strong>1 · 004b — MGC (or) Short 3 contrats : −309 $.</strong> Vente à 08h24:26 à 4 140,9, rachat à 09h20:50 à 4 151,2 : 10,3 pts contre toi en 56 min 23 (3 contrats × 10,3 pts × 10 $). Entrée à 8h24, bien avant l'ouverture US de 15h30 (la stratégie V2 se joue à partir de 15h30) : je ne sais pas quel schéma c'était.<br><br>
+  <strong>2 · 004b — MGC Long 3 contrats : −192 $.</strong> Achat à 09h21:45 à 4 152,6, vente à 09h32:22 à 4 146,2 : 6,4 pts contre toi en 10 min 37. Entré <strong>55 s après</strong> la sortie du Short à −309 $ (même compte), dans le sens inverse : ré-entrée à moins de 10 min ✗ (règle 6).<br><br>
+  <strong>3 · A — MGC Short 3 contrats : −255 $.</strong> Vente à 09h34:27 à 4 144,0, rachat à 10h13:38 à 4 152,5 : 8,5 pts contre toi en 39 min 10 (3 × 8,5 pts × 10 $). Entré <strong>2 min 5 s après</strong> la perte du 004b : ré-entrée ✗ (règle 6), et 3e trade du jour pris <strong>après 2 pertes</strong> ✗.<br><br>
+  <strong>4 · 02b — MCL (pétrole) Long 3 contrats : +12 $.</strong> Achat à 10h38:19 à 91,68, ventes à 15h17:50 (1 contrat) et 15h17:51 (2 contrats) à 91,72 : 4 ticks, +4 $ et +8 $ en 4 h 39. Une position en deux lignes CSV (même achat) : un seul trade. 4e trade du jour, pris après 3 pertes ✗.<br><br>
+  <strong>5 · 001 — MNQ Long 5 contrats : −332,50 $.</strong> Achat à 15h35:04 à 31 258,50, vente à 15h35:58 à 31 225,25 : 33,25 pts contre toi en <strong>53 secondes</strong> (5 × 33,25 pts × 2 $), 5 min après l'ouverture US. Environ −0,7 R au budget de 500 $. Plafond de 4 contrats levé pour octobre : 5 contrats non évalués.<br><br>
+  <strong>6 · 02b — MNQ Short 4 contrats : −566 $.</strong> Vente à 15h41:58 à 31 208,25, rachat à 16h18:50 à 31 279,00 : 70,75 pts contre toi en 36 min 52 (4 × 70,75 pts × 2 $). <strong>−566 $ pour un budget de 500 $</strong> (environ −1,1 R). Entré <strong>6 min</strong> après la sortie à −332,50 $ du 001 : ré-entrée ✗ (règle 6).<br><br>
+  <strong>7 · 02b — MNQ Long 4 contrats : +340 $.</strong> Achat à 16h22:15 à 31 291,00, vente à 16h36:04 à 31 333,50 : 42,5 pts en ta faveur en 13 min 49 (4 × 42,5 pts × 2 $). Entré <strong>3 min 25 s après</strong> la sortie du Short à −566 $, dans le sens inverse : ré-entrée ✗ (règle 6), mais gagnante — le seul gain significatif de la journée.<br><br>
+  <strong>Ce qui ressort :</strong> les trois premiers trades sont sur l'or, sur deux comptes : −756 $ entre 08h24 et 10h13, avec deux ré-entrées. L'or pèse maintenant −3 228 $ sur 27 signaux (page « Par instrument »). Puis, à partir de l'ouverture US, trois trades MNQ entre 15h35 et 16h36, sur deux comptes (001 puis 02b) : −558,50 $.<br><br>
+  <strong>Contrôle du plan — non respecté :</strong> 7 trades (max 3) ✗ · du 3e au 7e trade, tous pris après 2 pertes ou plus ✗ · 4 ré-entrées à moins de 10 min d'une perte (55 s, 2 min 5 s, 6 min, 3 min 25 s ; −673 $ au total, dont le +340 $) ✗ · un seul compte à la fois ✓ (quatre comptes dans la journée, aucun trade simultané) · plafond de 4 contrats levé en octobre : non évalué · SL/TP : non précisés, je ne les invente pas.<br><br>
+  <strong>Ce qui manque :</strong> ni note ni capture : je ne sais pas quel schéma, quel biais MME, ni où étaient les stops et les objectifs. Si d'autres comptes ont tradé ce jour-là, envoie leurs CSV.
+</div>
+
+<!-- Captures d'écran -->
+<!-- Trades par compte — dupliquer ce bloc pour chaque compte actif -->
+<div id="trades-section">
+
+  <div class="acct-header">
+    <span class="acct-label">Compte 004b — …4680004</span>
+    <span class="acct-pnl td-l">−501,00 $</span>
+  </div>
+  <div class="tbl-wrap">
+    <table class="trades-table">
+      <thead><tr><th>#</th><th>Contrat</th><th>Sens</th><th>Qté</th><th>Entrée</th><th>Sortie</th><th>Heure</th><th>P&amp;L</th></tr></thead>
+      <tbody id="body-004b"></tbody>
+    </table>
+  </div>
+
+  <div class="acct-header">
+    <span class="acct-label">Compte A — nouveau, 18/09</span>
+    <span class="acct-pnl td-l">−255,00 $</span>
+  </div>
+  <div class="tbl-wrap">
+    <table class="trades-table">
+      <thead><tr><th>#</th><th>Contrat</th><th>Sens</th><th>Qté</th><th>Entrée</th><th>Sortie</th><th>Heure</th><th>P&amp;L</th></tr></thead>
+      <tbody id="body-A"></tbody>
+    </table>
+  </div>
+
+  <div class="acct-header">
+    <span class="acct-label">Compte 02b — …4680006 (racheté le 29/09)</span>
+    <span class="acct-pnl td-l">−214,00 $</span>
+  </div>
+  <div class="tbl-wrap">
+    <table class="trades-table">
+      <thead><tr><th>#</th><th>Contrat</th><th>Sens</th><th>Qté</th><th>Entrée</th><th>Sortie</th><th>Heure</th><th>P&amp;L</th></tr></thead>
+      <tbody id="body-02b"></tbody>
+    </table>
+  </div>
+
+  <div class="acct-header">
+    <span class="acct-label">Compte 001 — …4680001</span>
+    <span class="acct-pnl td-l">−332,50 $</span>
+  </div>
+  <div class="tbl-wrap">
+    <table class="trades-table">
+      <thead><tr><th>#</th><th>Contrat</th><th>Sens</th><th>Qté</th><th>Entrée</th><th>Sortie</th><th>Heure</th><th>P&amp;L</th></tr></thead>
+      <tbody id="body-001"></tbody>
+    </table>
+  </div>
+
+  <div class="total-bar">
+    <span class="total-label">Total journée — 4 comptes</span>
+    <span class="total-val " style="color:var(--red)">−1 302,50 $</span>
+  </div>
+
+</div>
+
+<!-- Relecture — à remplir par Sébastien, sert à améliorer les séances suivantes -->
+<div class="section-title">🪞 Ta relecture</div>
+<div class="reflect-grid">
+  <div class="reflect-item err">
+    <label>Erreur commise</label>
+    <textarea class="reflect-note" data-key="reflect_erreur" placeholder="Qu'est-ce qui a foiré aujourd'hui, concrètement ?"></textarea>
+  </div>
+  <div class="reflect-item fix">
+    <label>Ce que j'aurais dû faire</label>
+    <textarea class="reflect-note" data-key="reflect_correction" placeholder="La version correcte de la décision"></textarea>
+  </div>
+  <div class="reflect-item ok">
+    <label>Ce qui a bien fonctionné</label>
+    <textarea class="reflect-note" data-key="reflect_ok" placeholder="À garder, à répéter"></textarea>
+  </div>
+</div>
+<div class="reflect-copy">
+  <button id="reflect-copy-btn" onclick="sjCopyReflect()" disabled>📋 Copier pour Claude</button>
+  <span class="hint">Colle ça dans le chat pour que ta prochaine séance en tienne compte.</span>
+</div>
+
+</div>
+<!-- Lightbox -->
+<div class="lb-overlay" id="lb" onclick="sjCloseLB(event)">
+  <span class="lb-close" onclick="document.getElementById('lb').classList.remove('open')">×</span>
+  <img id="lb-img" src="" alt="">
+</div>
+
+<script>
+var SESSION_KEY = '2026_10_08_jeudi';
+
+/* Trades hardcodés — un tableau par compte, rempli depuis les CSV */
+var ACCTS = {
+  '004b': [
+    {n:1, contract:'MGC', side:'Short', qty:'3', entry:'4140.9', exit:'4151.2', time:'08:24', pnl: -309.00},
+    {n:2, contract:'MGC', side:'Long', qty:'3', entry:'4152.6', exit:'4146.2', time:'09:21', pnl: -192.00}
+  ],
+  'A': [
+    {n:1, contract:'MGC', side:'Short', qty:'3', entry:'4144.0', exit:'4152.5', time:'09:34', pnl: -255.00}
+  ],
+  '02b': [
+    {n:1, contract:'MCL', side:'Long', qty:'3', entry:'91.68', exit:'91.72', time:'10:38', pnl: 12.00},
+    {n:2, contract:'MNQ', side:'Short', qty:'4', entry:'31208.25', exit:'31279.00', time:'15:41', pnl: -566.00},
+    {n:3, contract:'MNQ', side:'Long', qty:'4', entry:'31291.00', exit:'31333.50', time:'16:22', pnl: 340.00}
+  ],
+  '001': [
+    {n:1, contract:'MNQ', side:'Long', qty:'5', entry:'31258.50', exit:'31225.25', time:'15:35', pnl: -332.50}
+  ]
+};
+
+function renderAcct(acctId, bodyId){
+  var notes = sjLoadNotes();
+  var trades = ACCTS[acctId] || [];
+  var html = '';
+  trades.forEach(function(t){
+    var ps = (t.pnl >= 0 ? '+' : '') + t.pnl.toFixed(2) + ' $';
+    var pc = t.pnl >= 0 ? 'td-w' : 'td-l';
+    var key = acctId + '_' + t.n;
+    var note = notes[key] || '';
+    html += '<tr class="trade-row">'
+      + '<td>' + t.n + '</td>'
+      + '<td><strong>' + sjEsc(t.contract) + '</strong></td>'
+      + '<td>' + sjEsc(t.side) + '</td>'
+      + '<td>' + sjEsc(t.qty) + '</td>'
+      + '<td>' + sjEsc(t.entry) + '</td>'
+      + '<td>' + sjEsc(t.exit) + '</td>'
+      + '<td style="color:var(--muted);font-size:12px">' + sjEsc(t.time) + '</td>'
+      + '<td class="td-pnl ' + pc + '">' + ps + '</td>'
+      + '</tr>'
+      + '<tr class="note-row"><td colspan="8">'
+      + '<textarea class="trade-note" placeholder="Setup, raison du trade, erreurs…" data-key="' + key + '" onblur="sjSaveNote(this)">'
+      + sjEsc(note)
+      + '</textarea>'
+      + sjTradeRRRow(key)
+      + '</td></tr>';
+  });
+  document.getElementById(bodyId).innerHTML = html;
+}
+
+window.addEventListener('DOMContentLoaded', function(){
+  renderAcct('004b', 'body-004b');
+  renderAcct('A', 'body-A');
+  renderAcct('02b', 'body-02b');
+  renderAcct('001', 'body-001');
+});
+</script>
+<script src="../_systeme/session.js"></script>
+</body>
+</html>

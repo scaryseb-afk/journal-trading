@@ -149,6 +149,7 @@ h3{font-size:18px;font-weight:600;margin:0 0 4px}
 .wk-recap-h{font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-bottom:4px}
 .wk-recap-col ul{margin:0;padding-left:18px;font-size:13px;line-height:1.6;color:var(--txt)}
 .wk-recap-verdict{color:var(--muted);font-size:13px;margin:10px 0 4px;font-style:italic}
+.wk-recap-wk{font-size:13px;font-weight:700;margin:18px 0 2px}
 .cha-list{display:flex;flex-direction:column;gap:8px;margin:12px 0 24px}
 .cha-item{display:flex;align-items:center;gap:10px;padding:10px 14px;border:1px solid var(--line);border-radius:10px;background:var(--panel);flex-wrap:wrap}
 .cha-item.ok{border-color:var(--green)}
@@ -738,6 +739,8 @@ textarea::placeholder{color:#4A566A}
 .ec-tbl td.neg{color:var(--red)}
 .ec-tbl tr.ec-dim td{opacity:.55}
 .ec-tag{font-size:9.5px;font-weight:600;color:var(--dim);margin-left:4px}
+.ec-cols{display:grid;grid-template-columns:1fr 1fr;gap:2px 26px}
+@media(max-width:820px){.ec-cols{grid-template-columns:1fr}}
 @media(max-width:820px){.ec-top,.ec-two{grid-template-columns:1fr}}
 /* Checklist + Note du jour */
 @media(min-width:960px){
@@ -879,39 +882,39 @@ textarea::placeholder{color:#4A566A}
   <div class="tz-row">
     <div class="tz-card">
       <div class="lbl">Net P&amp;L</div>
-      <div class="val neg">−10 786 $</div>
+      <div class="val neg">−12 089 $</div>
     </div>
     <div class="tz-card gauge">
       <div class="lbl">Trade win %</div>
       <div class="tz-ring-wrap">
         <svg width="72" height="72" viewBox="0 0 72 72">
           <circle cx="36" cy="36" r="30" fill="none" stroke="var(--line)" stroke-width="7"/>
-          <circle cx="36" cy="36" r="30" fill="none" stroke="var(--red)" stroke-width="7" stroke-linecap="round" stroke-dasharray="59.7 188.5" transform="rotate(-90 36 36)"/>
+          <circle cx="36" cy="36" r="30" fill="none" stroke="var(--red)" stroke-width="7" stroke-linecap="round" stroke-dasharray="59.5 188.5" transform="rotate(-90 36 36)"/>
         </svg>
         <div class="tz-ring-val">32 %</div>
       </div>
-      <div class="tz-sub">63/199</div>
+      <div class="tz-sub">65/206</div>
     </div>
     <div class="tz-card">
       <div class="lbl">Profit factor</div>
-      <div class="val neg">0,56</div>
-      <div class="tz-sub">13 486 $ / 24 272 $</div>
+      <div class="val neg">0,53</div>
+      <div class="tz-sub">13 838 $ / 25 927 $</div>
     </div>
     <div class="tz-card gauge">
       <div class="lbl">Day win %</div>
       <div class="tz-ring-wrap">
         <svg width="72" height="72" viewBox="0 0 72 72">
           <circle cx="36" cy="36" r="30" fill="none" stroke="var(--line)" stroke-width="7"/>
-          <circle cx="36" cy="36" r="30" fill="none" stroke="var(--red)" stroke-width="7" stroke-linecap="round" stroke-dasharray="66.0 188.5" transform="rotate(-90 36 36)"/>
+          <circle cx="36" cy="36" r="30" fill="none" stroke="var(--red)" stroke-width="7" stroke-linecap="round" stroke-dasharray="64.4 188.5" transform="rotate(-90 36 36)"/>
         </svg>
-        <div class="tz-ring-val">35 %</div>
+        <div class="tz-ring-val">34 %</div>
       </div>
-      <div class="tz-sub">14/40 séances</div>
+      <div class="tz-sub">14/41 séances</div>
     </div>
     <div class="tz-card">
       <div class="lbl">Gain / perte moyen</div>
-      <div class="val"><span class="pos">214 $</span> <span style="color:var(--dim);font-weight:500;font-size:16px">/</span> <span class="neg">180 $</span></div>
-      <div class="tz-sub">ratio 1,19</div>
+      <div class="val"><span class="pos">213 $</span> <span style="color:var(--dim);font-weight:500;font-size:16px">/</span> <span class="neg">185 $</span></div>
+      <div class="tz-sub">ratio 1,15</div>
     </div>
   </div>
 
@@ -970,7 +973,7 @@ textarea::placeholder{color:#4A566A}
 
   <div class="kpis kpis-top">
     <div class="kpi"><div class="lbl">Règle de séance</div><div class="val" id="kpi-regle-val">300 $ / signal</div><div class="note" id="kpi-regle-note">1 seul compte à la fois · R:R ≥ 2 · 3 trades max par jour · 500 $ dès le 05/10</div></div>
-    <div class="kpi"><div class="lbl">Cumul tous comptes</div><div class="val neg">−10 786,25 $</div><div class="note">somme des 9 fichiers CSV (hors 13 lignes de bug du 05/10), 13/08 → 07/10 · −834 $ le 07/10 · −27 $ le 06/10 · −584 $ le 05/10 · −2 117 $ le 02/10 · −416 $ le 01/10 · −199 $ le 30/09 · −418 $ le 29/09</div></div>
+    <div class="kpi"><div class="lbl">Cumul tous comptes</div><div class="val neg">−12 088,75 $</div><div class="note">somme des 9 fichiers CSV (hors 13 lignes de bug du 05/10), 13/08 → 08/10 · −1 302,50 $ le 08/10 · −834 $ le 07/10 · −27 $ le 06/10 · −584 $ le 05/10 · −2 117 $ le 02/10 · −416 $ le 01/10 · −199 $ le 30/09 · −418 $ le 29/09</div></div>
     <div class="kpi"><div class="lbl">Meilleure session</div><div class="val pos">+2 529 $</div><div class="note">08/09 — TraderSyncer, 3 comptes</div></div>
     <div class="kpi"><div class="lbl">Pire session</div><div class="val neg">−2 117 $</div><div class="note">02/10 — MGC 4 contrats 6 s après le NFP (−1 200 $) + même signal MNQ sur 3 comptes (−661,50 $). Précédent : −2 095 $ le 18/09</div></div>
   </div>
@@ -980,12 +983,12 @@ textarea::placeholder{color:#4A566A}
   <div class="kpis" style="margin-top:0;grid-template-columns:repeat(auto-fit,minmax(320px,1fr))">
     <div class="kpi">
       <div class="lbl">Objectif +12 000 $</div>
-      <div class="val neg">−10 786,25 $</div>
+      <div class="val neg">−12 088,75 $</div>
       <div class="ar-buf" style="margin:10px 0 4px">
         <div class="ar-buf-label"><span>0 %</span><span>12 000 $</span></div>
         <div class="ar-buf-track"><div class="ar-buf-fill crit" style="width:0%"></div></div>
       </div>
-      <div class="note">Reste 22 786,25 $ à faire — −834 $ le 07/10 (004b, 001, 003), −27 $ le 06/10 (004b), −584 $ le 05/10 (004b : trois Shorts, 001 : un Short), −2 117 $ le 02/10 (MGC −1 200 $, MNQ copié sur 3 comptes −661,50 $, 004b −297 $, A +41,50 $), après −416 $ le 01/10 et −199 $ le 30/09</div>
+      <div class="note">Reste 24 088,75 $ à faire — −1 302,50 $ le 08/10 (004b, A, 02b, 001), −834 $ le 07/10 (004b, 001, 003), −27 $ le 06/10 (004b), −584 $ le 05/10 (004b : trois Shorts, 001 : un Short), −2 117 $ le 02/10 (MGC −1 200 $, MNQ copié sur 3 comptes −661,50 $, 004b −297 $, A +41,50 $), après −416 $ le 01/10 et −199 $ le 30/09</div>
     </div>
     <div class="kpi">
       <div class="lbl">Drawdown max −8 000 $</div>
@@ -1473,14 +1476,18 @@ textarea::placeholder{color:#4A566A}
 
   <div class="subview" data-subview="comptes">
   <h2 id="brief-comptes">Où en sont tes comptes</h2>
-  <p class="sub">Huit comptes suivis (001, 003, 004, 005, 005b, 006, 02b, A) — le 002 a breaché le 29/09 et a été remplacé le jour même par le 02b, le 006 a breaché le 02/10, le 005b est un rachat du 005 tradé une seule fois, le 004 a été racheté le 17/09 après la clôture de l'ancien le 10/09. Soldes Lucid du 30/09 (buffer, jours de trading, seuil MLL — des infos que le CSV Tradovate ne donne pas), puis recalculés au 07/10 en leur appliquant le P&L des CSV depuis : Lucid n'a pas été consulté depuis, ces soldes sont donc à confirmer. Quand un solde recalculé sur CSV existe, l'écart avec Lucid est signalé plutôt que lissé. Compte A confirmé toujours actif par un trade le 01/10, malgré son absence de la page Lucid du 30/09.</p>
+  <p class="sub">Huit comptes suivis (001, 003, 004, 005, 005b, 006, 02b, A) — le 002 a breaché le 29/09 et a été remplacé le jour même par le 02b, le 006 a breaché le 02/10, le 005b est un rachat du 005 tradé une seule fois, le 004 a été racheté le 17/09 après la clôture de l'ancien le 10/09. Soldes Lucid du 30/09 (buffer, jours de trading, seuil MLL — des infos que le CSV Tradovate ne donne pas), puis recalculés au 08/10 en leur appliquant le P&L des CSV depuis : Lucid n'a pas été consulté depuis, ces soldes sont donc à confirmer. Quand un solde recalculé sur CSV existe, l'écart avec Lucid est signalé plutôt que lissé. Compte A confirmé toujours actif par un trade le 01/10, malgré son absence de la page Lucid du 30/09.</p>
+  <div class="obs warn" style="margin-bottom:16px">
+    <div class="t">⚠️ Jeudi 08/10 : −1 302,50 $ — sept trades sur quatre comptes, plan non respecté</div>
+    <div class="d">Or (MGC 3 contrats) : 004b Short −309 $, puis Long −192 $ entré 55 s après, A Short −255 $ entré 2 min après ; 02b : MCL +12 $, MNQ Short 4 contrats −566 $ puis Long 4 contrats +340 $ 3 min après ; 001 : MNQ Long 5 contrats −332,50 $ en 53 s. 7 trades (max 3), du 3e au 7e pris après 2 pertes ou plus, 4 ré-entrées à moins de 10 min d'une perte (−673 $). Buffers après la séance : 004b 88 $, A 194,50 $.</div>
+  </div>
   <div class="obs warn" style="margin-bottom:16px">
     <div class="t">⚠️ Mercredi 07/10 : −834 $ — quatre trades sur trois comptes, plan non respecté</div>
-    <div class="d">004b : Long 5 contrats +17,50 $ (plafond de 4 dépassé), puis Short 3 contrats −451,50 $ (1 h 01) ; 001 : Long 3 contrats −90 $ ; 003 : Short 4 contrats −310 $. 4 trades (max 3), le 4e pris après 2 pertes. D'après mon calcul, le 003 passe 8 $ sous son seuil de 48 251 $ : breach probable, à confirmer sur Lucid.</div>
+    <div class="d">004b : Long 5 contrats +17,50 $ (plafond de 4 levé en octobre), puis Short 3 contrats −451,50 $ (1 h 01) ; 001 : Long 3 contrats −90 $ ; 003 : Short 4 contrats −310 $. 4 trades (max 3), le 4e pris après 2 pertes. D'après mon calcul, le 003 passe 8 $ sous son seuil de 48 251 $ : breach probable, à confirmer sur Lucid.</div>
   </div>
   <div class="obs warn" style="margin-bottom:16px">
     <div class="t">⚠️ Lundi 05/10 : −584 $ — quatre Shorts perdants contre un marché qui montait</div>
-    <div class="d">Sur le 004b : 4 contrats −260 $, 5 contrats −185 $ (le plafond de 4 est dépassé), 2 contrats −54 $ ; sur le 001 : 2 contrats −85 $ à 20h38. 4 trades (max 3), le 3e pris après 2 pertes et le 4e après 3. Tu écris que tu aurais dû prendre un long. (13 allers-retours de 1 à 2 secondes sur le 001, −32,50 $, sont un bug de plateforme : hors statistiques.) Mardi 06/10 : −27 $, un seul trade (004b, Long MNQ 3 contrats, 2 h 20).</div>
+    <div class="d">Sur le 004b : 4 contrats −260 $, 5 contrats −185 $ (plafond de 4 levé en octobre), 2 contrats −54 $ ; sur le 001 : 2 contrats −85 $ à 20h38. 4 trades (max 3), le 3e pris après 2 pertes et le 4e après 3. Tu écris que tu aurais dû prendre un long. (13 allers-retours de 1 à 2 secondes sur le 001, −32,50 $, sont un bug de plateforme : hors statistiques.) Mardi 06/10 : −27 $, un seul trade (004b, Long MNQ 3 contrats, 2 h 20).</div>
   </div>
   <div class="obs warn" style="margin-bottom:16px">
     <div class="t">🔴 Vendredi 02/10 : −2 117 $ sur 6 comptes, plan non respecté</div>
@@ -1503,14 +1510,14 @@ textarea::placeholder{color:#4A566A}
     <div class="d">−1 200 $ le 29/09 (pile la limite DLL), tailles de lots variables selon Sébastien (« j'ai fait n'importe quoi »). Pas de CSV Tradovate reçu pour cette séance — trades non détaillés.</div>
   </div>
   <div class="obs warn" style="margin-bottom:16px">
-    <div class="t">⚠️ Compte « A » : toujours actif, buffer à 449,50 $</div>
-    <div class="d">Confirmé actif par un trade le 01/10 (−416 $, 4 contrats), malgré son absence de la liste Lucid du 30/09. +41,50 $ le 02/10 (Short MNQ 1 contrat) : buffer remonté de 408 à 449,50 $. 3 trades à 8 contrats le 18/09 (−1 176 $) restent le pire épisode de ce compte — à surveiller de près.</div>
+    <div class="t">⚠️ Compte « A » : toujours actif, buffer à 194,50 $</div>
+    <div class="d">−255 $ le 08/10 (Short MGC 3 contrats) : buffer ramené à 194,50 $. Confirmé actif par un trade le 01/10 (−416 $, 4 contrats), malgré son absence de la liste Lucid du 30/09. +41,50 $ le 02/10 (Short MNQ 1 contrat) : buffer remonté de 408 à 449,50 $. 3 trades à 8 contrats le 18/09 (−1 176 $) restent le pire épisode de ce compte — à surveiller de près.</div>
   </div>
   <div class="rules">
     <div class="r">
       <div class="n">Compte …4680001 — Tradovate / Lucid</div>
-      <div class="t">49 995,50 $ · <span style="color:var(--red)">−4,50 $ depuis le départ</span></div>
-      <div class="d">−90 $ le 07/10 : Long MNQ 3 contrats, 7 min (17h48→17h56), 15 pts contre toi. −85 $ le 05/10 : Short MNQ 2 contrats, 22 min (20h38→21h01), 21,25 pts contre toi — compté comme trade. −32,50 $ le 05/10 : 13 allers-retours de 1 à 2 secondes (bug de plateforme : 2 signalés par toi, 11 rangés avec par application de ta consigne), hors statistiques mais réellement débités du solde. −300 $ le 02/10 : même Long MNQ 3 contrats que 003 et 006, sorti à 31 127,75 (solde calculé : 50 503 $ Lucid du 30/09 − 300 $ − 117,50 $ − 90 $ = 49 995,50 $). Solde Lucid au 30/09 — écart de 196 $ avec le calcul CSV du 29/09 (50 699,25 $), à surveiller. −263 $ le 29/09 : Short MNQ en 2 contrats, 65,75 pts contre toi en 41 min. Le 28/09 : +742 $, seul trade de la journée.</div>
+      <div class="t">49 663,00 $ · <span style="color:var(--red)">−337,00 $ depuis le départ</span></div>
+      <div class="d">−332,50 $ le 08/10 : Long MNQ 5 contrats, 53 s (15h35, 5 min après l'ouverture), 33,25 pts contre toi. −90 $ le 07/10 : Long MNQ 3 contrats, 7 min (17h48→17h56), 15 pts contre toi. −85 $ le 05/10 : Short MNQ 2 contrats, 22 min (20h38→21h01), 21,25 pts contre toi — compté comme trade. −32,50 $ le 05/10 : 13 allers-retours de 1 à 2 secondes (bug de plateforme : 2 signalés par toi, 11 rangés avec par application de ta consigne), hors statistiques mais réellement débités du solde. −300 $ le 02/10 : même Long MNQ 3 contrats que 003 et 006, sorti à 31 127,75 (solde calculé : 50 503 $ Lucid du 30/09 − 300 $ − 117,50 $ − 90 $ − 332,50 $ = 49 663 $). Solde Lucid au 30/09 — écart de 196 $ avec le calcul CSV du 29/09 (50 699,25 $), à surveiller. −263 $ le 29/09 : Short MNQ en 2 contrats, 65,75 pts contre toi en 41 min. Le 28/09 : +742 $, seul trade de la journée.</div>
     </div>
     <div class="r">
       <div class="n">Compte …4680002 — Tradovate / Lucid · breaché</div>
@@ -1519,8 +1526,8 @@ textarea::placeholder{color:#4A566A}
     </div>
     <div class="r">
       <div class="n">Compte …4680006 — Tradovate / Lucid (LucidFlex, nouveau — remplace le 002)</div>
-      <div class="t">48 818,00 $ · <span style="color:var(--red)">−1 182,00 $ depuis le départ</span></div>
-      <div class="d">−1 200 $ le 02/10 : Long MGC (or) 4 contrats entré 6 s après le NFP, 30 pts contre — quatre fois le budget, pile le montant d'une limite journalière de 1 200 $ (à confirmer sur Lucid). Buffer 800 $. Racheté le 29/09. Premier trade : Short MNQ 2 contrats en 2 fills (17h12/17h13), sortis 20h23/20h25, +16 $ puis +4 $ — +18 $ net après frais. Entré 20 min après la perte du 003, règle 6 respectée.</div>
+      <div class="t">48 604,00 $ · <span style="color:var(--red)">−1 396,00 $ depuis le départ</span></div>
+      <div class="d">−214 $ le 08/10 : MCL Long 3 contrats +12 $ (4 h 39), MNQ Short 4 contrats −566 $ (36 min), puis MNQ Long 4 contrats +340 $ entré 3 min 25 s après la perte. −1 200 $ le 02/10 : Long MGC (or) 4 contrats entré 6 s après le NFP, 30 pts contre — quatre fois le budget, pile le montant d'une limite journalière de 1 200 $ (à confirmer sur Lucid). Buffer 586 $ après le 08/10. Racheté le 29/09. Premier trade : Short MNQ 2 contrats en 2 fills (17h12/17h13), sortis 20h23/20h25, +16 $ puis +4 $ — +18 $ net après frais. Entré 20 min après la perte du 003, règle 6 respectée.</div>
     </div>
     <div class="r">
       <div class="n">Compte …4680006 — Tradovate / Lucid · breaché</div>
@@ -1544,13 +1551,13 @@ textarea::placeholder{color:#4A566A}
     </div>
     <div class="r">
       <div class="n">Compte …4680004 — Tradovate / Lucid (nouveau)</div>
-      <div class="t">48 676,00 $ · <span style="color:var(--red)">−1 324,00 $ depuis le départ</span></div>
-      <div class="d">−434 $ le 07/10 : Long MNQ 5 contrats +17,50 $ (5 min, plafond de 4 dépassé), puis Short MNQ 3 contrats −451,50 $ (1 h 01, 75 pts contre toi). −27 $ le 06/10 : Long MNQ 3 contrats, 2 h 20 (15h55→18h16), 4,5 pts contre toi — 1er trade du jour. −499 $ le 05/10 : trois Shorts MNQ (4 contrats −260 $, 5 contrats −185 $ — plafond dépassé —, 2 contrats −54 $) dans un marché qui montait ; « j'aurais dû prendre un long ». Buffer 589 $. −297 $ le 02/10 : Long MNQ 3 contrats, 1 h 09, sans SL/TP (fermé à la main), entré 2 min 14 s après la sortie à −300 $ des 001/003 (ré-entrée précipitée, 3e signal du jour). Solde calculé : 49 933 $ Lucid du 30/09 − 297 $ − 499 $ − 27 $ − 434 $ ; écart de 20 $ avec le calcul CSV du 18/09 (49 953 $). Racheté et tradé dès le 17/09 — remplace l'ancien 004 cramé le 10/09.</div>
+      <div class="t">48 175,00 $ · <span style="color:var(--red)">−1 825,00 $ depuis le départ</span></div>
+      <div class="d">−501 $ le 08/10 : deux trades sur l'or (MGC 3 contrats) — Short −309 $ (08h24→09h20), puis Long −192 $ (09h21→09h32) entré 55 s après la sortie du Short. −434 $ le 07/10 : Long MNQ 5 contrats +17,50 $ (5 min, plafond de 4 levé en octobre), puis Short MNQ 3 contrats −451,50 $ (1 h 01, 75 pts contre toi). −27 $ le 06/10 : Long MNQ 3 contrats, 2 h 20 (15h55→18h16), 4,5 pts contre toi — 1er trade du jour. −499 $ le 05/10 : trois Shorts MNQ (4 contrats −260 $, 5 contrats −185 $ — plafond de 4 levé en octobre —, 2 contrats −54 $) dans un marché qui montait ; « j'aurais dû prendre un long ». Buffer 88 $. −297 $ le 02/10 : Long MNQ 3 contrats, 1 h 09, sans SL/TP (fermé à la main), entré 2 min 14 s après la sortie à −300 $ des 001/003 (ré-entrée précipitée, 3e signal du jour). Solde calculé : 49 933 $ Lucid du 30/09 − 297 $ − 499 $ − 27 $ − 434 $ − 501 $ ; écart de 20 $ avec le calcul CSV du 18/09 (49 953 $). Racheté et tradé dès le 17/09 — remplace l'ancien 004 cramé le 10/09.</div>
     </div>
     <div class="r">
       <div class="n">Compte A — Tradovate / Lucid (nouveau)</div>
-      <div class="t">48 449,50 $ · <span style="color:var(--red)">−1 550,50 $ depuis le départ (solde de 50 000 $ supposé)</span></div>
-      <div class="d">+41,50 $ le 02/10 : Short MNQ 1 contrat, 2 min 55 — 4e signal du jour (max 3), entré 3 min 33 s après la perte du 004b. −416 $ le 01/10 : Long MNQ 4 contrats, 52 pts contre toi en 18 min 17 (plafond de 4 contrats atteint pile). Toujours actif — confirmé par ce trade, malgré son absence de la liste Lucid du 30/09. Avant : ouvert et tradé le 18/09 en 8 contrats, 3 trades tous perdants, −1 176 $ à lui seul. Buffer à 449,50 $.</div>
+      <div class="t">48 194,50 $ · <span style="color:var(--red)">−1 805,50 $ depuis le départ (solde de 50 000 $ supposé)</span></div>
+      <div class="d">−255 $ le 08/10 : Short MGC (or) 3 contrats (09h34→10h13), 8,5 pts contre toi, entré 2 min 5 s après la perte du 004b. +41,50 $ le 02/10 : Short MNQ 1 contrat, 2 min 55 — 4e signal du jour (max 3), entré 3 min 33 s après la perte du 004b. −416 $ le 01/10 : Long MNQ 4 contrats, 52 pts contre toi en 18 min 17 (plafond de 4 contrats atteint pile). Toujours actif — confirmé par ce trade, malgré son absence de la liste Lucid du 30/09. Avant : ouvert et tradé le 18/09 en 8 contrats, 3 trades tous perdants, −1 176 $ à lui seul. Buffer à 449,50 $.</div>
     </div>
   </div>
 
@@ -1954,18 +1961,18 @@ textarea::placeholder{color:#4A566A}
     <div class="stat-row">
       <div class="stat-item">
         <span class="stat-label">Total PnL</span>
-        <span class="stat-val neg">−10 786,25 $</span>
-        <div style="font-size:10px;color:var(--muted);margin-top:2px">Recalculé sur les CSV réels, 40 séances (13/08 → 07/10)</div>
+        <span class="stat-val neg">−12 088,75 $</span>
+        <div style="font-size:10px;color:var(--muted);margin-top:2px">Recalculé sur les CSV réels, 41 séances (13/08 → 08/10)</div>
       </div>
       <div class="stat-item">
         <span class="stat-label">Win rate</span>
-        <span class="stat-val">31,7% <span style="font-size:10px;color:var(--muted);font-weight:400">(63/199)</span></span>
+        <span class="stat-val">31,6% <span style="font-size:10px;color:var(--muted);font-weight:400">(65/206)</span></span>
         <div style="font-size:10px;color:var(--muted);margin-top:2px">10 comptes Tradovate (dont 004a et 002 cramés), dédupliqué (copy trading compté 1 fois) · un BE volontaire compte comme trade, pas comme gagnant · TopstepX (clôturé) exclu · 13 allers-retours de bug du 05/10 (001, −32,50 $) exclus (csv/exclus.json)</div>
       </div>
       <div class="stat-item">
         <span class="stat-label">Profit factor</span>
-        <span class="stat-val neg">0,56</span>
-        <div style="font-size:10px;color:var(--muted);margin-top:2px">13 486 $ de gains bruts ÷ 24 272 $ de pertes brutes, même dédoublonnage que le win rate · &lt; 1 = perdant sur la période, peu importe le win rate à côté</div>
+        <span class="stat-val neg">0,53</span>
+        <div style="font-size:10px;color:var(--muted);margin-top:2px">13 838 $ de gains bruts ÷ 25 927 $ de pertes brutes, même dédoublonnage que le win rate · &lt; 1 = perdant sur la période, peu importe le win rate à côté</div>
       </div>
       <div class="stat-item">
         <span class="stat-label">Meilleur jour</span>
@@ -2068,7 +2075,7 @@ textarea::placeholder{color:#4A566A}
     <div class="rule-body">
       <span class="rule-tag tag-stop">Taille</span>
       <div class="rule-stmt">Budget de risque par signal, pas par compte — 250 $ (21→27/09), 300 $ (28/09→04/10), 500 $ à partir du 05/10 (à confirmer).</div>
-      <div class="rule-detail">Un signal = <strong>un seul compte à la fois</strong>, tu tournes entre les 5 comptes — jamais le même trade dupliqué sur plusieurs comptes en même temps (voir règle 8, toujours en vigueur). R:R minimum <strong>2:1</strong> sur chaque trade. C'est le budget en dollars qui fixe la taille, jamais l'inverse — recalcule les contrats depuis le stop à chaque trade. Si tu changes d'instrument, recalcule aussi : <strong>1 tick de 6E = 12,5 ticks MNQ micro</strong>.</div>
+      <div class="rule-detail">Un signal = <strong>un seul compte à la fois</strong>, tu tournes entre les 5 comptes — jamais le même trade dupliqué sur plusieurs comptes en même temps (voir règle 8, toujours en vigueur). R:R minimum <strong>2:1</strong> sur chaque trade. C'est le budget en dollars qui fixe la taille, jamais l'inverse — recalcule les contrats depuis le stop à chaque trade. <strong>Plafond de 4 contrats par trade : levé pour octobre</strong> (décision du 08/10) — seul le budget limite la taille ; à rétablir en novembre sauf avis contraire. Si tu changes d'instrument, recalcule aussi : <strong>1 tick de 6E = 12,5 ticks MNQ micro</strong>.</div>
     </div>
   </div>
 
@@ -2335,15 +2342,15 @@ window.COMPTES = [
     statutLabel: "Évaluation",
     devise: "$",
     depart: 50000,
-    solde: 48449.50,
-    soldeDate: "02/10/2026",
+    solde: 48194.50,
+    soldeDate: "08/10/2026",
     seuil: 48000,
-    buffer: 449.50,
+    buffer: 194.50,
     reference: null,
     objectif: null,
     mll: 48000,
     maxContrats: null,
-    note: "🔴 Buffer à 449,50 $. +41,50 $ le 02/10 : Short MNQ 1 contrat (17h10→17h13, 2 min 55) — 4e signal du jour (max 3), entré 3 min 33 s après la perte du 004b. Solde calculé : 48 408 $ + 41,50 $ (Lucid non consulté depuis le 30/09). −416 $ le 01/10 : Long MNQ 4 contrats (plafond pile), 52 pts contre toi en 18 min 17. Avant : ouvert et tradé le 18/09 en 8 contrats, 3 trades tous perdants, −1 176 $ dès le premier jour. Solde de départ supposé 50 000 $ — à confirmer.",
+    note: "🔴 Buffer à 194,50 $. −255 $ le 08/10 : Short MGC (or) 3 contrats (09h34→10h13, 39 min), vendu à 4 144,0 et racheté à 4 152,5 (8,5 pts contre toi), entré 2 min 5 s après la perte du 004b. Solde calculé : 48 449,50 $ − 255 $ = 48 194,50 $. +41,50 $ le 02/10 : Short MNQ 1 contrat (17h10→17h13, 2 min 55) — 4e signal du jour (max 3), entré 3 min 33 s après la perte du 004b. Solde calculé : 48 408 $ + 41,50 $ (Lucid non consulté depuis le 30/09). −416 $ le 01/10 : Long MNQ 4 contrats (plafond pile), 52 pts contre toi en 18 min 17. Avant : ouvert et tradé le 18/09 en 8 contrats, 3 trades tous perdants, −1 176 $ dès le premier jour. Solde de départ supposé 50 000 $ — à confirmer.",
     aConfirmer: "Le solde de départ exact (50 000 $ supposé) et la référence Tradovate complète."
   },
   {
@@ -2353,15 +2360,15 @@ window.COMPTES = [
     statutLabel: "Évaluation",
     devise: "$",
     depart: 50000,
-    solde: 48676.00,
-    soldeDate: "07/10/2026",
+    solde: 48175.00,
+    soldeDate: "08/10/2026",
     seuil: 48087,
-    buffer: 589.00,
+    buffer: 88.00,
     reference: "LFE05085004680004",
     objectif: 53000,
     mll: 48087,
     maxContrats: null,
-    note: "−434 $ le 07/10 : Long MNQ 5 contrats +17,50 $ (15h55→16h00, plafond de 4 dépassé), puis Short MNQ 3 contrats −451,50 $ (16h34→17h35, 75,25 pts contre toi). −27 $ le 06/10 : Long MNQ 3 contrats, 2 h 20 (15h55→18h16), 4,5 pts contre toi — 1er trade du jour. −499 $ le 05/10 : trois Shorts MNQ perdants (4 contrats −260 $, 5 contrats −185 $ — plafond dépassé —, puis 2 contrats −54 $ à 17h10) dans un marché qui montait ; Sébastien : « j'aurais dû prendre un long ». Solde calculé : 49 933 $ (Lucid 30/09) − 297 $ (02/10) − 499 $ (05/10) − 27 $ (06/10) − 434 $ (07/10) = 48 676 $ — Lucid non consulté depuis. −297 $ le 02/10 : Long MNQ 3 contrats, 1 h 09 (15h57→17h07), sans SL/TP (fermé à la main), entré 2 min 14 s après la sortie à −300 $ des 001/003 — ré-entrée précipitée, 3e signal du jour après 2 pertes. Solde calculé : 49 933 $ (Lucid 30/09) − 297 $ (Lucid non consulté depuis). Avant : −152 $ le 18/09 (1 trade). Racheté et tradé dès le 17/09 — remplace l'ancien 004 cramé et clôturé le 10/09. Écart de 20 $ entre Lucid (49 933 $) et le calcul CSV du 18/09 (49 953 $), probablement des frais non repris dans l'export Tradovate.",
+    note: "🔴 −501 $ le 08/10 : MGC (or) 3 contrats, deux trades — Short −309 $ (08h24→09h20) puis Long −192 $ (09h21:45→09h32), entré 55 s après la sortie du Short. Solde calculé : 48 676 $ − 501 $ = 48 175 $, buffer 88 $ (Lucid non consulté depuis le 30/09). −434 $ le 07/10 : Long MNQ 5 contrats +17,50 $ (15h55→16h00, plafond de 4 levé en octobre), puis Short MNQ 3 contrats −451,50 $ (16h34→17h35, 75,25 pts contre toi). −27 $ le 06/10 : Long MNQ 3 contrats, 2 h 20 (15h55→18h16), 4,5 pts contre toi — 1er trade du jour. −499 $ le 05/10 : trois Shorts MNQ perdants (4 contrats −260 $, 5 contrats −185 $ — plafond de 4 levé en octobre —, puis 2 contrats −54 $ à 17h10) dans un marché qui montait ; Sébastien : « j'aurais dû prendre un long ». Solde calculé : 49 933 $ (Lucid 30/09) − 297 $ (02/10) − 499 $ (05/10) − 27 $ (06/10) − 434 $ (07/10) − 501 $ (08/10) = 48 175 $ — Lucid non consulté depuis. −297 $ le 02/10 : Long MNQ 3 contrats, 1 h 09 (15h57→17h07), sans SL/TP (fermé à la main), entré 2 min 14 s après la sortie à −300 $ des 001/003 — ré-entrée précipitée, 3e signal du jour après 2 pertes. Solde calculé : 49 933 $ (Lucid 30/09) − 297 $ (Lucid non consulté depuis). Avant : −152 $ le 18/09 (1 trade). Racheté et tradé dès le 17/09 — remplace l'ancien 004 cramé et clôturé le 10/09. Écart de 20 $ entre Lucid (49 933 $) et le calcul CSV du 18/09 (49 953 $), probablement des frais non repris dans l'export Tradovate.",
     aConfirmer: null
   },
   {
@@ -2407,15 +2414,15 @@ window.COMPTES = [
     statutLabel: "Évaluation",
     devise: "$",
     depart: 50000,
-    solde: 48818.00,
-    soldeDate: "02/10/2026",
+    solde: 48604.00,
+    soldeDate: "08/10/2026",
     seuil: 48018,
-    buffer: 800.00,
+    buffer: 586.00,
     reference: "LFE05085004680006",
     objectif: 53000,
     mll: 48018,
     maxContrats: null,
-    note: "🔴 −1 200 $ le 02/10 : Long MGC (or) 4 contrats, entré 14h30:06 — 6 s après le NFP —, sorti 15h16:38 : 30 pts contre toi, 46 min 32. Quatre fois le budget de 300 $, et pile le montant d'une limite journalière de 1 200 $ : à confirmer sur Lucid si le compte a été verrouillé. Sébastien l'écrit lui-même : une erreur d'entrer à la minute de l'annonce (les boîtes avaient toutes acheté puis revendu à la seconde de la publication). Solde calculé : 50 018 $ − 1 200 $ (Lucid non consulté depuis le 29/09). Avant : racheté le 29/09 pour remplacer le 002 (breaché) ; premier trade : Short MNQ 2 contrats, +20 $ brut / +18 $ net après frais Tradovate.",
+    note: "−214 $ le 08/10 : MCL Long 3 contrats +12 $ (10h38→15h17, 4 h 39 ; une position en deux lignes CSV), MNQ Short 4 contrats −566 $ (15h41→16h18, 70,75 pts contre toi), puis MNQ Long 4 contrats +340 $ (16h22→16h36) entré 3 min 25 s après la perte. Solde calculé : 48 818 $ − 214 $ = 48 604 $ (Lucid non consulté depuis le 30/09). 🔴 −1 200 $ le 02/10 : Long MGC (or) 4 contrats, entré 14h30:06 — 6 s après le NFP —, sorti 15h16:38 : 30 pts contre toi, 46 min 32. Quatre fois le budget de 300 $, et pile le montant d'une limite journalière de 1 200 $ : à confirmer sur Lucid si le compte a été verrouillé. Sébastien l'écrit lui-même : une erreur d'entrer à la minute de l'annonce (les boîtes avaient toutes acheté puis revendu à la seconde de la publication). Solde calculé : 50 018 $ − 1 200 $ (Lucid non consulté depuis le 29/09). Avant : racheté le 29/09 pour remplacer le 002 (breaché) ; premier trade : Short MNQ 2 contrats, +20 $ brut / +18 $ net après frais Tradovate.",
     aConfirmer: null
   },
   {
@@ -2443,15 +2450,15 @@ window.COMPTES = [
     statutLabel: "Évaluation",
     devise: "$",
     depart: 50000,
-    solde: 49995.50,
-    soldeDate: "07/10/2026",
+    solde: 49663.00,
+    soldeDate: "08/10/2026",
     seuil: 49186,
-    buffer: 809.50,
+    buffer: 477.00,
     reference: "LTE05085004680001 (Lucid : LFE05085004680001)",
     objectif: 53000,
     mll: 49186,
     maxContrats: null,
-    note: "−90 $ le 07/10 : Long MNQ 3 contrats, 7 min (17h48→17h56), entré à 31 363,00 et sorti à 31 348,00 (15 pts contre toi). −85 $ le 05/10 : Short MNQ 2 contrats, 22 min (20h38→21h01), entré à 31 307,75 et sorti à 31 329,00 (21,25 pts contre toi) — compté comme trade, 4e du jour. −32,50 $ le 05/10 : 13 allers-retours de 1 à 2 secondes (bug de plateforme : 2 signalés par toi le 05/10, 11 rangés avec par application de ta consigne — à confirmer), exclus des statistiques mais réellement débités du solde. Solde calculé : 50 203 $ − 117,50 $ − 90 $ = 49 995,50 $ (Lucid non consulté depuis le 30/09). −300 $ le 02/10 : même Long MNQ 3 contrats que 003 et 006, saisi à la main (entrée 15h44:59, sans SL/TP, fermé à la main à 15h55:36 à 31 127,75, −50 pts). Solde calculé : 50 503 $ − 300 $ (Lucid non consulté depuis le 30/09). Avant : solde Lucid du 30/09 avec 196 $ d'écart vs le calcul CSV du 29/09 (50 699,25 $), à surveiller. −263 $ le 29/09 (Short MNQ 2 contrats, 65,75 pts contre toi en 41 min), +742 $ le 28/09.",
+    note: "−332,50 $ le 08/10 : Long MNQ 5 contrats, 53 s (15h35:04→15h35:58), entré à 31 258,50 et sorti à 31 225,25 (33,25 pts contre toi). −90 $ le 07/10 : Long MNQ 3 contrats, 7 min (17h48→17h56), entré à 31 363,00 et sorti à 31 348,00 (15 pts contre toi). −85 $ le 05/10 : Short MNQ 2 contrats, 22 min (20h38→21h01), entré à 31 307,75 et sorti à 31 329,00 (21,25 pts contre toi) — compté comme trade, 4e du jour. −32,50 $ le 05/10 : 13 allers-retours de 1 à 2 secondes (bug de plateforme : 2 signalés par toi le 05/10, 11 rangés avec par application de ta consigne — à confirmer), exclus des statistiques mais réellement débités du solde. Solde calculé : 50 203 $ − 117,50 $ − 90 $ − 332,50 $ = 49 663 $ (Lucid non consulté depuis le 30/09). −300 $ le 02/10 : même Long MNQ 3 contrats que 003 et 006, saisi à la main (entrée 15h44:59, sans SL/TP, fermé à la main à 15h55:36 à 31 127,75, −50 pts). Solde calculé : 50 503 $ − 300 $ (Lucid non consulté depuis le 30/09). Avant : solde Lucid du 30/09 avec 196 $ d'écart vs le calcul CSV du 29/09 (50 699,25 $), à surveiller. −263 $ le 29/09 (Short MNQ 2 contrats, 65,75 pts contre toi en 41 min), +742 $ le 28/09.",
     aConfirmer: null
   },
   {
@@ -2721,14 +2728,16 @@ window.TRADES = [
     remarque:"15h40→16h43 (1h03) — objectif atteint, R:R 4,20:1 déclaré · stop non transmis, non recalculé" }
 ];
 
-/* planOk (optionnel) : ≤ 3 trades/jour ET ≤ 4 contrats par trade ET aucun trade ouvert après
+/* planOk (optionnel) : ≤ 3 trades/jour ET ≤ 4 contrats par trade (plafond levé pour octobre 2026, décision du 08/10 :
+   plus évalué depuis le 01/10) ET aucun trade ouvert après
    2 pertes dans la journée (lockout, ajouté le 24/09 — aucun jour antérieur n'est concerné),
    vérifié depuis les CSV bruts. N'évalue pas la qualité de l'entrée.
    Absent = pas encore évalué (jours avant le 14/09). Sert au KPI "Respect du plan". */
 window.SESSIONS = [
-  { jour:"07/10", label:"Mercredi 7 oct.", fichier:"2026-10-07-mercredi.html", pnl:-834.00, trades:4, gagnants:1, neutres:0, planOk:false, planWhy:"4 trades (max 3), 5 contrats sur le 1er (plafond 4), 4e trade pris après 2 pertes", rt:[4,0,0], note:"Quatre trades sur trois comptes, un seul gagnant. 004b : Long MNQ 5 contrats +17,50 $ (15h55→16h00, plafond de 4 dépassé), puis Short MNQ 3 contrats −451,50 $ (16h34→17h35, 75 pts contre toi). 001 : Long MNQ 3 contrats −90 $ (17h48→17h56). 003 : Short MNQ 4 contrats −310 $ (18h30→19h02, 4e trade du jour pris après 2 pertes). Les deux Shorts ont été pris contre un marché qui montait (31 217,75 à 31 367,75 entre 15h55 et 19h02). Aucune ré-entrée à moins de 10 min. D'après mon calcul, le 003 passe 8 $ sous son seuil de 48 251 $ : breach probable, à confirmer sur Lucid. Pas de note ni de capture : schéma, biais MME, stop et objectif non connus, je ne les invente pas." },
+  { jour:"08/10", label:"Jeudi 8 oct.", fichier:"2026-10-08-jeudi.html", pnl:-1302.50, trades:7, gagnants:2, neutres:0, planOk:false, planWhy:"7 trades (max 3), du 3e au 7e pris après 2 pertes ou plus, 4 ré-entrées à moins de 10 min d'une perte", rt:[7,4,-673], note:"Sept trades sur quatre comptes, deux gagnants (+352 $) et cinq perdants (−1 654,50 $). Or (MGC 3 contrats) : 004b Short −309 $ (08h24→09h20), 004b Long −192 $ entré 55 s après, A Short −255 $ entré 2 min 5 s après la perte du 004b. 02b : MCL Long 3 contrats +12 $ (4 h 39), puis MNQ Short 4 contrats −566 $ (36 min, au-dessus du budget de 500 $) et MNQ Long 4 contrats +340 $ entré 3 min 25 s après. 001 : MNQ Long 5 contrats −332,50 $ en 53 s, 5 min après l'ouverture (plafond de 4 levé en octobre). Quatre ré-entrées à moins de 10 min d'une perte (−673 $, dont le +340 $). Pas de note ni de capture : schéma, biais MME, stop et objectif non connus, je ne les invente pas." },
+  { jour:"07/10", label:"Mercredi 7 oct.", fichier:"2026-10-07-mercredi.html", pnl:-834.00, trades:4, gagnants:1, neutres:0, planOk:false, planWhy:"4 trades (max 3), 4e trade pris après 2 pertes", rt:[4,0,0], note:"Quatre trades sur trois comptes, un seul gagnant. 004b : Long MNQ 5 contrats +17,50 $ (15h55→16h00, plafond de 4 levé en octobre), puis Short MNQ 3 contrats −451,50 $ (16h34→17h35, 75 pts contre toi). 001 : Long MNQ 3 contrats −90 $ (17h48→17h56). 003 : Short MNQ 4 contrats −310 $ (18h30→19h02, 4e trade du jour pris après 2 pertes). Les deux Shorts ont été pris contre un marché qui montait (31 217,75 à 31 367,75 entre 15h55 et 19h02). Aucune ré-entrée à moins de 10 min. D'après mon calcul, le 003 passe 8 $ sous son seuil de 48 251 $ : breach probable, à confirmer sur Lucid. Pas de note ni de capture : schéma, biais MME, stop et objectif non connus, je ne les invente pas." },
   { jour:"06/10", label:"Mardi 6 oct.", fichier:"2026-10-06-mardi.html", pnl:-27.00, trades:1, gagnants:0, neutres:0, planOk:true, rt:[1,0,0], note:"Un seul trade, perdant : compte 004b, Long MNQ 3 contrats −27 $ (15h55→18h16, 2 h 20, 4,5 pts contre toi). Je n'ai que l'export du 004b pour cette journée. Ton setup : « c'était l'iFVG Daxton » ; pas de capture ni de note d'entrée : biais MME, stop et objectif non connus, je ne les invente pas. 1 trade (max 3), 3 contrats (max 4), aucune perte avant, un seul compte." },
-  { jour:"05/10", label:"Lundi 5 oct.", fichier:"2026-10-05-lundi.html", pnl:-584.00, trades:4, gagnants:0, neutres:0, planOk:false, planWhy:"4 trades (max 3), 3e trade après 2 pertes et 4e après 3, 5 contrats sur le 2e trade (plafond 4)", rt:[4,0,0], note:"Compte 004b, trois Shorts MNQ perdants dans un marché qui montait (+65 pts) : 4 contrats −260 $ (15h47→16h16), 5 contrats −185 $ (16h30→16h50, plafond de 4 dépassé) et 2 contrats −54 $ (17h10→17h20, 3e trade pris après 2 pertes). Puis, sur le 001, un 4e Short de 2 contrats à 20h38 (22 min, −85 $, 21,25 pts contre toi) : 3 h 18 après le 3e trade, pris après 3 pertes, 72 pts plus haut que la sortie du 3e. Aucune ré-entrée à moins de 10 min. Tu écris : « j'aurais dû prendre un long » ; schéma V1 joué au lieu du V2. Raisons notées pour les deux premiers : liquidité (grosse mèche) + IFVG/FVG/BPR/CISD 1M ; FVG, CISD, deux IFVG 1M + Equal High sur l'ES — 2 à 4 points de confluence pour plus de 9 requis. Treize allers-retours de 1 à 2 secondes sur le 001 (−32,50 $) : bug de plateforme, exclus des statistiques (csv/exclus.json) — les deux premiers signalés par toi, les onze autres rangés avec par application de ta consigne." },
+  { jour:"05/10", label:"Lundi 5 oct.", fichier:"2026-10-05-lundi.html", pnl:-584.00, trades:4, gagnants:0, neutres:0, planOk:false, planWhy:"4 trades (max 3), 3e trade après 2 pertes et 4e après 3", rt:[4,0,0], note:"Compte 004b, trois Shorts MNQ perdants dans un marché qui montait (+65 pts) : 4 contrats −260 $ (15h47→16h16), 5 contrats −185 $ (16h30→16h50, plafond de 4 levé en octobre) et 2 contrats −54 $ (17h10→17h20, 3e trade pris après 2 pertes). Puis, sur le 001, un 4e Short de 2 contrats à 20h38 (22 min, −85 $, 21,25 pts contre toi) : 3 h 18 après le 3e trade, pris après 3 pertes, 72 pts plus haut que la sortie du 3e. Aucune ré-entrée à moins de 10 min. Tu écris : « j'aurais dû prendre un long » ; schéma V1 joué au lieu du V2. Raisons notées pour les deux premiers : liquidité (grosse mèche) + IFVG/FVG/BPR/CISD 1M ; FVG, CISD, deux IFVG 1M + Equal High sur l'ES — 2 à 4 points de confluence pour plus de 9 requis. Treize allers-retours de 1 à 2 secondes sur le 001 (−32,50 $) : bug de plateforme, exclus des statistiques (csv/exclus.json) — les deux premiers signalés par toi, les onze autres rangés avec par application de ta consigne." },
   { jour:"02/10", label:"Vendredi 2 oct.", fichier:"2026-10-02-vendredi.html", pnl:-2117.00, trades:4, gagnants:1, neutres:0, planOk:false, planWhy:"4 trades (max 3), 3e et 4e après 2 pertes, MGC 4 contrats 6 s après le NFP (−1 200 $ pour un budget de 300 $), même signal MNQ saisi à la main sur 3 comptes, aucun SL/TP posé", rt:[4,2,-255.5], note:"Jour de NFP (+29 K, 89 K attendus), 4 signaux sur 6 comptes, un seul gagnant. 02b MGC Long 4 contrats entré à 14h30:06, 6 s après la publication : −1 200 $ (30 pts contre, 46 min). Puis le même MNQ Long 3 contrats sur 003/001/006 à la seconde près (15h44:58) : −300 $, −300 $, −61,50 $ (le 006 passe 0,50 $ sous son seuil de 48 000 $ — breach confirmé par toi, 3 lots au lieu de 2). 004b MNQ Long 3 contrats −297 $, entré 2 min 14 s après la sortie, et A MNQ Short 1 contrat +41,50 $, 3 min 33 s après la perte du 004b. Plan non respecté : 4 trades (max 3), 3e et 4e après 2 pertes, même signal saisi à la main sur 3 comptes, aucun SL/TP posé (sorties à la main), entrée 6 s après le NFP en 4 contrats." },
   { jour:"01/10", label:"Jeudi 1 oct.", fichier:"2026-10-01-jeudi.html", pnl:-416.00, trades:1, gagnants:0, neutres:0, planOk:true, rt:[1,0,0], note:"Un seul trade, perdant : compte A, Long MNQ 4 contrats (plafond pile) −416 $ (18h35→18h53, 52 pts contre). Confirme que le compte A est toujours actif. 1 trade (max 3), 4 contrats (max 4), un seul compte." },
   { jour:"30/09", label:"Mercredi 30 sept.", fichier:"2026-09-30-mercredi.html", pnl:-199.00, trades:1, gagnants:0, neutres:0, planOk:true, rt:[1,0,0], note:"Un seul trade, perdant : 003 MNQ Short 2 contrats −199 $ (16h35→16h49, stop touché). 1 trade (max 3), 2 contrats (max 4), un seul compte." },
@@ -2775,16 +2784,31 @@ window.SESSIONS = [
    à partir de window.SESSIONS (pas de reconstruction rétroactive avant le 30/09/2026).
    Clé = même format que weekOf()/mondayOf() ailleurs dans la page : "AAAA-M-J" du lundi de la semaine. */
 window.WEEKLY_RECAPS = {
-  /* "2026-9-28": { forts:["..."], travailler:["..."], verdict:"..." } */
+  /* "AAAA-M-J du lundi": { forts:["..."], travailler:["..."], verdict:"..." } — la page montre celui de la semaine en cours, puis ceux des semaines passées */
+  "2026-9-28": {
+    forts: [
+      "Lundi 28/09 : +742 $ sur un seul trade (001, Short MNQ 2 contrats, 185,5 pts captés en 1 h 03) — la seule séance gagnante de la semaine.",
+      "4 séances sur 5 dans le plan (28/09, 29/09, 30/09, 01/10), contre 3 sur 5 la semaine précédente.",
+      "Moins de trades que la semaine du 21 au 25/09 (11 contre 14) et moins de ré-entrées précipitées (2 sur 11, soit 18 %, contre 3 sur 14)."
+    ],
+    travailler: [
+      "Vendredi 02/10 (NFP) : −2 117 $, soit 88 % de la perte de la semaine (−2 408 $). 4 trades (max 3), les 3e et 4e après 2 pertes.",
+      "MGC 4 contrats entré 6 s après la publication du NFP : −1 200 $, quatre fois le budget de 300 $ — la règle sur les annonces interdit d'entrer dans les 10 minutes qui suivent.",
+      "Le même MNQ Long 3 contrats saisi à la main à la seconde près sur 3 comptes (003, 001, 006) : −661,50 $ ; la règle 8 interdit de dupliquer un trade, et le 006 a breaché (3 contrats au lieu de 2).",
+      "Aucun SL/TP posé le 02/10 (sorties à la main) : pas de stop à remonter à break-even, R:R incalculable.",
+      "Ré-entrée 2 min 14 s après une perte sur le 004b (−297 $), puis un 4e signal sur le A 3 min 33 s plus tard."
+    ],
+    verdict: "Hors vendredi 02/10, la semaine finit à −291 $ : un lundi à +742 $, puis trois séances perdantes (−418 $, −199 $, −416 $), toutes dans le plan. Le 02/10 seul fait passer le total de −291 $ à −2 408 $."
+  }
 };
 
 /* Répartition du résultat par instrument (page « Par instrument ») — généré par `node csv/calc-instruments.js`
    depuis csv/comptes/*.csv : à relancer et recopier à chaque nouvelle séance. */
-window.PAR_INSTRUMENT = {"du":"13/08","au":"07/10","fichiers":9,"signaux":199,"pnl":-10786.25,"sens":{"Long":{"n":104,"w":39,"l":65,"pnl":-5647.5,"gains":7402.5,"pertes":13050},"Short":{"n":95,"w":24,"l":70,"pnl":-5138.75,"gains":6083.5,"pertes":11222.25}},"items":[{"id":"MNQ","pnl":-8667.5,"n":155,"w":47,"l":108,"gains":11037,"pertes":19704.5,"pire":-769.5,"meilleur":2529,"sous":[["MNQ",-8667.5]],"sens":{"Long":{"n":85,"w":31,"l":54,"pnl":-4842,"gains":5769.5,"pertes":10611.5},"Short":{"n":70,"w":16,"l":54,"pnl":-3825.5,"gains":5267.5,"pertes":9093}}},{"id":"Or","pnl":-2472,"n":24,"w":11,"l":13,"gains":364,"pertes":2836,"pire":-1200,"meilleur":127,"sous":[["MGC",-1932],["GC",-540]],"sens":{"Long":{"n":9,"w":5,"l":4,"pnl":-1241,"gains":168,"pertes":1409},"Short":{"n":15,"w":6,"l":9,"pnl":-1231,"gains":196,"pertes":1427}}},{"id":"Euro","pnl":-18.75,"n":4,"w":1,"l":2,"gains":225,"pertes":243.75,"pire":-187.5,"meilleur":225,"sous":[["6E",-18.75]],"sens":{"Long":{"n":2,"w":1,"l":1,"pnl":37.5,"gains":225,"pertes":187.5},"Short":{"n":2,"w":0,"l":1,"pnl":-56.25,"gains":0,"pertes":56.25}}},{"id":"Pétrole","pnl":372,"n":16,"w":4,"l":12,"gains":1860,"pertes":1488,"pire":-249,"meilleur":840,"sous":[["MCL",-1028],["CL",1400]],"sens":{"Long":{"n":8,"w":2,"l":6,"pnl":398,"gains":1240,"pertes":842},"Short":{"n":8,"w":2,"l":6,"pnl":-26,"gains":620,"pertes":646}}}]};
+window.PAR_INSTRUMENT = {"du":"13/08","au":"08/10","fichiers":9,"signaux":206,"pnl":-12088.75,"sens":{"Long":{"n":108,"w":41,"l":67,"pnl":-5820,"gains":7754.5,"pertes":13574.5},"Short":{"n":98,"w":24,"l":73,"pnl":-6268.75,"gains":6083.5,"pertes":12352.25}},"items":[{"id":"MNQ","pnl":-9226,"n":158,"w":48,"l":110,"gains":11377,"pertes":20603,"pire":-769.5,"meilleur":2529,"sous":[["MNQ",-9226]],"sens":{"Long":{"n":87,"w":32,"l":55,"pnl":-4834.5,"gains":6109.5,"pertes":10944},"Short":{"n":71,"w":16,"l":55,"pnl":-4391.5,"gains":5267.5,"pertes":9659}}},{"id":"Or","pnl":-3228,"n":27,"w":11,"l":16,"gains":364,"pertes":3592,"pire":-1200,"meilleur":127,"sous":[["MGC",-2688],["GC",-540]],"sens":{"Long":{"n":10,"w":5,"l":5,"pnl":-1433,"gains":168,"pertes":1601},"Short":{"n":17,"w":6,"l":11,"pnl":-1795,"gains":196,"pertes":1991}}},{"id":"Euro","pnl":-18.75,"n":4,"w":1,"l":2,"gains":225,"pertes":243.75,"pire":-187.5,"meilleur":225,"sous":[["6E",-18.75]],"sens":{"Long":{"n":2,"w":1,"l":1,"pnl":37.5,"gains":225,"pertes":187.5},"Short":{"n":2,"w":0,"l":1,"pnl":-56.25,"gains":0,"pertes":56.25}}},{"id":"Pétrole","pnl":384,"n":17,"w":5,"l":12,"gains":1872,"pertes":1488,"pire":-249,"meilleur":840,"sous":[["MCL",-1016],["CL",1400]],"sens":{"Long":{"n":9,"w":3,"l":6,"pnl":410,"gains":1252,"pertes":842},"Short":{"n":8,"w":2,"l":6,"pnl":-26,"gains":620,"pertes":646}}}]};
 
 /* P&L jour par jour de chaque compte (table « R & % par compte ») — généré par `node csv/calc-comptes.js`
    depuis csv/comptes/*.csv : à relancer et recopier à chaque nouvelle séance. */
-window.PAR_COMPTE = {"001":{"20/08":18,"21/08":-507,"24/08":-506.75,"28/08":131,"02/09":414.5,"03/09":-295.5,"04/09":-281.5,"07/09":893,"08/09":844.5,"09/09":594,"10/09":-293,"14/09":-319,"15/09":-290,"16/09":172.5,"17/09":-298.5,"18/09":-251,"21/09":549,"22/09":204,"23/09":8,"24/09":-252,"25/09":-314,"28/09":742,"29/09":-263,"02/10":-300,"05/10":-85,"07/10":-90},"002":{"21/08":123,"24/08":484,"04/09":-290,"08/09":843,"10/09":-228,"11/09":-312,"14/09":-292,"15/09":-187.5,"17/09":-298.5,"18/09":-253.5,"23/09":19,"24/09":-314,"25/09":-89},"003":{"10/09":-266,"11/09":560,"14/09":-300,"15/09":-286,"16/09":171,"17/09":-297.5,"18/09":-262.5,"29/09":-175,"30/09":-199,"02/10":-300,"07/10":-310},"004":{"13/08":1214,"14/08":-307,"18/08":-310,"19/08":-300,"20/08":-296,"24/08":-376,"25/08":-301,"02/09":-110},"004b":{"17/09":105,"18/09":-152,"02/10":-297,"05/10":-499,"06/10":-27,"07/10":-434},"005":{"14/08":-390,"17/08":7,"18/08":-457,"19/08":98.5,"20/08":-438,"21/08":-490,"02/09":445.5,"03/09":-291,"04/09":-290,"08/09":841.5,"10/09":-317,"11/09":-205.5,"14/09":-300,"15/09":-48},"006":{"21/08":-381.5,"25/08":-156,"26/08":160.5,"27/08":-72,"28/08":-298,"01/09":721.5,"04/09":-294,"10/09":-299,"11/09":-318,"14/09":-310,"15/09":-296.5,"17/09":-291,"02/10":-61.5},"02b":{"29/09":20,"02/10":-1200},"A":{"18/09":-1176,"01/10":-416,"02/10":41.5}};
+window.PAR_COMPTE = {"001":{"20/08":18,"21/08":-507,"24/08":-506.75,"28/08":131,"02/09":414.5,"03/09":-295.5,"04/09":-281.5,"07/09":893,"08/09":844.5,"09/09":594,"10/09":-293,"14/09":-319,"15/09":-290,"16/09":172.5,"17/09":-298.5,"18/09":-251,"21/09":549,"22/09":204,"23/09":8,"24/09":-252,"25/09":-314,"28/09":742,"29/09":-263,"02/10":-300,"05/10":-85,"07/10":-90,"08/10":-332.5},"002":{"21/08":123,"24/08":484,"04/09":-290,"08/09":843,"10/09":-228,"11/09":-312,"14/09":-292,"15/09":-187.5,"17/09":-298.5,"18/09":-253.5,"23/09":19,"24/09":-314,"25/09":-89},"003":{"10/09":-266,"11/09":560,"14/09":-300,"15/09":-286,"16/09":171,"17/09":-297.5,"18/09":-262.5,"29/09":-175,"30/09":-199,"02/10":-300,"07/10":-310},"004":{"13/08":1214,"14/08":-307,"18/08":-310,"19/08":-300,"20/08":-296,"24/08":-376,"25/08":-301,"02/09":-110},"004b":{"17/09":105,"18/09":-152,"02/10":-297,"05/10":-499,"06/10":-27,"07/10":-434,"08/10":-501},"005":{"14/08":-390,"17/08":7,"18/08":-457,"19/08":98.5,"20/08":-438,"21/08":-490,"02/09":445.5,"03/09":-291,"04/09":-290,"08/09":841.5,"10/09":-317,"11/09":-205.5,"14/09":-300,"15/09":-48},"006":{"21/08":-381.5,"25/08":-156,"26/08":160.5,"27/08":-72,"28/08":-298,"01/09":721.5,"04/09":-294,"10/09":-299,"11/09":-318,"14/09":-310,"15/09":-296.5,"17/09":-291,"02/10":-61.5},"02b":{"29/09":20,"02/10":-1200,"08/10":-214},"A":{"18/09":-1176,"01/10":-416,"02/10":41.5,"08/10":-255}};
 
 /* Notes du jour (Avant la séance → Checklist) — ressenti avant de trader. Clé = AAAA-MM-JJ, m = bien | neutre | pas-bien.
    Les notes saisies dans la page restent locales au navigateur : « Copier pour Claude », colle-les dans le chat
@@ -4213,7 +4237,8 @@ window.DAY_NOTES = {
     } else if(prev.length){
       detail += '<div><b>' + prev[0].jour + '</b> — dernière rupture : ' + (prev[0].planWhy || 'hors plan') + '</div>';
     }
-    detail += '<div class="pw-rule">Le plan : 3 trades max par jour, 4 contrats max par trade, aucun trade ouvert après 2 pertes dans la journée.</div>';
+    var capLeve = (function(){ var d = new Date(); return d.getFullYear() === 2026 && d.getMonth() === 9; })();   // plafond de 4 contrats levé pour octobre 2026 (décision du 08/10)
+    detail += '<div class="pw-rule">Le plan : 3 trades max par jour, ' + (capLeve ? 'plafond de 4 contrats levé pour octobre' : '4 contrats max par trade') + ', aucun trade ouvert après 2 pertes dans la journée.</div>';
     host.className = 'plan-widget ' + (state ? 'ok' : 'ko');
     host.innerHTML = '<div class="pw-row"><span class="cs-title">🛡️ Respect du plan</span>'
       + '<span class="pw-status">' + status + '</span>'
@@ -4279,14 +4304,16 @@ window.DAY_NOTES = {
     var dPl = prev ? latest.pnl - prev.pnl : null, dOk = prev && latest.ev && prev.ev ? latest.ok - prev.ok : null;
     h += '<h2 style="margin-top:28px">Semaine du ' + latest.first + ' au ' + latest.last + '</h2>';
 
+    var recapHtml = function(recap){
+      var o = '<div class="wk-recap">';
+      if(recap.forts && recap.forts.length) o += '<div class="wk-recap-col"><div class="wk-recap-h">✅ Points forts</div><ul>' + recap.forts.map(function(t){ return '<li>' + t + '</li>'; }).join('') + '</ul></div>';
+      if(recap.travailler && recap.travailler.length) o += '<div class="wk-recap-col"><div class="wk-recap-h">⚠️ À travailler</div><ul>' + recap.travailler.map(function(t){ return '<li>' + t + '</li>'; }).join('') + '</ul></div>';
+      o += '</div>';
+      if(recap.verdict) o += '<p class="wk-recap-verdict">' + recap.verdict + '</p>';
+      return o;
+    };
     var recap = (window.WEEKLY_RECAPS || {})[latest.key];
-    if(recap){
-      h += '<div class="wk-recap">';
-      if(recap.forts && recap.forts.length) h += '<div class="wk-recap-col"><div class="wk-recap-h">✅ Points forts</div><ul>' + recap.forts.map(function(t){ return '<li>' + t + '</li>'; }).join('') + '</ul></div>';
-      if(recap.travailler && recap.travailler.length) h += '<div class="wk-recap-col"><div class="wk-recap-h">⚠️ À travailler</div><ul>' + recap.travailler.map(function(t){ return '<li>' + t + '</li>'; }).join('') + '</ul></div>';
-      h += '</div>';
-      if(recap.verdict) h += '<p class="wk-recap-verdict">' + recap.verdict + '</p>';
-    }
+    if(recap) h += recapHtml(recap);
 
     /* Défis de la semaine — évalués automatiquement depuis les mêmes données que les cartes ci-dessous.
        Un défi non évaluable pour une semaine (ex. pas de trade, pas de donnée planOk) est ignoré, pas cassé. */
@@ -4341,6 +4368,11 @@ window.DAY_NOTES = {
     });
     h += '</tbody></table></div>';
     h += '<p class="pg-note">Ré-entrée : trade pris moins de 10 minutes après la dernière perte terminée, tous comptes confondus (copy trading compté une fois, une position en plusieurs fills = 1 trade). Recalculé sur les CSV bruts avec csv/calc-semaine.js, à partir du 21/08. « Plan » : jours respectant 3 trades max, 4 contrats max par trade et aucun trade après 2 pertes (évalué depuis le 14/09). R ≈ : résultat ÷ 275 $, septembre uniquement.</p>';
+    var olds = W.slice(1).filter(function(w){ return (window.WEEKLY_RECAPS || {})[w.key]; });
+    if(olds.length){
+      h += '<h2>📝 Résumés des semaines passées</h2>';
+      olds.forEach(function(w){ h += '<h3 class="wk-recap-wk">Semaine du ' + w.first + ' au ' + w.last + ' · <span class="' + (w.pnl < 0 ? 'neg' : 'pos') + '">' + money(w.pnl) + '</span></h3>' + recapHtml(window.WEEKLY_RECAPS[w.key]); });
+    }
     host.innerHTML = h;
   }
   document.addEventListener('DOMContentLoaded', build);
@@ -4526,7 +4558,17 @@ window.DAY_NOTES = {
       + worst.map(function(x){ var bd = window.budgetOf ? window.budgetOf(x.j) : null; return "<tr><td>" + x.j + "</td><td>" + x.los + '</td><td class="neg">' + usd(x.loss) + "</td><td>" + (bd ? fr(Math.abs(x.loss) / bd, 1) : "—") + "</td></tr>"; }).join("")
       + "</tbody></table></div>";
 
-    host.innerHTML = a + '<div class="ec-two">' + b + c + "</div>"
+    /* ---------- D · coût des comptes (prix de 100 $ par compte, indiqué par Sébastien le 08/10) ---------- */
+    var ACHETES = ["001", "002", "003", "004a", "004b", "005", "005b", "006", "02b", "A"];   // comptes Lucid achetés (TopstepX, clôturé : prix inconnu, hors calcul)
+    var PRIX = 100;
+    var clos = C.filter(function(c){ return c.statut === "breached"; }).map(function(c){ return LBL[c.ref] || c.ref; }).concat(["004a"]);
+    var dep = ACHETES.length * PRIX;
+    var d = '<div class="ec-card" style="margin-top:12px"><h3>💸 Coût des comptes</h3><div class="ec-cols"><div>'
+      + row("Comptes achetés", ACHETES.length) + row("Prix par compte", plain(PRIX) + " (d’après toi)") + row("Dépensé en frais", plain(dep), "neg")
+      + "</div><div>" + row("Cramés ou clos", clos.length + " (" + clos.join(", ") + ")") + row("Encore actifs", live.length + (under.length ? " + " + under.length + " sous le seuil" : "")) + row("Payouts", "non renseignés")
+      + '</div></div><p class="ec-txt">Seul coût connu : les frais d’achat. Les resets, les frais d’activation après validation et les payouts ne sont pas renseignés — dis-moi s’il y en a et je les ajoute. Ce n’est pas le P&amp;L des CSV (' + usd(T.pnl) + "), qui est le résultat sur les comptes.</p></div>";
+
+    host.innerHTML = a + '<div class="ec-two">' + b + c + "</div>" + d
       + '<p class="ins-note"><b>Seuil d’équilibre</b> = part de gagnants qui ne fait ni gagner ni perdre si ton gain moyen et ta perte moyenne restent ceux d’aujourd’hui ; <b>ratio d’équilibre</b> = ratio gain / perte nécessaire si ta part de gagnants reste la même. Arithmétique sur ' + T.n + " signaux (" + D.du + " → " + D.au + "), pas une prévision : quelques gros trades pèsent beaucoup. "
       + "<b>1 budget = " + plain(B) + "</b> (le budget de risque du jour) — aucun stop n’est enregistré, donc ce n’est pas le R réel d’un trade. <b>Buffer</b> = solde − seuil de clôture, soldes Lucid du 30/09 + P&amp;L des CSV (Lucid non consulté depuis) ; « sous le seuil » = le calcul passe sous la clôture, à confirmer. Comptes exclus (cramés) : " + (morts.join(", ") || "aucun") + ". Les comptes dont le relevé a plus d’une semaine sont grisés et hors du risque simultané. Pertes cumulées = somme des comptes perdants du jour (CSV, hors lignes de bug).</p>";
   }
@@ -4619,10 +4661,11 @@ window.DAY_NOTES = {
   if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init); else init();
 })();
 </script>
-<script>/* Calculette de lots MNQ (onglet Règles) : contrats = ⌊budget ÷ (ticks × 0,50 $)⌋, arrondi vers le bas, plafonné à 4 contrats par trade (plan) */
+<script>/* Calculette de lots MNQ (onglet Règles) : contrats = ⌊budget ÷ (ticks × 0,50 $)⌋, arrondi vers le bas, plafonné à 4 contrats par trade (plan) sauf en octobre 2026 (plafond levé le 08/10) */
 (function(){
   var TICK_USD = 0.5;      // 1 tick MNQ = 0,25 pt = 0,50 $ par contrat
-  var MAX_LOTS = 4;        // plan : 4 contrats max par trade
+  // plan : 4 contrats max par trade — sauf en octobre 2026 (plafond levé par Sébastien le 08/10, à rétablir en novembre)
+  var MAX_LOTS = (function(){ var d = new Date(); return (d.getFullYear() === 2026 && d.getMonth() === 9) ? Infinity : 4; })();
   var V2_NO_ENTRY = 400;   // stratégie V2, règle V2.1 : SL de 400 ticks ou plus = pas d'entrée
   // même barème que le KPI « Règle de séance » et la règle 1 : 250 $ (21→27/09), 300 $ (28→04/10), 500 $ dès le 05/10
   var SCHED = [['2026-09-21', 250], ['2026-09-28', 300], ['2026-10-05', 500]];

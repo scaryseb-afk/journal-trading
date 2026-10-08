@@ -40,7 +40,7 @@ objectif 50 %, discipline du soir, violations, infractions) · Règles communes 
 (le bloc « CL — plan séparé », M15 / fade du sweep, a été retiré le 06/10 ; il reste dans l'historique git, présent
 jusqu'au commit `c0b3772`). L'onglet Règles porte aussi une « Calculette de lots — MNQ » (budget 250 / 300 / 500 $
 en menu déroulant + stop en ticks → contrats = ⌊budget ÷ (ticks × 0,50 $)⌋, plafonné à
-4 contrats par trade comme le plan, avec alerte V2 dès 400 ticks) ; le budget par défaut suit
+4 contrats par trade comme le plan (sauf en octobre 2026 : plafond levé par Sébastien le 08/10, la calculette ne plafonne plus ce mois-là — à rétablir en novembre), avec alerte V2 dès 400 ticks) ; le budget par défaut suit
 le même barème par date que le KPI « Règle de séance » (à modifier aux deux endroits).
 Le score de confluence existe en deux affichages
 (widget compact du Dashboard + carte complète de l'onglet Règles) qui
@@ -101,7 +101,7 @@ trade, relecture) — ne pas dupliquer ce CSS/JS dans le fichier de session.
   n'est lisible que dans le navigateur de l'utilisateur).
 - Chaque séance ajoutée dans `window.SESSIONS` (index.html) porte `planOk`
   (true/false : ≤ 3 trades/jour, ≤ 4 contrats par trade, aucun trade après 2
-  pertes) et, si false, `planWhy` (raison courte) : le bandeau « Respect du
+  pertes ; le plafond de 4 contrats est levé pour octobre 2026 — décision de Sébastien le 08/10, à rétablir en novembre sauf avis contraire : plus évalué dans planOk/planWhy depuis le 01/10) et, si false, `planWhy` (raison courte) : le bandeau « Respect du
   plan » du tableau de bord se calcule tout seul depuis ces deux champs.
 - À chaque séance ajoutée, lancer `node csv/calc-semaine.js` et recopier la
   ligne `rt:[trades, ré-entrées, P&L des ré-entrées]` du jour dans
@@ -125,7 +125,7 @@ trade, relecture) — ne pas dupliquer ce CSS/JS dans le fichier de session.
   soldes de `window.COMPTES` ; un écart avec le P&L des CSV est signalé (≠), pas lissé.
 - Règles → « Objectif : 50 % de trades gagnants » : calculée dans la page depuis `window.PAR_INSTRUMENT`
   (gagnants, signaux, gain/perte moyens) — rien à recopier à la main ; elle suit `calc-instruments.js`.
-- Tableau de bord → « Économie & risque » (💶) : espérance par signal et par groupe (instrument, Long/Short), buffers des comptes en budgets de risque et en pertes moyennes, risque simultané (perte du budget sur tous les comptes actifs + pires jours multi-comptes). Tout est calculé dans la page depuis `window.PAR_INSTRUMENT`, `window.COMPTES` (soldes/seuils), `window.PAR_COMPTE` et `window.budgetOf` — rien à recopier ; le budget affiché est celui du jour (500 $ dès le 05/10). Pas de bloc coût réel / ROI / taux de réussite des évaluations : ils demandent des données que Sébastien n'a pas encore données (prix payé par compte, payouts, règles Lucid).
+- Tableau de bord → « Économie & risque » (💶) : espérance par signal et par groupe (instrument, Long/Short), buffers des comptes en budgets de risque et en pertes moyennes, risque simultané (perte du budget sur tous les comptes actifs + pires jours multi-comptes). Tout est calculé dans la page depuis `window.PAR_INSTRUMENT`, `window.COMPTES` (soldes/seuils), `window.PAR_COMPTE` et `window.budgetOf` — rien à recopier ; le budget affiché est celui du jour (500 $ dès le 05/10). Bloc « Coût des comptes » : 100 $ par compte (indiqué par Sébastien le 08/10) × 10 comptes Lucid achetés (001, 002, 003, 004a, 004b, 005, 005b, 006, 02b, A ; TopstepX hors calcul) — resets, activation, payouts et règles Lucid pas renseignés, donc pas de ROI ni de taux de réussite des évaluations.
 - Avant la séance → Checklist : carte « Note du jour » (ressenti avant de trader).
   Saisie locale au navigateur (`daynote_AAAA-MM-JJ`) ; « Copier pour Claude »
   la remonte dans le chat, et Claude l'inscrit dans `window.DAY_NOTES`
