@@ -880,9 +880,10 @@ textarea::placeholder{color:#4A566A}
   <div class="day-banner" id="day-banner"></div>
 
   <div class="tz-row">
-    <div class="tz-card">
+    <div class="tz-card" id="net-card">
       <div class="lbl">Net P&amp;L</div>
-      <div class="val neg">−12 089 $</div>
+      <div class="val neg" id="net-val">−5 364 $</div>
+      <div class="tz-sub" id="net-sub">4 comptes actifs</div>
     </div>
     <div class="tz-card gauge">
       <div class="lbl">Trade win %</div>
@@ -973,7 +974,7 @@ textarea::placeholder{color:#4A566A}
 
   <div class="kpis kpis-top">
     <div class="kpi"><div class="lbl">Règle de séance</div><div class="val" id="kpi-regle-val">300 $ / signal</div><div class="note" id="kpi-regle-note">1 seul compte à la fois · R:R ≥ 2 · 3 trades max par jour · 500 $ dès le 05/10</div></div>
-    <div class="kpi"><div class="lbl">Cumul tous comptes</div><div class="val neg">−12 088,75 $</div><div class="note">somme des 9 fichiers CSV (hors 13 lignes de bug du 05/10), 13/08 → 08/10 · −1 302,50 $ le 08/10 · −834 $ le 07/10 · −27 $ le 06/10 · −584 $ le 05/10 · −2 117 $ le 02/10 · −416 $ le 01/10 · −199 $ le 30/09 · −418 $ le 29/09</div></div>
+    <div class="kpi"><div class="lbl">Résultat des comptes actifs</div><div class="val neg" id="kpi-net-val">−5 363,50 $</div><div class="note"><span id="kpi-net-note">4 comptes actifs : solde − 50 000 $ de départ.</span> Derniers jours (tous comptes, CSV hors lignes de bug) : −1 302,50 $ le 08/10 · −834 $ le 07/10 · −27 $ le 06/10 · −584 $ le 05/10 · −2 117 $ le 02/10 · −416 $ le 01/10 · −199 $ le 30/09 · −418 $ le 29/09</div></div>
     <div class="kpi"><div class="lbl">Meilleure session</div><div class="val pos">+2 529 $</div><div class="note">08/09 — TraderSyncer, 3 comptes</div></div>
     <div class="kpi"><div class="lbl">Pire session</div><div class="val neg">−2 117 $</div><div class="note">02/10 — MGC 4 contrats 6 s après le NFP (−1 200 $) + même signal MNQ sur 3 comptes (−661,50 $). Précédent : −2 095 $ le 18/09</div></div>
   </div>
@@ -983,12 +984,12 @@ textarea::placeholder{color:#4A566A}
   <div class="kpis" style="margin-top:0;grid-template-columns:repeat(auto-fit,minmax(320px,1fr))">
     <div class="kpi">
       <div class="lbl">Objectif +12 000 $</div>
-      <div class="val neg">−12 088,75 $</div>
+      <div class="val neg" id="obj-val">−5 363,50 $</div>
       <div class="ar-buf" style="margin:10px 0 4px">
-        <div class="ar-buf-label"><span>0 %</span><span>12 000 $</span></div>
-        <div class="ar-buf-track"><div class="ar-buf-fill crit" style="width:0%"></div></div>
+        <div class="ar-buf-label"><span id="obj-pct">0 %</span><span>12 000 $</span></div>
+        <div class="ar-buf-track"><div class="ar-buf-fill crit" id="obj-fill" style="width:0%"></div></div>
       </div>
-      <div class="note">Reste 24 088,75 $ à faire — −1 302,50 $ le 08/10 (004b, A, 02b, 001), −834 $ le 07/10 (004b, 001, 003), −27 $ le 06/10 (004b), −584 $ le 05/10 (004b : trois Shorts, 001 : un Short), −2 117 $ le 02/10 (MGC −1 200 $, MNQ copié sur 3 comptes −661,50 $, 004b −297 $, A +41,50 $), après −416 $ le 01/10 et −199 $ le 30/09</div>
+      <div class="note">Reste <span id="obj-reste">17 363,50 $</span> à faire sur les comptes actifs — derniers jours (tous comptes) : −1 302,50 $ le 08/10 (004b, A, 02b, 001), −834 $ le 07/10 (004b, 001, 003), −27 $ le 06/10 (004b), −584 $ le 05/10 (004b : trois Shorts, 001 : un Short), −2 117 $ le 02/10 (MGC −1 200 $, MNQ copié sur 3 comptes −661,50 $, 004b −297 $, A +41,50 $), après −416 $ le 01/10 et −199 $ le 30/09</div>
     </div>
     <div class="kpi">
       <div class="lbl">Drawdown max −8 000 $</div>
@@ -1961,8 +1962,8 @@ textarea::placeholder{color:#4A566A}
     <div class="stat-row">
       <div class="stat-item">
         <span class="stat-label">Total PnL</span>
-        <span class="stat-val neg">−12 088,75 $</span>
-        <div style="font-size:10px;color:var(--muted);margin-top:2px">Recalculé sur les CSV réels, 41 séances (13/08 → 08/10)</div>
+        <span class="stat-val neg" id="stat-net-val">−5 363,50 $</span>
+        <div style="font-size:10px;color:var(--muted);margin-top:2px"><span id="stat-net-note">Comptes actifs : solde − départ.</span> Trades recalculés sur les CSV réels, 41 séances (13/08 → 08/10)</div>
       </div>
       <div class="stat-item">
         <span class="stat-label">Win rate</span>
@@ -4397,7 +4398,7 @@ window.DAY_NOTES = {
     var sum = [];
     if(worst.pnl < 0){
       sum.push('<strong>En dollars, c’est ' + worst.id + '</strong> qui te coûte le plus : <b class="neg">' + money(worst.pnl) + '</b>'
-        + (D.pnl < 0 ? ' (' + Math.round(worst.pnl / D.pnl * 100) + ' % de la perte nette de ' + money(D.pnl) + ')' : '')
+        + (D.pnl < 0 ? ' (' + Math.round(worst.pnl / D.pnl * 100) + ' % de la perte nette des trades : ' + money(D.pnl) + ')' : '')
         + ' — sur ' + worst.n + ' signaux, soit ' + Math.round(worst.n / D.signaux * 100) + ' % de tous tes trades.');
     }
     if(worstPer.id !== worst.id && worstPer.moy < 0){
@@ -4458,7 +4459,7 @@ window.DAY_NOTES = {
         + '</div>';
     });
     h += '</div><p class="ins-note">' + D.du + ' → ' + D.au + ' · ' + D.fichiers + ' fichiers CSV (csv/comptes) · ' + D.signaux + ' signaux, P&amp;L net ' + money(D.pnl)
-      + ' (même total que les autres pages) · copy-trading compté 1 fois · gagnant = P&amp;L du signal &gt; 0, comme les autres cartes — les 2 break-even du 23/09 y sont donc comptés gagnants · Long = acheté avant d’être vendu, Short = l’inverse · TopstepX (clôturé, sans CSV) exclu · 13 allers-retours de bug du 05/10 (001, −32,50 $) exclus · recalcul : <code>node csv/calc-instruments.js</code></p>';
+      + ' (somme des trades de tous les comptes, cramés compris — pas le « Net P&amp;L » du tableau de bord, qui ne compte que les comptes actifs) · copy-trading compté 1 fois · gagnant = P&amp;L du signal &gt; 0, comme les autres cartes — les 2 break-even du 23/09 y sont donc comptés gagnants · Long = acheté avant d’être vendu, Short = l’inverse · TopstepX (clôturé, sans CSV) exclu · 13 allers-retours de bug du 05/10 (001, −32,50 $) exclus · recalcul : <code>node csv/calc-instruments.js</code></p>';
     host.innerHTML = h;
   }
   if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', build); else build();
@@ -4566,7 +4567,7 @@ window.DAY_NOTES = {
     var d = '<div class="ec-card" style="margin-top:12px"><h3>💸 Coût des comptes</h3><div class="ec-cols"><div>'
       + row("Comptes achetés", ACHETES.length) + row("Prix par compte", plain(PRIX) + " (d’après toi)") + row("Dépensé en frais", plain(dep), "neg")
       + "</div><div>" + row("Cramés ou clos", clos.length + " (" + clos.join(", ") + ")") + row("Encore actifs", live.length + (under.length ? " + " + under.length + " sous le seuil" : "")) + row("Payouts", "non renseignés")
-      + '</div></div><p class="ec-txt">Seul coût connu : les frais d’achat. Les resets, les frais d’activation après validation et les payouts ne sont pas renseignés — dis-moi s’il y en a et je les ajoute. Ce n’est pas le P&amp;L des CSV (' + usd(T.pnl) + "), qui est le résultat sur les comptes.</p></div>";
+      + '</div></div><p class="ec-txt">Seul coût connu : les frais d’achat. Les resets, les frais d’activation après validation et les payouts ne sont pas renseignés — dis-moi s’il y en a et je les ajoute. Le « Net P&amp;L » du tableau de bord ne compte que les comptes actifs (' + usd(window.netActifs ? window.netActifs().net : 0) + ") ; les trades de tous les comptes, cramés compris, cumulent " + usd(T.pnl) + ".</p></div>";
 
     host.innerHTML = a + '<div class="ec-two">' + b + c + "</div>" + d
       + '<p class="ins-note"><b>Seuil d’équilibre</b> = part de gagnants qui ne fait ni gagner ni perdre si ton gain moyen et ta perte moyenne restent ceux d’aujourd’hui ; <b>ratio d’équilibre</b> = ratio gain / perte nécessaire si ta part de gagnants reste la même. Arithmétique sur ' + T.n + " signaux (" + D.du + " → " + D.au + "), pas une prévision : quelques gros trades pèsent beaucoup. "
@@ -4719,6 +4720,56 @@ window.DAY_NOTES = {
   if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init); else init();
 })();
 </script>
+<script>/* Net P&L = résultat des comptes actifs (Tableau de bord) — Σ(solde − départ) des comptes encore vivants.
+   Règle de Sébastien (08/10) : « quand un compte est cramé, ne le compte plus » ; ex. 4 comptes à 49 K, 51 K, 50 K et 52 K = +2 K sur 200 K de base.
+   Exclus : comptes cramés (statut breached), sous leur seuil d'après le calcul (buffer ≤ 0), relevé de plus de 7 jours (rien ne dit qu'ils vivent encore),
+   anciens comptes clos hors de COMPTES (004a). Soldes : window.COMPTES (Lucid du 30/09 + P&L des CSV). Les stats de trades (win rate, profit factor,
+   espérance, page « Par instrument ») restent calculées sur tous les signaux, comptes cramés compris. */
+(function(){
+  var LBL = { "Compte 01": "001", "Compte 03": "003", "Compte 04b": "004b", "Compte 02b": "02b", "Compte A": "A", "Compte 06": "006", "Compte 02": "002", "Compte 05": "005", "Compte 05b": "005b" };
+  var CLOS_HORS_LISTE = [{ l: "004a", why: "clos le 10/09" }];
+  function parseJ(s){ var m = s.match(/(\d+)\/(\d+)\/(\d+)/); return new Date(+m[3], +m[2] - 1, +m[1]).getTime(); }
+  function compute(){
+    var C = window.COMPTES || [], act = [], out = CLOS_HORS_LISTE.slice();
+    var dates = C.filter(function(c){ return c.soldeDate; }).map(function(c){ return parseJ(c.soldeDate); });
+    var latest = dates.length ? Math.max.apply(null, dates) : 0;
+    C.forEach(function(c){
+      if(c.solde == null || c.depart == null) return;
+      var l = LBL[c.ref] || c.ref.replace("Compte ", "");
+      if(c.statut === "breached") out.push({ l: l, why: "cramé" });
+      else if(c.buffer !== undefined && c.buffer <= 0) out.push({ l: l, why: "sous son seuil d’après le calcul" });
+      else if(c.soldeDate && (latest - parseJ(c.soldeDate)) / 86400000 > 7) out.push({ l: l, why: "relevé du " + c.soldeDate.slice(0, 5) });
+      else act.push({ l: l, c: c, d: c.solde - c.depart });
+    });
+    var base = act.reduce(function(t, x){ return t + x.c.depart; }, 0), sol = act.reduce(function(t, x){ return t + x.c.solde; }, 0);
+    return { n: act.length, base: base, sol: sol, net: sol - base, act: act, out: out };
+  }
+  window.netActifs = compute;
+  function fr(v, d){ return Math.abs(v).toLocaleString("fr-FR", { minimumFractionDigits: d || 0, maximumFractionDigits: d || 0 }); }
+  function usd(v, d){ return (v > 0.004 ? "+" : (v < -0.004 ? "−" : "")) + fr(v, d) + " $"; }
+  function set(id, html, cls){ var e = document.getElementById(id); if(!e) return; e.innerHTML = html; if(cls !== undefined) e.className = cls; }
+  function fill(){
+    var N = compute(); if(!N.n) return;
+    var tone = N.net < 0 ? "neg" : (N.net > 0 ? "pos" : "");
+    var tout = window.PAR_INSTRUMENT ? window.PAR_INSTRUMENT.pnl : null;
+    var detail = N.act.map(function(x){ return x.l + " " + usd(x.d); }).join(" · ");
+    var exclus = N.out.map(function(x){ return x.l + " (" + x.why + ")"; }).join(", ");
+    var toutTxt = tout === null ? "" : " Les trades de tous les comptes, cramés compris, cumulent " + usd(tout, 2) + " (CSV).";
+    set("net-val", usd(N.net), "val " + tone);
+    set("net-sub", N.n + " comptes actifs · " + fr(N.sol) + " $ sur " + fr(N.base) + " $");
+    var card = document.getElementById("net-card"); if(card) card.title = detail + " — exclus : " + exclus;
+    set("kpi-net-val", usd(N.net, 2), "val " + tone);
+    set("kpi-net-note", N.n + " comptes actifs (" + detail + ") : " + fr(N.sol, 2) + " $ de soldes − " + fr(N.base) + " $ de départ. Exclus : " + exclus + "." + toutTxt);
+    set("obj-val", usd(N.net, 2), "val " + tone);
+    set("obj-pct", Math.max(0, Math.min(100, Math.round(N.net / 12000 * 100))) + " %");
+    var f = document.getElementById("obj-fill"); if(f) f.style.width = Math.max(0, Math.min(100, N.net / 12000 * 100)) + "%";
+    set("obj-reste", fr(12000 - N.net, 2) + " $");
+    set("stat-net-val", usd(N.net, 2), "stat-val " + tone);
+    set("stat-net-note", "Comptes actifs : solde − départ (" + N.n + " comptes)." + toutTxt);
+  }
+  if(document.readyState === "loading") document.addEventListener("DOMContentLoaded", fill); else fill();
+})();
+</script>
 <script>/* R & % par compte (Tableau de bord → Comptes & Analyse) — P&L jour par jour : window.PAR_COMPTE (csv/calc-comptes.js) ;
    budget de risque du jour : window.budgetOf (script Progression) ; soldes : window.COMPTES */
 (function(){
@@ -4745,7 +4796,7 @@ window.DAY_NOTES = {
         if(b) r += p / b; else off += p;
       });
       var res = c.solde - c.depart;
-      return { label: m[2], c: c, lucid: !m[1], pnl: pnl, r: r, off: off, pct: (c.solde / c.depart - 1) * 100, gap: res - pnl, dead: c.statut === 'breached' };
+      return { label: m[2], c: c, lucid: !m[1], pnl: pnl, r: r, off: off, pct: (c.solde / c.depart - 1) * 100, gap: res - pnl, dead: c.statut === 'breached' || (c.buffer !== undefined && c.buffer <= 0) };
     }).filter(Boolean);
     rows.sort(function(a, b){ return (a.dead - b.dead) || (b.pct - a.pct); });
     var tot = { pnl: 0, r: 0 };
@@ -4761,6 +4812,13 @@ window.DAY_NOTES = {
         + '<td class="' + cls(x.pnl) + '">' + (x.lucid ? usd(x.pnl) + ' <span class="rc-gap" title="Pas de CSV pour ce compte : résultat du 29 septembre repris de Lucid">Lucid</span>' : usd(x.pnl, 2)) + gapMark + '</td></tr>';
     });
     h += '<tr class="rc-tot"><td>Total</td><td class="rc-st">comptes avec CSV</td><td></td><td></td><td class="' + cls(tot.r) + '">' + rs(tot.r) + '</td><td class="' + cls(tot.pnl) + '">' + usd(tot.pnl, 2) + '</td></tr>';
+    var NA = window.netActifs ? window.netActifs() : null;
+    if(NA && NA.n){
+      h += '<tr class="rc-tot" title="Solde − départ des comptes actifs (ni cramés, ni sous leur seuil, ni sans relevé récent) : c\'est le « Net P&amp;L » du tableau de bord"><td>Comptes actifs</td><td class="rc-st">' + NA.n + ' comptes</td>'
+        + '<td>' + NA.sol.toLocaleString('fr-FR', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + ' $</td>'
+        + '<td class="' + cls(NA.net) + '">' + pct((NA.sol / NA.base - 1) * 100) + '</td><td></td>'
+        + '<td class="' + cls(NA.net) + '">' + usd(NA.net, 2) + '</td></tr>';
+    }
     h += '</tbody></table></div>';
     var offTot = rows.reduce(function(a, x){ return a + x.off; }, 0);
     h += '<p class="rc-note"><b>1 R = le budget de risque par signal du jour</b> : ≈ 275 $ en septembre (milieu de 250–300 $, comme l\'onglet Sessions), 300 $ du 1er au 4 octobre, 500 $ dès le 5 octobre. '
