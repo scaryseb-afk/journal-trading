@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<link rel="apple-touch-icon" href="../apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>Vendredi 9 oct. — Journal</title>
+<link rel="stylesheet" href="../_systeme/style.css">
+</head>
+<body>
+<div class="wrap">
+
+<a href="https://scaryseb-afk.github.io/journal-trading/#sessions" onclick="if(document.referrer){history.back();return false;}" class="sp-back">← Journal</a>
+
+<div class="sp-header">
+  <h1 class="sp-title">Vendredi 9 oct.</h1>
+  <span class="sp-pnl td-w">+428,00 $</span>
+</div>
+<div class="sp-meta">2 trades (2 lignes CSV) &nbsp;·&nbsp; 2 comptes (001, A) &nbsp;·&nbsp; séance incomplète : le 004b n'est pas dans les CSV</div>
+
+<div class="note-block">
+  <strong>+428,00 $ — deux Shorts gagnants (001 : +378 $, A : +50 $). Séance incomplète : le 004b, que tu dis avoir cramé, n'est pas dans les CSV reçus.</strong><br><br>
+  <strong>1 · 001 — MNQ Short 4 contrats : +378 $.</strong> Vente à 15h35:40 à 31 115,75, rachat à 17h18:36 à 31 068,50 : 47,25 pts en ta faveur en 1 h 42 min 55 (4 × 47,25 pts × 2 $). Entré 5 min 40 s après l'ouverture US.<br><br>
+  <strong>2 · A — MNQ Short 2 contrats : +50 $.</strong> Vente à 15h39:05 à 31 101,75, rachat à 16h55:17 à 31 089,25 : 12,5 pts en ta faveur en 1 h 16 min 11 (2 × 12,5 pts × 2 $). Entré <strong>3 min 25 s après</strong> le Short du 001, encore ouvert jusqu'à 17h18, 14 pts plus bas : deux comptes Short en même temps de 15h39 à 16h55 ✗ (règle 8 : jamais le même trade dupliqué sur plusieurs comptes). Tu précises : c'est le même trade, « entré en deux fois ».<br><br>
+  <strong>Ton ressenti (09/10) :</strong> « très bonne journée, j'ai suivi le plan, juste je suis rentré en deux fois mais le biais était bon, mais je suis rentré 5 minutes en retard » — et, sur ce trade : « je l'ai coupé avant » (avant ton objectif). Je note ton jugement tel quel ; mon contrôle objectif du plan est plus bas et reste incomplet sans le 004b.<br><br>
+  <strong>Tes deux captures TradingView (5 min, 18h54 et 18h55) :</strong> elles montrent un Short MNQ dans la chute qui démarre vers 15h30. La ligne rouge à 31 068,50 correspond à ta sortie du 001, et l'entrée de la première capture à ton prix de 31 115,75 (lecture à quelques points près). Le creux du mouvement (≈ 30 982, vers 16h10) est plus bas que tes deux sorties (31 089,25 à 16h55 et 31 068,50 à 17h18) : tu as coupé après un rebond d'environ 107 pts (A) et 87 pts (001) depuis le creux. Les niveaux exacts du stop et de l'objectif ne se lisent pas assez nettement sur l'image : dis-les-moi et je les inscris, je ne les invente pas. Les captures restent dans ton chat : dépose-les dans les zones de capture sous chaque trade (elles ne se stockent que dans ton navigateur).<br><br>
+  <strong>Compte 004 :</strong> tu écris « j'ai cramé le compte 004 ». Je l'ai pris pour le <strong>004b</strong> (dernier solde connu : 48 140 $ le 08/10, avec 53 $ de marge au-dessus de son seuil de 48 087 $). Je n'ai pas son CSV du 09/10 : j'ignore ce qu'il a perdu et par quels trades, donc ils ne sont ni dans les +428 $ ni dans les statistiques. Je l'ai sorti du Net P&L.<br><br>
+  <strong>Contrôle du plan — non évalué</strong> tant que les trades du 004b manquent. Ce qui est visible : 2 trades (max 3) ✓ · aucune perte parmi eux ✓ · aucune ré-entrée à moins de 10 min d'une perte ✓ · deux comptes Short en même temps ✗ (règle 8) · plafond de 4 contrats levé en octobre : non évalué · SL/TP : non précisés, je ne les invente pas.<br><br>
+  <strong>Ce qui manque :</strong> le CSV du 004b (et son solde final sur Lucid), ainsi que le schéma utilisé (V1 de Matthis, V2 de Daxton ou autre) et les niveaux exacts du stop et de l'objectif, que tes captures ne montrent pas assez précisément pour que je les lise. Tu écris que le biais était bon. Si d'autres comptes (02b, 005b) ont tradé aujourd'hui, envoie aussi leurs CSV.
+</div>
+
+<!-- Captures d'écran -->
+<!-- Trades par compte — dupliquer ce bloc pour chaque compte actif -->
+<div id="trades-section">
+
+  <div class="acct-header">
+    <span class="acct-label">Compte 001 — …4680001</span>
+    <span class="acct-pnl td-w">+378,00 $</span>
+  </div>
+  <div class="tbl-wrap">
+    <table class="trades-table">
+      <thead><tr><th>#</th><th>Contrat</th><th>Sens</th><th>Qté</th><th>Entrée</th><th>Sortie</th><th>Heure</th><th>P&amp;L</th></tr></thead>
+      <tbody id="body-001"></tbody>
+    </table>
+  </div>
+
+  <div class="acct-header">
+    <span class="acct-label">Compte A — nouveau, 18/09</span>
+    <span class="acct-pnl td-w">+50,00 $</span>
+  </div>
+  <div class="tbl-wrap">
+    <table class="trades-table">
+      <thead><tr><th>#</th><th>Contrat</th><th>Sens</th><th>Qté</th><th>Entrée</th><th>Sortie</th><th>Heure</th><th>P&amp;L</th></tr></thead>
+      <tbody id="body-A"></tbody>
+    </table>
+  </div>
+
+  <div class="total-bar">
+    <span class="total-label">Total journée — 2 comptes (004b non reçu)</span>
+    <span class="total-val " style="color:var(--green)">+428,00 $</span>
+  </div>
+
+</div>
+
+<!-- Relecture — à remplir par Sébastien, sert à améliorer les séances suivantes -->
+<div class="section-title">🪞 Ta relecture</div>
+<div class="reflect-grid">
+  <div class="reflect-item err">
+    <label>Erreur commise</label>
+    <textarea class="reflect-note" data-key="reflect_erreur" placeholder="Qu'est-ce qui a foiré aujourd'hui, concrètement ?"></textarea>
+  </div>
+  <div class="reflect-item fix">
+    <label>Ce que j'aurais dû faire</label>
+    <textarea class="reflect-note" data-key="reflect_correction" placeholder="La version correcte de la décision"></textarea>
+  </div>
+  <div class="reflect-item ok">
+    <label>Ce qui a bien fonctionné</label>
+    <textarea class="reflect-note" data-key="reflect_ok" placeholder="À garder, à répéter"></textarea>
+  </div>
+</div>
+<div class="reflect-copy">
+  <button id="reflect-copy-btn" onclick="sjCopyReflect()" disabled>📋 Copier pour Claude</button>
+  <span class="hint">Colle ça dans le chat pour que ta prochaine séance en tienne compte.</span>
+</div>
+
+</div>
+<!-- Lightbox -->
+<div class="lb-overlay" id="lb" onclick="sjCloseLB(event)">
+  <span class="lb-close" onclick="document.getElementById('lb').classList.remove('open')">×</span>
+  <img id="lb-img" src="" alt="">
+</div>
+
+<script>
+var SESSION_KEY = '2026_10_09_vendredi';
+
+/* Trades hardcodés — un tableau par compte, rempli depuis les CSV */
+var ACCTS = {
+  '001': [
+    {n:1, contract:'MNQ', side:'Short', qty:'4', entry:'31115.75', exit:'31068.50', time:'15:35', pnl: 378.00}
+  ],
+  'A': [
+    {n:1, contract:'MNQ', side:'Short', qty:'2', entry:'31101.75', exit:'31089.25', time:'15:39', pnl: 50.00}
+  ]
+};
+
+function renderAcct(acctId, bodyId){
+  var notes = sjLoadNotes();
+  var trades = ACCTS[acctId] || [];
+  var html = '';
+  trades.forEach(function(t){
+    var ps = (t.pnl >= 0 ? '+' : '') + t.pnl.toFixed(2) + ' $';
+    var pc = t.pnl >= 0 ? 'td-w' : 'td-l';
+    var key = acctId + '_' + t.n;
+    var note = notes[key] || '';
+    html += '<tr class="trade-row">'
+      + '<td>' + t.n + '</td>'
+      + '<td><strong>' + sjEsc(t.contract) + '</strong></td>'
+      + '<td>' + sjEsc(t.side) + '</td>'
+      + '<td>' + sjEsc(t.qty) + '</td>'
+      + '<td>' + sjEsc(t.entry) + '</td>'
+      + '<td>' + sjEsc(t.exit) + '</td>'
+      + '<td style="color:var(--muted);font-size:12px">' + sjEsc(t.time) + '</td>'
+      + '<td class="td-pnl ' + pc + '">' + ps + '</td>'
+      + '</tr>'
+      + '<tr class="note-row"><td colspan="8">'
+      + '<textarea class="trade-note" placeholder="Setup, raison du trade, erreurs…" data-key="' + key + '" onblur="sjSaveNote(this)">'
+      + sjEsc(note)
+      + '</textarea>'
+      + sjTradeRRRow(key)
+      + '</td></tr>';
+  });
+  document.getElementById(bodyId).innerHTML = html;
+}
+
+window.addEventListener('DOMContentLoaded', function(){
+  renderAcct('001', 'body-001');
+  renderAcct('A', 'body-A');
+});
+</script>
+<script src="../_systeme/session.js"></script>
+</body>
+</html>
