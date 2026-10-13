@@ -883,7 +883,7 @@ textarea::placeholder{color:#4A566A}
     <div class="tz-card" id="net-card">
       <div class="lbl">Net P&amp;L</div>
       <div class="val neg" id="net-val">−1 407 $</div>
-      <div class="tz-sub" id="net-sub">4 comptes actifs</div>
+      <div class="tz-sub" id="net-sub">3 comptes actifs</div>
     </div>
     <div class="tz-card gauge">
       <div class="lbl">Trade win %</div>
@@ -974,7 +974,7 @@ textarea::placeholder{color:#4A566A}
 
   <div class="kpis kpis-top">
     <div class="kpi"><div class="lbl">Règle de séance</div><div class="val" id="kpi-regle-val">300 $ / signal</div><div class="note" id="kpi-regle-note">1 seul compte à la fois · R:R ≥ 2 · 3 trades max par jour · 500 $ dès le 05/10</div></div>
-    <div class="kpi"><div class="lbl">Résultat des comptes actifs</div><div class="val neg" id="kpi-net-val">−1 406,50 $</div><div class="note"><span id="kpi-net-note">4 comptes actifs : solde − 50 000 $ de départ.</span> Derniers jours (tous comptes, CSV hors lignes de bug) : +428 $ le 09/10 (partiel : 001 et A seulement) · +920,50 $ le 08/10 · −834 $ le 07/10 · −27 $ le 06/10 · −584 $ le 05/10 · −2 117 $ le 02/10 · −416 $ le 01/10 · −199 $ le 30/09 · −418 $ le 29/09</div></div>
+    <div class="kpi"><div class="lbl">Résultat des comptes actifs</div><div class="val neg" id="kpi-net-val">−815,00 $</div><div class="note"><span id="kpi-net-note">3 comptes actifs : solde − 50 000 $ de départ.</span> Derniers jours (tous comptes, CSV hors lignes de bug) : +428 $ le 09/10 (partiel : 001 et A seulement) · +920,50 $ le 08/10 · −834 $ le 07/10 · −27 $ le 06/10 · −584 $ le 05/10 · −2 117 $ le 02/10 · −416 $ le 01/10 · −199 $ le 30/09 · −418 $ le 29/09</div></div>
     <div class="kpi"><div class="lbl">Meilleure session</div><div class="val pos">+2 529 $</div><div class="note">08/09 — TraderSyncer, 3 comptes</div></div>
     <div class="kpi"><div class="lbl">Pire session</div><div class="val neg">−2 117 $</div><div class="note">02/10 — MGC 4 contrats 6 s après le NFP (−1 200 $) + même signal MNQ sur 3 comptes (−661,50 $). Précédent : −2 095 $ le 18/09</div></div>
   </div>
@@ -984,12 +984,12 @@ textarea::placeholder{color:#4A566A}
   <div class="kpis" style="margin-top:0;grid-template-columns:repeat(auto-fit,minmax(320px,1fr))">
     <div class="kpi">
       <div class="lbl" id="obj-lbl">Objectif +3 000 $ par compte</div>
-      <div class="val neg" id="obj-val">−1 406,50 $</div>
+      <div class="val neg" id="obj-val">−815,00 $</div>
       <div class="ar-buf" style="margin:10px 0 4px">
-        <div class="ar-buf-label"><span id="obj-pct">0 %</span><span id="obj-cible">12 000 $</span></div>
+        <div class="ar-buf-label"><span id="obj-pct">0 %</span><span id="obj-cible">9 000 $</span></div>
         <div class="ar-buf-track"><div class="ar-buf-fill crit" id="obj-fill" style="width:0%"></div></div>
       </div>
-      <div class="note">Reste <span id="obj-reste">13 406,50 $</span> à faire sur les comptes actifs — derniers jours (tous comptes) : +428 $ le 09/10 (partiel : 001 et A seulement) · +920,50 $ le 08/10 (004b, A, 02b, 001), −834 $ le 07/10 (004b, 001, 003), −27 $ le 06/10 (004b), −584 $ le 05/10 (004b : trois Shorts, 001 : un Short), −2 117 $ le 02/10 (MGC −1 200 $, MNQ copié sur 3 comptes −661,50 $, 004b −297 $, A +41,50 $), après −416 $ le 01/10 et −199 $ le 30/09</div>
+      <div class="note">Reste <span id="obj-reste">9 815,00 $</span> à faire sur les comptes actifs — derniers jours (tous comptes) : +428 $ le 09/10 (partiel : 001 et A seulement) · +920,50 $ le 08/10 (004b, A, 02b, 001), −834 $ le 07/10 (004b, 001, 003), −27 $ le 06/10 (004b), −584 $ le 05/10 (004b : trois Shorts, 001 : un Short), −2 117 $ le 02/10 (MGC −1 200 $, MNQ copié sur 3 comptes −661,50 $, 004b −297 $, A +41,50 $), après −416 $ le 01/10 et −199 $ le 30/09</div>
     </div>
     <div class="kpi">
       <div class="lbl" id="dd-lbl">Drawdown max −2 000 $ par compte</div>
@@ -1477,7 +1477,7 @@ textarea::placeholder{color:#4A566A}
 
   <div class="subview" data-subview="comptes">
   <h2 id="brief-comptes">Où en sont tes comptes</h2>
-  <p class="sub">Huit comptes suivis (001, 003, 004, 005, 005b, 006, 02b, A) — le 002 a breaché le 29/09 et a été remplacé le jour même par le 02b, le 006 a breaché le 02/10, le 003 le 07/10 (confirmé par Lucid le 08/10), le 004b le 09/10 (annoncé par Sébastien, pas encore confirmé par Lucid), le 005b est un rachat du 005 (l'ancien 005 n'est plus sur Lucid), le 004 a été racheté le 17/09 après la clôture de l'ancien le 10/09. Soldes Lucid du 08/10 au soir pour 001, 003, 004b, 02b et 005b (buffer, jours de trading, seuil MLL — des infos que le CSV Tradovate ne donne pas) ; le A n'est pas sur Lucid, son solde est calculé depuis les CSV. Quand un solde Lucid diffère du calcul CSV, l'écart est signalé plutôt que lissé (frais de transaction probables). Compte A confirmé actif par ses trades jusqu'au 08/10, malgré son absence de la page Lucid.</p>
+  <p class="sub"><b>Trois comptes actifs depuis le 13/10 : 001, 02b, 005b (page Lucid du 13/10) ; le A est mis de côté.</b> Huit comptes ont été suivis (001, 003, 004, 005, 005b, 006, 02b, A) — le 002 a breaché le 29/09 et a été remplacé le jour même par le 02b, le 006 a breaché le 02/10, le 003 le 07/10 (confirmé par Lucid le 08/10), le 004b le 09/10 (annoncé par Sébastien, pas encore confirmé par Lucid), le 005b est un rachat du 005 (l'ancien 005 n'est plus sur Lucid), le 004 a été racheté le 17/09 après la clôture de l'ancien le 10/09. Soldes Lucid du 13/10 pour 001, 02b et 005b, du 08/10 au soir pour 003 et 004b (buffer, jours de trading, seuil MLL — des infos que le CSV Tradovate ne donne pas) ; le A n'est pas sur Lucid, son solde est calculé depuis les CSV. Quand un solde Lucid diffère du calcul CSV, l'écart est signalé plutôt que lissé (frais de transaction probables). Compte A confirmé actif par ses trades jusqu'au 09/10, malgré son absence de la page Lucid (absent aussi de celle du 13/10) ; mis de côté le 13/10.</p>
   <div class="obs warn" style="margin-bottom:16px">
     <div class="t">🔴 Vendredi 09/10 : le 004b est cramé (annoncé) — séance incomplète, +428 $ sur le 001 et le A</div>
     <div class="d">001 : Short MNQ 4 contrats +378 $ (15h35→17h18) et A : Short MNQ 2 contrats +50 $ (15h39→16h55), deux comptes Short en même temps. Tu écris « j'ai cramé le compte 004 » : j'ai pris le 004b (dernier solde connu 48 140 $, 53 $ de marge). Pas de CSV (« le compte est dead ») : ses trades éventuels ne sont ni dans les +428 $ ni dans les statistiques.</div>
@@ -1515,14 +1515,14 @@ textarea::placeholder{color:#4A566A}
     <div class="d">−1 200 $ le 29/09 (pile la limite DLL), tailles de lots variables selon Sébastien (« j'ai fait n'importe quoi »). Pas de CSV Tradovate reçu pour cette séance — trades non détaillés.</div>
   </div>
   <div class="obs warn" style="margin-bottom:16px">
-    <div class="t">⚠️ Compte « A » : toujours actif, buffer à 1 452,50 $ (calculé)</div>
+    <div class="t">⚠️ Compte « A » : mis de côté le 13/10 (buffer calculé : 1 452,50 $)</div>
     <div class="d">−255 $ puis +1 208 $ le 08/10, +50 $ le 09/10 : buffer à 1 452,50 $ (solde calculé, le A n'est pas sur la page Lucid). Confirmé actif par un trade le 01/10 (−416 $, 4 contrats), malgré son absence de la liste Lucid du 30/09. +41,50 $ le 02/10 (Short MNQ 1 contrat) : buffer remonté de 408 à 449,50 $. 3 trades à 8 contrats le 18/09 (−1 176 $) restent le pire épisode de ce compte — à surveiller de près.</div>
   </div>
   <div class="rules">
     <div class="r">
       <div class="n">Compte …4680001 — Tradovate / Lucid</div>
-      <div class="t">50 079,00 $ · <span style="color:var(--green)">+79,00 $ depuis le départ</span></div>
-      <div class="d">+378 $ le 09/10 : Short MNQ 4 contrats (15h35→17h18) — solde calculé 50 079 $ (49 701 $ Lucid + 378 $), buffer 893 $. Solde Lucid du 08/10 (soir) : 49 701 $, buffer 515 $ (calcul CSV : 49 663 $, +38 $ non expliqués). −332,50 $ le 08/10 : Long MNQ 5 contrats, 53 s (15h35, 5 min après l'ouverture), 33,25 pts contre toi. −90 $ le 07/10 : Long MNQ 3 contrats, 7 min (17h48→17h56), 15 pts contre toi. −85 $ le 05/10 : Short MNQ 2 contrats, 22 min (20h38→21h01), 21,25 pts contre toi — compté comme trade. −32,50 $ le 05/10 : 13 allers-retours de 1 à 2 secondes (bug de plateforme : 2 signalés par toi, 11 rangés avec par application de ta consigne), hors statistiques mais réellement débités du solde. −300 $ le 02/10 : même Long MNQ 3 contrats que 003 et 006, sorti à 31 127,75 (solde calculé : 50 503 $ Lucid du 30/09 − 300 $ − 117,50 $ − 90 $ − 332,50 $ = 49 663 $). Solde Lucid au 30/09 — écart de 196 $ avec le calcul CSV du 29/09 (50 699,25 $), à surveiller. −263 $ le 29/09 : Short MNQ en 2 contrats, 65,75 pts contre toi en 41 min. Le 28/09 : +742 $, seul trade de la journée.</div>
+      <div class="t">50 075,00 $ · <span style="color:var(--green)">+75,00 $ depuis le départ</span></div>
+      <div class="d">Lucid du 13/10 : 50 075 $, buffer 889 $, 28 jours de trading — 4 $ sous le calcul CSV (frais). +378 $ le 09/10 : Short MNQ 4 contrats (15h35→17h18) — solde calculé 50 079 $ (49 701 $ Lucid + 378 $), buffer 893 $. Solde Lucid du 08/10 (soir) : 49 701 $, buffer 515 $ (calcul CSV : 49 663 $, +38 $ non expliqués). −332,50 $ le 08/10 : Long MNQ 5 contrats, 53 s (15h35, 5 min après l'ouverture), 33,25 pts contre toi. −90 $ le 07/10 : Long MNQ 3 contrats, 7 min (17h48→17h56), 15 pts contre toi. −85 $ le 05/10 : Short MNQ 2 contrats, 22 min (20h38→21h01), 21,25 pts contre toi — compté comme trade. −32,50 $ le 05/10 : 13 allers-retours de 1 à 2 secondes (bug de plateforme : 2 signalés par toi, 11 rangés avec par application de ta consigne), hors statistiques mais réellement débités du solde. −300 $ le 02/10 : même Long MNQ 3 contrats que 003 et 006, sorti à 31 127,75 (solde calculé : 50 503 $ Lucid du 30/09 − 300 $ − 117,50 $ − 90 $ − 332,50 $ = 49 663 $). Solde Lucid au 30/09 — écart de 196 $ avec le calcul CSV du 29/09 (50 699,25 $), à surveiller. −263 $ le 29/09 : Short MNQ en 2 contrats, 65,75 pts contre toi en 41 min. Le 28/09 : +742 $, seul trade de la journée.</div>
     </div>
     <div class="r">
       <div class="n">Compte …4680002 — Tradovate / Lucid · breaché</div>
@@ -1532,7 +1532,7 @@ textarea::placeholder{color:#4A566A}
     <div class="r">
       <div class="n">Compte …4680006 — Tradovate / Lucid (LucidFlex, nouveau — remplace le 002)</div>
       <div class="t">49 586,00 $ · <span style="color:var(--red)">−414,00 $ depuis le départ</span></div>
-      <div class="d">+801 $ le 08/10 : MCL +12 $, MNQ Short −566 $, Long +340 $, deux Shorts de 2 contrats (+67 $ et −58 $) fermés à 18h17, puis en 15 minutes Short −208 $, Long −274 $ (entré 7 s après) et Short +1 488 $ (186 pts, 11 min). Solde Lucid du 08/10 (soir) : 49 586 $, 3 jours de trading. −1 200 $ le 02/10 : Long MGC (or) 4 contrats entré 6 s après le NFP, 30 pts contre — quatre fois le budget, pile le montant d'une limite journalière de 1 200 $ (à confirmer sur Lucid). Buffer 1 568 $ (Lucid du 08/10). Racheté le 29/09. Premier trade : Short MNQ 2 contrats en 2 fills (17h12/17h13), sortis 20h23/20h25, +16 $ puis +4 $ — +18 $ net après frais. Entré 20 min après la perte du 003, règle 6 respectée.</div>
+      <div class="d">Lucid du 13/10 : 49 586 $, inchangé depuis le 08/10 (3 jours de trading). +801 $ le 08/10 : MCL +12 $, MNQ Short −566 $, Long +340 $, deux Shorts de 2 contrats (+67 $ et −58 $) fermés à 18h17, puis en 15 minutes Short −208 $, Long −274 $ (entré 7 s après) et Short +1 488 $ (186 pts, 11 min). Solde Lucid du 08/10 (soir) : 49 586 $, 3 jours de trading. −1 200 $ le 02/10 : Long MGC (or) 4 contrats entré 6 s après le NFP, 30 pts contre — quatre fois le budget, pile le montant d'une limite journalière de 1 200 $ (à confirmer sur Lucid). Buffer 1 568 $ (Lucid du 08/10). Racheté le 29/09. Premier trade : Short MNQ 2 contrats en 2 fills (17h12/17h13), sortis 20h23/20h25, +16 $ puis +4 $ — +18 $ net après frais. Entré 20 min après la perte du 003, règle 6 respectée.</div>
     </div>
     <div class="r">
       <div class="n">Compte …4680006 — Tradovate / Lucid · breaché</div>
@@ -1546,8 +1546,8 @@ textarea::placeholder{color:#4A566A}
     </div>
     <div class="r">
       <div class="n">Compte …4680005 — Tradovate / Lucid (nouveau, racheté)</div>
-      <div class="t">49 476,00 $ · <span style="color:var(--red)">−524,00 $ depuis le départ</span></div>
-      <div class="d">Solde Lucid du 08/10 (soir) : 49 476 $, 5 jours de trading — +676 $ depuis le 30/09, sans CSV. Tu confirmes +944 $ de P&L le 08/10 sur ce compte, déjà compris dans ces 49 476 $ (CSV non reçu ; pas compris dans les +920,50 $ de la séance). Compte vivant (identifié le 08/10 : LFE05085004680005 sur Lucid au 30/09, 48 800 $, seuil 48 000 $). 1 jour de trading (29/09), tailles de lots variables — a touché pile la limite journalière (DLL 1 200 $). Pas de CSV Tradovate reçu pour cette séance : trades non détaillés.</div>
+      <div class="t">49 524,00 $ · <span style="color:var(--red)">−476,00 $ depuis le départ</span></div>
+      <div class="d">Lucid du 13/10 : 49 524 $, buffer 1 524 $, 6 jours de trading : +48 $ et un jour de plus que le 08/10, jour non identifié et sans CSV. Solde Lucid du 08/10 (soir) : 49 476 $, 5 jours de trading — +676 $ depuis le 30/09, sans CSV. Tu confirmes +944 $ de P&L le 08/10 sur ce compte, déjà compris dans ces 49 476 $ (CSV non reçu ; pas compris dans les +920,50 $ de la séance). Compte vivant (identifié le 08/10 : LFE05085004680005 sur Lucid au 30/09, 48 800 $, seuil 48 000 $). 1 jour de trading (29/09), tailles de lots variables — a touché pile la limite journalière (DLL 1 200 $). Pas de CSV Tradovate reçu pour cette séance : trades non détaillés.</div>
     </div>
     <div class="r">
       <div class="n">Compte …4680003 — Tradovate / Lucid</div>
@@ -1561,7 +1561,7 @@ textarea::placeholder{color:#4A566A}
     </div>
     <div class="r">
       <div class="n">Compte A — Tradovate / Lucid (nouveau)</div>
-      <div class="t">49 452,50 $ · <span style="color:var(--red)">−547,50 $ depuis le départ (solde de 50 000 $ supposé)</span></div>
+      <div class="t">49 452,50 $ · <span style="color:var(--red)">−547,50 $ depuis le départ (solde de 50 000 $ supposé)</span> · mis de côté le 13/10</div>
       <div class="d">+50 $ le 09/10 : Short MNQ 2 contrats (15h39→16h55), entré pendant que le 001 était déjà Short. +1 208 $ le 08/10 (soir) : Short MNQ 4 contrats (18h46→18h51, 4 min 42), 151 pts en ta faveur — entré pendant que le 02b était déjà Short (18h43) : deux comptes en même temps (règle 8). Absent de la page Lucid : solde calculé. −255 $ le 08/10 (matin) : Short MGC (or) 3 contrats (09h34→10h13), 8,5 pts contre toi, entré 2 min 5 s après la perte du 004b. +41,50 $ le 02/10 : Short MNQ 1 contrat, 2 min 55 — 4e signal du jour (max 3), entré 3 min 33 s après la perte du 004b. −416 $ le 01/10 : Long MNQ 4 contrats, 52 pts contre toi en 18 min 17 (plafond de 4 contrats atteint pile). Toujours actif — confirmé par ce trade, malgré son absence de la liste Lucid du 30/09. Avant : ouvert et tradé le 18/09 en 8 contrats, 3 trades tous perdants, −1 176 $ à lui seul. Buffer à 449,50 $.</div>
     </div>
   </div>
@@ -1966,7 +1966,7 @@ textarea::placeholder{color:#4A566A}
     <div class="stat-row">
       <div class="stat-item">
         <span class="stat-label">Total PnL</span>
-        <span class="stat-val neg" id="stat-net-val">−1 406,50 $</span>
+        <span class="stat-val neg" id="stat-net-val">−815,00 $</span>
         <div style="font-size:10px;color:var(--muted);margin-top:2px"><span id="stat-net-note">Comptes actifs : solde − départ.</span> Trades recalculés sur les CSV réels, 42 séances (13/08 → 09/10)</div>
       </div>
       <div class="stat-item">
@@ -2344,8 +2344,9 @@ window.COMPTES = [
     nom: "Tradovate / Lucid — Compte A (nouveau)",
     ref: "Compte A",
     statut: "evaluation",
-    statutLabel: "Évaluation",
+    statutLabel: "Mis de côté",
     devise: "$",
+    ecarte: true,
     depart: 50000,
     solde: 49452.50,
     soldeDate: "09/10/2026",
@@ -2355,8 +2356,8 @@ window.COMPTES = [
     objectif: null,
     mll: 48000,
     maxContrats: null,
-    note: "+50 $ le 09/10 : Short MNQ 2 contrats (15h39→16h55, 12,5 pts en ta faveur), entré pendant que le 001 était déjà Short : solde calculé 49 402,50 $ + 50 $ = 49 452,50 $, buffer 1 452,50 $. Absent de la page Lucid : solde calculé 48 194,50 $ + 1 208 $ (Short MNQ 4 contrats, 18h46→18h51, vendu à 31 189,50 et racheté à 31 038,50 : 151 pts en ta faveur en 4 min 42) = 49 402,50 $, buffer 1 402,50 $. −255 $ le 08/10 (matin) : Short MGC (or) 3 contrats (09h34→10h13, 39 min), vendu à 4 144,0 et racheté à 4 152,5 (8,5 pts contre toi), entré 2 min 5 s après la perte du 004b. Solde calculé : 48 449,50 $ − 255 $ = 48 194,50 $. +41,50 $ le 02/10 : Short MNQ 1 contrat (17h10→17h13, 2 min 55) — 4e signal du jour (max 3), entré 3 min 33 s après la perte du 004b. Solde calculé : 48 408 $ + 41,50 $ (Lucid non consulté depuis le 30/09). −416 $ le 01/10 : Long MNQ 4 contrats (plafond pile), 52 pts contre toi en 18 min 17. Avant : ouvert et tradé le 18/09 en 8 contrats, 3 trades tous perdants, −1 176 $ dès le premier jour. Solde de départ supposé 50 000 $ — à confirmer.",
-    aConfirmer: "Quel est ce compte ? Le A n'est ni sur la page Lucid du 30/09 ni sur celle du 08/10. Il a été nommé « A » le 18/09, quand un export contenait un compte inconnu (fill 665865960xxx, 3 trades de 8 contrats le 18/09 entre 16h17 et 16h42) : son numéro Lucid/Tradovate ne m'a jamais été donné. Numéro, solde de départ et solde actuel à me donner — son solde est calculé depuis les CSV."
+    note: "Mis de côté le 13/10 (Sébastien : 3 comptes à monter ; page Lucid des comptes actifs du 13/10 = 001, 02b, 005b, sans le A) : exclu du Net P&L, de l’objectif et des buffers ; ses trades restent dans les statistiques. +50 $ le 09/10 : Short MNQ 2 contrats (15h39→16h55, 12,5 pts en ta faveur), entré pendant que le 001 était déjà Short : solde calculé 49 402,50 $ + 50 $ = 49 452,50 $, buffer 1 452,50 $. Absent de la page Lucid : solde calculé 48 194,50 $ + 1 208 $ (Short MNQ 4 contrats, 18h46→18h51, vendu à 31 189,50 et racheté à 31 038,50 : 151 pts en ta faveur en 4 min 42) = 49 402,50 $, buffer 1 402,50 $. −255 $ le 08/10 (matin) : Short MGC (or) 3 contrats (09h34→10h13, 39 min), vendu à 4 144,0 et racheté à 4 152,5 (8,5 pts contre toi), entré 2 min 5 s après la perte du 004b. Solde calculé : 48 449,50 $ − 255 $ = 48 194,50 $. +41,50 $ le 02/10 : Short MNQ 1 contrat (17h10→17h13, 2 min 55) — 4e signal du jour (max 3), entré 3 min 33 s après la perte du 004b. Solde calculé : 48 408 $ + 41,50 $ (Lucid non consulté depuis le 30/09). −416 $ le 01/10 : Long MNQ 4 contrats (plafond pile), 52 pts contre toi en 18 min 17. Avant : ouvert et tradé le 18/09 en 8 contrats, 3 trades tous perdants, −1 176 $ dès le premier jour. Solde de départ supposé 50 000 $ — à confirmer.",
+    aConfirmer: "Si ce compte est fermé, dis-le-moi : je le classe avec les clos. Il reste absent de Lucid et son numéro est toujours inconnu."
   },
   {
     nom: "Tradovate / Lucid — …4680004 (nouveau)",
@@ -2419,14 +2420,14 @@ window.COMPTES = [
     devise: "$",
     depart: 50000,
     solde: 49586.00,
-    soldeDate: "08/10/2026",
+    soldeDate: "13/10/2026",
     seuil: 48018,
     buffer: 1568.00,
     reference: "LFE05085004680006",
     objectif: 53000,
     mll: 48018,
     maxContrats: null,
-    note: "+801 $ le 08/10 : MCL Long 3 contrats +12 $ (10h38→15h17, 4 h 39 ; une position en deux lignes CSV), MNQ Short 4 contrats −566 $ (15h41→16h18, 70,75 pts contre toi), MNQ Long 4 contrats +340 $ (16h22→16h36), deux Shorts MNQ de 2 contrats (+67 $ et −58 $, fermés ensemble à 18h17), puis en 15 minutes : Short −208 $ (18h38→18h41), Long −274 $ entré 7 s après, Short +1 488 $ entré 12 s après (186 pts, 11 min 19). Solde Lucid du 08/10 (soir) : 49 586 $, seuil 48 018 $ (buffer 1 568 $), 3 jours de trading ; le calcul CSV donnait 49 619 $ (écart de 33 $, frais probables). 🔴 −1 200 $ le 02/10 : Long MGC (or) 4 contrats, entré 14h30:06 — 6 s après le NFP —, sorti 15h16:38 : 30 pts contre toi, 46 min 32. Quatre fois le budget de 300 $, et pile le montant d'une limite journalière de 1 200 $ : à confirmer sur Lucid si le compte a été verrouillé. Sébastien l'écrit lui-même : une erreur d'entrer à la minute de l'annonce (les boîtes avaient toutes acheté puis revendu à la seconde de la publication). Solde calculé : 50 018 $ − 1 200 $ (Lucid non consulté depuis le 29/09). Avant : racheté le 29/09 pour remplacer le 002 (breaché) ; premier trade : Short MNQ 2 contrats, +20 $ brut / +18 $ net après frais Tradovate.",
+    note: "Lucid du 13/10 : 49 586 $ (−414 $ depuis le départ), seuil 48 018 $ (buffer 1 568 $), 3 jours de trading — inchangé depuis le 08/10, donc aucun trade depuis (cohérent avec ta réponse du 09/10). +801 $ le 08/10 : MCL Long 3 contrats +12 $ (10h38→15h17, 4 h 39 ; une position en deux lignes CSV), MNQ Short 4 contrats −566 $ (15h41→16h18, 70,75 pts contre toi), MNQ Long 4 contrats +340 $ (16h22→16h36), deux Shorts MNQ de 2 contrats (+67 $ et −58 $, fermés ensemble à 18h17), puis en 15 minutes : Short −208 $ (18h38→18h41), Long −274 $ entré 7 s après, Short +1 488 $ entré 12 s après (186 pts, 11 min 19). Solde Lucid du 08/10 (soir) : 49 586 $, seuil 48 018 $ (buffer 1 568 $), 3 jours de trading ; le calcul CSV donnait 49 619 $ (écart de 33 $, frais probables). 🔴 −1 200 $ le 02/10 : Long MGC (or) 4 contrats, entré 14h30:06 — 6 s après le NFP —, sorti 15h16:38 : 30 pts contre toi, 46 min 32. Quatre fois le budget de 300 $, et pile le montant d'une limite journalière de 1 200 $ : à confirmer sur Lucid si le compte a été verrouillé. Sébastien l'écrit lui-même : une erreur d'entrer à la minute de l'annonce (les boîtes avaient toutes acheté puis revendu à la seconde de la publication). Solde calculé : 50 018 $ − 1 200 $ (Lucid non consulté depuis le 29/09). Avant : racheté le 29/09 pour remplacer le 002 (breaché) ; premier trade : Short MNQ 2 contrats, +20 $ brut / +18 $ net après frais Tradovate.",
     aConfirmer: null
   },
   {
@@ -2454,15 +2455,15 @@ window.COMPTES = [
     statutLabel: "Évaluation",
     devise: "$",
     depart: 50000,
-    solde: 50079.00,
-    soldeDate: "09/10/2026",
+    solde: 50075.00,
+    soldeDate: "13/10/2026",
     seuil: 49186,
-    buffer: 893.00,
+    buffer: 889.00,
     reference: "LTE05085004680001 (Lucid : LFE05085004680001)",
     objectif: 53000,
     mll: 49186,
     maxContrats: null,
-    note: "+378 $ le 09/10 : Short MNQ 4 contrats (15h35→17h18, 47,25 pts en ta faveur en 1 h 42) — solde calculé 49 701 $ (Lucid, 08/10) + 378 $ = 50 079 $, frais non déduits ; buffer 893 $. Lucid du 08/10 (soir) : 49 701 $, seuil 49 186 $ (buffer 515 $), 27 jours de trading, « Done For Day » ; le calcul CSV donnait 49 663 $ — Lucid est 38 $ au-dessus, écart que je n'explique pas (les frais joueraient dans l'autre sens). −332,50 $ le 08/10 : Long MNQ 5 contrats, 53 s (15h35:04→15h35:58), entré à 31 258,50 et sorti à 31 225,25 (33,25 pts contre toi). −90 $ le 07/10 : Long MNQ 3 contrats, 7 min (17h48→17h56), entré à 31 363,00 et sorti à 31 348,00 (15 pts contre toi). −85 $ le 05/10 : Short MNQ 2 contrats, 22 min (20h38→21h01), entré à 31 307,75 et sorti à 31 329,00 (21,25 pts contre toi) — compté comme trade, 4e du jour. −32,50 $ le 05/10 : 13 allers-retours de 1 à 2 secondes (bug de plateforme : 2 signalés par toi le 05/10, 11 rangés avec par application de ta consigne — à confirmer), exclus des statistiques mais réellement débités du solde. Solde calculé avant Lucid : 50 203 $ − 117,50 $ − 90 $ − 332,50 $ = 49 663 $. −300 $ le 02/10 : même Long MNQ 3 contrats que 003 et 006, saisi à la main (entrée 15h44:59, sans SL/TP, fermé à la main à 15h55:36 à 31 127,75, −50 pts). Solde calculé : 50 503 $ − 300 $ (Lucid non consulté depuis le 30/09). Avant : solde Lucid du 30/09 avec 196 $ d'écart vs le calcul CSV du 29/09 (50 699,25 $), à surveiller. −263 $ le 29/09 (Short MNQ 2 contrats, 65,75 pts contre toi en 41 min), +742 $ le 28/09.",
+    note: "Lucid du 13/10 : 50 075 $ (+75 $ depuis le départ, cible 53 000 $), seuil 49 186 $ (buffer 889 $), 28 jours de trading — 4 $ sous le calcul CSV (50 079 $), frais probables du trade du 09/10 : l’écart de 38 $ du 08/10 n’existe plus. +378 $ le 09/10 : Short MNQ 4 contrats (15h35→17h18, 47,25 pts en ta faveur en 1 h 42) — solde calculé 49 701 $ (Lucid, 08/10) + 378 $ = 50 079 $, frais non déduits ; buffer 893 $. Lucid du 08/10 (soir) : 49 701 $, seuil 49 186 $ (buffer 515 $), 27 jours de trading, « Done For Day » ; le calcul CSV donnait 49 663 $ — Lucid est 38 $ au-dessus, écart que je n'explique pas (les frais joueraient dans l'autre sens). −332,50 $ le 08/10 : Long MNQ 5 contrats, 53 s (15h35:04→15h35:58), entré à 31 258,50 et sorti à 31 225,25 (33,25 pts contre toi). −90 $ le 07/10 : Long MNQ 3 contrats, 7 min (17h48→17h56), entré à 31 363,00 et sorti à 31 348,00 (15 pts contre toi). −85 $ le 05/10 : Short MNQ 2 contrats, 22 min (20h38→21h01), entré à 31 307,75 et sorti à 31 329,00 (21,25 pts contre toi) — compté comme trade, 4e du jour. −32,50 $ le 05/10 : 13 allers-retours de 1 à 2 secondes (bug de plateforme : 2 signalés par toi le 05/10, 11 rangés avec par application de ta consigne — à confirmer), exclus des statistiques mais réellement débités du solde. Solde calculé avant Lucid : 50 203 $ − 117,50 $ − 90 $ − 332,50 $ = 49 663 $. −300 $ le 02/10 : même Long MNQ 3 contrats que 003 et 006, saisi à la main (entrée 15h44:59, sans SL/TP, fermé à la main à 15h55:36 à 31 127,75, −50 pts). Solde calculé : 50 503 $ − 300 $ (Lucid non consulté depuis le 30/09). Avant : solde Lucid du 30/09 avec 196 $ d'écart vs le calcul CSV du 29/09 (50 699,25 $), à surveiller. −263 $ le 29/09 (Short MNQ 2 contrats, 65,75 pts contre toi en 41 min), +742 $ le 28/09.",
     aConfirmer: null
   },
   {
@@ -2492,16 +2493,16 @@ window.COMPTES = [
     actif: true,
     devise: "$",
     depart: 50000,
-    solde: 49476.00,
-    soldeDate: "08/10/2026",
+    solde: 49524.00,
+    soldeDate: "13/10/2026",
     seuil: 48000,
-    buffer: 1476.00,
+    buffer: 1524.00,
     reference: "LFE05085004680005",
     objectif: 53000,
     mll: 48000,
     maxContrats: null,
-    note: "Lucid du 08/10 (soir) : 49 476 $, seuil 48 000 $ (buffer 1 476 $), 5 jours de trading — soit +676 $ et 4 jours de trading depuis le 30/09 (48 800 $, 1 jour), sur lesquels je n'ai AUCUN CSV. Sébastien (08/10, soir) : « +944 $ de P&L aujourd'hui » sur ce compte — déjà compris dans les 49 476 $ de Lucid (confirmé par Sébastien) ; CSV non reçu. Identifié le 08/10 comme le compte vivant : LFE05085004680005 sur la page Lucid du 30/09 — actif, 48 800 $, seuil 48 000 $, 1 jour de trading ; l'ancien 005 (LTE…) n'y figure pas. Ancien solde du 30/09 (voir plus haut le solde Lucid du 08/10). 1 jour de trading (29/09), tailles de lots variables — Sébastien : « j'ai fait n'importe quoi » — → −1 200 $ en une seule séance, pile la limite journalière (DLL 1 200 $). Pas de CSV Tradovate reçu pour cette séance : impossible de détailler les trades un par un tant que l'export n'est pas envoyé.",
-    aConfirmer: "Les exports Tradovate (Performance CSV) de la séance du 29/09 et des 4 jours de trading suivants sur ce compte (Lucid : 5 jours, +676 $ depuis le 30/09), pour détailler les trades comme sur les autres comptes."
+    note: "Lucid du 13/10 : 49 524 $ (−476 $ depuis le départ), seuil 48 000 $ (buffer 1 524 $), 6 jours de trading : +48 $ et un jour de trading de plus que le 08/10 (49 476 $, 5 jours). Quel jour ? Je l’ignore et je n’ai aucun CSV (ni du 09/10, que tu me dis sans trade sur ce compte, ni du 12 ou du 13/10). Lucid du 08/10 (soir) : 49 476 $, seuil 48 000 $ (buffer 1 476 $), 5 jours de trading — soit +676 $ et 4 jours de trading depuis le 30/09 (48 800 $, 1 jour), sur lesquels je n'ai AUCUN CSV. Sébastien (08/10, soir) : « +944 $ de P&L aujourd'hui » sur ce compte — déjà compris dans les 49 476 $ de Lucid (confirmé par Sébastien) ; CSV non reçu. Identifié le 08/10 comme le compte vivant : LFE05085004680005 sur la page Lucid du 30/09 — actif, 48 800 $, seuil 48 000 $, 1 jour de trading ; l'ancien 005 (LTE…) n'y figure pas. Ancien solde du 30/09 (voir plus haut le solde Lucid du 08/10). 1 jour de trading (29/09), tailles de lots variables — Sébastien : « j'ai fait n'importe quoi » — → −1 200 $ en une seule séance, pile la limite journalière (DLL 1 200 $). Pas de CSV Tradovate reçu pour cette séance : impossible de détailler les trades un par un tant que l'export n'est pas envoyé.",
+    aConfirmer: "Les exports Tradovate (Performance CSV) des jours de trading de ce compte (Lucid du 13/10 : 6 jours, −476 $ ; dont +944 $ le 08/10 et +48 $ un jour non identifié depuis), pour détailler les trades comme sur les autres comptes."
   }
 ];
 
@@ -3341,7 +3342,7 @@ window.DAY_NOTES = {
     sortedComptes().forEach(function(c){
       var badge, cls;
       if(c.statut === 'funded'){ badge = 'Financé'; cls = 'pos'; }
-      else if(c.statut === 'evaluation'){ badge = c.statutLabel; cls = 'gold'; }
+      else if(c.statut === 'evaluation' && !c.ecarte){ badge = c.statutLabel; cls = 'gold'; }
       else { badge = c.statutLabel; cls = 'dim'; }
 
       var gain = (c.solde !== null && c.depart !== null) ? c.solde - c.depart : null;
@@ -4544,7 +4545,7 @@ window.DAY_NOTES = {
 
     /* ---------- B · buffers en stops ---------- */
     var latest = Math.max.apply(null, C.filter(function(c){ return c.soldeDate; }).map(function(c){ return parseJ(c.soldeDate); }));
-    var acc = C.filter(function(c){ return c.statut !== "breached" && !c.clos && c.solde != null && c.buffer !== undefined; }).map(function(c){
+    var acc = C.filter(function(c){ return c.statut !== "breached" && !c.clos && !c.ecarte && c.solde != null && c.buffer !== undefined; }).map(function(c){
       var old = c.soldeDate ? (latest - parseJ(c.soldeDate)) / 86400000 > 7 : true;   // relevé de plus d'une semaine ; le compte confirmé vivant (actif: true) reste dans le calcul
       return { c: c, label: LBL[c.ref] || c.ref.replace("Compte ", ""), buffer: c.buffer, old: old, stale: old && !c.actif };
     });
@@ -4552,6 +4553,7 @@ window.DAY_NOTES = {
     var live = acc.filter(function(x){ return !x.stale && x.buffer > 0; });
     var weak = live.filter(function(x){ return x.buffer < B; });
     var under = acc.filter(function(x){ return !x.stale && x.buffer <= 0; });
+    var ecartes0 = C.filter(function(c){ return c.ecarte; }).map(function(c){ return LBL[c.ref] || c.ref.replace("Compte ", ""); });
     var morts = C.filter(function(c){ return c.statut === "breached" || c.clos; }).map(function(c){ return LBL[c.ref] || c.ref.replace("Compte ", ""); });
     var b = '<div class="ec-card"><h3>🛟 Buffers en stops</h3>'
       + '<table class="ec-tbl"><thead><tr><th>Compte</th><th>Buffer</th><th>En budgets</th><th>En pertes moy.</th></tr></thead><tbody>'
@@ -4594,15 +4596,16 @@ window.DAY_NOTES = {
     var ACHETES = ["001", "002", "003", "004a", "004b", "005", "005b", "006", "02b", "A"];   // comptes Lucid achetés (TopstepX, clôturé : prix inconnu, hors calcul)
     var PRIX = 100;
     var clos = C.filter(function(c){ return c.statut === "breached" || c.clos; }).map(function(c){ return LBL[c.ref] || c.ref; }).concat(["004a"]);
+    var ecartes = C.filter(function(c){ return c.ecarte; }).map(function(c){ return LBL[c.ref] || c.ref; });
     var dep = ACHETES.length * PRIX;
     var d = '<div class="ec-card" style="margin-top:12px"><h3>💸 Coût des comptes</h3><div class="ec-cols"><div>'
       + row("Comptes achetés", ACHETES.length) + row("Prix par compte", plain(PRIX) + " (confirmé le 08/10)") + row("Dépensé en frais", plain(dep), "neg")
-      + "</div><div>" + row("Cramés ou clos", clos.length + " (" + clos.join(", ") + ")") + row("Encore actifs", live.length + (under.length ? " + " + under.length + " sous le seuil" : "")) + row("Payouts", "non renseignés")
+      + "</div><div>" + row("Cramés ou clos", clos.length + " (" + clos.join(", ") + ")") + (ecartes.length ? row("Mis de côté", ecartes.join(", ")) : "") + row("Encore actifs", live.length + (under.length ? " + " + under.length + " sous le seuil" : "")) + row("Payouts", "non renseignés")
       + '</div></div><p class="ec-txt">Seul coût connu : les frais d’achat. Les resets, les frais d’activation après validation et les payouts ne sont pas renseignés — dis-moi s’il y en a et je les ajoute. Le « Net P&amp;L » du tableau de bord ne compte que les comptes actifs (' + usd(window.netActifs ? window.netActifs().net : 0) + ") ; les trades de tous les comptes, cramés compris, cumulent " + usd(T.pnl) + ".</p></div>";
 
     host.innerHTML = a + '<div class="ec-two">' + b + c + "</div>" + d
       + '<p class="ins-note"><b>Seuil d’équilibre</b> = part de gagnants qui ne fait ni gagner ni perdre si ton gain moyen et ta perte moyenne restent ceux d’aujourd’hui ; <b>ratio d’équilibre</b> = ratio gain / perte nécessaire si ta part de gagnants reste la même. Arithmétique sur ' + T.n + " signaux (" + D.du + " → " + D.au + "), pas une prévision : quelques gros trades pèsent beaucoup. "
-      + "<b>1 budget = " + plain(B) + "</b> (le budget de risque du jour) — aucun stop n’est enregistré, donc ce n’est pas le R réel d’un trade. <b>Buffer</b> = solde − seuil de clôture : soldes Lucid du 08/10 (soir), sauf le A (absent de Lucid : solde calculé depuis les CSV) ; « sous le seuil » = le compte est passé sous sa clôture. Comptes exclus (cramés) : " + (morts.join(", ") || "aucun") + ". Les comptes dont le relevé a plus d’une semaine sont grisés (et hors du risque simultané, sauf le 005b, confirmé vivant). Pertes cumulées = somme des comptes perdants du jour (CSV, hors lignes de bug).</p>";
+      + "<b>1 budget = " + plain(B) + "</b> (le budget de risque du jour) — aucun stop n’est enregistré, donc ce n’est pas le R réel d’un trade. <b>Buffer</b> = solde − seuil de clôture : soldes Lucid du 13/10 (001, 02b, 005b) ; « sous le seuil » = le compte est passé sous sa clôture. Comptes exclus (cramés) : " + (morts.join(", ") || "aucun") + " ; mis de côté : " + (ecartes0.join(", ") || "aucun") + ". Les comptes dont le relevé a plus d’une semaine sont grisés (et hors du risque simultané, sauf le 005b, confirmé vivant). Pertes cumulées = somme des comptes perdants du jour (CSV, hors lignes de bug).</p>";
   }
   if(document.readyState === "loading") document.addEventListener("DOMContentLoaded", build); else build();
 })();
@@ -4754,8 +4757,8 @@ window.DAY_NOTES = {
 <script>/* Net P&L = résultat des comptes actifs (Tableau de bord) — Σ(solde − départ) des comptes encore vivants.
    Règle de Sébastien (08/10) : « quand un compte est cramé, ne le compte plus » ; ex. 4 comptes à 49 K, 51 K, 50 K et 52 K = +2 K sur 200 K de base.
    Exclus : comptes cramés (statut breached), clos (clos: true — absents de Lucid), sous leur seuil d'après le calcul (buffer ≤ 0), relevé de plus de 7 jours
-   sauf compte confirmé vivant (actif: true — le 005b, identifié le 08/10 sur la page Lucid du 30/09),
-   anciens comptes clos hors de COMPTES (004a). Soldes : window.COMPTES (page Lucid du 08/10 soir pour 5 comptes ; le A, absent de Lucid, est calculé depuis les CSV). Les stats de trades (win rate, profit factor,
+   sauf compte confirmé vivant (actif: true — le 005b, identifié le 08/10 sur la page Lucid du 30/09), comptes mis de côté (ecarte: true — le A, 13/10 : Sébastien suit 3 comptes),
+   anciens comptes clos hors de COMPTES (004a). Soldes : window.COMPTES (page Lucid du 13/10 pour 001, 02b et 005b ; le A, absent de Lucid, est calculé depuis les CSV). Les stats de trades (win rate, profit factor,
    espérance, page « Par instrument ») restent calculées sur tous les signaux, comptes cramés compris. */
 (function(){
   var LBL = { "Compte 01": "001", "Compte 03": "003", "Compte 04b": "004b", "Compte 02b": "02b", "Compte A": "A", "Compte 06": "006", "Compte 02": "002", "Compte 05": "005", "Compte 05b": "005b" };
@@ -4768,7 +4771,8 @@ window.DAY_NOTES = {
     C.forEach(function(c){
       if(c.solde == null || c.depart == null) return;
       var l = LBL[c.ref] || c.ref.replace("Compte ", "");
-      if(c.clos) out.push({ l: l, why: "absent de Lucid, clos" });
+      if(c.ecarte) out.push({ l: l, why: "mis de côté" });
+      else if(c.clos) out.push({ l: l, why: "absent de Lucid, clos" });
       else if(c.statut === "breached") out.push({ l: l, why: "cramé" });
       else if(c.buffer !== undefined && c.buffer <= 0) out.push({ l: l, why: "sous son seuil d’après le calcul" });
       else if(!c.actif && c.soldeDate && (latest - parseJ(c.soldeDate)) / 86400000 > 7) out.push({ l: l, why: "relevé du " + c.soldeDate.slice(0, 5) });
@@ -4794,7 +4798,7 @@ window.DAY_NOTES = {
     set("kpi-net-val", usd(N.net, 2), "val " + tone);
     set("kpi-net-note", N.n + " comptes actifs (" + detail + ") : " + fr(N.sol, 2) + " $ de soldes − " + fr(N.base) + " $ de départ. Exclus : " + exclus + "." + toutTxt);
     set("obj-val", usd(N.net, 2), "val " + tone);
-    var cible = 3000 * N.n;   // objectif : +3 000 $ par compte actif (12 000 $ pour 4 comptes) — Sébastien, 08/10
+    var cible = 3000 * N.n;   // objectif : +3 000 $ par compte actif (9 000 $ pour 3 comptes depuis le 13/10, 12 000 $ pour 4) — Sébastien, 08/10 puis 13/10
     set("obj-lbl", "Objectif +3 000 $ par compte · +" + fr(cible) + " $ pour " + N.n + " comptes");
     set("obj-pct", Math.max(0, Math.min(100, Math.round(N.net / cible * 100))) + " %");
     set("obj-cible", fr(cible) + " $");
@@ -4802,7 +4806,7 @@ window.DAY_NOTES = {
     set("obj-reste", fr(cible - N.net, 2) + " $");
     var marge = N.act.reduce(function(t, x){ return t + (x.c.buffer || 0); }, 0);   // à −2 000 $ sur un compte, il est perdu
     set("dd-lbl", "Drawdown max −2 000 $ par compte");
-    set("dd-note", "À −2 000 $ sur un compte, il est perdu : −" + fr(2000 * N.n) + " $ pour " + N.n + " comptes actifs" + (N.n === 4 ? "" : " (−8 000 $ pour 4)") + ". Marge restante avant de les perdre tous : " + fr(marge, 2) + " $ (somme des buffers). Ne se calcule comme drawdown de validation qu’une fois un compte validé — aucun ne l’est pour l’instant. Les seuils de chaque compte restent suivis dans « Où en sont tes comptes ».");
+    set("dd-note", "À −2 000 $ sur un compte, il est perdu : −" + fr(2000 * N.n) + " $ pour " + N.n + " comptes actifs. Marge restante avant de les perdre tous : " + fr(marge, 2) + " $ (somme des buffers). Ne se calcule comme drawdown de validation qu’une fois un compte validé — aucun ne l’est pour l’instant. Les seuils de chaque compte restent suivis dans « Où en sont tes comptes ».");
     set("stat-net-val", usd(N.net, 2), "stat-val " + tone);
     set("stat-net-note", "Comptes actifs : solde − départ (" + N.n + " comptes)." + toutTxt);
   }
@@ -4835,7 +4839,7 @@ window.DAY_NOTES = {
         if(b) r += p / b; else off += p;
       });
       var res = c.solde - c.depart;
-      return { label: m[2], c: c, lucid: !m[1], pnl: pnl, r: r, off: off, pct: (c.solde / c.depart - 1) * 100, gap: res - pnl, dead: c.statut === 'breached' || c.clos || (c.buffer !== undefined && c.buffer <= 0) };
+      return { label: m[2], c: c, lucid: !m[1], pnl: pnl, r: r, off: off, pct: (c.solde / c.depart - 1) * 100, gap: res - pnl, dead: c.statut === 'breached' || c.clos || c.ecarte || (c.buffer !== undefined && c.buffer <= 0) };
     }).filter(Boolean);
     rows.sort(function(a, b){ return (a.dead - b.dead) || (b.pct - a.pct); });
     var tot = { pnl: 0, r: 0 };
