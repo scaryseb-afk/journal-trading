@@ -298,8 +298,8 @@ function sjMigrateLegacy(){   // anciennes captures (data-URL en localStorage), 
 function sjRefreshAllShots(){
   document.querySelectorAll('.trade-shots[data-key]').forEach(function(box){ sjRenderTradeShots(box.getAttribute('data-key')); });
   document.querySelectorAll('.shots-pair.no-fix').forEach(function(pair){
-    var fb = pair.querySelector('.shots-col.fix .trade-shots');
-    if(fb && sjLoadTradeImgs(fb.getAttribute('data-key')).length) pair.classList.remove('no-fix');
+    var has = [].slice.call(pair.querySelectorAll('.shots-col.fix .trade-shots')).some(function(b){ return sjLoadTradeImgs(b.getAttribute('data-key')).length; });
+    if(has) pair.classList.remove('no-fix');
   });
 }
 function sjInitImgStore(){
@@ -313,10 +313,13 @@ var sjImgReady = sjInitImgStore();
 function sjRenderTradeShots(key){
   var box = document.querySelector('.trade-shots[data-key="' + key + '"]');
   if(!box) return;
-  box.querySelector('.trade-shots-list').innerHTML = sjLoadTradeImgs(key).map(function(src, i){
+  var imgs = sjLoadTradeImgs(key);
+  box.querySelector('.trade-shots-list').innerHTML = imgs.map(function(src, i){
     return '<div class="screenshot-wrap"><img src="' + src + '" onclick="sjOpenLB(this.src)">'
          + '<button type="button" class="screenshot-del" onclick="sjDelTradeShot(\'' + key + '\',' + i + ')" title="Supprimer">×</button></div>';
   }).join('');
+  var lg = box.closest('.shots-col.legacy');   // anciennes captures « ce que j'aurais dû faire » : la zone n'existe que tant qu'il en reste
+  if(lg) lg.style.display = imgs.length ? '' : 'none';
 }
 function sjDelTradeShot(key, i){
   var imgs = sjLoadTradeImgs(key).slice();
@@ -324,7 +327,7 @@ function sjDelTradeShot(key, i){
   sjSaveTradeImgs(key, imgs);
   sjRenderTradeShots(key);
 }
-/* Zone de capture (clé = trade, ou trade + « :fix » pour « ce que j'aurais dû faire ») */
+/* Zone de capture (clé = trade, ou trade + « :fix:daxton » / « :fix:matt » pour « ce que j'aurais dû faire » selon Daxton ou Matt) */
 function sjShotsBox(key, label){
   return '<div class="trade-shots" data-key="' + key + '">'
     + '<div class="screenshots trade-shots-list"></div>'
@@ -332,23 +335,36 @@ function sjShotsBox(key, label){
     + '<input type="file" accept="image/*" multiple style="display:none">'
     + '</div>';
 }
-/* Sous chaque trade : deux colonnes identiques — à gauche ce qui s'est passé, à côté « ce que j'aurais dû faire » — puis une petite
-   remarque pleine largeur dessous. Visible d'office quand le trade est perdant ; sinon repliée derrière un bouton (un trade
-   gagnant peut aussi être raté). Au survol d'une capture, l'aperçu montre les deux côte à côte (voir sjInitHoverPreview). */
+function sjShotsList(key){   // liste seule, sans zone de dépôt (anciennes captures)
+  return '<div class="trade-shots" data-key="' + key + '"><div class="screenshots trade-shots-list"></div></div>';
+}
+/* « Ce que j'aurais dû faire » : une zone de capture par façon de faire — Daxton (stratégie V2) et Matt (V1, Matthis). Clés
+   <compte>_<n>:fix:daxton et <compte>_<n>:fix:matt. L'ancienne clé <compte>_<n>:fix (une seule zone, avant le 16/10) n'a plus de zone
+   de dépôt ; ses captures restent visibles (et supprimables) dans une zone « Anciennes captures » qui disparaît quand elle est vide. */
+var SJ_FIX_WHO = [['daxton', 'Daxton'], ['matt', 'Matt']];
+function sjFixKeys(key){ return SJ_FIX_WHO.map(function(w){ return key + ':fix:' + w[0]; }); }
+/* Sous chaque trade : trois colonnes — à gauche ce qui s'est passé, puis « ce que j'aurais dû faire » selon Daxton et selon Matt — puis
+   une petite remarque pleine largeur dessous. Visible d'office quand le trade est perdant ; sinon repliée derrière un bouton (un trade
+   gagnant peut aussi être raté). Au survol d'une capture, l'aperçu montre côte à côte celles des colonnes remplies (voir sjInitHoverPreview). */
 function sjInitTradeShots(){
   document.querySelectorAll('tr.note-row').forEach(function(row){
     var ta = row.querySelector('textarea.trade-note'), cell = row.querySelector('td');
     if(!ta || !cell || cell.querySelector('.shots-pair')) return;
-    var key = ta.getAttribute('data-key'), fixKey = key + ':fix';
+    var key = ta.getAttribute('data-key'), fixKey = key + ':fix', fixKeys = sjFixKeys(key);
     var tr = row.previousElementSibling;
     var failed = !!(tr && tr.querySelector('.td-pnl.td-l'));
     var fixNote = sjLoadNotes()[fixKey] || '';
+    var fixImgs = fixKeys.concat([fixKey]).some(function(k){ return sjLoadTradeImgs(k).length; });
     var pair = document.createElement('div');
-    pair.className = 'shots-pair' + ((failed || fixNote || sjLoadTradeImgs(fixKey).length) ? '' : ' no-fix');
+    pair.className = 'shots-pair' + ((failed || fixNote || fixImgs) ? '' : ' no-fix');
     pair.innerHTML =
         '<div class="shots-col main"><div class="shots-col-h">Ce qui s\'est passé</div>' + sjShotsBox(key, 'Ajouter une capture')
       + '<button type="button" class="fix-toggle">＋ Ce que j\'aurais dû faire</button></div>'
-      + '<div class="shots-col fix"><div class="shots-col-h">✅ Ce que j\'aurais dû faire</div>' + sjShotsBox(fixKey, 'Ajouter une capture') + '</div>'
+      + SJ_FIX_WHO.map(function(w){
+          return '<div class="shots-col fix" data-who="' + w[0] + '"><div class="shots-col-h">✅ Ce que j\'aurais dû faire · ' + w[1] + '</div>'
+               + sjShotsBox(key + ':fix:' + w[0], 'Capture ' + w[1]) + '</div>';
+        }).join('')
+      + '<div class="shots-col fix legacy" style="display:none"><div class="shots-col-h">✅ Anciennes captures <span>(avant la séparation Daxton / Matt)</span></div>' + sjShotsList(fixKey) + '</div>'
       + '<div class="fix-remark"><div class="shots-col-h">✅ Ce que j\'aurais dû faire — petite remarque</div>'
       + '<textarea class="fix-note" rows="2" data-key="' + fixKey + '" placeholder="Ce que tu aurais fait à la place, en une ou deux phrases…"></textarea></div>';
     cell.appendChild(pair);
@@ -363,16 +379,19 @@ function sjInitTradeShots(){
       sjRenderTradeShots(k);
     });
     // Ctrl+V : la capture va dans la zone survolée ; la colonne qui la recevra est entourée (sinon le reste de la ligne = « ce qui s'est passé »)
-    var cols = { main: pair.querySelector('.shots-col.main'), fix: pair.querySelector('.shots-col.fix') };
+    var cols = { main: pair.querySelector('.shots-col.main') }, allKeys = [key].concat(fixKeys);
+    SJ_FIX_WHO.forEach(function(w){ cols[w[0]] = pair.querySelector('.shots-col.fix[data-who="' + w[0] + '"]'); });
     function target(which){
-      cols.main.classList.remove('paste-target'); cols.fix.classList.remove('paste-target');
+      Object.keys(cols).forEach(function(n){ cols[n].classList.remove('paste-target'); });
       if(which && !pair.classList.contains('no-fix')) cols[which].classList.add('paste-target');
     }
     row.addEventListener('mouseenter', function(){ sjHoverKey = key; target('main'); });
-    row.addEventListener('mouseleave', function(){ if(sjHoverKey === key || sjHoverKey === fixKey) sjHoverKey = null; target(null); });
-    cols.fix.addEventListener('mouseenter', function(){ sjHoverKey = fixKey; target('fix'); });
-    cols.fix.addEventListener('mouseleave', function(){ if(sjHoverKey === fixKey) sjHoverKey = key; target('main'); });
-    fixTa.addEventListener('focus', function(){ target('fix'); });
+    row.addEventListener('mouseleave', function(){ if(allKeys.indexOf(sjHoverKey) >= 0) sjHoverKey = null; target(null); });
+    SJ_FIX_WHO.forEach(function(w, i){
+      cols[w[0]].addEventListener('mouseenter', function(){ sjHoverKey = fixKeys[i]; target(w[0]); });
+      cols[w[0]].addEventListener('mouseleave', function(){ if(sjHoverKey === fixKeys[i]) sjHoverKey = key; target('main'); });
+    });
+    fixTa.addEventListener('focus', function(){ target(null); });   // au clavier, aucune colonne n'est ciblée : Daxton ou Matt se choisit à la souris
     fixTa.addEventListener('blur', function(){ target(null); });
   });
 }
@@ -412,19 +431,19 @@ function sjInitHoverPreview(){
   document.addEventListener('mouseover', function(e){
     var t = e.target;
     if(!(t && t.matches && t.matches('.screenshot-wrap img'))) return;
-    var col = t.closest('.shots-col'), pair = t.closest('.shots-pair'), h = '', two = false;
-    if(col && pair){
-      var mine = col.classList.contains('fix') ? 'fix' : 'main', oc = pair.querySelector('.shots-col.' + (mine === 'fix' ? 'main' : 'fix'));
-      var mineImgs = [].slice.call(col.querySelectorAll('.screenshot-wrap img')), idx = mineImgs.indexOf(t);
-      var oImgs = oc ? [].slice.call(oc.querySelectorAll('.screenshot-wrap img')) : [];
-      var o = oImgs.length ? (oImgs[idx] || oImgs[0]) : null;
-      if(o){
-        var m = mine === 'main' ? t : o, f = mine === 'main' ? o : t;
-        h = fig(m.src, 'Ce qui s\'est passé', mine === 'main') + fig(f.src, 'Ce que j\'aurais dû faire', mine === 'fix');
-        two = true;
-      }
+    var col = t.closest('.shots-col'), pair = t.closest('.shots-pair'), h = '', n = 0;
+    var who = col ? (col.classList.contains('main') ? 'main' : col.getAttribute('data-who')) : null;   // main, daxton, matt (ou rien : anciennes captures)
+    if(who && pair){
+      var idx = [].slice.call(col.querySelectorAll('.screenshot-wrap img')).indexOf(t), figs = [];
+      [['main', 'Ce qui s\'est passé'], ['daxton', '✅ Daxton'], ['matt', '✅ Matt']].forEach(function(w){
+        if(w[0] === who){ figs.push(fig(t.src, w[1], true)); return; }
+        var oc = pair.querySelector(w[0] === 'main' ? '.shots-col.main' : '.shots-col.fix[data-who="' + w[0] + '"]');
+        var oImgs = oc ? [].slice.call(oc.querySelectorAll('.screenshot-wrap img')) : [];
+        if(oImgs.length) figs.push(fig((oImgs[idx] || oImgs[0]).src, w[1], false));
+      });
+      if(figs.length > 1){ h = figs.join(''); n = figs.length; }
     }
-    grid.className = 'shot-pv-grid' + (two ? ' two' : '');
+    grid.className = 'shot-pv-grid' + (n === 3 ? ' three' : (n === 2 ? ' two' : ''));
     grid.innerHTML = h || fig(t.src, '', false);
     pv.classList.add('show');
   });
@@ -443,7 +462,7 @@ function sjInitPaste(){
     if(!key){
       var ae = document.activeElement, row = ae && ae.closest ? ae.closest('tr.note-row') : null;
       var ta = row ? row.querySelector('textarea.trade-note') : null;
-      if(ae && ae.classList && ae.classList.contains('fix-note')) key = ae.getAttribute('data-key');
+      if(ae && ae.classList && ae.classList.contains('fix-note')) return;   // remarque en cours d'écriture : Daxton ou Matt ? se choisit en survolant la zone
       else if(ta) key = ta.getAttribute('data-key');
     }
     if(!key) return;  // pas de trade ciblé (survolé ou en cours d'écriture) : rien à faire, plus de zone générale

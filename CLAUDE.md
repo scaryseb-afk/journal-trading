@@ -78,13 +78,7 @@ d'un ancien fichier copié-collé. Le template s'appuie sur `_systeme/style.css`
 et `_systeme/session.js` (logique partagée : captures d'écran, notes par
 trade, relecture) — ne pas dupliquer ce CSS/JS dans le fichier de session.
 
-- « Ce que j'aurais dû faire » : à côté de la capture de chaque trade (2 colonnes), une
-  seconde zone avec capture + petite remarque (clés `imgs_<séance>__<compte>_<n>:fix` et
-  `<compte>_<n>:fix`), ouverte d'office sur les trades perdants, derrière un bouton
-  « ＋ Ce que j'aurais dû faire » pour les autres ; la remarque suit « Copier ce trade ». Deux colonnes
-  identiques (zones de dépôt alignées), remarque pleine largeur dessous ; Ctrl+V colle dans la colonne
-  survolée (elle est entourée) ; au survol d'une capture, l'aperçu montre les deux côte à côte
-  (« ce qui s'est passé » à gauche, « ce que j'aurais dû faire » à droite).
+- « Ce que j'aurais dû faire » : à côté de la capture de chaque trade, **deux zones de capture, une par façon de faire — Daxton (stratégie V2) et Matt (V1, Matthis)** (demandé par Sébastien le 16/10), donc trois colonnes identiques (zones de dépôt alignées) : ce qui s'est passé · ce que j'aurais dû faire · Daxton · ce que j'aurais dû faire · Matt. Clés `imgs_<séance>__<compte>_<n>:fix:daxton` et `…:fix:matt` ; la remarque (une seule, clé `<compte>_<n>:fix`) reste pleine largeur dessous. Ouvertes d'office sur les trades perdants, derrière un bouton « ＋ Ce que j'aurais dû faire » pour les autres ; la remarque suit « Copier ce trade ». L'ancienne clé `…:fix` (une seule zone, avant le 16/10) n'a plus de zone de dépôt : ses captures restent visibles et supprimables dans « Anciennes captures », zone qui disparaît quand elle est vide. Ctrl+V colle dans la colonne survolée (elle est entourée) ; avec le curseur dans la remarque, Ctrl+V n'ajoute rien (Daxton ou Matt se choisit à la souris) ; au survol d'une capture, l'aperçu montre côte à côte celles des colonnes remplies (« ce qui s'est passé », Daxton, Matt ; la capture survolée est soulignée).
 - Captures d'écran : une seule zone, sous chaque trade
   (`imgs_<séance>__<compte>_<n>`, glisser/cliquer/Ctrl+V en survolant la
   ligne) — pas de zone générale au niveau de la séance (retirée le 28/09,
