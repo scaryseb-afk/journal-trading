@@ -2160,8 +2160,8 @@ textarea::placeholder{color:#4A566A}
 
   <div class="subview" data-subview="v2">
   <p class="eyebrow">Règles</p>
-  <h1>Stratégie V2 — iFVG M5 · Daxton (V2.1 à V2.7)</h1>
-  <p class="sub">Stratégie de Daxton, d'après toi (« je crois », 08/10) — iFVG 5M : règles d'entrée, de stop et de break-even, plan en étapes, repère de lecture.</p>
+  <h1>Stratégie V2 — iFVG M5 · Daxton (V2.1 à V2.8)</h1>
+  <p class="sub">Stratégie de Daxton, d'après toi (« je crois », 08/10) — iFVG 5M : règles d'entrée, de stop, d'objectif et de break-even, plan en étapes, repère de lecture.</p>
 <div class="rules-list">
 
   <div class="rc-rule stop">
@@ -2227,6 +2227,15 @@ textarea::placeholder{color:#4A566A}
     </div>
   </div>
 
+  <div class="rc-rule proc">
+    <div class="rc-rule-num sub">V2.8</div>
+    <div class="rule-body">
+      <span class="rule-tag tag-proc">Objectif V2 · à compléter</span>
+      <div class="rule-stmt">Le TP se place à un R:R de 1,95 — pas à 2.</div>
+      <div class="rule-detail"><strong>Posé par toi le 16/10 :</strong> sur la V2, ton objectif est à <strong>1,95 fois la distance entre l'entrée et le stop</strong>, et non à 2. Sur l'exemple de Daxton que tu m'as montré le 15/10, il est à 2,0 (stop de 27,5 pts, objectif à 55 pts) : toi, tu prends 1,95. Exemple : un stop de 110 ticks (27,5 pts) donne un objectif d'environ 214,5 ticks (53,6 pts) — la calculette de lots l'affiche pour ton stop.<br><strong>Encore à préciser</strong> (je n'invente rien, dis-moi et je complète) :<br><strong>1.</strong> La règle 1 dit « R:R minimum 2:1 » et 1,95 passe juste en dessous : la V2 est-elle une exception à la règle 1 ? Je n'ai pas modifié la règle 1.<br><strong>2.</strong> 1,95 × le stop ne tombe pas sur un multiple d'un tick (0,25 pt) : tu arrondis vers l'entrée ou vers l'objectif ?</div>
+    </div>
+  </div>
+
 </div>
 
 <div class="pt-wrap">
@@ -2236,7 +2245,8 @@ textarea::placeholder{color:#4A566A}
   <div class="pt-step"><div class="pt-n">3</div><div><div class="pt-t">Rentrer sur l'iFVG 5M, dans le sens du biais</div><div class="pt-d">Pas d'entrée si l'iFVG est du mauvais côté de la MME 1H, ni si le SL demande 400 ticks ou plus (règle V2.1). Le lundi : pas les iFVG du pré-market (règle V2.6). iFVG 5M fait avant 15h30 : en refaire un deuxième après l'ouverture, pour voir (règle V2.7).</div></div></div>
   <div class="pt-step"><div class="pt-n">4</div><div><div class="pt-t">Si une bougie 5M clôture de l'autre côté de la MME 1H, retournement possible</div><div class="pt-d">Le biais peut se retourner : on peut prendre un deuxième trade dans le sens de la clôture, qui vise juste à revenir à BE (règle V2.4). Les questions encore ouvertes — BE de la journée ou du trade ?, période de la MME, 2e trade sur un nouvel iFVG 5M ?, limites du plan — sont dans la règle V2.4.</div></div></div>
   <div class="pt-step"><div class="pt-n">5</div><div><div class="pt-t">Poser les 3 niveaux de protection</div><div class="pt-d">Sous la FVG ; sous la mèche de la bougie ; et le 3e niveau de la règle V2.2 (sous l'avant-dernier swing low 5M), que tu n'as pas repris cette fois — à confirmer. La règle V2.2 dit « création de la bougie » : est-ce la même chose que la mèche ? Pour un Short : au-dessus.</div></div></div>
-  <div class="pt-more">TP : pas encore décrit dans ce plan (R:R minimum 2:1, règle 1). Break-even : règle V2.3. Dis-moi la suite et je l'ajoute telle quelle — rien d'inventé.</div>
+  <div class="pt-step"><div class="pt-n">6</div><div><div class="pt-t">Poser le TP à 1,95 de R:R</div><div class="pt-d">L'objectif est à 1,95 fois la distance entre l'entrée et le stop — pas à 2 (règle V2.8). La calculette de lots donne la valeur en ticks pour ton stop.</div></div></div>
+  <div class="pt-more">Break-even : règle V2.3. Dis-moi la suite et je l'ajoute telle quelle — rien d'inventé.</div>
 </div>
 
 <div class="tf-wrap">
@@ -4751,6 +4761,7 @@ window.DAY_NOTES = {
           h += '<div class="calc-line">Le calcul donne <b>' + n + '</b> contrats, mais ton plan plafonne à <b>' + MAX_LOTS + ' contrats par trade</b>.</div>';
         }
         h += '<div class="calc-line">R:R minimum 2:1 (règle 1) : objectif à au moins <b>' + (2 * t) + ' ticks</b> (' + (t / 2).toLocaleString('fr-FR') + ' pts).</div>';
+        h += '<div class="calc-line">Plan Daxton (règle V2.8) : objectif à 1,95 R, soit <b>' + (1.95 * t).toLocaleString('fr-FR', { maximumFractionDigits: 2 }) + ' ticks</b> (' + (1.95 * t / 4).toLocaleString('fr-FR', { maximumFractionDigits: 3 }) + ' pts), à arrondir au tick.</div>';
       }
       if(t >= V2_NO_ENTRY){
         h += '<span class="score-verdict no">V2 : pas d\'entrée</span><div class="calc-line"><b>Stratégie V2 (règle V2.1) :</b> stop de ' + V2_NO_ENTRY + ' ticks ou plus = pas d\'entrée, même si le calcul de lots passe.</div>';
