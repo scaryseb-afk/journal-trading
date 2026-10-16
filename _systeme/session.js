@@ -196,27 +196,120 @@ function sjReadImage(file, key){
   reader.readAsDataURL(file);
 }
 function sjStoreImage(dataUrl, origBytes, newBytes, key){
-  var timgs = sjLoadTradeImgs(key);
-  timgs.push(dataUrl);
-  if(!sjSaveTradeImgs(key, timgs)){
-    timgs.pop();
-    alert("Stockage plein : le navigateur limite l'espace disponible pour ce site. Supprime une ancienne capture avant d'en ajouter une nouvelle.");
-    return;
-  }
-  sjRenderTradeShots(key);
+  sjImgReady.then(function(){
+    var prev = sjLoadTradeImgs(key), timgs = prev.concat([dataUrl]);
+    sjSaveTradeImgs(key, timgs, function(ok){
+      if(ok) return;
+      if(SJ_IDB) SJ_IMG_MEM[sjKeyTradeImgs(key)] = prev;   // écriture refusée : retour à l'état d'avant
+      sjRenderTradeShots(key);
+      alert("Stockage plein : le navigateur limite l'espace disponible pour ce site. Supprime une ancienne capture avant d'en ajouter une nouvelle.");
+    });
+    sjRenderTradeShots(key);
+  });
 }
 
-/* ---------- Captures sous chaque trade (clé imgs_<session>__<compte>_<n>) ---------- */
+/* ---------- Captures sous chaque trade (clé imgs_<session>__<compte>_<n>) ----------
+   Stockage : IndexedDB (base « journal-images », magasin « imgs », même clé, valeur = tableau de data-URL JPEG). Les captures
+   étaient avant des data-URL dans localStorage : ~5 Mo pour tout le site, soit 15 à 30 captures toutes séances confondues avant
+   « Stockage plein ». localStorage ne garde plus qu'un témoin sous la même clé — un tableau de 1, un par capture — pour que
+   l'onglet Sessions d'index.html (icône 📷) fonctionne sans rien changer. Les anciennes captures encore en localStorage (toutes
+   séances) sont migrées au chargement : copiées dans IndexedDB, remplacées par le témoin seulement une fois l'écriture confirmée.
+   Sans IndexedDB (navigation privée restrictive), repli sur l'ancien stockage localStorage. */
 var sjHoverKey = null;
+var SJ_IDB = null;       // connexion IndexedDB une fois ouverte (null : indisponible, repli localStorage)
+var SJ_IMG_MEM = {};     // clé complète → tableau de data-URL, pour les captures de cette séance (chargées depuis IndexedDB)
 function sjKeyTradeImgs(key){ return 'imgs_' + SESSION_KEY + '__' + key; }
-function sjLoadTradeImgs(key){ try{ return JSON.parse(localStorage.getItem(sjKeyTradeImgs(key)) || '[]'); }catch(e){ return []; } }
-function sjSaveTradeImgs(key, imgs){
-  try{
-    if(imgs.length) localStorage.setItem(sjKeyTradeImgs(key), JSON.stringify(imgs));
-    else localStorage.removeItem(sjKeyTradeImgs(key));
-    return true;
-  }catch(e){ return false; }
+function sjIsDataUrl(x){ return typeof x === 'string' && x.indexOf('data:') === 0; }
+function sjLoadTradeImgs(key){
+  var k = sjKeyTradeImgs(key);
+  if(SJ_IMG_MEM[k]) return SJ_IMG_MEM[k];
+  try{ return JSON.parse(localStorage.getItem(k) || '[]').filter(sjIsDataUrl); }catch(e){ return []; }   // ancien format, pas encore migré
 }
+function sjFlag(k, n){ var a = []; for(var i = 0; i < n; i++) a.push(1); localStorage.setItem(k, JSON.stringify(a)); }
+function sjSaveTradeImgs(key, imgs, cb){
+  var k = sjKeyTradeImgs(key);
+  if(SJ_IDB){
+    SJ_IMG_MEM[k] = imgs;   // l'affichage n'attend pas l'écriture
+    sjIdbPut(k, imgs).then(function(ok){
+      if(ok){ try{ if(imgs.length) sjFlag(k, imgs.length); else localStorage.removeItem(k); }catch(e){} }
+      if(cb) cb(ok);
+    });
+    return;
+  }
+  var ok = true;
+  try{
+    if(imgs.length) localStorage.setItem(k, JSON.stringify(imgs));
+    else localStorage.removeItem(k);
+  }catch(e){ ok = false; }
+  if(cb) cb(ok);
+}
+function sjIdbOpen(){
+  return new Promise(function(resolve){
+    try{
+      if(!window.indexedDB){ resolve(null); return; }
+      var rq = indexedDB.open('journal-images', 1);
+      rq.onupgradeneeded = function(){ rq.result.createObjectStore('imgs'); };
+      rq.onsuccess = function(){ resolve(rq.result); };
+      rq.onerror = rq.onblocked = function(){ resolve(null); };
+    }catch(e){ resolve(null); }
+  });
+}
+function sjIdbReq(mode, fn){   // une transaction ; résout { ok, … } quand elle est terminée
+  return new Promise(function(resolve){
+    if(!SJ_IDB){ resolve({ ok: false }); return; }
+    try{
+      var tx = SJ_IDB.transaction('imgs', mode), out = {};
+      fn(tx.objectStore('imgs'), out);
+      tx.oncomplete = function(){ out.ok = true; resolve(out); };
+      tx.onerror = tx.onabort = function(){ out.ok = false; resolve(out); };
+    }catch(e){ resolve({ ok: false }); }
+  });
+}
+function sjIdbPut(k, arr){ return sjIdbReq('readwrite', function(st){ if(arr.length) st.put(arr, k); else st['delete'](k); }).then(function(r){ return r.ok; }); }
+function sjIdbGet(k){ return sjIdbReq('readonly', function(st, out){ var rq = st.get(k); rq.onsuccess = function(){ out.val = rq.result; }; }).then(function(r){ return r.ok ? r.val : undefined; }); }
+function sjIdbSession(){   // toutes les captures de la séance courante
+  var pre = 'imgs_' + SESSION_KEY + '__';
+  return sjIdbReq('readonly', function(st, out){
+    out.map = {};
+    var cur = st.openCursor(IDBKeyRange.bound(pre, pre + '￿'));
+    cur.onsuccess = function(){ var c = cur.result; if(c){ out.map[c.key] = c.value; c['continue'](); } };
+  }).then(function(r){ return r.map || {}; });
+}
+function sjMigrateLegacy(){   // anciennes captures (data-URL en localStorage), toutes séances confondues
+  var keys = [];
+  try{ for(var i = 0; i < localStorage.length; i++){ var k = localStorage.key(i); if(k && k.indexOf('imgs_') === 0) keys.push(k); } }
+  catch(e){ return Promise.resolve(); }
+  return keys.reduce(function(p, k){
+    return p.then(function(){
+      var urls = [];
+      try{ urls = JSON.parse(localStorage.getItem(k) || '[]').filter(sjIsDataUrl); }catch(e){}
+      if(!urls.length) return;
+      return sjIdbGet(k).then(function(old){
+        old = old || [];
+        var merged = old.concat(urls.filter(function(u){ return old.indexOf(u) < 0; }));
+        return sjIdbPut(k, merged).then(function(ok){
+          if(!ok) return;                                  // écriture non confirmée : l'original n'est pas touché
+          try{ sjFlag(k, merged.length); }catch(e){}       // remplacer par un témoin plus petit ne peut pas dépasser le quota
+        });
+      });
+    });
+  }, Promise.resolve());
+}
+function sjRefreshAllShots(){
+  document.querySelectorAll('.trade-shots[data-key]').forEach(function(box){ sjRenderTradeShots(box.getAttribute('data-key')); });
+  document.querySelectorAll('.shots-pair.no-fix').forEach(function(pair){
+    var fb = pair.querySelector('.shots-col.fix .trade-shots');
+    if(fb && sjLoadTradeImgs(fb.getAttribute('data-key')).length) pair.classList.remove('no-fix');
+  });
+}
+function sjInitImgStore(){
+  return sjIdbOpen().then(function(db){
+    SJ_IDB = db;
+    if(!db) return;
+    return sjMigrateLegacy().then(sjIdbSession).then(function(map){ SJ_IMG_MEM = map; sjRefreshAllShots(); });
+  })['catch'](function(){});   // jamais bloquant : au pire, repli sur localStorage
+}
+var sjImgReady = sjInitImgStore();
 function sjRenderTradeShots(key){
   var box = document.querySelector('.trade-shots[data-key="' + key + '"]');
   if(!box) return;
@@ -226,7 +319,7 @@ function sjRenderTradeShots(key){
   }).join('');
 }
 function sjDelTradeShot(key, i){
-  var imgs = sjLoadTradeImgs(key);
+  var imgs = sjLoadTradeImgs(key).slice();
   imgs.splice(i, 1);
   sjSaveTradeImgs(key, imgs);
   sjRenderTradeShots(key);

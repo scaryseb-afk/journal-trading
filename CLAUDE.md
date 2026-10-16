@@ -90,7 +90,7 @@ trade, relecture) — ne pas dupliquer ce CSS/JS dans le fichier de session.
   ligne) — pas de zone générale au niveau de la séance (retirée le 28/09,
   redondante avec les zones par trade). Redimensionnées et compressées côté
   navigateur avant stockage (voir `SJ_IMG_MAX_WIDTH`/`SJ_IMG_QUALITY` dans
-  `session.js`) pour éviter de saturer le quota localStorage. Stockage 100%
+  `session.js`) avant d'être rangées dans IndexedDB (base `journal-images`, depuis le 16/10 : en localStorage, ~5 Mo pour tout le site, 15 à 30 captures suffisaient à afficher « Stockage plein » ; `localStorage` ne garde qu'un témoin `[1,…]` sous la même clé, qui sert à l'icône 📷 de l'onglet Sessions, et les anciennes captures encore en localStorage sont migrées toutes seules au chargement d'une page de séance, sans perte : le témoin ne remplace l'original qu'une fois l'écriture confirmée). Stockage 100%
   local au navigateur — invisible pour Claude, donc ne pas s'appuyer dessus
   pour les calculs.
 - Relecture ("Erreur commise" / "Ce que j'aurais dû faire" / "Ce qui a bien
