@@ -59,6 +59,12 @@ explicite :
    fills (un fill d'entrée ou de sortie partagé entre plusieurs lignes CSV —
    ex. 001 le 24/09 et le 25/09) compte pour **1 trade** depuis le 24/09 ; avant, les décomptes historiques
    comptaient parfois chaque ligne à part.
+   **Même position sur deux comptes (règle de Sébastien, 19/10)** : si le même trade est pris sur deux comptes — même instrument, même sens,
+   positions ouvertes en même temps (leurs durées se chevauchent), quel que soit l'écart entre les deux entrées, la taille ou le prix —,
+   ce n'est **pas deux ordres différents** : 1 seul trade/signal, et la règle 8 n'est pas enfreinte d'après lui. Appliqué par `calc-semaine.js` et
+   `calc-instruments.js` à tout l'historique : 7 regroupements (14/08, 03/09, 08/10, 09/10, 16/10 ×2, 19/10), 231 → 224 signaux ; le P&L reste
+   par compte. Un signal d'une perte sur un compte et d'un break-even sur l'autre reste perdant (somme < 0) : ex. 19/10, −500 $ et +10 $
+   (BE confirmé) = 1 trade à −490 $.
 4. Une fois les données extraites et la page mise à jour, commiter les CSV
    en même temps que les modifications HTML.
 5. Si un total semble incohérent avec l'historique, le signaler à
