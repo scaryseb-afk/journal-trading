@@ -580,7 +580,7 @@ var SJ_NAV = [
   ['dashboard','📊 Tableau de bord','overview',[['progression','📈 Progression'],['economie','💶 Économie & risque'],['comptes','🧮 Comptes & Analyse'],['risque','⚖️ Risque & R:R'],['bilan','📑 Bilan & Règles']]],
   ['brief','🧭 Avant la séance','essentiel',[['consignes','✅ Consignes & actions'],['interdits','🚫 Interdits & repères'],['checklist','☑️ Checklist'],['comptes','🏦 Comptes']]],
   ['sessions','🗓️ Sessions',null,[]],
-  ['regles','⛔ Règles','outils',[['bilan','🧾 Bilan & discipline'],['communes','📜 Règles communes'],['v2','⚡ Stratégie V2 · iFVG M5'],['v1','🧩 Stratégie V1']]]
+  ['regles','⛔ Règles','outils',[['bilan','🧾 Bilan & discipline'],['communes','📜 Règles communes'],['v2','⚡ Stratégie V2 · iFVG M5']]]
 ];
 function sjEsc(t){ return String(t).replace(/&/g, '&amp;').replace(/</g, '&lt;'); }
 var SJ_THEMES = ['system','dark','light'];
