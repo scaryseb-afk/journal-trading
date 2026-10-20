@@ -319,7 +319,7 @@ function sjRenderTradeShots(key){
          + '<button type="button" class="screenshot-del" onclick="sjDelTradeShot(\'' + key + '\',' + i + ')" title="Supprimer">×</button></div>';
   }).join('');
   var lg = box.closest('.shots-col.legacy');   // anciennes captures « ce que j'aurais dû faire » : la zone n'existe que tant qu'il en reste
-  if(lg) lg.style.display = imgs.length ? '' : 'none';
+  if(lg) lg.style.display = [].some.call(lg.querySelectorAll('.trade-shots-list'), function(l){ return l.children.length; }) ? '' : 'none';
 }
 function sjDelTradeShot(key, i){
   var imgs = sjLoadTradeImgs(key).slice();
@@ -327,7 +327,7 @@ function sjDelTradeShot(key, i){
   sjSaveTradeImgs(key, imgs);
   sjRenderTradeShots(key);
 }
-/* Zone de capture (clé = trade, ou trade + « :fix:daxton » / « :fix:matt » pour « ce que j'aurais dû faire » selon Daxton ou Matt) */
+/* Zone de capture (clé = trade, ou trade + « :fix:daxton » pour « ce que j'aurais dû faire » selon Daxton) */
 function sjShotsBox(key, label){
   return '<div class="trade-shots" data-key="' + key + '">'
     + '<div class="screenshots trade-shots-list"></div>'
@@ -338,12 +338,14 @@ function sjShotsBox(key, label){
 function sjShotsList(key){   // liste seule, sans zone de dépôt (anciennes captures)
   return '<div class="trade-shots" data-key="' + key + '"><div class="screenshots trade-shots-list"></div></div>';
 }
-/* « Ce que j'aurais dû faire » : une zone de capture par façon de faire — Daxton (stratégie V2) et Matt (V1, Matthis). Clés
-   <compte>_<n>:fix:daxton et <compte>_<n>:fix:matt. L'ancienne clé <compte>_<n>:fix (une seule zone, avant le 16/10) n'a plus de zone
-   de dépôt ; ses captures restent visibles (et supprimables) dans une zone « Anciennes captures » qui disparaît quand elle est vide. */
-var SJ_FIX_WHO = [['daxton', 'Daxton'], ['matt', 'Matt']];
+/* « Ce que j'aurais dû faire » : une zone de capture, celle de Daxton (stratégie V2) — clé <compte>_<n>:fix:daxton. La zone « Matt » (clé
+   :fix:matt, 16→20/10, retirée à la demande de Sébastien) et l'ancienne zone unique (clé :fix, avant le 16/10) n'ont plus de zone de dépôt ;
+   leurs captures éventuelles restent visibles (et supprimables) dans une zone « Anciennes captures » qui disparaît quand elle est vide —
+   rien n'est perdu en silence. */
+var SJ_FIX_WHO = [['daxton', 'Daxton']];
+var SJ_FIX_OLD = [':fix', ':fix:matt'];   // clés sans zone de dépôt, affichées dans « Anciennes captures »
 function sjFixKeys(key){ return SJ_FIX_WHO.map(function(w){ return key + ':fix:' + w[0]; }); }
-/* Sous chaque trade : trois colonnes — à gauche ce qui s'est passé, puis « ce que j'aurais dû faire » selon Daxton et selon Matt — puis
+/* Sous chaque trade : deux colonnes — à gauche ce qui s'est passé, puis « ce que j'aurais dû faire » selon Daxton — puis
    une petite remarque pleine largeur dessous. Visible d'office quand le trade est perdant ; sinon repliée derrière un bouton (un trade
    gagnant peut aussi être raté). Au survol d'une capture, l'aperçu montre côte à côte celles des colonnes remplies (voir sjInitHoverPreview). */
 function sjInitTradeShots(){
@@ -354,7 +356,7 @@ function sjInitTradeShots(){
     var tr = row.previousElementSibling;
     var failed = !!(tr && tr.querySelector('.td-pnl.td-l'));
     var fixNote = sjLoadNotes()[fixKey] || '';
-    var fixImgs = fixKeys.concat([fixKey]).some(function(k){ return sjLoadTradeImgs(k).length; });
+    var fixImgs = fixKeys.concat(SJ_FIX_OLD.map(function(x){ return key + x; })).some(function(k){ return sjLoadTradeImgs(k).length; });
     var pair = document.createElement('div');
     pair.className = 'shots-pair' + ((failed || fixNote || fixImgs) ? '' : ' no-fix');
     pair.innerHTML =
@@ -364,7 +366,7 @@ function sjInitTradeShots(){
           return '<div class="shots-col fix" data-who="' + w[0] + '"><div class="shots-col-h">✅ Ce que j\'aurais dû faire · ' + w[1] + '</div>'
                + sjShotsBox(key + ':fix:' + w[0], 'Capture ' + w[1]) + '</div>';
         }).join('')
-      + '<div class="shots-col fix legacy" style="display:none"><div class="shots-col-h">✅ Anciennes captures <span>(avant la séparation Daxton / Matt)</span></div>' + sjShotsList(fixKey) + '</div>'
+      + '<div class="shots-col fix legacy" style="display:none"><div class="shots-col-h">✅ Anciennes captures <span>(anciennes zones de « ce que j\'aurais dû faire »)</span></div>' + SJ_FIX_OLD.map(function(x){ return sjShotsList(key + x); }).join('') + '</div>'
       + '<div class="fix-remark"><div class="shots-col-h">✅ Ce que j\'aurais dû faire — petite remarque</div>'
       + '<textarea class="fix-note" rows="2" data-key="' + fixKey + '" placeholder="Ce que tu aurais fait à la place, en une ou deux phrases…"></textarea></div>';
     cell.appendChild(pair);
@@ -391,7 +393,7 @@ function sjInitTradeShots(){
       cols[w[0]].addEventListener('mouseenter', function(){ sjHoverKey = fixKeys[i]; target(w[0]); });
       cols[w[0]].addEventListener('mouseleave', function(){ if(sjHoverKey === fixKeys[i]) sjHoverKey = key; target('main'); });
     });
-    fixTa.addEventListener('focus', function(){ target(null); });   // au clavier, aucune colonne n'est ciblée : Daxton ou Matt se choisit à la souris
+    fixTa.addEventListener('focus', function(){ target(null); });   // au clavier, aucune colonne n'est ciblée : la zone se choisit à la souris
     fixTa.addEventListener('blur', function(){ target(null); });
   });
 }
@@ -432,10 +434,10 @@ function sjInitHoverPreview(){
     var t = e.target;
     if(!(t && t.matches && t.matches('.screenshot-wrap img'))) return;
     var col = t.closest('.shots-col'), pair = t.closest('.shots-pair'), h = '', n = 0;
-    var who = col ? (col.classList.contains('main') ? 'main' : col.getAttribute('data-who')) : null;   // main, daxton, matt (ou rien : anciennes captures)
+    var who = col ? (col.classList.contains('main') ? 'main' : col.getAttribute('data-who')) : null;   // main, daxton (ou rien : anciennes captures)
     if(who && pair){
       var idx = [].slice.call(col.querySelectorAll('.screenshot-wrap img')).indexOf(t), figs = [];
-      [['main', 'Ce qui s\'est passé'], ['daxton', '✅ Daxton'], ['matt', '✅ Matt']].forEach(function(w){
+      [['main', 'Ce qui s\'est passé'], ['daxton', '✅ Daxton']].forEach(function(w){
         if(w[0] === who){ figs.push(fig(t.src, w[1], true)); return; }
         var oc = pair.querySelector(w[0] === 'main' ? '.shots-col.main' : '.shots-col.fix[data-who="' + w[0] + '"]');
         var oImgs = oc ? [].slice.call(oc.querySelectorAll('.screenshot-wrap img')) : [];
@@ -462,7 +464,7 @@ function sjInitPaste(){
     if(!key){
       var ae = document.activeElement, row = ae && ae.closest ? ae.closest('tr.note-row') : null;
       var ta = row ? row.querySelector('textarea.trade-note') : null;
-      if(ae && ae.classList && ae.classList.contains('fix-note')) return;   // remarque en cours d'écriture : Daxton ou Matt ? se choisit en survolant la zone
+      if(ae && ae.classList && ae.classList.contains('fix-note')) return;   // remarque en cours d'écriture : la zone se choisit en la survolant
       else if(ta) key = ta.getAttribute('data-key');
     }
     if(!key) return;  // pas de trade ciblé (survolé ou en cours d'écriture) : rien à faire, plus de zone générale

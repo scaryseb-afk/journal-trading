@@ -400,8 +400,8 @@ textarea::placeholder{color:var(--dim)}
 .trade-shots-drop span{font-weight:400;color:var(--dim)}
 .trade-shots-drop:hover,.trade-shots-drop.drag-over{border-color:var(--muted);color:var(--txt)}
 
-/* ── « Ce qui s'est passé » / « Ce que j'aurais dû faire » : trois colonnes identiques sous chaque trade (ce qui s'est passé · Daxton · Matt) ── */
-.shots-pair{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-top:10px;align-items:stretch}
+/* ── « Ce qui s'est passé » / « Ce que j'aurais dû faire » : deux colonnes identiques sous chaque trade (ce qui s'est passé · Daxton) ── */
+.shots-pair{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:10px;align-items:stretch}
 .shots-col{display:flex;flex-direction:column;border:1px solid var(--line);border-radius:8px;padding:8px 10px;background:var(--panel);transition:border-color .12s,box-shadow .12s}
 .shots-col.paste-target{border-color:var(--accent);box-shadow:0 0 0 1px var(--accent)}
 .shots-col .trade-shots{margin-top:0;display:flex;flex-direction:column;flex:1}
@@ -409,7 +409,7 @@ textarea::placeholder{color:var(--dim)}
 .shots-col .trade-shots-drop{margin-top:auto}
 .shots-col-h{font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
 .shots-col.fix .shots-col-h,.fix-remark .shots-col-h{color:var(--accent)}
-.shots-col.legacy{grid-column:2/-1}
+.shots-col.legacy{grid-column:1/-1}
 .shots-col-h span{text-transform:none;letter-spacing:0;font-weight:500;color:var(--dim)}
 .shots-col .screenshot-wrap img{max-height:200px}
 .fix-remark{grid-column:1/-1}
@@ -429,8 +429,6 @@ textarea::placeholder{color:var(--dim)}
 .shot-pv-fig img{max-width:94vw;max-height:90vh;object-fit:contain;border-radius:8px;box-shadow:0 8px 40px rgba(0,0,0,.6)}
 .shot-pv-grid.two .shot-pv-fig{flex:1 1 0}
 .shot-pv-grid.two .shot-pv-fig img{max-width:47vw;max-height:84vh}
-.shot-pv-grid.three .shot-pv-fig{flex:1 1 0}
-.shot-pv-grid.three .shot-pv-fig img{max-width:31vw;max-height:84vh}
 .shot-pv-fig figcaption{font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#fff;opacity:.6;padding-bottom:2px;border-bottom:2px solid transparent}
 .shot-pv-fig.hot figcaption{opacity:1;border-bottom-color:var(--accent)}
 
