@@ -4,11 +4,7 @@ Site statique (un seul `index.html` + `sessions/*.html`), publié sur
 GitHub Pages (`scaryseb-afk.github.io/journal-trading`) depuis la branche
 `main`. Pas de build : ce qui est commité est ce qui est publié.
 
-`index.html` regroupe Tableau de bord, Avant la séance (anciennement « Brief séance » ; id `#brief`), Analyses économiques
-(contexte macro US/zone euro — CPI, Fed, NFP, PMI — et biais de marché sur
-or/pétrole/EUR-USD, rédigés par Claude à partir de données publiques, à
-rafraîchir sur demande ; a remplacé le Brouillon/« Plan du jour » le 01/10/2026),
-Sessions et Règles dans une seule page
+`index.html` regroupe Tableau de bord, Avant la séance (anciennement « Brief séance » ; id `#brief`), Sessions et Règles dans une seule page
 (`data-goto`/`.view` — pas de rechargement, l'onglet actif est dans le hash :
 `#brief`, `#sessions`…). Le menu est une bannière fixe à gauche dès 960 px
 (barre du haut en dessous), thème en bas du menu. Sur grand écran, les
@@ -16,8 +12,8 @@ sous-onglets du Tableau de bord et du Brief (`.subnav`/`.sn-btn`) sont
 reproduits en sous-entrées du menu sous l'onglet actif (générées depuis
 `.sn-btn` : un nouveau `.sn-btn` apparaît tout seul ; le premier, marqué
 `data-nosidebar`, n'est pas répété : le lien parent du menu ouvre cette
-sous-page) et la barre dans la page est masquée. Les quatre sous-menus (Tableau
-de bord, Avant la séance, Analyses éco, Règles) restent toujours dépliés dans le menu, quel que soit
+sous-page) et la barre dans la page est masquée. Les trois sous-menus (Tableau
+de bord, Avant la séance, Règles) restent toujours dépliés dans le menu, quel que soit
 l'onglet actif — cliquer une sous-entrée ouvre d'abord son onglet parent puis la sous-page (`.nav-sub{display:flex}` inconditionnel dès 960px) — seul le
 sous-élément survolé/actif est mis en évidence. Chaque entrée du menu (site et
 pages de séance, `SJ_NAV` dans `session.js`) porte un emoji devant son nom. Chaque sous-page du Tableau de bord a son propre titre ; l'en-tête
@@ -107,10 +103,8 @@ trade, relecture) — ne pas dupliquer ce CSS/JS dans le fichier de session.
   ni plan, ni instruments, ni R. Dans la page de séance, la ligne est affichée en grisé (`bug:true`) sans zone de
   note, et le total précise « hors bug ». Premier cas : 13 allers-retours de 1 à 2 secondes sur le 001 le 05/10 (2 signalés par Sébastien, 11 de même signature rangés avec — « ne prends pas en compte les trades comme les deux derniers » ; à retirer d'`exclus.json` s'il dit que ce n'est pas un bug). Un vrai trade (22 min) du même compte le même soir reste compté.
 - À chaque séance ajoutée, relancer aussi `node csv/calc-instruments.js` et
-  remplacer la ligne `window.PAR_INSTRUMENT = {...}` d'`index.html` : la
-  sous-page « Par instrument » du Tableau de bord (MNQ / or / pétrole / euro :
-  P&L, win rate, moyenne par signal, pire trade — plus le comparatif Long / Short, global et par instrument) et ses phrases de synthèse en
-  dépendent. Même total que les autres cartes (−7 224,25 $ / 186 signaux au 01/10).
+  remplacer la ligne `window.PAR_INSTRUMENT = {...}` d'`index.html` : les
+  stats globales (cartes Statistiques, objectif 50 %, Économie & risque, comparatif Long / Short) en dépendent ; la sous-page « Par instrument » a été supprimée le 20/10 (Sébastien ne trade plus que le Nasdaq). Même total que les autres cartes (−7 224,25 $ / 186 signaux au 01/10).
 - À chaque séance ajoutée, relancer aussi `node csv/calc-comptes.js` et remplacer la
   ligne `window.PAR_COMPTE = {...}` d'`index.html` : la table « R & % par compte »
   (Tableau de bord → Comptes & Analyse) en dépend. 1 R = le budget de risque du jour
@@ -127,6 +121,7 @@ trade, relecture) — ne pas dupliquer ce CSS/JS dans le fichier de session.
   la remonte dans le chat, et Claude l'inscrit dans `window.DAY_NOTES`
   (`index.html`, clé `AAAA-MM-JJ`, `m` = bien | neutre | pas-bien) pour qu'elle
   soit rapprochée du P&L du jour. Sans ce copier-coller, Claude ne la voit pas.
+- Pages « Comptes » (Tableau de bord → Comptes & Analyse, Avant la séance → Comptes, simplifiées le 20/10 à la demande de Sébastien : « beaucoup trop de texte ») : rendues depuis `window.COMPTES` et `window.netActifs()` par le script « Comptes — vue claire » — une carte par compte actif (solde, résultat, objectif +3 000 $, marge avant la perte du compte, ligne d'alerte facultative `court`), les autres comptes repliés dans une liste ; plus aucun bloc statique à recopier à chaque séance, seuls `solde`/`soldeDate`/`buffer` et `court` de `COMPTES` comptent. « Analyses éco » (macro, CPI/Fed/NFP/PMI, biais de marché) supprimée le 20/10 (demande de Sébastien) : elle reste dans l'historique git. Menu : une seule page surlignée, celle où l'on est.
 - Pas d'import CSV dans les pages : c'est Claude qui crée la page de séance
   à partir des exports que l'utilisateur envoie dans le chat.
 - Stop / objectif / R:R par trade : Tradovate n'exporte ni stop ni objectif,

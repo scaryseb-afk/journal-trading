@@ -637,84 +637,29 @@ textarea::placeholder{color:#4A566A}
 .viol-del:hover{color:var(--muted)}
 .viol-empty{font-size:12px;color:var(--muted);text-align:center;padding:12px 0}
 
-/* Analyses économiques */
-.eco-note{color:var(--dim);font-size:12.5px;margin-top:6px}
-.bias-badge{display:inline-flex;align-items:center;gap:5px;padding:3px 10px;border-radius:999px;font-size:10.5px;font-weight:700;letter-spacing:.02em}
-.bias-badge.bull{background:var(--green-dim);color:var(--green);border:1px solid var(--green)}
-.bias-badge.bear{background:var(--red-dim);color:var(--red);border:1px solid var(--red)}
-.bias-badge.neutral{background:var(--panel);color:var(--muted);border:1px solid var(--line)}
-.mkt-card{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:12px 16px;margin-bottom:8px}
-.mkt-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:6px;flex-wrap:wrap}
-.mkt-title{display:flex;align-items:center;gap:7px;font-size:14.5px;font-weight:700}
-.mkt-icon{font-size:18px;line-height:1}
-.mkt-levels{display:flex;gap:14px;margin-top:6px;font-size:11px;color:var(--muted);flex-wrap:wrap}
-.mkt-levels b{color:var(--txt);font-variant-numeric:tabular-nums}
-.pmi-explain{display:flex;gap:14px;margin:10px 0 16px;flex-wrap:wrap}
-.pmi-pill{flex:1 1 220px;border-radius:10px;padding:12px 14px;font-size:13px}
-.pmi-pill.up{background:var(--green-dim);border:1px solid var(--green);color:var(--green)}
-.pmi-pill.down{background:var(--red-dim);border:1px solid var(--red);color:var(--red)}
-.eco-cal{display:flex;flex-direction:column;gap:0}
-.eco-cal-row{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid var(--line);font-size:13.5px}
-.eco-cal-row:last-child{border-bottom:none}
-.eco-cal-date{color:var(--accent);font-weight:700;white-space:nowrap}
-.eco-tbl th{padding:6px 8px;font-size:10px}
-.eco-tbl td{padding:6px 8px;font-size:12.5px}
-.eco-tbl td:first-child{color:var(--muted)}
-.eco-strip{display:flex;flex-wrap:wrap;gap:6px}
-.eco-chip{flex:0 0 auto;min-width:64px;padding:6px 4px;border-radius:8px;text-align:center;line-height:1.3}
-.eco-chip .m{font-size:9px;font-weight:600;letter-spacing:.02em;text-transform:uppercase;opacity:.75}
-.eco-chip .v{font-size:13px;font-weight:800;font-variant-numeric:tabular-nums}
-.eco-chip.pos{background:var(--green-dim);color:var(--green)}
-.eco-chip.neg{background:var(--red-dim);color:var(--red)}
-.eco-chip.flat{background:var(--panel);color:var(--muted);border:1px dashed var(--line)}
-.scn-card{border:1px solid var(--line);border-left:3px solid var(--accent);border-radius:8px;padding:7px 10px;margin-top:5px;background:var(--panel)}
-.scn-head{font-weight:700;font-size:12.5px;margin-bottom:3px}
-.scn-head .scn-num{color:var(--accent);margin-right:4px}
-.scn-body{font-size:12px;line-height:1.4;color:var(--txt)}
-.scn-reactions{display:flex;flex-wrap:wrap;gap:3px 9px;margin-top:3px;padding-top:3px;border-top:1px solid var(--line)}
-.scn-reactions span{font-size:11px;color:var(--muted);display:flex;align-items:center;gap:3px}
-.scn-reactions b{font-size:12px}
-#view-eco .tool-card{padding:8px 12px}
-#view-eco .tool-card-title{margin-bottom:4px}
-#view-eco h1{font-size:19px;margin-bottom:2px}
-#view-eco p.sub{font-size:11.5px;margin-bottom:6px;line-height:1.35}
-#view-eco p.eyebrow{margin-bottom:0;font-size:10.5px}
-@media(min-width:960px){#view-eco{margin-top:-26px}}
-#view-eco .eco-cal-row{padding:6px 0;font-size:12.5px}
-#view-eco .score-total{padding-top:0}
-#view-eco .score-total-num{font-size:19px}
-#view-eco .score-total-sub{font-size:10.5px}
-#view-eco .eco-note{font-size:12px;line-height:1.45}
-@media(min-width:960px){
-  #view-eco .eco-ov-grid{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);grid-template-rows:auto 1fr;gap:8px;align-items:start}
-  #view-eco .eco-ov-grid>.tool-card{margin-top:0!important}
-  #view-eco .eco-ov-cal{grid-column:1;grid-row:1}
-  #view-eco .eco-ov-scn{grid-column:2;grid-row:1/span 2}
-  #view-eco .eco-ov-fed{grid-column:1;grid-row:2}
-  #view-eco .eco-cal-row{flex-wrap:wrap;gap:0 10px}
-}
-/* Page « Par instrument » */
-.ins-sum{background:var(--panel);border:1px solid var(--line);border-left:3px solid var(--accent);border-radius:10px;padding:9px 14px;margin:8px 0 10px;font-size:12.5px;line-height:1.45}
-.ins-sum p{margin:0 0 3px}
-.ins-sum p:last-child{margin-bottom:0}
-.ins-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:10px}
-.ins-card{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:11px 14px}
-.ins-card.worst{border-color:var(--red)}
-.ins-head{display:flex;align-items:center;gap:7px;font-weight:700;font-size:14px;flex-wrap:wrap}
-.ins-ic{font-size:18px;line-height:1}
-.ins-badge{margin-left:auto;font-size:10px;font-weight:700;background:var(--red-dim);color:var(--red);border-radius:10px;padding:2px 8px;white-space:nowrap}
-.ins-badge+.ins-badge{margin-left:0}
-.ins-sub{font-size:10.5px;color:var(--muted);margin:1px 0 4px}
-.ins-pnl{font-size:26px;font-weight:800;letter-spacing:-.02em;font-variant-numeric:tabular-nums;line-height:1.15}
-.ins-bar{height:6px;border-radius:3px;background:var(--line);margin:5px 0 7px;overflow:hidden}
-.ins-bar>i{display:block;height:100%;border-radius:3px}
-.ins-bar>i.neg{background:var(--red)}
-.ins-bar>i.pos{background:var(--green)}
-.ins-row{display:flex;justify-content:space-between;gap:8px;font-size:12px;padding:2px 0;color:var(--muted)}
-.ins-row b{color:var(--txt);font-weight:600;font-variant-numeric:tabular-nums}
-.ins-row b.pos{color:var(--green)}
-.ins-row b.neg{color:var(--red)}
-.ins-note{font-size:10.5px;color:var(--dim);margin:8px 0 0;line-height:1.45}
+/* Comptes — vue claire (cartes des comptes actifs, autres comptes repliés) */
+.cc-sum{display:flex;gap:10px 34px;flex-wrap:wrap;margin:6px 0 16px}
+.cc-sum span{display:block;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:700}
+.cc-sum b{display:block;font-size:22px;font-weight:800;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+.cc-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px}
+.cc-card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:16px 18px}
+.cc-top{display:flex;justify-content:space-between;align-items:baseline;gap:8px}
+.cc-name{font-size:19px;font-weight:800}
+.cc-state{font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:700}
+.cc-bal{font-size:28px;font-weight:800;letter-spacing:-.02em;margin-top:8px;font-variant-numeric:tabular-nums}
+.cc-gain{font-size:13px;font-weight:650;margin-bottom:12px}
+.cc-row{display:flex;justify-content:space-between;gap:8px;font-size:12.5px;color:var(--muted);margin-top:9px}
+.cc-row b{color:var(--txt);font-variant-numeric:tabular-nums}
+.cc-row b.neg{color:var(--red)}
+.cc-card .ar-buf-track{margin-top:4px}
+.cc-date{font-size:11px;color:var(--dim);margin-top:11px}
+.cc-flag{margin-top:10px;font-size:12px;line-height:1.4;color:var(--txt);background:var(--white-dim);border-left:3px solid var(--accent);border-radius:6px;padding:6px 9px}
+.cc-others{margin-top:14px;font-size:13px}
+.cc-others summary{cursor:pointer;color:var(--muted);font-weight:650;padding:4px 0}
+.cc-tbl{width:100%;border-collapse:collapse;margin-top:6px}
+.cc-tbl td{padding:6px 8px;border-bottom:1px solid var(--line);color:var(--muted);font-size:12.5px}
+.cc-tbl td:first-child{color:var(--txt);font-weight:700}
+.cc-tbl td:last-child{text-align:right;font-variant-numeric:tabular-nums}
 .ls-strip{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:10px 14px;margin:0 0 10px}
 .ls-head{display:flex;justify-content:space-between;align-items:baseline;gap:4px 12px;flex-wrap:wrap;font-size:13px;font-weight:700}
 .ls-head span{font-weight:600;color:var(--muted);font-size:12px;font-variant-numeric:tabular-nums}
@@ -857,7 +802,6 @@ textarea::placeholder{color:#4A566A}
   <div class="nav-brand"><b>Journal de trading</b><span>Futures · Tradovate / Lucid</span></div>
   <a href="#dashboard" data-goto="dashboard">📊 Tableau de bord</a>
   <a href="#brief" data-goto="brief">🧭 Avant la séance</a>
-  <a href="#eco" data-goto="eco">🌐 Analyses éco</a>
   <a href="#sessions" data-goto="sessions">🗓️ Sessions</a>
   <a href="#regles" data-goto="regles">⛔ Règles</a>
   <button id="theme-toggle" title="Changer le thème" style="background:var(--panel);border:1px solid var(--line);color:var(--muted);border-radius:999px;padding:6px 14px;font-size:12.5px;font-weight:650;cursor:pointer;letter-spacing:.04em;transition:.15s;font-family:inherit">⚙️ Système</button>
@@ -866,7 +810,6 @@ textarea::placeholder{color:#4A566A}
   <div class="subnav" id="dash-subnav">
     <button class="sn-btn active" data-sub="overview" data-nosidebar>🔎 Vue d'ensemble</button>
     <button class="sn-btn" data-sub="progression">📈 Progression</button>
-    <button class="sn-btn" data-sub="instrument">🪙 Par instrument</button>
     <button class="sn-btn" data-sub="economie">💶 Économie &amp; risque</button>
     <button class="sn-btn" data-sub="comptes">🧮 Comptes &amp; Analyse</button>
     <button class="sn-btn" data-sub="risque">⚖️ Risque &amp; R:R</button>
@@ -1008,13 +951,6 @@ textarea::placeholder{color:#4A566A}
   <div id="progression"></div>
   </div>
 
-  <div class="subview" data-subview="instrument">
-  <p class="eyebrow">Tableau de bord</p>
-  <h1>Par instrument</h1>
-  <p class="sub">Où part l'argent : MNQ, or, pétrole ou euro ? Et dans quel sens : plus de Long ou de Short ? Recalculé depuis les CSV de tous les comptes, copy-trading compté une seule fois.</p>
-  <div id="instr"></div>
-  </div>
-
   <div class="subview" data-subview="economie">
   <p class="eyebrow">Tableau de bord</p>
   <h1>Économie &amp; risque</h1>
@@ -1025,16 +961,13 @@ textarea::placeholder{color:#4A566A}
   <div class="subview" data-subview="comptes">
   <p class="eyebrow">Tableau de bord</p>
   <h1>Comptes &amp; Analyse</h1>
-  <h2>R &amp; % par compte</h2>
+  <div id="comptes"></div>
+
+  <h2>Résultat par compte</h2>
   <div id="r-comptes"></div>
 
-  <h2>Données &amp; Analyse</h2>
+  <h2>Séances &amp; discipline</h2>
   <div id="analyse-section"></div>
-
-  <h2>Mes comptes</h2>
-  <p class="sub">État au dernier relevé transmis.<br>
-  Les relevés de comptes et d'exécutions se font toujours depuis le Mac (boutons dédiés) — cette page réunit les données déjà journalisées, consultable sans lui.</p>
-  <div id="comptes"></div>
 
   </div>
 
@@ -1478,301 +1411,7 @@ textarea::placeholder{color:#4A566A}
 
   <div class="subview" data-subview="comptes">
   <h2 id="brief-comptes">Où en sont tes comptes</h2>
-  <p class="sub"><b>Trois comptes actifs depuis le 13/10 : 001, 02b, 005b (page Lucid du 13/10) ; le A est mis de côté.</b> Huit comptes ont été suivis (001, 003, 004, 005, 005b, 006, 02b, A) — le 002 a breaché le 29/09 et a été remplacé le jour même par le 02b, le 006 a breaché le 02/10, le 003 le 07/10 (confirmé par Lucid le 08/10), le 004b le 09/10 (annoncé par Sébastien, pas encore confirmé par Lucid), le 005b est un rachat du 005 (l'ancien 005 n'est plus sur Lucid), le 004 a été racheté le 17/09 après la clôture de l'ancien le 10/09. Soldes Lucid du 13/10 pour 001, 02b et 005b — le 001 et le 02b ensuite recalculés avec les CSV des 13, 15, 16 et 19/10 —, du 08/10 au soir pour 003 et 004b (buffer, jours de trading, seuil MLL — des infos que le CSV Tradovate ne donne pas) ; le A n'est pas sur Lucid, son solde est calculé depuis les CSV. Quand un solde Lucid diffère du calcul CSV, l'écart est signalé plutôt que lissé (frais de transaction probables). Compte A confirmé actif par ses trades jusqu'au 09/10, malgré son absence de la page Lucid (absent aussi de celle du 13/10) ; mis de côté le 13/10.</p>
-  <div class="obs warn" style="margin-bottom:16px">
-    <div class="t">⚠️ Lundi 19/10 : −490 $ — deux Shorts, 001 −500 $ (budget plein) et 02b +10 $</div>
-    <div class="d">001 : Short MNQ 4 contrats −500 $ (15h40→15h43, 62,5 pts contre toi) ; 02b : Short 4 contrats +10 $ (15h42→16h13, 1,25 pt en ta faveur, un break-even). C’est un seul trade pris sur deux comptes (même position), plan respecté, règle 8 non enfreinte d’après toi. Net P&L : −1 $ sur les 3 comptes.</div>
-  </div>
-  <div class="obs warn" style="margin-bottom:16px">
-    <div class="t">⚠️ Vendredi 16/10 : +1 138 $ en sept trades — plan non respecté, le A passe sous son seuil (calcul)</div>
-    <div class="d">001 +1 252 $ (Long −364 $, Long +368 $, Short +1 248 $) ; 02b +954 $ (MCL Long −140 $, MNQ Long +30 $, Short +1 064 $) ; A −1 068 $ (trois pertes en 12 minutes). 7 trades (9 lignes CSV : deux fois la même position sur deux comptes, comptée une fois), 4 ré-entrées à moins de 10 min d'une perte (−680 $). Le A, à 47 928,50 $ d'après le calcul, est 71,50 $ sous son seuil supposé : probablement cramé — à confirmer.</div>
-  </div>
-  <div class="obs warn" style="margin-bottom:16px">
-    <div class="t">🔴 Jeudi 15/10 : −1 894 $ en cinq trades perdants — un compte cramé annoncé, non identifié</div>
-    <div class="d">001 : Short MNQ 4 contrats −240 $ ; A : Short 4 contrats −456 $ ; 02b : Short 4 contrats −298 $, puis Long 8 contrats −340 $ et Short 10 contrats −560 $ en 5 minutes. Tu écris « il ne m'en reste que 2 » sans nommer le compte : d'après mes calculs, ni le 001 (marge 1 185 $), ni le 02b (370 $), ni le A ne sont sous leur seuil — le 005b, sans CSV ? À confirmer ; en attendant, aucun statut n'est changé et le Net P&L compte encore le 005b.</div>
-  </div>
-  <div class="obs warn" style="margin-bottom:16px">
-    <div class="t">⚠️ Mardi 13/10 : +536 $ sur le 001 — TP déplacé en position (règle 5)</div>
-    <div class="d">001 : Short MNQ 4 contrats +536 $ (16h19→17h58, 67 pts). Ta capture donne le TP de départ à 30 640,75 : 998 $ au lieu des 536 $ pris (462 $ laissés), ce qui confirme ton « 1000E » en dollars ; stop lu vers 30 826 (approximatif). Plan Daxton (V2), d'après toi ; tu confirmes que le prix a touché le TP de départ à 17h35. Le CSV ne contient pas l'heure du déplacement. Solde du 001 calculé : 50 075 $ (Lucid, avant le trade) + 536 $ = 50 611 $, buffer 1 425 $.</div>
-  </div>
-  <div class="obs warn" style="margin-bottom:16px">
-    <div class="t">🔴 Vendredi 09/10 : le 004b est cramé (annoncé) — séance incomplète, +428 $ sur le 001 et le A</div>
-    <div class="d">001 : Short MNQ 4 contrats +378 $ (15h35→17h18) et A : Short MNQ 2 contrats +50 $ (15h39→16h55) : même position sur deux comptes, un seul trade. Tu écris « j'ai cramé le compte 004 » : j'ai pris le 004b (dernier solde connu 48 140 $, 53 $ de marge). Pas de CSV (« le compte est dead ») : ses trades éventuels ne sont ni dans les +428 $ ni dans les statistiques.</div>
-  </div>
-  <div class="obs warn" style="margin-bottom:16px">
-    <div class="t">⚠️ Jeudi 08/10 : +920,50 $ — douze trades sur quatre comptes, plan non respecté</div>
-    <div class="d">Matin, or (MGC 3 contrats) : 004b Short −309 $, puis Long −192 $ entré 55 s après, A Short −255 $. 02b : MCL +12 $, MNQ Short −566 $, Long +340 $, deux Shorts +67 $ / −58 $ fermés à 18h17 ; 001 : MNQ Long 5 contrats −332,50 $ en 53 s. Puis, entre 18h38 et 18h54 : 02b Short −208 $, Long −274 $ entré 7 s après, Short +1 488 $ entré 12 s après, et un Short du A (+1 208 $) entré pendant que le 02b était déjà Short (même position : un seul trade, +2 696 $). 12 trades (max 3), du 3e au 12e pris après 2 pertes ou plus, 6 ré-entrées à moins de 10 min d'une perte (+1 749 $). La journée finit positive grâce à ces deux Shorts (+2 696 $) : sans eux, −1 775,50 $. Buffers Lucid : 004b 53 $, 001 515 $.</div>
-  </div>
-  <div class="obs warn" style="margin-bottom:16px">
-    <div class="t">⚠️ Mercredi 07/10 : −834 $ — quatre trades sur trois comptes, plan non respecté</div>
-    <div class="d">004b : Long 5 contrats +17,50 $ (plafond de 4 levé en octobre), puis Short 3 contrats −451,50 $ (1 h 01) ; 001 : Long 3 contrats −90 $ ; 003 : Short 4 contrats −310 $. 4 trades (max 3), le 4e pris après 2 pertes. Le 003 a breaché (Lucid, 08/10 : 48 237 $ pour un seuil de 48 251 $).</div>
-  </div>
-  <div class="obs warn" style="margin-bottom:16px">
-    <div class="t">⚠️ Lundi 05/10 : −584 $ — quatre Shorts perdants contre un marché qui montait</div>
-    <div class="d">Sur le 004b : 4 contrats −260 $, 5 contrats −185 $ (plafond de 4 levé en octobre), 2 contrats −54 $ ; sur le 001 : 2 contrats −85 $ à 20h38. 4 trades (max 3), le 3e pris après 2 pertes et le 4e après 3. Tu écris que tu aurais dû prendre un long. (13 allers-retours de 1 à 2 secondes sur le 001, −32,50 $, sont un bug de plateforme : hors statistiques.) Mardi 06/10 : −27 $, un seul trade (004b, Long MNQ 3 contrats, 2 h 20).</div>
-  </div>
-  <div class="obs warn" style="margin-bottom:16px">
-    <div class="t">🔴 Vendredi 02/10 : −2 117 $ sur 6 comptes, plan non respecté</div>
-    <div class="d">02b : MGC Long 4 contrats, entré 6 s après le NFP, −1 200 $ (une erreur d'entrer à la minute, écris-tu). 003/001/006 : le même MNQ Long 3 contrats à la seconde près, −300 $, −300 $, −61,50 $. 004b : −297 $, ré-entrée 2 min 14 s après une perte. A : +41,50 $. 4 signaux (max 3), les deux derniers après 2 pertes. Tout fait à la main, sans SL ni TP posés. Détail dans la séance du 02/10.</div>
-  </div>
-  <div class="obs warn" style="margin-bottom:16px">
-    <div class="t">🔴 Le 002 a breaché le 29/09</div>
-    <div class="d">Confirmé par Sébastien. Dernier solde 49 098 $, sous le seuil de clôture (49 120 $). Remplacé le jour même par le 02b (…4680006, LucidFlex), déjà tradé une fois : +18 $ net.</div>
-  </div>
-  <div class="obs warn" style="margin-bottom:16px">
-    <div class="t">🔴 Le 006 a breaché le 02/10</div>
-    <div class="d">Confirmé par Sébastien. 48 061 $ (Lucid 30/09) − 61,50 $ = 47 999,50 $, 0,50 $ sous le seuil de 48 000 $. Il ne lui restait presque rien (« logique », écrit-il) : 3 lots au lieu de 2, et le mouvement est allé chercher la limite de perte.</div>
-  </div>
-  <div class="obs warn" style="margin-bottom:16px">
-    <div class="t">🔴🔴 Trois comptes sous les 900 $ de buffer : 003 (302 $), A (449,50 $), 02b (800 $)</div>
-    <div class="d">Soldes Lucid du 08/10 (soir) pour 001, 003, 004b, 02b et 005b ; solde calculé pour le A (absent de Lucid) ; l'ancien 005 est clos. NE PAS TOUCHER le 005 avant d'en reparler ensemble.</div>
-  </div>
-  <div class="obs warn" style="margin-bottom:16px">
-    <div class="t">⚠️ Le 005b a touché sa limite journalière dès son 1er jour</div>
-    <div class="d">−1 200 $ le 29/09 (pile la limite DLL), tailles de lots variables selon Sébastien (« j'ai fait n'importe quoi »). Pas de CSV Tradovate reçu pour cette séance — trades non détaillés.</div>
-  </div>
-  <div class="obs warn" style="margin-bottom:16px">
-    <div class="t">⚠️ Compte « A » : mis de côté le 13/10 (buffer calculé : 1 452,50 $)</div>
-    <div class="d">−255 $ puis +1 208 $ le 08/10, +50 $ le 09/10 : buffer à 1 452,50 $ (solde calculé, le A n'est pas sur la page Lucid). Confirmé actif par un trade le 01/10 (−416 $, 4 contrats), malgré son absence de la liste Lucid du 30/09. +41,50 $ le 02/10 (Short MNQ 1 contrat) : buffer remonté de 408 à 449,50 $. 3 trades à 8 contrats le 18/09 (−1 176 $) restent le pire épisode de ce compte — à surveiller de près.</div>
-  </div>
-  <div class="rules">
-    <div class="r">
-      <div class="n">Compte …4680001 — Tradovate / Lucid</div>
-      <div class="t">51 123,00 $ · <span style="color:var(--green)">+1 123,00 $ depuis le départ</span></div>
-      <div class="d">−500 $ le 19/10 : Short MNQ 4 contrats (15h40→15h43), pile le budget — solde calculé 51 623 $ − 500 $ = 51 123 $, buffer 1 937 $ avec le seuil connu. +1 252 $ le 16/10 : Long −364 $, Long +368 $, puis Short +1 248 $ (16h57→17h10) — solde calculé 50 371 $ + 1 252 $ = 51 623 $, buffer 2 437 $ avec le seuil connu (qui a pu remonter). −240 $ le 15/10 : Short MNQ 4 contrats (17h29→18h00) — solde calculé 50 611 $ − 240 $ = 50 371 $, buffer 1 185 $. +536 $ le 13/10 : Short MNQ 4 contrats (16h19→17h58), TP déplacé en position selon toi — solde calculé 50 075 $ (Lucid du 13/10, avant ce trade) + 536 $ = 50 611 $, buffer 1 425 $. Lucid du 13/10 (avant le trade) : 50 075 $, 28 jours de trading — 4 $ sous le calcul CSV (frais). +378 $ le 09/10 : Short MNQ 4 contrats (15h35→17h18) — solde calculé 50 079 $ (49 701 $ Lucid + 378 $), buffer 893 $. Solde Lucid du 08/10 (soir) : 49 701 $, buffer 515 $ (calcul CSV : 49 663 $, +38 $ non expliqués). −332,50 $ le 08/10 : Long MNQ 5 contrats, 53 s (15h35, 5 min après l'ouverture), 33,25 pts contre toi. −90 $ le 07/10 : Long MNQ 3 contrats, 7 min (17h48→17h56), 15 pts contre toi. −85 $ le 05/10 : Short MNQ 2 contrats, 22 min (20h38→21h01), 21,25 pts contre toi — compté comme trade. −32,50 $ le 05/10 : 13 allers-retours de 1 à 2 secondes (bug de plateforme : 2 signalés par toi, 11 rangés avec par application de ta consigne), hors statistiques mais réellement débités du solde. −300 $ le 02/10 : même Long MNQ 3 contrats que 003 et 006, sorti à 31 127,75 (solde calculé : 50 503 $ Lucid du 30/09 − 300 $ − 117,50 $ − 90 $ − 332,50 $ = 49 663 $). Solde Lucid au 30/09 — écart de 196 $ avec le calcul CSV du 29/09 (50 699,25 $), à surveiller. −263 $ le 29/09 : Short MNQ en 2 contrats, 65,75 pts contre toi en 41 min. Le 28/09 : +742 $, seul trade de la journée.</div>
-    </div>
-    <div class="r">
-      <div class="n">Compte …4680002 — Tradovate / Lucid · breaché</div>
-      <div class="t">49 098,00 $ · <span style="color:var(--red)">−902,00 $ depuis le départ</span></div>
-      <div class="d">Cramé (breach) le 29/09, confirmé par Sébastien. Remplacé le jour même par le 02b. Avant breach : −89 $ le 25/09 (5 trades entre 16h14 et 18h26), −314 $ le 24/09.</div>
-    </div>
-    <div class="r">
-      <div class="n">Compte …4680006 — Tradovate / Lucid (LucidFlex, nouveau — remplace le 002)</div>
-      <div class="t">49 352,00 $ · <span style="color:var(--red)">−648,00 $ depuis le départ</span></div>
-      <div class="d">+10 $ le 19/10 : Short MNQ 4 contrats (15h42→16h13, 1,25 pt) — solde calculé 49 342 $ + 10 $ = 49 352 $, buffer 1 334 $. +954 $ le 16/10 : MCL Long −140 $, MNQ Long +30 $, puis Short +1 064 $ (16h53→17h18) — solde calculé 48 388 $ + 954 $ = 49 342 $, buffer 1 324 $. 🔴 −1 198 $ le 15/10 : Short 4 contrats −298 $, puis Long 8 contrats −340 $ et Short 10 contrats −560 $ en 5 minutes — solde calculé 49 586 $ − 1 198 $ = 48 388 $, buffer 370 $. Lucid du 13/10 : 49 586 $, inchangé depuis le 08/10 (3 jours de trading). +801 $ le 08/10 : MCL +12 $, MNQ Short −566 $, Long +340 $, deux Shorts de 2 contrats (+67 $ et −58 $) fermés à 18h17, puis en 15 minutes Short −208 $, Long −274 $ (entré 7 s après) et Short +1 488 $ (186 pts, 11 min). Solde Lucid du 08/10 (soir) : 49 586 $, 3 jours de trading. −1 200 $ le 02/10 : Long MGC (or) 4 contrats entré 6 s après le NFP, 30 pts contre — quatre fois le budget, pile le montant d'une limite journalière de 1 200 $ (à confirmer sur Lucid). Buffer 1 568 $ (Lucid du 08/10). Racheté le 29/09. Premier trade : Short MNQ 2 contrats en 2 fills (17h12/17h13), sortis 20h23/20h25, +16 $ puis +4 $ — +18 $ net après frais. Entré 20 min après la perte du 003, règle 6 respectée.</div>
-    </div>
-    <div class="r">
-      <div class="n">Compte …4680006 — Tradovate / Lucid · breaché</div>
-      <div class="t">47 999,50 $ · <span style="color:var(--red)">−2 000,50 $ depuis le départ</span></div>
-      <div class="d">Cramé le 02/10, confirmé par Sébastien : Long MNQ en 3 lots au lieu de 2 (15h44→15h48, −61,50 $) — 48 061 $ (Lucid 30/09) − 61,50 $ = 47 999,50 $, 0,50 $ sous le seuil de 48 000 $. Il ne lui restait presque rien : « logique », écrit-il. Sortie 7 min avant celle des 001/003 sur le même signal.</div>
-    </div>
-    <div class="r">
-      <div class="n">Compte …4680005 — Tradovate / Lucid</div>
-      <div class="t">48 166,00 $ · <span style="color:var(--red)">−1 834,00 $ depuis le départ</span></div>
-      <div class="d">Solde au 15/09 (aucun trade depuis). Absent de la page Lucid du 30/09, où seul le LFE05085004680005 (= le 005b) figure : je le considère clos, remplacé par le 005b — hors du Net P&L, à confirmer. NE PAS TOUCHER avant d'en reparler.</div>
-    </div>
-    <div class="r">
-      <div class="n">Compte …4680005 — Tradovate / Lucid (nouveau, racheté)</div>
-      <div class="t">49 524,00 $ · <span style="color:var(--red)">−476,00 $ depuis le départ</span></div>
-      <div class="d">Lucid du 13/10 : 49 524 $, buffer 1 524 $, 6 jours de trading : +48 $ et un jour de plus que le 08/10, jour non identifié et sans CSV. Solde Lucid du 08/10 (soir) : 49 476 $, 5 jours de trading — +676 $ depuis le 30/09, sans CSV. Tu confirmes +944 $ de P&L le 08/10 sur ce compte, déjà compris dans ces 49 476 $ (CSV non reçu ; pas compris dans les +920,50 $ de la séance). Compte vivant (identifié le 08/10 : LFE05085004680005 sur Lucid au 30/09, 48 800 $, seuil 48 000 $). 1 jour de trading (29/09), tailles de lots variables — a touché pile la limite journalière (DLL 1 200 $). Pas de CSV Tradovate reçu pour cette séance : trades non détaillés.</div>
-    </div>
-    <div class="r">
-      <div class="n">Compte …4680003 — Tradovate / Lucid</div>
-      <div class="t">48 237,00 $ · <span style="color:var(--red)">−1 763,00 $ depuis le départ</span></div>
-      <div class="d">🔴 Breach confirmé par Lucid (page du 08/10 soir : 48 237 $ pour un seuil de 48 251 $). Sébastien : « il est sûrement mort ». −310 $ le 07/10 : Short MNQ 4 contrats (18h30→19h02), 38,75 pts contre toi en 32 min 44. −300 $ le 02/10 : Long MNQ 3 contrats saisi à la main à la seconde près sur 001, 003 et 006 (règle 8), sans SL/TP, fermé à la main à 31 127,75 — buffer 302 $ avant le 07/10. −199 $ le 30/09 : Short MNQ 2 contrats, 49,75 pts contre toi en 13 min 54 (stop touché), sur le solde Lucid du 30/09 (49 052 $, lui-même avec 92 $ d'écart vs le calcul CSV du 29/09 à 49 144 $, non résolu). −175 $ le 29/09, entré 30 min après la perte du 001 (règle 6 respectée). Avant : −262,50 $ le 18/09, copié avec 001/002.</div>
-    </div>
-    <div class="r">
-      <div class="n">Compte …4680004 — Tradovate / Lucid (nouveau) · cramé (annoncé le 09/10)</div>
-      <div class="t">48 140,00 $ · <span style="color:var(--red)">−1 860,00 $ depuis le départ</span></div>
-      <div class="d">🔴 Cramé le 09/10 (Sébastien : « j'ai cramé le compte 004 » — pris pour le 004b) ; pas de CSV (compte mort), dernier solde connu ci-dessous. Solde Lucid du 08/10 (soir) : 48 140 $ (calcul CSV : 48 175 $, frais probables). −501 $ le 08/10 : deux trades sur l'or (MGC 3 contrats) — Short −309 $ (08h24→09h20), puis Long −192 $ (09h21→09h32) entré 55 s après la sortie du Short. −434 $ le 07/10 : Long MNQ 5 contrats +17,50 $ (5 min, plafond de 4 levé en octobre), puis Short MNQ 3 contrats −451,50 $ (1 h 01, 75 pts contre toi). −27 $ le 06/10 : Long MNQ 3 contrats, 2 h 20 (15h55→18h16), 4,5 pts contre toi — 1er trade du jour. −499 $ le 05/10 : trois Shorts MNQ (4 contrats −260 $, 5 contrats −185 $ — plafond de 4 levé en octobre —, 2 contrats −54 $) dans un marché qui montait ; « j'aurais dû prendre un long ». Buffer 53 $ (Lucid du 08/10). −297 $ le 02/10 : Long MNQ 3 contrats, 1 h 09, sans SL/TP (fermé à la main), entré 2 min 14 s après la sortie à −300 $ des 001/003 (ré-entrée précipitée, 3e signal du jour). Solde calculé : 49 933 $ Lucid du 30/09 − 297 $ − 499 $ − 27 $ − 434 $ − 501 $ ; écart de 20 $ avec le calcul CSV du 18/09 (49 953 $). Racheté et tradé dès le 17/09 — remplace l'ancien 004 cramé le 10/09.</div>
-    </div>
-    <div class="r">
-      <div class="n">Compte A — Tradovate / Lucid (nouveau)</div>
-      <div class="t">47 928,50 $ · <span style="color:var(--red)">−2 071,50 $ depuis le départ (solde de 50 000 $ supposé)</span> · mis de côté le 13/10 · sous son seuil supposé (calcul)</div>
-      <div class="d">🔴 −1 068 $ le 16/10 : trois pertes en 12 min (Short −354 $, Long −478 $, Long −236 $ en 58 s) — solde calculé 47 928,50 $, 71,50 $ sous le seuil supposé de 48 000 $ : probablement cramé, à confirmer. −456 $ le 15/10 : Short MNQ 4 contrats (18h25→18h36), alors que le A est mis de côté ; solde calculé 48 996,50 $, buffer 996,50 $. +50 $ le 09/10 : Short MNQ 2 contrats (15h39→16h55), entré pendant que le 001 était déjà Short. +1 208 $ le 08/10 (soir) : Short MNQ 4 contrats (18h46→18h51, 4 min 42), 151 pts en ta faveur — entré pendant que le 02b était déjà Short (18h43) : deux comptes en même temps (règle 8). Absent de la page Lucid : solde calculé. −255 $ le 08/10 (matin) : Short MGC (or) 3 contrats (09h34→10h13), 8,5 pts contre toi, entré 2 min 5 s après la perte du 004b. +41,50 $ le 02/10 : Short MNQ 1 contrat, 2 min 55 — 4e signal du jour (max 3), entré 3 min 33 s après la perte du 004b. −416 $ le 01/10 : Long MNQ 4 contrats, 52 pts contre toi en 18 min 17 (plafond de 4 contrats atteint pile). Toujours actif — confirmé par ce trade, malgré son absence de la liste Lucid du 30/09. Avant : ouvert et tradé le 18/09 en 8 contrats, 3 trades tous perdants, −1 176 $ à lui seul. Buffer à 449,50 $.</div>
-    </div>
-  </div>
-
-  <details style="margin-top:12px">
-    <summary style="cursor:pointer;color:var(--dim);font-size:13px;font-weight:650;letter-spacing:.04em;padding:6px 0;list-style:none">▶ Comptes clôturés (2)</summary>
-    <div class="rules" style="margin-top:10px;opacity:.7">
-      <div class="r">
-        <div class="n">Compte …4680004 — Tradovate / Lucid · clôturé</div>
-        <div class="t">48 893,00 $ au 04/09 — compte cramé et clôturé</div>
-        <div class="d">Dernier solde connu avant clôture. Retiré du suivi actif le 10/09.</div>
-      </div>
-      <div class="r">
-        <div class="n">TopstepX — Combine 50K · clôturé</div>
-        <div class="t">50 672,67 $ au 20/08 — compte cramé et clôturé</div>
-        <div class="d">Plus aucune donnée disponible sur ce compte (archivé à ta demande). Son historique de trades reste utilisé pour les règles du journal (durée de tenue, etc.) mais il n'apparaît plus dans le suivi actif ni dans les totaux de comptes.</div>
-      </div>
-    </div>
-  </details>
-  </div>
-
-</section>
-
-<section class="view" id="view-eco">
-  <div class="subnav" id="eco-subnav">
-    <button class="sn-btn active" data-sub="overview" data-nosidebar>🗓️ Calendrier &amp; taux</button>
-    <button class="sn-btn" data-sub="inflation">💰 Inflation &amp; emploi</button>
-    <button class="sn-btn" data-sub="pmi">🏭 PMI</button>
-    <button class="sn-btn" data-sub="biais">🎯 Biais marché</button>
-  </div>
-
-  <div class="subview active" data-subview="overview">
-  <p class="eyebrow">Analyses économiques</p>
-  <h1>Calendrier &amp; taux</h1>
-  <p class="sub">Contexte macro US/zone euro — données publiques (BLS, Fed, ISM, S&amp;P Global/HCOB), recoupées au moment de la rédaction. <strong style="color:var(--accent)">Données au 02/10/2026, NFP inclus.</strong> Horaires en heure de Paris. À rafraîchir chaque dimanche — dis-moi quand le faire.</p>
-
-  <div class="eco-ov-grid">
-  <div class="tool-card eco-ov-cal">
-    <div class="tool-card-title">Prochaines publications</div>
-    <div class="eco-cal">
-      <div class="eco-cal-row"><span><strong>ISM Services PMI</strong> (US, sept.)</span><span class="eco-cal-date">lun. 05/10, 16h00</span></div>
-      <div class="eco-cal-row"><span><strong>CPI</strong> (inflation US, septembre)</span><span class="eco-cal-date">mer. 14/10, 14h30 <span style="color:var(--dim);font-weight:500">(8h30 ET)</span></span></div>
-      <div class="eco-cal-row"><span><strong>PMI flash</strong> (zone euro, oct.)</span><span class="eco-cal-date">ven. 23/10, 10h00</span></div>
-      <div class="eco-cal-row"><span><strong>Décision Fed</strong> (FOMC)</span><span class="eco-cal-date">mer. 28/10, 19h00 <span style="color:var(--dim);font-weight:500">(14h00 ET)</span></span></div>
-      <div class="eco-cal-row"><span><strong>Décision BCE</strong></span><span class="eco-cal-date">jeu. 29/10, 14h15</span></div>
-    </div>
-  </div>
-
-  <div class="tool-card eco-ov-scn" style="margin-top:6px">
-    <div class="tool-card-title">Les 3 scénarios NFP — à chaque publication</div>
-
-    <div class="scn-card">
-      <div class="scn-head"><span class="scn-num">Scénario 1</span>NFP largement supérieur — beaucoup plus d'emplois créés, ex. 100 K, 120 K, 150 K, 180 K</div>
-      <div class="scn-body">Vraie surprise positive : l'économie US est solide, le marché du travail résilient, la Fed n'a nul besoin d'assouplir sa politique monétaire.</div>
-      <div class="scn-reactions">
-        <span>Dollar <b class="pos">↑ explose</b></span>
-        <span>Rendements US <b class="pos">↑</b></span>
-        <span>EUR/USD <b class="neg">↓ chute</b></span>
-        <span>Or <b class="neg">↓ chute</b></span>
-        <span>Bitcoin <b class="neg">↓ sous pression</b></span>
-        <span>Indices US <b class="neg">↓ sous pression</b></span>
-      </div>
-    </div>
-
-    <div class="scn-card">
-      <div class="scn-head"><span class="scn-num">Scénario 2</span>NFP proche des attentes — environ 80 à 100 K</div>
-      <div class="scn-body">Pas de gros choc : le marché a déjà plus ou moins intégré un ralentissement du marché du travail, réaction probablement limitée. L'important se joue ailleurs dans le rapport : le <strong>taux de chômage global</strong> et la <strong>croissance des salaires</strong> (mensuelle et annuelle) — le nombre d'emplois créés n'est pas le seul élément qui compte pour la Fed. Si l'emploi ralentit mais que les salaires restent élevés, l'inflation salariale peut continuer à poser problème.</div>
-    </div>
-
-    <div class="scn-card">
-      <div class="scn-head"><span class="scn-num">Scénario 3</span>NFP nettement inférieur — très peu d'emplois créés, ex. 50 K, 30 K, voire proche de zéro</div>
-      <div class="scn-body">Ça pourrait devenir très violent : marché du travail qui ralentit, offres d'emploi en baisse, confiance des consommateurs faible, inflation qui commence à montrer des signes de modération. Les marchés pourraient se dire que la Fed doit devenir beaucoup plus accommodante (dovish).</div>
-      <div class="scn-reactions">
-        <span>Dollar <b class="neg">↓ chute</b></span>
-        <span>Rendements US <b class="neg">↓ chutent</b></span>
-        <span>Or <b class="pos">↑ explose</b></span>
-        <span>Bitcoin <b class="pos">↑ explose</b></span>
-        <span>Indices US <b class="pos">↑ montent</b></span>
-      </div>
-    </div>
-  </div>
-
-  <div class="tool-card eco-ov-fed" style="margin-top:6px">
-    <div class="tool-card-title">Taux d'intérêt — Fed Funds Rate</div>
-    <div class="score-total" style="margin-top:0;padding-top:0;border-top:none">
-      <div>
-        <span class="score-total-num">3,75–4,00 %</span>
-        <span class="score-total-sub">fourchette cible actuelle</span>
-      </div>
-    </div>
-    <p class="eco-note">Relevée de 25 pb le 16/09/2026 (1<sup>er</sup> changement de 2026). Avant le NFP, le marché pricait ~<strong>67 %</strong> d'une nouvelle hausse le 28/10 — <strong>non rafraîchi depuis les +29 K</strong>. FOMC restants : 27–28/10, 8–9/12.</p>
-  </div>
-  </div>
-  </div>
-
-  <div class="subview" data-subview="inflation">
-  <p class="eyebrow">Analyses économiques</p>
-  <h1>Inflation &amp; emploi</h1>
-  <p class="sub">CPI et NFP, les deux chiffres qui bougent le marché le plus chaque mois.</p>
-
-  <div class="tool-card">
-    <div class="tool-card-title">Inflation — CPI (variation sur 12 mois)</div>
-    <div class="eco-strip">
-      <div class="eco-chip neg"><div class="m">Août 25</div><div class="v">2,9 %</div></div>
-      <div class="eco-chip neg"><div class="m">Sept. 25</div><div class="v">3,0 %</div></div>
-      <div class="eco-chip flat"><div class="m">Oct. 25</div><div class="v">—</div></div>
-      <div class="eco-chip neg"><div class="m">Nov. 25</div><div class="v">2,7 %</div></div>
-      <div class="eco-chip neg"><div class="m">Déc. 25</div><div class="v">2,7 %</div></div>
-      <div class="eco-chip pos"><div class="m">Jan. 26</div><div class="v">2,4 %</div></div>
-      <div class="eco-chip pos"><div class="m">Fév. 26</div><div class="v">2,4 %</div></div>
-      <div class="eco-chip neg"><div class="m">Mars 26</div><div class="v">3,3 %</div></div>
-      <div class="eco-chip neg"><div class="m">Avr. 26</div><div class="v">3,8 %</div></div>
-      <div class="eco-chip neg"><div class="m">Mai 26</div><div class="v">4,2 %</div></div>
-      <div class="eco-chip neg"><div class="m">Juin 26</div><div class="v">3,5 %</div></div>
-      <div class="eco-chip neg"><div class="m">Juil. 26</div><div class="v">3,4 %</div></div>
-      <div class="eco-chip neg" style="box-shadow:0 0 0 2px var(--accent)"><div class="m">Août 26</div><div class="v">3,4 %</div></div>
-    </div>
-    <p class="eco-note">🟢 proche de la cible Fed (2 %) · 🔴 nettement au-dessus · Octobre 2025 non trouvée. CPI cœur en août 2026 : <strong>2,4 %</strong> sur un an, +0,4 % sur le mois. Réaccélération nette entre janvier (2,4 %) et mai (4,2 %), stabilisée autour de 3,4–3,5 % depuis juin — ce qui explique la hausse de taux de la Fed en septembre plutôt qu'une baisse. Source : BLS, communiqué du 11/09/2026.</p>
-  </div>
-
-  <div class="tool-card" style="margin-top:12px">
-    <div class="tool-card-title">Emploi — Non-Farm Payrolls (NFP)</div>
-    <div class="eco-strip">
-      <div class="eco-chip pos"><div class="m">Oct. 25</div><div class="v">+210 K</div></div>
-      <div class="eco-chip pos"><div class="m">Nov. 25</div><div class="v">+150 K</div></div>
-      <div class="eco-chip pos"><div class="m">Déc. 25</div><div class="v">+215 K</div></div>
-      <div class="eco-chip flat"><div class="m">Jan.–Avr. 26</div><div class="v">—</div></div>
-      <div class="eco-chip pos"><div class="m">Mai 26</div><div class="v">+172 K</div></div>
-      <div class="eco-chip pos"><div class="m">Juin 26</div><div class="v">+57 K</div></div>
-      <div class="eco-chip neg"><div class="m">Juil. 26</div><div class="v">−23 K</div></div>
-      <div class="eco-chip pos"><div class="m">Août 26</div><div class="v">+133 K*</div></div>
-      <div class="eco-chip pos" style="box-shadow:0 0 0 2px var(--accent)"><div class="m">Sept. 26</div><div class="v">+29 K</div></div>
-    </div>
-    <p class="eco-note"><strong>C'est quoi ?</strong> Le NFP = nombre d'emplois <em>créés</em> (net) dans le mois, hors agriculture : plus il est haut, plus on embauche ; il ne mesure pas des travailleurs « en moins ». Série heurtée en 2026 : juillet négatif (−23 K), puis août +162 K à la première publication, et septembre <strong>+29 K</strong> (prévu 89 K) — publié le 02/10 avec un chômage à <strong>4,2 %</strong> (prévu 4,1 %) et des salaires horaires à <strong>+0,1 %</strong> sur le mois (prévu +0,3 %). * Août : 133 K dans ton calendrier, +162 K à la première publication — probablement révisé, à confirmer sur bls.gov. Détail et scénarios dans « Calendrier &amp; taux ».</p>
-  </div>
-  </div>
-
-  <div class="subview" data-subview="pmi">
-  <p class="eyebrow">Analyses économiques</p>
-  <h1>PMI</h1>
-  <p class="sub">Indices directeurs d'achat — le signal le plus rapide sur la santé réelle de l'économie.</p>
-
-  <div class="pmi-explain">
-    <div class="pmi-pill up">✓ <strong>Au-dessus de 50</strong> — l'économie du secteur est en expansion</div>
-    <div class="pmi-pill down">✗ <strong>En-dessous de 50</strong> — le secteur se contracte</div>
-  </div>
-
-  <div class="tool-card">
-    <div class="tool-card-title">US vs zone euro</div>
-    <div class="tbl-wrap"><table class="pg-tbl eco-tbl">
-      <thead><tr><th>Indice</th><th>Valeur</th><th>🟢 depuis</th><th>Prochaine publication</th></tr></thead>
-      <tbody>
-        <tr><td>🇺🇸 ISM Manufacturing (sept.)</td><td class="pos"><b>54,5</b></td><td>janv. 2026 (9 mois)</td><td class="eco-cal-date" style="font-size:12px">lun. 02/11, ~16h00</td></tr>
-        <tr><td>🇺🇸 ISM Services (mai)</td><td class="pos">54,5</td><td style="color:var(--dim)">non confirmé</td><td class="eco-cal-date" style="font-size:12px">lun. 05/10, 16h00</td></tr>
-        <tr><td>🇪🇺 HCOB Manufacturing (sept.)</td><td class="pos"><b>52,9</b></td><td>févr. 2026 (8 mois)</td><td class="eco-cal-date" style="font-size:12px">ven. 23/10, 10h00 (flash)</td></tr>
-        <tr><td>🇪🇺 HCOB Services (sept.)</td><td class="pos"><b>53,0</b></td><td style="color:var(--dim)">non confirmé</td><td class="eco-cal-date" style="font-size:12px">ven. 23/10, 10h00 (flash)</td></tr>
-        <tr><td>🇪🇺 HCOB Composite (sept.)</td><td class="pos"><b>53,1</b></td><td>juil. 2026 (3 mois)</td><td class="eco-cal-date" style="font-size:12px">ven. 23/10, 10h00 (flash)</td></tr>
-      </tbody>
-    </table></div>
-    <p class="eco-note">ISM Manufacturing américain à 54,5 en septembre (vs 54,6 en août, 9ᵉ mois d'expansion d'affilée depuis janvier). HCOB Manufacturing zone euro en expansion plus courte (8 mois, depuis février — sorti de 3 mois de contraction) mais le Composite accélère, 53,1, son meilleur rythme en ~3,5 ans. Les deux sont en expansion, mais la dynamique s'inverse : l'US ralentit légèrement pendant que la zone euro accélère. Vu isolément, ça devrait plutôt soutenir l'euro — voir « Biais marché » → EUR/USD pour pourquoi ce n'est pas ce qui domine en ce moment.</p>
-  </div>
-  </div>
-
-  <div class="subview" data-subview="biais">
-  <p class="eyebrow" style="margin-bottom:2px">Analyses économiques</p>
-  <h1 style="font-size:22px;margin-bottom:4px">Biais marché</h1>
-  <p class="sub" style="font-size:12.5px;margin-bottom:10px">Lecture du contexte macro/technique du moment — à vérifier toi-même avant d'agir, pas une consigne de trade.</p>
-
-  <div class="mkt-card">
-    <div class="mkt-head">
-      <div class="mkt-title"><span class="mkt-icon">🥇</span> Or (XAU/USD)</div>
-      <span class="bias-badge bear">🔻 Baissier</span>
-    </div>
-    <p class="eco-note" style="font-size:12px;line-height:1.45;color:var(--txt)">Prix autour de 4 176 $ après avoir cassé le support des 4 200 $ (−2,1 % la semaine précédente). Les rendements du Trésor US à 10 ans, au plus haut depuis plus de 20 ans (~5,3 %), et un pétrole cher pèsent sur l'or malgré une inflation un peu plus docile. Une clôture journalière sous 4 200 $ renforcerait le signal baissier vers 4 000 $.</p>
-    <div class="mkt-levels"><span>Support : <b>4 000 $</b></span><span>Résistance : <b>4 300 $</b></span><span>Invalidation : clôture au-dessus de 4 300 $</span></div>
-  </div>
-
-  <div class="mkt-card">
-    <div class="mkt-head">
-      <div class="mkt-title"><span class="mkt-icon">🛢️</span> Pétrole (WTI)</div>
-      <span class="bias-badge neutral">↔️ Volatil, biais haussier</span>
-    </div>
-    <p class="eco-note" style="font-size:12px;line-height:1.45;color:var(--txt)">Tensions géopolitiques élevées (risques de frappes sur des infrastructures pétrolières) et offre resserrée poussent vers le haut, avec une volatilité forte attendue toute la semaine. Les analystes voient une fourchette large en octobre, avec un risque haussier vers 100 $ si la prime géopolitique s'accentue.</p>
-    <div class="mkt-levels"><span>Plancher attendu : <b>82,50 $</b></span><span>Plafond attendu : <b>97,50 $</b></span><span>Niveau psychologique : <b>100 $</b></span></div>
-  </div>
-
-  <div class="mkt-card">
-    <div class="mkt-head">
-      <div class="mkt-title"><span class="mkt-icon">💶</span> EUR/USD</div>
-      <span class="bias-badge bear">🔻 Baissier</span>
-    </div>
-    <p class="eco-note" style="font-size:12px;line-height:1.45;color:var(--txt)">Support clé entre 1,1360 et 1,1370 : une cassure ouvrirait la voie vers 1,1300 et plus bas. Le DXY (indice dollar, où l'euro pèse environ 57,6 % du panier — corrélation inverse quasi mécanique) est au plus haut depuis 2025 (~101,6–102), porté par des rendements US à leur plus haut en deux décennies et les anticipations de hausse de la Fed. Paradoxe à noter : les PMI zone euro accélèrent plus vite que les PMI US en ce moment (onglet PMI), ce qui devrait normalement soutenir l'euro — mais l'écart de rendements/taux domine largement cette dynamique pour l'instant. Semaine à risque : Fed le 28/10 et BCE le 29/10, décisions à moins de 24h d'intervalle.</p>
-    <div class="mkt-levels"><span>Support : <b>1,1300–1,1360</b></span><span>Résistance : <b>1,1500</b></span><span>DXY : <b>~101,6–102</b> (plus haut depuis 2025)</span></div>
-  </div>
+  <div id="brief-comptes-clair"></div>
   </div>
 
 </section>
@@ -2491,6 +2130,7 @@ window.COMPTES = [
     mll: 49186,
     maxContrats: null,
     note: "−500 $ le 19/10 : Short MNQ 4 contrats (15h40→15h43, 62,5 pts contre toi en 3 min 13 : pile le budget de 500 $) — solde calculé 51 623 $ − 500 $ = 51 123 $, frais non déduits ; buffer 1 937 $ avec le seuil connu de 49 186 $ (il a pu remonter : drawdown EOD). +1 252 $ le 16/10 : Long MNQ 4 contrats −364 $ (16h17→16h26), Long +368 $ (16h34→16h51), Short +1 248 $ (16h57→17h10, 156 pts en ta faveur en 12 min) — solde calculé 50 371 $ + 1 252 $ = 51 623 $, frais non déduits ; buffer 2 437 $ avec le seuil connu de 49 186 $, qui a pu remonter (drawdown EOD : Lucid le dira). −240 $ le 15/10 : Short MNQ 4 contrats (17h29→18h00, 30 pts contre toi en 30 min 58) — solde calculé 50 611 $ − 240 $ = 50 371 $, frais non déduits ; buffer 1 185 $. +536 $ le 13/10 : Short MNQ 4 contrats (16h19→17h58, 67 pts en ta faveur en 1 h 38) ; TP déplacé en position selon toi (règle 5) — solde calculé 50 075 $ (Lucid du 13/10, avant ce trade) + 536 $ = 50 611 $, frais (≈ 4 $) non déduits ; buffer 1 425 $. Lucid du 13/10 (avant le trade) : 50 075 $ (+75 $ depuis le départ, cible 53 000 $), seuil 49 186 $ (buffer 889 $), 28 jours de trading — 4 $ sous le calcul CSV (50 079 $), frais probables du trade du 09/10 : l’écart de 38 $ du 08/10 n’existe plus. +378 $ le 09/10 : Short MNQ 4 contrats (15h35→17h18, 47,25 pts en ta faveur en 1 h 42) — solde calculé 49 701 $ (Lucid, 08/10) + 378 $ = 50 079 $, frais non déduits ; buffer 893 $. Lucid du 08/10 (soir) : 49 701 $, seuil 49 186 $ (buffer 515 $), 27 jours de trading, « Done For Day » ; le calcul CSV donnait 49 663 $ — Lucid est 38 $ au-dessus, écart que je n'explique pas (les frais joueraient dans l'autre sens). −332,50 $ le 08/10 : Long MNQ 5 contrats, 53 s (15h35:04→15h35:58), entré à 31 258,50 et sorti à 31 225,25 (33,25 pts contre toi). −90 $ le 07/10 : Long MNQ 3 contrats, 7 min (17h48→17h56), entré à 31 363,00 et sorti à 31 348,00 (15 pts contre toi). −85 $ le 05/10 : Short MNQ 2 contrats, 22 min (20h38→21h01), entré à 31 307,75 et sorti à 31 329,00 (21,25 pts contre toi) — compté comme trade, 4e du jour. −32,50 $ le 05/10 : 13 allers-retours de 1 à 2 secondes (bug de plateforme : 2 signalés par toi le 05/10, 11 rangés avec par application de ta consigne — à confirmer), exclus des statistiques mais réellement débités du solde. Solde calculé avant Lucid : 50 203 $ − 117,50 $ − 90 $ − 332,50 $ = 49 663 $. −300 $ le 02/10 : même Long MNQ 3 contrats que 003 et 006, saisi à la main (entrée 15h44:59, sans SL/TP, fermé à la main à 15h55:36 à 31 127,75, −50 pts). Solde calculé : 50 503 $ − 300 $ (Lucid non consulté depuis le 30/09). Avant : solde Lucid du 30/09 avec 196 $ d'écart vs le calcul CSV du 29/09 (50 699,25 $), à surveiller. −263 $ le 29/09 (Short MNQ 2 contrats, 65,75 pts contre toi en 41 min), +742 $ le 28/09.",
+    court: "Seuil de 49 186 $ : dernier connu, il a pu monter (à vérifier sur Lucid).",
     aConfirmer: null
   },
   {
@@ -2529,6 +2169,7 @@ window.COMPTES = [
     mll: 48000,
     maxContrats: null,
     note: "Le 16/10, le 001, le 02b et le A ont tous tradé : ils ne sont pas le compte cramé annoncé le 15/10, ce qui renforce l’hypothèse du 005b. Le 15/10, Sébastien annonce un compte cramé sans le nommer (« il ne m’en reste que 2 ») : d’après mes calculs, ni le 001 (marge 1 185 $), ni le 02b (370 $), ni le A (996,50 $) n’est sous son seuil — il s’agirait donc du 005b, dont je n’ai aucun CSV. Non confirmé : son statut reste inchangé. Lucid du 13/10 : 49 524 $ (−476 $ depuis le départ), seuil 48 000 $ (buffer 1 524 $), 6 jours de trading : +48 $ et un jour de trading de plus que le 08/10 (49 476 $, 5 jours). Quel jour ? Je l’ignore et je n’ai aucun CSV (ni du 09/10, que tu me dis sans trade sur ce compte, ni du 12 ou du 13/10). Lucid du 08/10 (soir) : 49 476 $, seuil 48 000 $ (buffer 1 476 $), 5 jours de trading — soit +676 $ et 4 jours de trading depuis le 30/09 (48 800 $, 1 jour), sur lesquels je n'ai AUCUN CSV. Sébastien (08/10, soir) : « +944 $ de P&L aujourd'hui » sur ce compte — déjà compris dans les 49 476 $ de Lucid (confirmé par Sébastien) ; CSV non reçu. Identifié le 08/10 comme le compte vivant : LFE05085004680005 sur la page Lucid du 30/09 — actif, 48 800 $, seuil 48 000 $, 1 jour de trading ; l'ancien 005 (LTE…) n'y figure pas. Ancien solde du 30/09 (voir plus haut le solde Lucid du 08/10). 1 jour de trading (29/09), tailles de lots variables — Sébastien : « j'ai fait n'importe quoi » — → −1 200 $ en une seule séance, pile la limite journalière (DLL 1 200 $). Pas de CSV Tradovate reçu pour cette séance : impossible de détailler les trades un par un tant que l'export n'est pas envoyé.",
+    court: "Cramé ? Non confirmé : aucun CSV depuis le 08/10, solde Lucid du 13/10.",
     aConfirmer: "Est-ce bien le 005b qui est cramé (le 15/10) ? Si oui, son solde final sur Lucid ; sinon, quel compte ? Les exports Tradovate (Performance CSV) des jours de trading de ce compte (Lucid du 13/10 : 6 jours, −476 $ ; dont +944 $ le 08/10 et +48 $ un jour non identifié depuis), pour détailler les trades comme sur les autres comptes."
   }
 ];
@@ -3294,7 +2935,7 @@ window.DAY_NOTES = {
     var fromHash = (window.location.hash || '').slice(1);
     // #onglet/sous-page (menu des pages de séance) : la sous-page est mémorisée avant l'initialisation des sous-onglets, qui la restaure
     var hp = fromHash.split('/'), hView = hp[0], hSub = hp[1] || null;
-    var SUBNAV_OF = { dashboard: 'dash-subnav', brief: 'brief-subnav', eco: 'eco-subnav', regles: 'regles-subnav' };
+    var SUBNAV_OF = { dashboard: 'dash-subnav', brief: 'brief-subnav', regles: 'regles-subnav' };
     if(hSub && SUBNAV_OF[hView]){
       try{ localStorage.setItem('journal-subnav-' + SUBNAV_OF[hView], hSub); }catch(e){}
       window.addEventListener('load', function(){   // si le stockage local est indisponible : on clique la sous-page une fois tout chargé
@@ -3372,77 +3013,7 @@ window.DAY_NOTES = {
   }
   window.setComptesSort = setComptesSort;  // appelé depuis l'attribut onclick du bouton — hors de portée de cette IIFE sinon
 
-  function comptes(){
-    var host = document.getElementById('comptes');
-    if(!host || !window.COMPTES) return;
-    var h = '<div class="sf-filters">'
-      + '<button class="sf-filter' + (COMPTES_SORT==='gain'?' active':'') + '" data-sort="gain">Par gain</button>'
-      + '<button class="sf-filter' + (COMPTES_SORT==='num'?' active':'') + '" data-sort="num">Par numéro</button>'
-      + '</div>';
-    h += '<div class="acct-list">';
-    sortedComptes().forEach(function(c){
-      var badge, cls;
-      if(c.statut === 'funded'){ badge = 'Financé'; cls = 'pos'; }
-      else if(c.statut === 'evaluation' && !c.ecarte){ badge = c.statutLabel; cls = 'gold'; }
-      else { badge = c.statutLabel; cls = 'dim'; }
-
-      var gain = (c.solde !== null && c.depart !== null) ? c.solde - c.depart : null;
-      var marge = (c.solde !== null && c.mll !== null && !(c.statut === 'breached' && c.buffer === undefined)) ? c.solde - c.mll : null;   // cramé sans solde final connu (ex. 004b, 09/10) : pas de marge à afficher
-
-      h += '<div class="ar">';
-      h += '<div class="ar-top">';
-      h += '<div class="ar-id"><span class="ar-name">' + c.nom + '</span>'
-         + '<span class="ar-badge ' + cls + '">' + badge + '</span>'
-         + (c.reference ? '<span class="ar-ref">' + c.reference + '</span>' : '') + '</div>';
-      h += '<div class="ar-bal' + (gain !== null && gain < 0 ? ' neg' : (gain !== null ? ' pos' : '')) + '">'
-         + (c.solde !== null ? fmt(c.solde, 2) + ' ' + c.devise : '—') + '</div>';
-      h += '</div>';
-
-      var subBits = [];
-      subBits.push(c.soldeDate ? 'au ' + c.soldeDate : 'aucun relevé');
-      if(gain !== null) subBits.push('<b class="' + (gain >= 0 ? 'pos' : 'neg') + '">' + dollars(gain, 2) + ' depuis le départ</b>');
-      if(c.pnlJour !== undefined) subBits.push('jour <b class="' + (c.pnlJour >= 0 ? 'pos' : 'neg') + '">' + dollars(c.pnlJour, 2) + '</b>');
-      if(marge !== null) subBits.push('marge <b class="' + (marge < 500 ? 'neg' : '') + '">' + fmt(marge, 2) + ' ' + c.devise + '</b>');
-      if(c.maxContrats) subBits.push('max ' + c.maxContrats);
-      h += '<div class="ar-sub">' + subBits.join(' · ') + '</div>';
-
-      // Barre objectif de validation (au-dessus de 50k)
-      if(c.objectif !== null && c.solde !== null && c.solde >= c.depart){
-        var manque = c.objectif - c.solde;
-        var done = c.solde - c.depart;
-        var total = c.objectif - c.depart;
-        var pctObj = Math.min(100, Math.max(0, done / total * 100));
-        var validated = manque <= 0;
-        h += '<div class="ar-buf">';
-        h += '<div class="ar-buf-label"><span>Validation à $' + fmt(c.objectif,0) + '</span>'
-           + '<span class="' + (validated?'pos':'') + '">'
-           + (validated ? '✅ À valider !' : '+' + fmt(manque,0) + ' $ restants')
-           + '</span></div>';
-        h += '<div class="ar-buf-track"><div class="ar-buf-fill safe" style="width:' + pctObj.toFixed(1) + '%"></div></div>';
-        h += '</div>';
-      }
-      // Buffer bar clôture
-      if(c.buffer !== undefined && c.seuil !== undefined){
-        var buf = c.buffer;
-        var maxBuf = 2600;
-        var pct = Math.min(100, Math.max(0, buf / maxBuf * 100));
-        var barCls = buf < 500 ? 'crit' : (buf < 1200 ? 'warn' : 'safe');
-        h += '<div class="ar-buf">';
-        h += '<div class="ar-buf-label"><span>Buffer avant clôture ($' + fmt(c.seuil,0) + ')</span><span class="' + (barCls==='crit'?'neg':barCls==='warn'?'':'pos') + '">' + (buf>=0?'+':'') + fmt(buf,0) + ' $</span></div>';
-        h += '<div class="ar-buf-track"><div class="ar-buf-fill ' + barCls + '" style="width:' + pct.toFixed(1) + '%"></div></div>';
-        h += '</div>';
-      }
-      if(c.verrouille) h += '<div class="ar-ask" style="background:rgba(224,85,79,.10);border-color:rgba(224,85,79,.35);color:#FFB6B8">🔒 ' + c.verrouille + '</div>';
-      if(c.note)        h += '<div class="ar-note">' + c.note + '</div>';
-      if(c.aConfirmer)  h += '<div class="ar-ask">À me confirmer : ' + c.aConfirmer + '</div>';
-      h += '</div>';
-    });
-    h += '</div>';
-    host.innerHTML = h;
-    host.querySelectorAll('.sf-filter').forEach(function(btn){
-      btn.addEventListener('click', function(){ setComptesSort(btn.dataset.sort); });
-    });
-  }
+  function comptes(){ if(window.renderComptesClair) window.renderComptesClair(); }   // cartes des comptes : voir le script « Comptes — vue claire »
 
   /* ---------- Simulation R:R 2:1 pour les trades sans R:R noté (règle 1 : minimum 2:1) ---------- */
   var RR_SIMULATE = false;
@@ -3643,20 +3214,16 @@ window.DAY_NOTES = {
     h += kpi('Pire séance', fmt(worst.pnl, 2) + ' $', worst.jour, 'neg');
     h += '</div>';
 
-    // ── Discipline tracker ──
+    // ── Discipline : résumé court, détail replié ──
     h += '<div class="big" style="margin-top:20px;border-color:' + (violations.length === 0 ? 'rgba(60,180,100,.4)' : 'rgba(220,60,60,.4)') + '">';
     h += '<div class="l">Discipline</div>';
     h += '<div class="t">' + violPct + ' % des séances avec une violation de règle</div>';
-    h += '<div class="d">';
-    h += '<strong>' + violations.length + ' séances sur ' + traded.length + '</strong> tradées ont au moins une violation (' + cleanDays + ' sans).';
-    if(evalDays.length){
-      h += '<br>Depuis le ' + evalDays[0].jour + ', où le respect du plan est évalué séance par séance : <strong>' + evalViol + ' sur ' + evalDays.length + ' hors plan (' + Math.round(evalViol / evalDays.length * 100) + ' %)</strong>. Avant cette date, ce sont les violations écrites dans les notes de séance.';
-    }
+    h += '<div class="d"><strong>' + violations.length + ' sur ' + traded.length + '</strong> séances tradées.';
+    if(evalDays.length) h += ' Depuis le ' + evalDays[0].jour + ' : <strong>' + evalViol + ' sur ' + evalDays.length + ' hors plan (' + Math.round(evalViol / evalDays.length * 100) + ' %)</strong>.';
     if(violations.length){
-      h += '<br><br><strong>Détail des violations :</strong><br>';
-      violations.forEach(function(s){
-        h += '· <strong>' + s.jour + '</strong> — ' + (s.planWhy || s.note) + '<br>';
-      });
+      h += '<details style="margin-top:8px"><summary style="cursor:pointer;color:var(--muted)">Voir le détail des violations</summary><div style="margin-top:6px">';
+      violations.forEach(function(s){ h += '· <strong>' + s.jour + '</strong> — ' + (s.planWhy || s.note) + '<br>'; });
+      h += '</div></details>';
     }
     h += '</div></div>';
 
@@ -4137,7 +3704,7 @@ window.DAY_NOTES = {
 
   document.addEventListener('DOMContentLoaded', function(){
     analyse(); renderSessions(); comptes(); risque();
-    initSubnav('dash-subnav'); initSubnav('brief-subnav'); initSubnav('eco-subnav'); initSubnav('regles-subnav');
+    initSubnav('dash-subnav'); initSubnav('brief-subnav'); initSubnav('regles-subnav');
   });
 })();
 </script>
@@ -4450,92 +4017,6 @@ window.DAY_NOTES = {
     host.innerHTML = h;
   }
   document.addEventListener('DOMContentLoaded', build);
-})();
-</script>
-<script>/* Page « Par instrument » — rendue depuis window.PAR_INSTRUMENT (généré par csv/calc-instruments.js) */
-(function(){
-  var ICON = {'MNQ':'📈','Or':'🥇','Pétrole':'🛢️','Euro':'💶'};
-  var DESC = {'MNQ':'Micro Nasdaq','Or':'Or','Pétrole':'Pétrole','Euro':'Euro FX (6E)'};
-  function money(v){ return (v > 0 ? '+' : (v < 0 ? '−' : '')) + Math.round(Math.abs(v)).toLocaleString('fr-FR') + ' $'; }
-  function cls(v){ return v > 0 ? 'pos' : (v < 0 ? 'neg' : ''); }
-  function row(l, v, c){ return '<div class="ins-row"><span>' + l + '</span><b' + (c ? ' class="' + c + '"' : '') + '>' + v + '</b></div>'; }
-  function build(){
-    var D = window.PAR_INSTRUMENT, host = document.getElementById('instr');
-    if(!D || !host) return;
-    var items = D.items.map(function(o){
-      return Object.assign({}, o, { moy: o.n ? o.pnl / o.n : 0, gm: o.w ? o.gains / o.w : 0, pm: o.l ? o.pertes / o.l : 0 });
-    });
-    var worst = items[0];
-    var worstPer = items.slice().sort(function(a, b){ return a.moy - b.moy; })[0];
-    var maxAbs = Math.max.apply(null, items.map(function(o){ return Math.abs(o.pnl); })) || 1;
-    var sum = [];
-    if(worst.pnl < 0){
-      sum.push('<strong>En dollars, c’est ' + worst.id + '</strong> qui te coûte le plus : <b class="neg">' + money(worst.pnl) + '</b>'
-        + (D.pnl < 0 ? ' (' + Math.round(worst.pnl / D.pnl * 100) + ' % de la perte nette des trades : ' + money(D.pnl) + ')' : '')
-        + ' — sur ' + worst.n + ' signaux, soit ' + Math.round(worst.n / D.signaux * 100) + ' % de tous tes trades.');
-    }
-    if(worstPer.id !== worst.id && worstPer.moy < 0){
-      sum.push('<strong>Par signal, c’est ' + worstPer.id + '</strong> qui pèse le plus : <b class="neg">' + money(worstPer.moy) + '</b> en moyenne, contre '
-        + money(worst.moy) + ' pour ' + worst.id + '. ' + worstPer.w + ' gagnants sur ' + worstPer.n + ' (' + Math.round(worstPer.w / worstPer.n * 100)
-        + ' %), mais gain moyen ' + money(worstPer.gm) + ' contre perte moyenne ' + money(-worstPer.pm) + '.');
-    }
-    items.filter(function(o){ return o.pnl > 0; }).forEach(function(o){
-      sum.push('<strong>' + o.id + '</strong> est dans le vert : <b class="pos">' + money(o.pnl) + '</b> — ' + o.w + ' gagnants sur ' + o.n
-        + ' seulement ; le meilleur signal pèse ' + money(o.meilleur) + ' sur ' + money(o.gains) + ' de gains.');
-    });
-    var petits = items.filter(function(o){ return o.n < 30; });
-    if(petits.length){
-      sum.push('<span style="color:var(--muted)">Petits échantillons : ' + petits.map(function(o){ return o.id + ' ' + o.n; }).join(', ')
-        + ' signaux (' + worst.id + ' ' + items.filter(function(o){ return o.n >= 30; }).map(function(o){ return o.n; }).join('/') + ') — à lire avec prudence.</span>');
-    }
-    var SN = D.sens, strip = '';
-    if(SN && SN.Long && SN.Short){
-      var L = SN.Long, S = SN.Short, tN = L.n + S.n || 1;
-      var pct = function(w, n){ return n ? Math.round(w / n * 100) + ' %' : '—'; };
-      var shL = Math.round(L.n / tN * 100), shS = 100 - shL;
-      var wrL = L.n ? L.w / L.n : 0, wrS = S.n ? S.w / S.n : 0;
-      var hi = wrL >= wrS ? 'Long' : 'Short';
-      var eq = Math.abs(L.n - S.n) / tN <= 0.2;
-      sum.unshift('<strong>Long ou Short ?</strong> ' + (eq ? 'Tu prends à peu près autant de Long que de Short' : 'Tu prends plus de ' + (L.n > S.n ? 'Long' : 'Short') + ' que de ' + (L.n > S.n ? 'Short' : 'Long'))
-        + ' : ' + L.n + ' Long (' + shL + ' %) contre ' + S.n + ' Short (' + shS + ' %). Les ' + hi + ' gagnent plus souvent (' + pct(hi === 'Long' ? L.w : S.w, hi === 'Long' ? L.n : S.n)
-        + ' contre ' + pct(hi === 'Long' ? S.w : L.w, hi === 'Long' ? S.n : L.n) + ' de gagnants). Résultat net : <b class="' + cls(L.pnl) + '">' + money(L.pnl) + '</b> en Long, <b class="' + cls(S.pnl) + '">' + money(S.pnl) + '</b> en Short.');
-      var col = function(nom, o, sh){
-        return '<div class="ls-col"><div class="ls-t">' + nom + ' · ' + o.n + ' signaux (' + sh + ' %)</div>'
-          + '<div class="ls-pnl ' + cls(o.pnl) + '">' + money(o.pnl) + '</div>'
-          + row('Gagnants', o.w + ' / ' + o.n + ' (' + pct(o.w, o.n) + ')')
-          + row('Moyenne par signal', money(o.n ? o.pnl / o.n : 0), cls(o.pnl))
-          + row('Gain moy. / perte moy.', money(o.w ? o.gains / o.w : 0) + ' / ' + money(o.l ? -o.pertes / o.l : 0)) + '</div>';
-      };
-      strip = '<div class="ls-strip"><div class="ls-head"><span style="color:var(--txt);font-size:13px;font-weight:700">↕️ Long ou Short</span><span>' + L.n + ' Long · ' + S.n + ' Short</span></div>'
-        + '<div class="ls-bar" title="Part de Long parmi les signaux"><i style="width:' + shL + '%"></i></div>'
-        + '<div class="ls-cols">' + col('Long', L, shL) + col('Short', S, shS) + '</div></div>';
-    }
-    var h = '<div class="ins-sum">' + sum.map(function(p){ return '<p>' + p + '</p>'; }).join('') + '</div>' + strip + '<div class="ins-grid">';
-    items.forEach(function(o){
-      var isWorst = (o === worst && o.pnl < 0);
-      var sub = o.sous.length > 1
-        ? o.sous.map(function(s){ return s[0] + ' <b class="' + cls(s[1]) + '">' + money(s[1]) + '</b>'; }).join(' · ')
-        : (DESC[o.id] || '');
-      var badges = (isWorst ? '<span class="ins-badge">perd le plus</span>' : '')
-        + ((o.id === worstPer.id && !isWorst && o.moy < 0) ? '<span class="ins-badge">pire par trade</span>' : '');
-      h += '<div class="ins-card' + (isWorst ? ' worst' : '') + '">'
-        + '<div class="ins-head"><span class="ins-ic">' + (ICON[o.id] || '') + '</span>' + o.id + badges + '</div>'
-        + '<div class="ins-sub">' + sub + '</div>'
-        + '<div class="ins-pnl ' + cls(o.pnl) + '">' + money(o.pnl) + '</div>'
-        + '<div class="ins-bar"><i class="' + (o.pnl < 0 ? 'neg' : 'pos') + '" style="width:' + Math.max(2, Math.round(Math.abs(o.pnl) / maxAbs * 100)) + '%"></i></div>'
-        + row('Signaux', o.n + ' (' + Math.round(o.n / D.signaux * 100) + ' %)')
-        + row('Gagnants', o.w + ' / ' + o.n + ' (' + Math.round(o.w / o.n * 100) + ' %)')
-        + row('Gain moy. / perte moy.', money(o.gm) + ' / ' + money(-o.pm))
-        + row('Moyenne par signal', money(o.moy), cls(o.moy))
-        + row('Pire / meilleur', money(o.pire) + ' / ' + money(o.meilleur))
-        + (o.sens ? row('Long / Short', o.sens.Long.n + ' / ' + o.sens.Short.n) : '')
-        + '</div>';
-    });
-    h += '</div><p class="ins-note">' + D.du + ' → ' + D.au + ' · ' + D.fichiers + ' fichiers CSV (csv/comptes) · ' + D.signaux + ' signaux, P&amp;L net ' + money(D.pnl)
-      + ' (somme des trades de tous les comptes, cramés compris — pas le « Net P&amp;L » du tableau de bord, qui ne compte que les comptes actifs) · copy-trading compté 1 fois · gagnant = P&amp;L du signal &gt; 0, comme les autres cartes — les 2 break-even du 23/09 y sont donc comptés gagnants · Long = acheté avant d’être vendu, Short = l’inverse · TopstepX (clôturé, sans CSV) exclu · 13 allers-retours de bug du 05/10 (001, −32,50 $) exclus · recalcul : <code>node csv/calc-instruments.js</code></p>';
-    host.innerHTML = h;
-  }
-  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', build); else build();
 })();
 </script>
 <script>/* Économie & risque (Tableau de bord) — tout est calculé dans la page, rien à recopier à chaque séance :
@@ -4856,6 +4337,51 @@ window.DAY_NOTES = {
   if(document.readyState === "loading") document.addEventListener("DOMContentLoaded", fill); else fill();
 })();
 </script>
+<script>/* Comptes — vue claire (Tableau de bord → Comptes & Analyse, Avant la séance → Comptes) : rendue depuis window.COMPTES et window.netActifs(),
+   rien à recopier à la main. Un compte actif = une carte (solde, résultat, objectif +3 000 $, marge avant la perte du compte, une ligne d'alerte
+   facultative : champ `court`) ; les autres comptes sont repliés dans une liste. */
+(function(){
+  var LBL = { "Compte 01": "001", "Compte 03": "003", "Compte 04b": "004b", "Compte 02b": "02b", "Compte A": "A", "Compte 06": "006", "Compte 02": "002", "Compte 05": "005", "Compte 05b": "005b" };
+  var CIBLE = 3000, PERTE_MAX = 2000;   // objectif par compte, perte maximale par compte (Sébastien, 08/10)
+  function fr(v, d){ return Math.abs(v).toLocaleString("fr-FR", { minimumFractionDigits: d || 0, maximumFractionDigits: d || 0 }); }
+  function usd(v, d){ return (v > 0.004 ? "+" : (v < -0.004 ? "−" : "")) + fr(v, d) + " $"; }
+  function esc(t){ return String(t).replace(/&/g, "&amp;").replace(/</g, "&lt;"); }
+  function card(x){
+    var c = x.c, gain = c.solde - c.depart, buf = c.buffer;
+    var pObj = Math.max(0, Math.min(100, gain / CIBLE * 100));
+    var barCls = buf < 500 ? "crit" : (buf < 1200 ? "warn" : "safe");
+    var pBuf = Math.max(0, Math.min(100, buf / PERTE_MAX * 100));
+    return '<div class="cc-card">'
+      + '<div class="cc-top"><span class="cc-name">' + esc(x.l) + '</span><span class="cc-state">' + esc(c.statutLabel || "") + '</span></div>'
+      + '<div class="cc-bal">' + fr(c.solde) + ' $</div>'
+      + '<div class="cc-gain ' + (gain >= 0 ? "pos" : "neg") + '">' + usd(gain) + ' depuis le départ</div>'
+      + '<div class="cc-row"><span>Objectif +' + fr(CIBLE) + ' $</span><b>' + Math.round(pObj) + ' %</b></div>'
+      + '<div class="ar-buf-track"><div class="ar-buf-fill safe" style="width:' + pObj.toFixed(1) + '%"></div></div>'
+      + (buf !== undefined ? '<div class="cc-row"><span>Marge avant perte du compte</span><b class="' + (barCls === "crit" ? "neg" : "") + '">' + fr(buf) + ' $</b></div>'
+        + '<div class="ar-buf-track"><div class="ar-buf-fill ' + barCls + '" style="width:' + pBuf.toFixed(1) + '%"></div></div>' : "")
+      + (c.court ? '<div class="cc-flag">' + esc(c.court) + '</div>' : "")
+      + '<div class="cc-date">solde au ' + esc((c.soldeDate || "").slice(0, 5)) + '</div>'
+      + '</div>';
+  }
+  function render(){
+    var N = window.netActifs && window.netActifs(), C = window.COMPTES || [];
+    if(!N || !N.n) return;
+    var marge = N.act.reduce(function(t, x){ return t + (x.c.buffer || 0); }, 0);
+    var h = '<div class="cc-sum"><div><span>Résultat</span><b class="' + (N.net < 0 ? "neg" : (N.net > 0 ? "pos" : "")) + '">' + usd(N.net) + '</b></div>'
+      + '<div><span>Objectif</span><b>+' + fr(CIBLE * N.n) + ' $</b></div>'
+      + '<div><span>Marge restante</span><b>' + fr(marge) + ' $</b></div></div>';
+    h += '<div class="cc-grid">' + N.act.slice().sort(function(a, b){ return parseInt(a.l, 10) - parseInt(b.l, 10); }).map(card).join("") + '</div>';   // par numéro de compte
+    var autres = N.out.map(function(o){
+      var c = C.filter(function(y){ return (LBL[y.ref] || y.ref.replace("Compte ", "")) === o.l; })[0];
+      var etat = o.why + (c && c.buffer !== undefined && c.buffer <= 0 && o.why === "mis de côté" ? " · sous son seuil (calcul)" : "");
+      return '<tr><td>' + esc(o.l) + '</td><td>' + esc(etat) + '</td><td>' + (c && c.solde != null ? fr(c.solde) + " $" : "—") + '</td></tr>';
+    }).join("");
+    h += '<details class="cc-others"><summary>Comptes cramés, clos ou mis de côté (' + N.out.length + ')</summary><table class="cc-tbl"><tbody>' + autres + '</tbody></table></details>';
+    ["comptes", "brief-comptes-clair"].forEach(function(id){ var e = document.getElementById(id); if(e) e.innerHTML = h; });
+  }
+  window.renderComptesClair = render;
+})();
+</script>
 <script>/* R & % par compte (Tableau de bord → Comptes & Analyse) — P&L jour par jour : window.PAR_COMPTE (csv/calc-comptes.js) ;
    budget de risque du jour : window.budgetOf (script Progression) ; soldes : window.COMPTES */
 (function(){
@@ -4884,7 +4410,8 @@ window.DAY_NOTES = {
       var res = c.solde - c.depart;
       return { label: m[2], c: c, lucid: !m[1], pnl: pnl, r: r, off: off, pct: (c.solde / c.depart - 1) * 100, gap: res - pnl, dead: c.statut === 'breached' || c.clos || c.ecarte || (c.buffer !== undefined && c.buffer <= 0) };
     }).filter(Boolean);
-    rows.sort(function(a, b){ return (a.dead - b.dead) || (b.pct - a.pct); });
+    rows = rows.filter(function(x){ return !x.dead; });   // les comptes cramés, clos ou mis de côté sont repliés dans la page Comptes
+    rows.sort(function(a, b){ return b.pct - a.pct; });
     var tot = { pnl: 0, r: 0 };
     var h = '<div class="rc-wrap"><table class="rc-tbl"><thead><tr><th>Compte</th><th>État</th><th>Solde</th><th>% du compte</th><th>R cumulé</th><th>P&amp;L CSV</th></tr></thead><tbody>';
     rows.forEach(function(x){
@@ -4897,7 +4424,6 @@ window.DAY_NOTES = {
         + '<td class="' + cls(x.r) + '">' + rs(x.r) + '</td>'
         + '<td class="' + cls(x.pnl) + '">' + (x.lucid ? usd(x.pnl) + ' <span class="rc-gap" title="Pas de CSV pour ce compte : résultat du 29 septembre repris de Lucid">Lucid</span>' : usd(x.pnl, 2)) + gapMark + '</td></tr>';
     });
-    h += '<tr class="rc-tot"><td>Total</td><td class="rc-st">comptes avec CSV</td><td></td><td></td><td class="' + cls(tot.r) + '">' + rs(tot.r) + '</td><td class="' + cls(tot.pnl) + '">' + usd(tot.pnl, 2) + '</td></tr>';
     var NA = window.netActifs ? window.netActifs() : null;
     if(NA && NA.n){
       h += '<tr class="rc-tot" title="Solde − départ des comptes actifs (ni cramés, ni sous leur seuil, ni sans relevé récent) : c\'est le « Net P&amp;L » du tableau de bord"><td>Comptes actifs</td><td class="rc-st">' + NA.n + ' comptes</td>'
@@ -4906,12 +4432,7 @@ window.DAY_NOTES = {
         + '<td class="' + cls(NA.net) + '">' + usd(NA.net, 2) + '</td></tr>';
     }
     h += '</tbody></table></div>';
-    var offTot = rows.reduce(function(a, x){ return a + x.off; }, 0);
-    h += '<p class="rc-note"><b>1 R = le budget de risque par signal du jour</b> : ≈ 275 $ en septembre (milieu de 250–300 $, comme l\'onglet Sessions), 300 $ du 1er au 4 octobre, 500 $ dès le 5 octobre. '
-      + 'Ce n\'est pas le vrai R de chaque trade — aucun stop n\'est enregistré — mais le résultat exprimé en budgets de risque. '
-      + 'Août n\'a pas de budget défini : ' + usd(offTot, 2) + ' d\'août restent hors R (ils sont dans la colonne P&amp;L). '
-      + '<b>% du compte</b> = solde ÷ solde de départ (50 000 $ supposé), soldes Lucid du 08/10 (soir) — le A, absent de Lucid, est calculé depuis les CSV. '
-      + '<b>≠</b> : écart entre ce solde et le P&amp;L des CSV, signalé plutôt que lissé. Comptes clôturés (ancien 004, TopstepX) non repris ; les 13 allers-retours de bug du 05/10 (001, −32,50 $) sont exclus de ces calculs mais restent dans le solde ; le total R additionne les comptes, un signal copié sur trois comptes y compte trois fois.</p>';
+    h += '<p class="rc-note"><b>1 R</b> = le budget de risque du jour (500 $ dès le 05/10) — pas le vrai R d\'un trade. <b>%</b> = solde ÷ 50 000 $. <b>≠</b> = écart entre le solde et les CSV (frais).</p>';
     host.innerHTML = h;
   }
   if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', build); else build();
@@ -4955,10 +4476,10 @@ window.DAY_NOTES = {
   if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', build); else build();
 })();
 </script>
-<script>/* Menu latéral : les sous-onglets (Tableau de bord, Avant la séance, Analyses éco, Règles) deviennent des sous-entrées du menu, dépliées sous l'onglet actif */
+<script>/* Menu latéral : les sous-onglets (Tableau de bord, Avant la séance, Règles) deviennent des sous-entrées du menu, dépliées sous l'onglet actif */
 (function(){
   document.addEventListener('DOMContentLoaded', function(){
-    [['dashboard', 'dash-subnav'], ['brief', 'brief-subnav'], ['eco', 'eco-subnav'], ['regles', 'regles-subnav']].forEach(function(pair){
+    [['dashboard', 'dash-subnav'], ['brief', 'brief-subnav'], ['regles', 'regles-subnav']].forEach(function(pair){
       var main = document.querySelector('.nav a[data-goto="' + pair[0] + '"]');
       var bar = document.getElementById(pair[1]);
       if(!main || !bar) return;
@@ -4971,7 +4492,7 @@ window.DAY_NOTES = {
         var a = document.createElement('a');
         a.href = '#';
         a.textContent = btn.textContent;
-        // les sous-entrées sont toujours dépliées : si l'onglet parent n'est pas ouvert (ex. on est sur Analyses éco), on l'ouvre d'abord, puis on choisit la sous-page
+        // les sous-entrées sont toujours dépliées : si l'onglet parent n'est pas ouvert (ex. on est sur Sessions), on l'ouvre d'abord, puis on choisit la sous-page
         a.addEventListener('click', function(e){ e.preventDefault(); main.click(); btn.click(); window.scrollTo(0, 0); });
         box.appendChild(a);
         links.push([a, btn]);
@@ -4979,11 +4500,15 @@ window.DAY_NOTES = {
       main.insertAdjacentElement('afterend', box);
       // cliquer sur le lien parent ouvre la première sous-page (vue d'ensemble / l'essentiel)
       main.addEventListener('click', function(){ if(firstBtn) firstBtn.click(); });
+      // une sous-entrée n'est surlignée que dans l'onglet affiché (sinon chaque groupe garde sa dernière sous-page surlignée : 3 éléments en surbrillance)
+      var view = document.getElementById('view-' + pair[0]);
       function sync(){
-        links.forEach(function(p){ p[0].classList.toggle('on', p[1].classList.contains('active')); });
-        main.classList.toggle('in-sub', !!firstBtn && !firstBtn.classList.contains('active'));
+        var here = !!view && view.classList.contains('active');
+        links.forEach(function(p){ p[0].classList.toggle('on', here && p[1].classList.contains('active')); });
+        main.classList.toggle('in-sub', here && !!firstBtn && !firstBtn.classList.contains('active'));
       }
       new MutationObserver(sync).observe(bar, {attributes: true, subtree: true, attributeFilter: ['class']});
+      if(view) new MutationObserver(sync).observe(view, {attributes: true, attributeFilter: ['class']});
       sync();
     });
   });
