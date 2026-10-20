@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<link rel="apple-touch-icon" href="../apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>Mardi 20 oct. — Journal</title>
+<link rel="stylesheet" href="../_systeme/style.css">
+<link rel="stylesheet" href="../_systeme/apple.css">
+</head>
+<body>
+<div class="wrap">
+
+<a href="https://scaryseb-afk.github.io/journal-trading/#sessions" onclick="if(document.referrer){history.back();return false;}" class="sp-back">← Journal</a>
+
+<div class="sp-header">
+  <h1 class="sp-title">Mardi 20 oct.</h1>
+  <span class="sp-pnl td-l">−751,50 $</span>
+</div>
+<div class="sp-meta">1 trade (2 lignes CSV, une par compte) &nbsp;·&nbsp; 2 comptes (001, 02b) &nbsp;·&nbsp; même position, stop touché sur le 02b</div>
+
+<div class="note-block">
+  <strong>−751,50 $ — un seul trade, perdant, pris sur deux comptes : 02b −468 $, 001 −283,50 $.</strong><br><br>
+  <strong>1 · 02b — MNQ Short 3 contrats : −468 $.</strong> Vente à 15h40:01 à 29 497,50, rachat à 15h56:14 à 29 575,50 : 78 pts contre toi en 16 min 12 (3 × 78 pts × 2 $). Sortie à 15h56, au niveau du haut de la zone rouge de ta capture : ton stop a été touché. Entré 10 min après l'ouverture US (15h30).<br><br>
+  <strong>1 (même trade) · 001 — MNQ Short 3 contrats : −283,50 $.</strong> Vente à 15h41:44 à 29 421,00, rachat à 15h47:57 à 29 468,25 : 47,25 pts contre toi en 6 min 13. Entré <strong>1 min 43 s après</strong> le 02b, mais <strong>76,5 pts plus bas</strong> : le prix venait de chuter d'environ 90 pts sur la bougie de 15h40 (lecture de ta capture), puis il est remonté d'un coup à partir de 15h45. Sortie à 15h47:57, soit 8 min avant celle du 02b.<br><br>
+  <strong>Ce que dit ta capture</strong> (TradingView, 5 min, 15h56) : outil de position Short du 02b — entrée ≈ 29 497,5 (ton fill), <strong>stop ≈ 29 575</strong> (haut de la zone rouge ; ta sortie est à 29 575,50), <strong>objectif ≈ 29 344</strong> (bas de la zone verte), soit un <strong>R:R ≈ 1,97</strong>. C'est la règle V2.8 : un TP à 1,95 pour ce stop de 78 pts donnerait 29 345,4. Lecture sur l'image, à ± 2 pts. <strong>R réalisé : −468 $ ÷ 468 $ de risque = −1,0 R</strong> (stop plein).<br><br>
+  <strong>Comptage :</strong> une même position prise sur deux comptes = un seul trade (ta règle du 19/10), perdant (−751,50 $ au total) ; règle 8 non enfreinte.<br><br>
+  <strong>Contrôle du plan — respecté :</strong> 1 trade (max 3) ✓ · aucune ré-entrée à moins de 10 min d'une perte ✓ · 3 contrats (plafond levé en octobre) · perte du 02b de 468 $, sous le budget de 500 $ ✓ · entrées après 15h30 ✓ · R:R ≈ 1,97, au niveau de la règle V2.8 (1,95) ✓, lu sur la capture.<br><br>
+  <strong>Ce qui manque :</strong> le schéma (plan Daxton ou autre) et le biais MME ; le stop et l'objectif du 001 (ta capture est celle du 02b).
+</div>
+
+<!-- Captures d'écran -->
+<!-- Trades par compte — dupliquer ce bloc pour chaque compte actif -->
+<div id="trades-section">
+
+  <div class="acct-header">
+    <span class="acct-label">Compte 001 — …4680001</span>
+    <span class="acct-pnl td-l">−283,50 $</span>
+  </div>
+  <div class="tbl-wrap">
+    <table class="trades-table">
+      <thead><tr><th>#</th><th>Contrat</th><th>Sens</th><th>Qté</th><th>Entrée</th><th>Sortie</th><th>Heure</th><th>P&amp;L</th></tr></thead>
+      <tbody id="body-001"></tbody>
+    </table>
+  </div>
+
+  <div class="acct-header">
+    <span class="acct-label">Compte 02b — …4680006 (LucidFlex)</span>
+    <span class="acct-pnl td-l">−468,00 $</span>
+  </div>
+  <div class="tbl-wrap">
+    <table class="trades-table">
+      <thead><tr><th>#</th><th>Contrat</th><th>Sens</th><th>Qté</th><th>Entrée</th><th>Sortie</th><th>Heure</th><th>P&amp;L</th></tr></thead>
+      <tbody id="body-02b"></tbody>
+    </table>
+  </div>
+
+  <div class="total-bar">
+    <span class="total-label">Total journée — 2 comptes</span>
+    <span class="total-val " style="color:var(--red)">−751,50 $</span>
+  </div>
+
+</div>
+
+<!-- Relecture — à remplir par Sébastien, sert à améliorer les séances suivantes -->
+<div class="section-title">🪞 Ta relecture</div>
+<div class="reflect-grid">
+  <div class="reflect-item err">
+    <label>Erreur commise</label>
+    <textarea class="reflect-note" data-key="reflect_erreur" placeholder="Qu'est-ce qui a foiré aujourd'hui, concrètement ?"></textarea>
+  </div>
+  <div class="reflect-item fix">
+    <label>Ce que j'aurais dû faire</label>
+    <textarea class="reflect-note" data-key="reflect_correction" placeholder="La version correcte de la décision"></textarea>
+  </div>
+  <div class="reflect-item ok">
+    <label>Ce qui a bien fonctionné</label>
+    <textarea class="reflect-note" data-key="reflect_ok" placeholder="À garder, à répéter"></textarea>
+  </div>
+</div>
+<div class="reflect-copy">
+  <button id="reflect-copy-btn" onclick="sjCopyReflect()" disabled>📋 Copier pour Claude</button>
+  <span class="hint">Colle ça dans le chat pour que ta prochaine séance en tienne compte.</span>
+</div>
+
+</div>
+<!-- Lightbox -->
+<div class="lb-overlay" id="lb" onclick="sjCloseLB(event)">
+  <span class="lb-close" onclick="document.getElementById('lb').classList.remove('open')">×</span>
+  <img id="lb-img" src="" alt="">
+</div>
+
+<script>
+var SESSION_KEY = '2026_10_20_mardi';
+
+/* Trades hardcodés — un tableau par compte, rempli depuis les CSV. time = heure d'entrée, exit_time = heure de sortie (toujours les deux : le tableau affiche « entrée → sortie »). */
+var ACCTS = {
+  '001': [
+    {n:1, contract:'MNQ', side:'Short', qty:'3', entry:'29421.00', exit:'29468.25', time:'15:41', exit_time:'15:47', pnl: -283.50}
+  ],
+  '02b': [
+    {n:1, contract:'MNQ', side:'Short', qty:'3', entry:'29497.50', exit:'29575.50', time:'15:40', exit_time:'15:56', pnl: -468.00}
+  ]
+};
+
+/* Captures et niveaux enregistrés par Claude (facultatif) : quand Sébastien colle une capture dans le chat, Claude lit le stop / l'objectif / le R:R dessus, copie l'image
+   dans sessions/img/ et la place ici sous le bon trade. Clés : '<compte>_<n>' (zone « ce qui s'est passé ») ou '<compte>_<n>:fix:daxton' (« ce que j'aurais dû faire »). */
+var SJ_SHOTS = { '02b_1': ['img/2026-10-20_02b_1.jpg'] };
+var SJ_LEVELS = { '02b_1': { stop: '29575.50', objectif: '29344.00', src: 'lus sur la capture (± 2 pts)' } };
+
+function renderAcct(acctId, bodyId){
+  var notes = sjLoadNotes();
+  var trades = ACCTS[acctId] || [];
+  var html = '';
+  trades.forEach(function(t){
+    var ps = (t.pnl >= 0 ? '+' : '') + t.pnl.toFixed(2) + ' $';
+    var pc = t.pnl >= 0 ? 'td-w' : 'td-l';
+    var key = acctId + '_' + t.n;
+    var note = notes[key] || '';
+    html += '<tr class="trade-row">'
+      + '<td>' + t.n + '</td>'
+      + '<td><strong>' + sjEsc(t.contract) + '</strong></td>'
+      + '<td>' + sjEsc(t.side) + '</td>'
+      + '<td>' + sjEsc(t.qty) + '</td>'
+      + '<td>' + sjEsc(t.entry) + '</td>'
+      + '<td>' + sjEsc(t.exit) + '</td>'
+      + '<td style="color:var(--muted);font-size:12px">' + sjEsc(t.time) + (t.exit_time ? ' → ' + sjEsc(t.exit_time) : '') + '</td>'
+      + '<td class="td-pnl ' + pc + '">' + ps + '</td>'
+      + '</tr>'
+      + '<tr class="note-row"><td colspan="8">'
+      + '<textarea class="trade-note" placeholder="Setup, raison du trade, erreurs…" data-key="' + key + '" onblur="sjSaveNote(this)">'
+      + sjEsc(note)
+      + '</textarea>'
+      + sjTradeRRRow(key)
+      + '</td></tr>';
+  });
+  document.getElementById(bodyId).innerHTML = html;
+}
+
+window.addEventListener('DOMContentLoaded', function(){
+  renderAcct('001', 'body-001');
+  renderAcct('02b', 'body-02b');
+});
+</script>
+<script src="../_systeme/session.js"></script>
+</body>
+</html>
