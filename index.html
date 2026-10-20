@@ -973,7 +973,7 @@ textarea::placeholder{color:#4A566A}
   <div class="plan-widget" id="plan-widget"></div>
 
   <div class="kpis kpis-top">
-    <div class="kpi"><div class="lbl">Règle de séance</div><div class="val" id="kpi-regle-val">300 $ / signal</div><div class="note" id="kpi-regle-note">1 seul compte à la fois · R:R ≥ 2 · 3 trades max par jour · 500 $ dès le 05/10</div></div>
+    <div class="kpi"><div class="lbl">Règle de séance</div><div class="val" id="kpi-regle-val">300 $ / signal</div><div class="note" id="kpi-regle-note">pas de copy trader · R:R ≥ 2 · 3 trades max par jour · 500 $ dès le 05/10</div></div>
     <div class="kpi"><div class="lbl">Résultat des comptes actifs</div><div class="val neg" id="kpi-net-val">−1,00 $</div><div class="note"><span id="kpi-net-note">3 comptes actifs : solde − 50 000 $ de départ.</span> Derniers jours (tous comptes, CSV hors lignes de bug) : −490 $ le 19/10 (001 −500 $, 02b +10 $) · +1 138 $ le 16/10 (001 +1 252 $, 02b +954 $, A −1 068 $) · −1 894 $ le 15/10 (001, A, 02b : cinq pertes) · +536 $ le 13/10 (001 seul) · +428 $ le 09/10 (partiel : 001 et A seulement) · +920,50 $ le 08/10 · −834 $ le 07/10 · −27 $ le 06/10 · −584 $ le 05/10 · −2 117 $ le 02/10 · −416 $ le 01/10 · −199 $ le 30/09 · −418 $ le 29/09</div></div>
     <div class="kpi"><div class="lbl">Meilleure session</div><div class="val pos">+2 529 $</div><div class="note">08/09 — TraderSyncer, 3 comptes</div></div>
     <div class="kpi"><div class="lbl">Pire session</div><div class="val neg">−2 117 $</div><div class="note">02/10 — MGC 4 contrats 6 s après le NFP (−1 200 $) + même signal MNQ sur 3 comptes (−661,50 $). Précédent : −2 095 $ le 18/09</div></div>
@@ -1118,7 +1118,7 @@ textarea::placeholder{color:#4A566A}
     <div class="r">
       <div class="n">Règle 1 — Taille</div>
       <div class="t">Budget de risque par signal, pas par compte — 250 $ (21→27/09), 300 $ (28/09→04/10), 500 $ à partir du 05/10 (à confirmer).</div>
-      <div class="d">Un signal = un seul compte à la fois, en tournant entre les 5 comptes — jamais le même trade dupliqué sur plusieurs comptes en même temps (règle 8, toujours en vigueur). R:R minimum 2:1. C'est le budget en dollars qui fixe la taille, jamais l'inverse. Sur un autre instrument, recalcule : 1 tick de 6E vaut 12,5 ticks de MNQ micro.</div>
+      <div class="d">Le même signal peut être pris sur plusieurs comptes, à la main (règle 8) : même position, un seul trade. R:R minimum 2:1. C'est le budget en dollars qui fixe la taille, jamais l'inverse. Sur un autre instrument, recalcule : 1 tick de 6E vaut 12,5 ticks de MNQ micro.</div>
     </div>
     <div class="r">
       <div class="n">Règle 2 — Exécution</div>
@@ -1454,7 +1454,7 @@ textarea::placeholder{color:#4A566A}
     <div class="r" style="border-color:rgba(224,85,79,.4)"><div class="n">0</div><div class="t">Suis-je en état de trader, là, maintenant ?</div><div class="d">La question du 20/08. Si non, tu fermes la plateforme — tout le reste de cette liste ne sert à rien ce jour-là.</div></div>
     <div class="r"><div class="n">1</div><div class="t">Quelle phase AMD suis-je en train de jouer ?</div><div class="d">Si tu ne peux pas répondre en une phrase, tu ne rentres pas.</div></div>
     <div class="r"><div class="n">2</div><div class="t">Est-ce mon biais, ou celui de quelqu'un d'autre ?</div><div class="d">La question qui aurait sauvé ta journée de vendredi.</div></div>
-    <div class="r"><div class="n">3</div><div class="t">Est-ce que je prends ce signal sur un seul compte ?</div><div class="d">Un signal = un compte, tu tournes entre les 5 — jamais dupliqué sur plusieurs en même temps. Budget et R:R minimum : voir Règle 1.</div></div>
+    <div class="r"><div class="n">3</div><div class="t">Si je prends ce signal sur plusieurs comptes, est-ce bien à la main ?</div><div class="d">Pas de copy trader : tu n'as pas encore le niveau (règle 8). La même position sur plusieurs comptes, à la main, reste un seul trade. Budget et R:R minimum : voir Règle 1.</div></div>
     <div class="r"><div class="n">4</div><div class="t">Ma quantité est-elle la bonne ? Je la lis à voix haute.</div><div class="d">14 lots au lieu de 2, le 18/08. Trois secondes de lecture évitent 959 $ d'exposition.</div></div>
     <div class="r"><div class="n">5</div><div class="t">Mes trois ordres sont posés — je m'engage à n'en déplacer aucun.</div><div class="d">Aucune exception, aucun sens — sauf une règle écrite avant l'entrée et appliquée mécaniquement.</div></div>
     <div class="r"><div class="n">6</div><div class="t">Ma dernière perte date de plus de 10 minutes ?</div><div class="d">Sinon, tu attends. La montre décide, pas toi.</div></div>
@@ -1988,7 +1988,7 @@ textarea::placeholder{color:#4A566A}
       <div class="stat-item">
         <span class="stat-label">Win rate</span>
         <span class="stat-val">31,7% <span style="font-size:10px;color:var(--muted);font-weight:400">(71/224)</span></span>
-        <div style="font-size:10px;color:var(--muted);margin-top:2px">10 comptes Tradovate (dont 004a et 002 cramés), dédupliqué (copy trading compté 1 fois) · un BE volontaire compte comme trade, pas comme gagnant · TopstepX (clôturé) exclu · 13 allers-retours de bug du 05/10 (001, −32,50 $) exclus (csv/exclus.json)</div>
+        <div style="font-size:10px;color:var(--muted);margin-top:2px">10 comptes Tradovate (dont 004a et 002 cramés), dédupliqué (une même position sur plusieurs comptes comptée 1 fois) · un BE volontaire compte comme trade, pas comme gagnant · TopstepX (clôturé) exclu · 13 allers-retours de bug du 05/10 (001, −32,50 $) exclus (csv/exclus.json)</div>
       </div>
       <div class="stat-item">
         <span class="stat-label">Profit factor</span>
@@ -2096,7 +2096,7 @@ textarea::placeholder{color:#4A566A}
     <div class="rule-body">
       <span class="rule-tag tag-stop">Taille</span>
       <div class="rule-stmt">Budget de risque par signal, pas par compte — 250 $ (21→27/09), 300 $ (28/09→04/10), 500 $ à partir du 05/10 (à confirmer).</div>
-      <div class="rule-detail">Un signal = <strong>un seul compte à la fois</strong>, tu tournes entre les 5 comptes — jamais le même trade dupliqué sur plusieurs comptes en même temps (voir règle 8, toujours en vigueur). R:R minimum <strong>2:1</strong> sur chaque trade. C'est le budget en dollars qui fixe la taille, jamais l'inverse — recalcule les contrats depuis le stop à chaque trade. <strong>Plafond de 4 contrats par trade : levé pour octobre</strong> (décision du 08/10) — seul le budget limite la taille ; à rétablir en novembre sauf avis contraire. Si tu changes d'instrument, recalcule aussi : <strong>1 tick de 6E = 12,5 ticks MNQ micro</strong>.</div>
+      <div class="rule-detail">Le même signal peut être pris sur plusieurs comptes, <strong>à la main</strong> (voir règle 8) : c'est une même position, donc un seul trade. R:R minimum <strong>2:1</strong> sur chaque trade. C'est le budget en dollars qui fixe la taille, jamais l'inverse — recalcule les contrats depuis le stop à chaque trade. <strong>Plafond de 4 contrats par trade : levé pour octobre</strong> (décision du 08/10) — seul le budget limite la taille ; à rétablir en novembre sauf avis contraire. Si tu changes d'instrument, recalcule aussi : <strong>1 tick de 6E = 12,5 ticks MNQ micro</strong>.<br><strong>Encore à préciser</strong> (je n'invente rien, dis-moi et je complète) : quand la même position est prise sur deux comptes, le budget de risque vaut-il pour <strong>chaque compte</strong> ou pour <strong>l'ensemble</strong> des comptes ?</div>
     </div>
   </div>
 
@@ -2158,8 +2158,8 @@ textarea::placeholder{color:#4A566A}
     <div class="rc-rule-num">8</div>
     <div class="rule-body">
       <span class="rule-tag tag-stop">Copie</span>
-      <div class="rule-stmt">Jamais de copy trading. Aucun copieur sur aucun compte.</div>
-      <div class="rule-detail">TraderSyncer, ou tout outil similaire, est interdit. Le 4/09 : 4 comptes ont copié les mêmes mauvaises positions en même temps. Ce qui était une erreur est devenu une erreur ×4. <strong>Définitif.</strong></div>
+      <div class="rule-stmt">Pas de copy trader : je n'ai pas encore le niveau. À la main, la même position sur plusieurs comptes est permise.</div>
+      <div class="rule-detail">Aucun outil de copie (TraderSyncer ou similaire) sur aucun compte : tu n'as pas encore le niveau pour t'en servir (précisé le 20/10 — la règle disait « définitif »). Le 4/09 : 4 comptes ont copié les mêmes mauvaises positions en même temps. Ce qui était une erreur est devenu une erreur ×4. <strong>À la main</strong>, tu peux prendre toi-même la même position sur plusieurs comptes : c'est un seul trade, pas deux ordres différents (comptage du 19/10). Cette règle absorbe la phrase « un signal = un compte à la fois, jamais dupliqué » de l'ancienne règle 1, qui disait la même chose.</div>
     </div>
   </div>
 
@@ -2217,12 +2217,12 @@ textarea::placeholder{color:#4A566A}
     </div>
   </div>
 
-  <div class="rc-rule stop">
+  <div class="rc-rule warn">
     <div class="rc-rule-num sub">V2.6</div>
     <div class="rule-body">
-      <span class="rule-tag tag-stop">Interdit V2 · lundi · à compléter</span>
-      <div class="rule-stmt">Le lundi, on ne trade pas les iFVG du pré-market.</div>
-      <div class="rule-detail"><strong>Posé par toi le 06/10.</strong><br><strong>Encore à préciser</strong> (je n'invente rien, dis-moi et je complète) :<br><strong>1.</strong> Le « pré-market » = avant 15h30 (heure de Paris), d'après ta règle V2.7 — c'est bien ça ? Et la règle V2.7 est-elle la suite de la règle V2.6 : le lundi, on ne trade pas l'iFVG fait avant 15h30, on en refait un deuxième après l'ouverture ?<br><strong>2.</strong> Seulement le <strong>lundi</strong>, ou d'autres jours aussi ?<br><strong>3.</strong> Seulement les iFVG <strong>5M</strong>, ou aussi ceux en 1M ?</div>
+      <span class="rule-tag tag-warn">Lundi · pré-market · à compléter</span>
+      <div class="rule-stmt">Le lundi, on attend surtout le début du marché : on n'entre dans le pré-market que dans 20 % des cas.</div>
+      <div class="rule-detail"><strong>Posé par toi le 06/10 :</strong> le lundi, on ne trade pas les iFVG du pré-market.<br><strong>Précisé par toi le 20/10 :</strong> pour Daxton, le lundi, on attend surtout le début du marché ; on ne fait des entrées dans le pré-market que dans 20 % des cas. Ce n'est donc pas une interdiction absolue.<br><strong>Encore à préciser</strong> (je n'invente rien, dis-moi et je complète) :<br><strong>1.</strong> Dans quels cas fait-on partie de ces 20 % ?<br><strong>2.</strong> Les 20 % valent-ils seulement le <strong>lundi</strong>, ou tous les jours ?<br><strong>3.</strong> Le « pré-market » = avant 15h30 (heure de Paris), d'après ta règle V2.7 — c'est bien ça ? Et la règle V2.7 est-elle la suite de la règle V2.6 : l'iFVG fait avant 15h30, on en refait un deuxième après l'ouverture ?<br><strong>4.</strong> Seulement les iFVG <strong>5M</strong>, ou aussi ceux en 1M ?</div>
     </div>
   </div>
 
@@ -2250,7 +2250,7 @@ textarea::placeholder{color:#4A566A}
   <div class="pt-title">Plan type V2 — iFVG M5 <span class="pt-tag">en cours de rédaction</span></div>
   <div class="pt-step"><div class="pt-n">1</div><div><div class="pt-t">Regarder le biais — MME 5M, 15M et H1</div><div class="pt-d">Biais haussier → scénario Long (biais baissier → Short : symétrie à confirmer). Ce sont probablement les « 3 MME » de la règle V2.3 — à confirmer. Marché qui range toute la journée : la bougie d'entrée 5M décide du sens (règle V2.5).</div></div></div>
   <div class="pt-step"><div class="pt-n">2</div><div><div class="pt-t">Chercher une FVG baissière</div><div class="pt-d">Dans un biais haussier, c'est la FVG baissière qu'on cherche — celle qui, inversée, donne l'iFVG d'entrée (lecture à confirmer).</div></div></div>
-  <div class="pt-step"><div class="pt-n">3</div><div><div class="pt-t">Rentrer sur l'iFVG 5M, dans le sens du biais</div><div class="pt-d">Pas d'entrée si l'iFVG est du mauvais côté de la MME 1H, ni si le SL demande 400 ticks ou plus (règle V2.1). Le lundi : pas les iFVG du pré-market (règle V2.6). iFVG 5M fait avant 15h30 : en refaire un deuxième après l'ouverture, pour voir (règle V2.7).</div></div></div>
+  <div class="pt-step"><div class="pt-n">3</div><div><div class="pt-t">Rentrer sur l'iFVG 5M, dans le sens du biais</div><div class="pt-d">Pas d'entrée si l'iFVG est du mauvais côté de la MME 1H, ni si le SL demande 400 ticks ou plus (règle V2.1). Le lundi : on attend surtout le début du marché, pré-market seulement dans 20 % des cas (règle V2.6). iFVG 5M fait avant 15h30 : en refaire un deuxième après l'ouverture, pour voir (règle V2.7).</div></div></div>
   <div class="pt-step"><div class="pt-n">4</div><div><div class="pt-t">Si une bougie 5M clôture de l'autre côté de la MME 1H, retournement possible</div><div class="pt-d">Le biais peut se retourner : on peut prendre un deuxième trade dans le sens de la clôture, qui vise juste à revenir à BE (règle V2.4). Les questions encore ouvertes — BE de la journée ou du trade ?, période de la MME, 2e trade sur un nouvel iFVG 5M ?, limites du plan — sont dans la règle V2.4.</div></div></div>
   <div class="pt-step"><div class="pt-n">5</div><div><div class="pt-t">Poser les 3 niveaux de protection</div><div class="pt-d">Sous la FVG ; sous la mèche de la bougie ; et le 3e niveau de la règle V2.2 (sous l'avant-dernier swing low 5M), que tu n'as pas repris cette fois — à confirmer. La règle V2.2 dit « création de la bougie » : est-ce la même chose que la mèche ? Pour un Short : au-dessus.</div></div></div>
   <div class="pt-step"><div class="pt-n">6</div><div><div class="pt-t">Poser le TP à 1,95 de R:R</div><div class="pt-d">L'objectif est à 1,95 fois la distance entre l'entrée et le stop — pas à 2 (règle V2.8). La calculette de lots donne la valeur en ticks pour ton stop.</div></div></div>
@@ -2797,7 +2797,7 @@ window.SESSIONS = [
   { jour:"08/09", label:"Mardi 8 sept.",    fichier:"2026-09-08-mardi.html",    pnl:2529.00, trades:1, gagnants:1, neutres:0, rt:[1,0,0], note:"TraderSyncer de retour : 001 +844,50 $ · 002 +843 $ · 005 +841,50 $, même short MNQ dupliqué sur 3 comptes malgré la règle 8 — compté comme 1 seul trade. Gagnant cette fois — ne prouve rien après le −1 155,50 $ du 04/09." },
   { jour:"07/09", label:"Lundi 7 sept.",    fichier:"2026-09-07-lundi.html",    pnl:893.00, trades:4, gagnants:3, neutres:0, rt:[4,0,0], note:"Compte 001 seul reçu · long CL (taille standard, ≈10× un MCL) tenu 2h54 → +840 $ · autres comptes non transmis." },
   { jour:"04/09", label:"Vendredi 4 sept.", fichier:"2026-09-04-vendredi.html", pnl:-1155.50, trades:12, gagnants:3, neutres:0, rt:[10,5,-254.5], note:"TraderSyncer copie le même signal sur 001/002/005 toute la séance (9 trades chacun), 006 trade séparément (4 trades) · 001 −281,50$ · 002 −290$ · 005 −290$ · 006 −294$ · Total −1 155,50$. Dédupliqué : 12 signaux uniques pour 31 lignes CSV (corrigé le 21/09 : 3 copies à 4 ticks d'écart, même seconde, avaient été comptées à part ; l'ancien « 36 lignes » venait d'un tableau mal étiqueté). Chômage + copy trading = règles 3 et 8 ajoutées." },
-  { jour:"03/09", label:"Jeudi 3 sept.",    fichier:"2026-09-03-jeudi.html",    pnl:-586.5, trades:5, gagnants:0, neutres:0, rt:[5,1,-7.5], note:"2 comptes · 3 shorts consécutifs · même pattern 28/08. Dédupliqué : 5 signaux uniques, tous perdants (l'ancienne note comptait 8 trades et 1 gagnant)." },
+  { jour:"03/09", label:"Jeudi 3 sept.",    fichier:"2026-09-03-jeudi.html",    pnl:-586.5, trades:4, gagnants:0, neutres:0, rt:[4,1,-7.5], note:"2 comptes · 3 shorts consécutifs · même pattern 28/08. Dédupliqué : 4 trades, tous perdants — le long de 17h29 pris sur le 001 et le 005 à 1 s d'écart est une même position, comptée une fois (règle du 19/10) ; l'ancienne note comptait 8 trades et 1 gagnant, puis 5 signaux." },
   { jour:"02/09", label:"Mercredi 2 sept.", fichier:"2026-09-02-mercredi.html", pnl:750, trades:6, gagnants:4, neutres:0, rt:[4,1,350.5], note:"3 comptes · stop ouverture → retournement short → long final +550 $. Dédupliqué : 6 signaux uniques, 4 gagnants (corrigé le 21/09 : 001 et 005 entrent et sortent à la même seconde, prix à 3,5 pts d'écart — un seul signal copié, pas deux)." },
   { jour:"01/09", label:"Mardi 1er sept.",  fichier:"2026-09-01-mardi.html",    pnl:721.50, trades:2, gagnants:2, neutres:0, rt:[2,0,0], note:"…006 · 2 longs MNQU6 · +6 $ (scalp) + 715,50 $ (43 min, +119 pts) · net +718 $." },
   { jour:"31/08", label:"Lundi 31 août",    fichier:"2026-08-31-lundi.html",    pnl:0, trades:0, gagnants:0, neutres:0, rt:[0,0,0], note:"Aucun trade. Plan respecté — pas de setup valable. Dernier jour d'août." },
@@ -3219,7 +3219,7 @@ window.DAY_NOTES = {
   var val = document.getElementById('kpi-regle-val'), note = document.getElementById('kpi-regle-note');
   if(!val || !note || !cur) return;
   val.textContent = cur[1] + ' $ / signal';
-  note.textContent = '1 seul compte à la fois · R:R ≥ 2 · 3 trades max par jour'
+  note.textContent = 'pas de copy trader · R:R ≥ 2 · 3 trades max par jour'
     + (cur[1] === 500 ? ' · palier à confirmer' : '')
     + (next ? ' · ' + next[1] + ' $ dès le ' + next[2] : '');
 })();
@@ -4613,7 +4613,7 @@ window.DAY_NOTES = {
     var anyLoss = list.filter(function(x){ return x.los >= 1; });
     var worst = multi.slice().sort(function(x, y){ return x.loss - y.loss; }).slice(0, 4);
     var c = '<div class="ec-card"><h3>🧯 Risque simultané</h3>'
-      + '<div class="ec-sub">Si un même signal perdait ' + plain(B) + " sur tous les comptes actifs (la règle 8 interdit de copier un trade, c’est le pire cas) :</div>"
+      + '<div class="ec-sub">Si un même signal perdait ' + plain(B) + " sur tous les comptes actifs (la même position prise à la main sur tous les comptes : le pire cas) :</div>"
       + row("Comptes actifs", live.length) + row("Perte cumulée", usd(-expo), "neg")
       + row("Comptes qui sauteraient", weak.length ? weak.length + " (" + weak.map(function(x){ return x.label; }).join(", ") + ")" : "aucun", weak.length ? "neg" : "")
       + row("Buffers cumulés", plain(cum, 2))
