@@ -1,0 +1,108 @@
+/* ──────────────────────────────────────────────────────────────────────────────────────────────
+   Couche « Apple design » — partagée par index.html et les pages de séance (chargée APRÈS leur feuille de style).
+   Inspirée du guide emilkowalski/skills « apple-design » : mouvement par ressorts, retour immédiat au toucher, matières
+   translucides, accessibilité (mouvement, transparence, contraste réduits), typographie réglée par taille.
+   Règles de la maison conservées : une seule palette (gris neutres + accent bleu acier, rouge/vert réservés aux résultats) —
+   cette couche n'ajoute AUCUNE couleur ; elle ne touche qu'au mouvement, aux matières, à la profondeur et à la typographie.
+   On n'anime que `transform` et `opacity` (le reste fait saccader).
+   ────────────────────────────────────────────────────────────────────────────────────────────── */
+
+:root{
+  /* Ressorts. Convention Apple : amortissement (0 = rebond infini, 1 = aucun rebond) et réponse (période, en s).
+     Déplacement : amortissement 1,0 / réponse 0,4 s → aucun rebond ; feuille / élan : 0,8 / 0,3 s → léger dépassement (1,5 %).
+     Courbes échantillonnées depuis l'équation du ressort (réponse indicielle), durées = temps d'établissement à 0,3 %. */
+  --ease-move:cubic-bezier(.22,1,.36,1);        /* repli si linear() n'est pas géré */
+  --ease-sheet:cubic-bezier(.34,1.2,.64,1);
+  --dur-move:.5s;
+  --dur-sheet:.35s;
+  --shadow-1:0 1px 0 rgba(255,255,255,.04) inset,0 1px 2px rgba(0,0,0,.28),0 12px 32px -16px rgba(0,0,0,.5);
+}
+@supports (transition-timing-function:linear(0,1)){
+  :root{
+    --ease-move:linear(0, 0.0327, 0.1092, 0.2062, 0.309, 0.409, 0.5015, 0.584, 0.656, 0.7177, 0.7698, 0.8133, 0.8493, 0.8788, 0.9029, 0.9225, 0.9383, 0.951, 0.9612, 0.9693, 0.9758, 0.9809, 0.985, 0.9882, 0.9908, 0.9928, 0.9944, 0.9956, 1);
+    --ease-sheet:linear(0, 0.0396, 0.1342, 0.2556, 0.3846, 0.5088, 0.621, 0.7175, 0.7974, 0.8613, 0.9106, 0.9474, 0.9738, 0.992, 1.0037, 1.0106, 1.0141, 1.0151, 1.0147, 1.0134, 1.0116, 1.0096, 1.0077, 1.006, 1);
+  }
+}
+@media(prefers-color-scheme:light){
+  :root:not([data-theme="dark"]){--shadow-1:0 1px 2px rgba(20,20,30,.05),0 12px 30px -18px rgba(20,20,30,.22)}
+}
+:root[data-theme="light"]{--shadow-1:0 1px 2px rgba(20,20,30,.05),0 12px 30px -18px rgba(20,20,30,.22)}
+
+/* ── Typographie : approche resserrée pour les grands titres, neutre pour le texte, interligne inverse de la taille ── */
+body{font-optical-sizing:auto;text-rendering:optimizeLegibility;line-height:1.55}
+h1{letter-spacing:-.022em;line-height:1.1}
+h2{letter-spacing:-.015em;line-height:1.2}
+h3{letter-spacing:-.01em;line-height:1.25}
+/* chiffres de même largeur : les colonnes de montants s'alignent et ne « dansent » pas quand une valeur change */
+td,th,[class*="val"],.sr-pnl,.cc-bal,.cc-sum b,.cc-row b,.ar-bal,.sp-pnl,.acct-pnl,.total-val{font-variant-numeric:tabular-nums}
+
+/* ── Matières : barre du haut translucide quand le contenu défile dessous (petits écrans) ── */
+@media(max-width:959px){
+  .nav,.side-nav{
+    background:color-mix(in srgb,var(--bg) 72%,transparent);
+    -webkit-backdrop-filter:saturate(1.8) blur(20px);backdrop-filter:saturate(1.8) blur(20px)}
+}
+.saveline{background:rgba(25,25,28,.78)!important;-webkit-backdrop-filter:saturate(1.8) blur(18px);backdrop-filter:saturate(1.8) blur(18px)}
+.lb-overlay{background:rgba(0,0,0,.6);-webkit-backdrop-filter:blur(18px) saturate(1.3);backdrop-filter:blur(18px) saturate(1.3)}
+.shot-preview{-webkit-backdrop-filter:blur(14px) saturate(1.3);backdrop-filter:blur(14px) saturate(1.3)}
+
+/* ── Profondeur : les grandes surfaces ont une ombre plus profonde que les petites ── */
+.kpi,.tool-card,.big,.cc-card,.ec-card,.pt-wrap,.tf-wrap,.note-block,.acct-header{box-shadow:var(--shadow-1)}
+/* arêtes douces plutôt qu'un filet de 1 px sous les titres de section */
+h2{border-bottom:0;background:linear-gradient(90deg,var(--line),transparent 90%) left bottom/100% 1px no-repeat}
+
+/* ── Mouvement ── */
+@keyframes apple-in{from{opacity:0;transform:translate3d(0,8px,0)}to{opacity:1;transform:none}}
+@keyframes apple-fade{from{opacity:0}to{opacity:1}}
+@keyframes apple-pop{from{opacity:0;transform:scale(.97)}to{opacity:1;transform:none}}
+@keyframes apple-bar{from{transform:scaleX(0)}to{transform:none}}
+/* changement d'onglet / de sous-page : fondu, puis la sous-page arrive du bas avec un ressort sans rebond (rejoué à chaque affichage) */
+.view.active{animation:apple-fade .25s linear both}
+.subview.active{animation:apple-in var(--dur-move) var(--ease-move) both}
+details[open]>:not(summary){animation:apple-in var(--dur-sheet) var(--ease-sheet) both}
+.ar-buf-fill{transform-origin:left center;animation:apple-bar var(--dur-move) var(--ease-move) both}
+.lb-overlay.open{animation:apple-fade .25s linear both}
+.lb-overlay.open img{animation:apple-pop var(--dur-sheet) var(--ease-sheet) both}
+.shot-preview.show .shot-pv-grid{animation:apple-pop .25s var(--ease-sheet) both}
+
+/* ── Retour immédiat : l'élément réagit dès que le doigt / le bouton est posé, et revient en ressort au relâchement ── */
+:where(button,[role="button"],summary,.sn-btn,.sf-filter,.score-btn,.nav a,.side-nav a,.theme-btn,a.sr,.check-item,.viol-check){
+  transition-property:transform,background-color,border-color,color,box-shadow,opacity;
+  transition-duration:.3s;transition-timing-function:var(--ease-move)}
+:where(button,[role="button"],.sn-btn,.sf-filter,.score-btn,.nav a,.side-nav a,.theme-btn):active{transform:scale(.97);transition-duration:.06s}
+:where(a.sr,.check-item,.viol-check,summary):active{transform:scale(.992);transition-duration:.06s}
+
+/* ── Anneau de focus (clavier) ── */
+:where(a,button,summary,input,textarea,select,[tabindex]):focus-visible{outline:2px solid color-mix(in srgb,var(--accent) 75%,transparent);outline-offset:2px}
+
+/* ── Cibles tactiles plus grandes sur écran tactile ── */
+@media(pointer:coarse){
+  .sn-btn,.sf-filter,.score-btn,.theme-btn{min-height:40px}
+  /* barre du haut des petits écrans : cibles de ~35 px sans qu'elle mange l'écran (2 rangées sur un téléphone) */
+  .nav,.side-nav{row-gap:4px}
+  .nav a,.side-nav a{padding-top:6px;padding-bottom:6px}
+}
+@media(pointer:coarse) and (min-width:960px){
+  .nav a,.side-nav a{padding-top:9px;padding-bottom:9px}   /* bannière latérale (tablette) : confortable */
+}
+
+/* ── Accessibilité ── */
+@media(prefers-reduced-motion:reduce){
+  /* ressorts et glissements remplacés par de simples fondus, sans dépassement */
+  .view.active,.subview.active{animation:apple-fade .2s linear both}
+  details[open]>:not(summary),.ar-buf-fill,.lb-overlay.open img,.shot-preview.show .shot-pv-grid{animation:none}
+  :where(button,[role="button"],.sn-btn,.sf-filter,.score-btn,.nav a,.side-nav a,.theme-btn,a.sr,.check-item,.viol-check,summary):active{transform:none}
+  html{scroll-behavior:auto}
+}
+@media(prefers-reduced-transparency:reduce){
+  /* pas de flou : fonds pleins */
+  .nav,.side-nav{background:var(--bg);-webkit-backdrop-filter:none;backdrop-filter:none}
+  .saveline{background:#19191C!important;-webkit-backdrop-filter:none;backdrop-filter:none}
+  .lb-overlay{background:rgba(0,0,0,.94);-webkit-backdrop-filter:none;backdrop-filter:none}
+  .shot-preview{background:rgba(0,0,0,.9);-webkit-backdrop-filter:none;backdrop-filter:none}
+}
+@media(prefers-contrast:more){
+  /* fonds presque pleins, bordures bien marquées, texte secondaire plus lisible */
+  :root{--line:color-mix(in srgb,var(--txt) 38%,transparent);--muted:color-mix(in srgb,var(--txt) 78%,var(--bg))}
+  .nav,.side-nav{background:var(--bg)}
+}

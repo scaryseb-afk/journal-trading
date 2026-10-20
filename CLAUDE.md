@@ -56,6 +56,8 @@ page/section doit reprendre ces tokens plutôt que d'introduire sa propre
 palette, et jamais de couleur codée en dur pour un texte posé sur un fond
 `--accent`.
 
+**Couche « Apple design »** (`_systeme/apple.css`, ajoutée le 20/10 à la demande de Sébastien d'après le guide `emilkowalski/skills › apple-design` ; liée APRÈS la feuille de style dans `index.html` et dans chaque page de séance, `_template.html` compris — une nouvelle page la reprend toute seule) : mouvement par ressorts (`--ease-move` amortissement 1,0 / réponse 0,4 s, sans rebond ; `--ease-sheet` 0,8 / 0,3 s, léger dépassement ; courbes `linear()` échantillonnées depuis l'équation du ressort, repli `cubic-bezier`), changement d'onglet en fondu puis sous-page qui arrive du bas, retour immédiat au toucher (`:active` = léger rétrécissement dès l'appui), barre du haut des petits écrans, toast, lightbox et aperçu de capture en matière translucide (`backdrop-filter`), ombres plus profondes pour les grandes surfaces, titres de section en arête douce, chiffres tabulaires, interligne 1,55, anneau de focus, cibles tactiles. On n'anime que `transform` et `opacity`. Accessibilité : `prefers-reduced-motion` (fondus seulement), `prefers-reduced-transparency` (fonds pleins, pas de flou), `prefers-contrast: more` (bordures marquées). La couche n'ajoute aucune couleur : la palette ci-dessus reste la seule. Non repris du guide (rien à quoi l'appliquer ici) : gestes de glisser, élan / projection, étirement aux bords, haptique et son.
+
 ## Données CSV — voir [csv/README.md](csv/README.md)
 
 Quand l'utilisateur envoie des exports Tradovate (CSV), toujours :
