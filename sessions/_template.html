@@ -80,12 +80,17 @@
 <script>
 var SESSION_KEY = '[AAAA_MM_JJ_jour]'; // ex. '2026_09_05_samedi' — nom du fichier avec des _ au lieu des - (le fil « Sessions » de index.html relit captures et notes sous cette clé)
 
-/* Trades hardcodés — un tableau par compte, rempli depuis les CSV */
+/* Trades hardcodés — un tableau par compte, rempli depuis les CSV. time = heure d'entrée, exit_time = heure de sortie (toujours les deux : le tableau affiche « entrée → sortie »). */
 var ACCTS = {
   'XXX': [
-    // {n:1, contract:'MNQ', side:'Long', qty:'2', entry:'29900.00', exit:'29920.00', time:'16:05', pnl: 40.00},
+    // {n:1, contract:'MNQ', side:'Long', qty:'2', entry:'29900.00', exit:'29920.00', time:'16:05', exit_time:'16:20', pnl: 40.00},
   ]
 };
+
+/* Captures et niveaux enregistrés par Claude (facultatif) : quand Sébastien colle une capture dans le chat, Claude lit le stop / l'objectif / le R:R dessus, copie l'image
+   dans sessions/img/ et la place ici sous le bon trade. Clés : '<compte>_<n>' (zone « ce qui s'est passé ») ou '<compte>_<n>:fix:daxton' (« ce que j'aurais dû faire »). */
+var SJ_SHOTS = {};    // ex. { '001_1': ['img/2026-10-19_001_1.jpg'] }
+var SJ_LEVELS = {};   // ex. { '001_1': { stop:'29795.00', objectif:'29640.00', src:'lus sur la capture' } }
 
 function renderAcct(acctId, bodyId){
   var notes = sjLoadNotes();
@@ -103,7 +108,7 @@ function renderAcct(acctId, bodyId){
       + '<td>' + sjEsc(t.qty) + '</td>'
       + '<td>' + sjEsc(t.entry) + '</td>'
       + '<td>' + sjEsc(t.exit) + '</td>'
-      + '<td style="color:var(--muted);font-size:12px">' + sjEsc(t.time) + '</td>'
+      + '<td style="color:var(--muted);font-size:12px">' + sjEsc(t.time) + (t.exit_time ? ' → ' + sjEsc(t.exit_time) : '') + '</td>'
       + '<td class="td-pnl ' + pc + '">' + ps + '</td>'
       + '</tr>'
       + '<tr class="note-row"><td colspan="8">'

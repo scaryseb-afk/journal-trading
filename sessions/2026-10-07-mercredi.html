@@ -111,14 +111,14 @@ var SESSION_KEY = '2026_10_07_mercredi';
 /* Trades hardcodés — un tableau par compte, rempli depuis les CSV */
 var ACCTS = {
   '004b': [
-    {n:1, contract:'MNQ', side:'Long', qty:'5', entry:'31217.75', exit:'31219.50', time:'15:55', pnl: 17.50},
-    {n:2, contract:'MNQ', side:'Short', qty:'3', entry:'31241.75', exit:'31317.00', time:'16:34', pnl: -451.50}
+    {n:1, contract:'MNQ', side:'Long', qty:'5', entry:'31217.75', exit:'31219.50', time:'15:55', exit_time:'16:00', pnl: 17.50},
+    {n:2, contract:'MNQ', side:'Short', qty:'3', entry:'31241.75', exit:'31317.00', time:'16:34', exit_time:'17:35', pnl: -451.50}
   ],
   '001': [
-    {n:1, contract:'MNQ', side:'Long', qty:'3', entry:'31363.00', exit:'31348.00', time:'17:48', pnl: -90.00}
+    {n:1, contract:'MNQ', side:'Long', qty:'3', entry:'31363.00', exit:'31348.00', time:'17:48', exit_time:'17:56', pnl: -90.00}
   ],
   '003': [
-    {n:1, contract:'MNQ', side:'Short', qty:'4', entry:'31329.00', exit:'31367.75', time:'18:30', pnl: -310.00}
+    {n:1, contract:'MNQ', side:'Short', qty:'4', entry:'31329.00', exit:'31367.75', time:'18:30', exit_time:'19:02', pnl: -310.00}
   ]
 };
 
@@ -138,7 +138,7 @@ function renderAcct(acctId, bodyId){
       + '<td>' + sjEsc(t.qty) + '</td>'
       + '<td>' + sjEsc(t.entry) + '</td>'
       + '<td>' + sjEsc(t.exit) + '</td>'
-      + '<td style="color:var(--muted);font-size:12px">' + sjEsc(t.time) + '</td>'
+      + '<td style="color:var(--muted);font-size:12px">' + sjEsc(t.time) + (t.exit_time ? ' → ' + sjEsc(t.exit_time) : '') + '</td>'
       + '<td class="td-pnl ' + pc + '">' + ps + '</td>'
       + '</tr>'
       + '<tr class="note-row"><td colspan="8">'

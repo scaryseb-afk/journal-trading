@@ -138,22 +138,22 @@ var SESSION_KEY = '2026_10_02_vendredi';
 
 var ACCTS = {
   '02b': [
-    {n:1, contract:'MGC', side:'Long', qty:'4', entry:'4252.50', exit:'4222.50', time:'14:30', pnl: -1200.00}
+    {n:1, contract:'MGC', side:'Long', qty:'4', entry:'4252.50', exit:'4222.50', time:'14:30', exit_time:'15:16', pnl: -1200.00}
   ],
   '003': [
-    {n:1, contract:'MNQ', side:'Long', qty:'3', entry:'31177.75', exit:'31127.75', time:'15:44', pnl: -300.00}
+    {n:1, contract:'MNQ', side:'Long', qty:'3', entry:'31177.75', exit:'31127.75', time:'15:44', exit_time:'15:55', pnl: -300.00}
   ],
   '001': [
-    {n:1, contract:'MNQ', side:'Long', qty:'3', entry:'31177.75', exit:'31127.75', time:'15:44', pnl: -300.00}
+    {n:1, contract:'MNQ', side:'Long', qty:'3', entry:'31177.75', exit:'31127.75', time:'15:44', exit_time:'15:55', pnl: -300.00}
   ],
   '006': [
-    {n:1, contract:'MNQ', side:'Long', qty:'3', entry:'31178.00', exit:'31167.75', time:'15:44', pnl: -61.50}
+    {n:1, contract:'MNQ', side:'Long', qty:'3', entry:'31178.00', exit:'31167.75', time:'15:44', exit_time:'15:48', pnl: -61.50}
   ],
   '004b': [
-    {n:1, contract:'MNQ', side:'Long', qty:'3', entry:'31161.50', exit:'31112.00', time:'15:57', pnl: -297.00}
+    {n:1, contract:'MNQ', side:'Long', qty:'3', entry:'31161.50', exit:'31112.00', time:'15:57', exit_time:'17:07', pnl: -297.00}
   ],
   'A': [
-    {n:1, contract:'MNQ', side:'Short', qty:'1', entry:'31084.25', exit:'31063.50', time:'17:10', pnl: 41.50}
+    {n:1, contract:'MNQ', side:'Short', qty:'1', entry:'31084.25', exit:'31063.50', time:'17:10', exit_time:'17:13', pnl: 41.50}
   ]
 };
 
@@ -173,7 +173,7 @@ function renderAcct(acctId, bodyId){
       + '<td>' + sjEsc(t.qty) + '</td>'
       + '<td>' + sjEsc(t.entry) + '</td>'
       + '<td>' + sjEsc(t.exit) + '</td>'
-      + '<td style="color:var(--muted);font-size:12px">' + sjEsc(t.time) + '</td>'
+      + '<td style="color:var(--muted);font-size:12px">' + sjEsc(t.time) + (t.exit_time ? ' → ' + sjEsc(t.exit_time) : '') + '</td>'
       + '<td class="td-pnl ' + pc + '">' + ps + '</td>'
       + '</tr>'
       + '<tr class="note-row"><td colspan="8">'

@@ -3626,7 +3626,7 @@ window.DAY_NOTES = {
           var isToday = s.jour && s.jour.slice(0,5) === todayStr;
           var isNext  = !isToday && s.jour && s.jour.slice(0,5) === nextStr && isPending;
 
-          var hasImg = false, missingReasons = 0;
+          var hasImg = !!s.img, missingReasons = 0;   // s.img : captures enregistrées dans la page de séance par Claude (sessions/img/), invisibles dans le localStorage
           if(s.fichier){
             try{
               var skey = s.fichier.replace(/\.html$/,'').replace(/-/g,'_');

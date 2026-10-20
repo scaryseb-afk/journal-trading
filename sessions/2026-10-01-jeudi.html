@@ -80,7 +80,7 @@ var SESSION_KEY = '2026_10_01_jeudi';
 
 var ACCTS = {
   'A': [
-    {n:1, contract:'MNQ', side:'Long', qty:'4', entry:'30658.00', exit:'30606.00', time:'18:35', pnl: -416.00}
+    {n:1, contract:'MNQ', side:'Long', qty:'4', entry:'30658.00', exit:'30606.00', time:'18:35', exit_time:'18:53', pnl: -416.00}
   ]
 };
 
@@ -100,7 +100,7 @@ function renderAcct(acctId, bodyId){
       + '<td>' + sjEsc(t.qty) + '</td>'
       + '<td>' + sjEsc(t.entry) + '</td>'
       + '<td>' + sjEsc(t.exit) + '</td>'
-      + '<td style="color:var(--muted);font-size:12px">' + sjEsc(t.time) + '</td>'
+      + '<td style="color:var(--muted);font-size:12px">' + sjEsc(t.time) + (t.exit_time ? ' → ' + sjEsc(t.exit_time) : '') + '</td>'
       + '<td class="td-pnl ' + pc + '">' + ps + '</td>'
       + '</tr>'
       + '<tr class="note-row"><td colspan="8">'

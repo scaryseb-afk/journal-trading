@@ -33,8 +33,15 @@ function sjFindAcctTrade(key){
   var trades = (window.ACCTS && window.ACCTS[acct]) || [];
   return trades.filter(function(t){ return t.n === n; })[0];
 }
+/* Niveaux enregistrés dans la page par Claude (SJ_LEVELS, lus sur une capture collée dans le chat : { stop, objectif, rr, src }) : ils servent de
+   valeurs de départ ; ce que Sébastien saisit lui-même dans les champs (localStorage) prime. `src` s'affiche à côté du R:R tant que ce sont ces valeurs. */
+function sjLevels(key){
+  var d = (window.SJ_LEVELS && window.SJ_LEVELS[key]) || {}, l = sjLoadStops()[key] || {};
+  var mine = !!(l.stop || l.objectif || l.rr);
+  return { stop: l.stop || d.stop || '', objectif: l.objectif || d.objectif || '', rr: l.rr || d.rr || '', src: mine ? '' : (d.src || '') };
+}
 function sjTradeRRRow(key){
-  var s = sjLoadStops()[key] || {};
+  var s = sjLevels(key);
   return '<div class="trade-rr">'
     + '<label>Stop <input type="text" inputmode="decimal" class="trade-rr-input" data-field="stop" data-key="' + key + '" value="' + sjEsc(s.stop || '') + '" placeholder="—"></label>'
     + '<label>Objectif <input type="text" inputmode="decimal" class="trade-rr-input" data-field="objectif" data-key="' + key + '" value="' + sjEsc(s.objectif || '') + '" placeholder="—"></label>'
@@ -66,8 +73,8 @@ function sjUpdateTradeRROut(key){
   var out = document.querySelector('.trade-rr-out[data-key="' + key + '"]');
   if(!out) return;
   var t = sjFindAcctTrade(key);
-  var s = sjLoadStops()[key];
-  out.textContent = 'R:R ' + sjRRText(t, s);
+  var s = sjLevels(key);
+  out.textContent = 'R:R ' + sjRRText(t, s) + (s.src ? ' · ' + s.src : '');
 }
 function sjInitTradeRR(){
   document.querySelectorAll('.trade-rr-input').forEach(function(inp){
@@ -298,7 +305,7 @@ function sjMigrateLegacy(){   // anciennes captures (data-URL en localStorage), 
 function sjRefreshAllShots(){
   document.querySelectorAll('.trade-shots[data-key]').forEach(function(box){ sjRenderTradeShots(box.getAttribute('data-key')); });
   document.querySelectorAll('.shots-pair.no-fix').forEach(function(pair){
-    var has = [].slice.call(pair.querySelectorAll('.shots-col.fix .trade-shots')).some(function(b){ return sjLoadTradeImgs(b.getAttribute('data-key')).length; });
+    var has = [].slice.call(pair.querySelectorAll('.shots-col.fix .trade-shots')).some(function(b){ return sjHasShots(b.getAttribute('data-key')); });
     if(has) pair.classList.remove('no-fix');
   });
 }
@@ -310,11 +317,18 @@ function sjInitImgStore(){
   })['catch'](function(){});   // jamais bloquant : au pire, repli sur localStorage
 }
 var sjImgReady = sjInitImgStore();
+/* Captures enregistrées dans la page par Claude (SJ_SHOTS : { clé de zone : ['img/….jpg', …] }, fichiers dans sessions/img/) : versionnées avec le site, donc visibles sur
+   tous les appareils et en ligne ; affichées avant celles que Sébastien dépose lui-même (stockées dans son navigateur), sans bouton de suppression. */
+function sjPageShots(key){ return (window.SJ_SHOTS && window.SJ_SHOTS[key]) || []; }
+function sjHasShots(key){ return sjPageShots(key).length > 0 || sjLoadTradeImgs(key).length > 0; }
 function sjRenderTradeShots(key){
   var box = document.querySelector('.trade-shots[data-key="' + key + '"]');
   if(!box) return;
   var imgs = sjLoadTradeImgs(key);
-  box.querySelector('.trade-shots-list').innerHTML = imgs.map(function(src, i){
+  var pre = sjPageShots(key).map(function(src){
+    return '<div class="screenshot-wrap" title="Capture enregistrée dans la page"><img src="' + sjEsc(src) + '" onclick="sjOpenLB(this.src)"></div>';
+  }).join('');
+  box.querySelector('.trade-shots-list').innerHTML = pre + imgs.map(function(src, i){
     return '<div class="screenshot-wrap"><img src="' + src + '" onclick="sjOpenLB(this.src)">'
          + '<button type="button" class="screenshot-del" onclick="sjDelTradeShot(\'' + key + '\',' + i + ')" title="Supprimer">×</button></div>';
   }).join('');
@@ -356,7 +370,7 @@ function sjInitTradeShots(){
     var tr = row.previousElementSibling;
     var failed = !!(tr && tr.querySelector('.td-pnl.td-l'));
     var fixNote = sjLoadNotes()[fixKey] || '';
-    var fixImgs = fixKeys.concat(SJ_FIX_OLD.map(function(x){ return key + x; })).some(function(k){ return sjLoadTradeImgs(k).length; });
+    var fixImgs = fixKeys.concat(SJ_FIX_OLD.map(function(x){ return key + x; })).some(function(k){ return sjHasShots(k); });
     var pair = document.createElement('div');
     pair.className = 'shots-pair' + ((failed || fixNote || fixImgs) ? '' : ' no-fix');
     pair.innerHTML =

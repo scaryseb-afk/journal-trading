@@ -97,10 +97,10 @@ var SESSION_KEY = '2026_10_19_lundi';
 /* Trades hardcodés — un tableau par compte, rempli depuis les CSV */
 var ACCTS = {
   '001': [
-    {n:1, contract:'MNQ', side:'Short', qty:'4', entry:'29732.50', exit:'29795.00', time:'15:40', pnl: -500.00}
+    {n:1, contract:'MNQ', side:'Short', qty:'4', entry:'29732.50', exit:'29795.00', time:'15:40', exit_time:'15:43', pnl: -500.00}
   ],
   '02b': [
-    {n:1, contract:'MNQ', side:'Short', qty:'4', entry:'29750.75', exit:'29749.50', time:'15:42', pnl: 10.00}
+    {n:1, contract:'MNQ', side:'Short', qty:'4', entry:'29750.75', exit:'29749.50', time:'15:42', exit_time:'16:13', pnl: 10.00}
   ]
 };
 
@@ -120,7 +120,7 @@ function renderAcct(acctId, bodyId){
       + '<td>' + sjEsc(t.qty) + '</td>'
       + '<td>' + sjEsc(t.entry) + '</td>'
       + '<td>' + sjEsc(t.exit) + '</td>'
-      + '<td style="color:var(--muted);font-size:12px">' + sjEsc(t.time) + '</td>'
+      + '<td style="color:var(--muted);font-size:12px">' + sjEsc(t.time) + (t.exit_time ? ' → ' + sjEsc(t.exit_time) : '') + '</td>'
       + '<td class="td-pnl ' + pc + '">' + ps + '</td>'
       + '</tr>'
       + '<tr class="note-row"><td colspan="8">'

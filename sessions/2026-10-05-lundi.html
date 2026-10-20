@@ -103,25 +103,25 @@ var SESSION_KEY = '2026_10_05_lundi';
 
 var ACCTS = {
   '004b': [
-    {n:1, contract:'MNQ', side:'Short', qty:'4', entry:'31170.50', exit:'31203.00', time:'15:47', pnl: -260.00},
-    {n:2, contract:'MNQ', side:'Short', qty:'5', entry:'31212.00', exit:'31230.50', time:'16:30', pnl: -185.00},
-    {n:3, contract:'MNQ', side:'Short', qty:'2', entry:'31222.00', exit:'31235.50', time:'17:10', pnl: -54.00}
+    {n:1, contract:'MNQ', side:'Short', qty:'4', entry:'31170.50', exit:'31203.00', time:'15:47', exit_time:'16:16', pnl: -260.00},
+    {n:2, contract:'MNQ', side:'Short', qty:'5', entry:'31212.00', exit:'31230.50', time:'16:30', exit_time:'16:50', pnl: -185.00},
+    {n:3, contract:'MNQ', side:'Short', qty:'2', entry:'31222.00', exit:'31235.50', time:'17:10', exit_time:'17:20', pnl: -54.00}
   ],
   '001': [
-    {n:1, contract:'MNQ', side:'Short', qty:'4', entry:'31229.50', exit:'31230.50', time:'17:08', pnl: -8.00, bug:true},
-    {n:2, contract:'MNQ', side:'Short', qty:'2', entry:'31225.25', exit:'31225.75', time:'17:09', pnl: -2.00, bug:true},
-    {n:3, contract:'MNQ', side:'Short', qty:'2', entry:'31273.00', exit:'31273.75', time:'19:26', pnl: -3.00, bug:true},
-    {n:4, contract:'MNQ', side:'Short', qty:'2', entry:'31274.75', exit:'31275.00', time:'19:27', pnl: -1.00, bug:true},
-    {n:5, contract:'MNQ', side:'Short', qty:'1', entry:'31280.00', exit:'31280.50', time:'19:39', pnl: -1.00, bug:true},
-    {n:6, contract:'MNQ', side:'Short', qty:'1', entry:'31278.75', exit:'31278.50', time:'19:41', pnl: 0.50, bug:true},
-    {n:7, contract:'MNQ', side:'Short', qty:'1', entry:'31280.00', exit:'31280.50', time:'19:42', pnl: -1.00, bug:true},
-    {n:8, contract:'MNQ', side:'Short', qty:'2', entry:'31282.25', exit:'31282.75', time:'19:42', pnl: -2.00, bug:true},
-    {n:9, contract:'MNQ', side:'Short', qty:'2', entry:'31293.25', exit:'31295.50', time:'19:44', pnl: -9.00, bug:true},
-    {n:10, contract:'MNQ', side:'Short', qty:'2', entry:'31296.25', exit:'31297.00', time:'19:48', pnl: -3.00, bug:true},
-    {n:11, contract:'MNQ', side:'Short', qty:'2', entry:'31299.75', exit:'31300.00', time:'19:48', pnl: -1.00, bug:true},
-    {n:12, contract:'MNQ', side:'Short', qty:'2', entry:'31288.75', exit:'31288.50', time:'20:12', pnl: 1.00, bug:true},
-    {n:13, contract:'MNQ', side:'Short', qty:'2', entry:'31286.25', exit:'31287.00', time:'20:12', pnl: -3.00, bug:true},
-    {n:14, contract:'MNQ', side:'Short', qty:'2', entry:'31307.75', exit:'31329.00', time:'20:38', pnl: -85.00}
+    {n:1, contract:'MNQ', side:'Short', qty:'4', entry:'31229.50', exit:'31230.50', time:'17:08', exit_time:'17:08', pnl: -8.00, bug:true},
+    {n:2, contract:'MNQ', side:'Short', qty:'2', entry:'31225.25', exit:'31225.75', time:'17:09', exit_time:'17:09', pnl: -2.00, bug:true},
+    {n:3, contract:'MNQ', side:'Short', qty:'2', entry:'31273.00', exit:'31273.75', time:'19:26', exit_time:'19:26', pnl: -3.00, bug:true},
+    {n:4, contract:'MNQ', side:'Short', qty:'2', entry:'31274.75', exit:'31275.00', time:'19:27', exit_time:'19:27', pnl: -1.00, bug:true},
+    {n:5, contract:'MNQ', side:'Short', qty:'1', entry:'31280.00', exit:'31280.50', time:'19:39', exit_time:'19:39', pnl: -1.00, bug:true},
+    {n:6, contract:'MNQ', side:'Short', qty:'1', entry:'31278.75', exit:'31278.50', time:'19:41', exit_time:'19:41', pnl: 0.50, bug:true},
+    {n:7, contract:'MNQ', side:'Short', qty:'1', entry:'31280.00', exit:'31280.50', time:'19:42', exit_time:'19:42', pnl: -1.00, bug:true},
+    {n:8, contract:'MNQ', side:'Short', qty:'2', entry:'31282.25', exit:'31282.75', time:'19:42', exit_time:'19:42', pnl: -2.00, bug:true},
+    {n:9, contract:'MNQ', side:'Short', qty:'2', entry:'31293.25', exit:'31295.50', time:'19:44', exit_time:'19:44', pnl: -9.00, bug:true},
+    {n:10, contract:'MNQ', side:'Short', qty:'2', entry:'31296.25', exit:'31297.00', time:'19:48', exit_time:'19:48', pnl: -3.00, bug:true},
+    {n:11, contract:'MNQ', side:'Short', qty:'2', entry:'31299.75', exit:'31300.00', time:'19:48', exit_time:'19:48', pnl: -1.00, bug:true},
+    {n:12, contract:'MNQ', side:'Short', qty:'2', entry:'31288.75', exit:'31288.50', time:'20:12', exit_time:'20:12', pnl: 1.00, bug:true},
+    {n:13, contract:'MNQ', side:'Short', qty:'2', entry:'31286.25', exit:'31287.00', time:'20:12', exit_time:'20:12', pnl: -3.00, bug:true},
+    {n:14, contract:'MNQ', side:'Short', qty:'2', entry:'31307.75', exit:'31329.00', time:'20:38', exit_time:'21:01', pnl: -85.00}
   ]
 };
 function renderAcct(acctId, bodyId){
@@ -145,7 +145,7 @@ function renderAcct(acctId, bodyId){
       + '<td>' + sjEsc(t.qty) + '</td>'
       + '<td>' + sjEsc(t.entry) + '</td>'
       + '<td>' + sjEsc(t.exit) + '</td>'
-      + '<td style="color:var(--muted);font-size:12px">' + sjEsc(t.time) + '</td>'
+      + '<td style="color:var(--muted);font-size:12px">' + sjEsc(t.time) + (t.exit_time ? ' → ' + sjEsc(t.exit_time) : '') + '</td>'
       + '<td class="td-pnl ' + pc + '">' + ps + '</td>'
       + '</tr>'
       + '<tr class="note-row"><td colspan="8">'

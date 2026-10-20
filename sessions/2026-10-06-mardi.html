@@ -85,7 +85,7 @@ var SESSION_KEY = '2026_10_06_mardi';
 /* Trades hardcodés — un tableau par compte, rempli depuis les CSV */
 var ACCTS = {
   '004b': [
-    {n:1, contract:'MNQ', side:'Long', qty:'3', entry:'31535.00', exit:'31530.50', time:'15:55', pnl: -27.00}
+    {n:1, contract:'MNQ', side:'Long', qty:'3', entry:'31535.00', exit:'31530.50', time:'15:55', exit_time:'18:16', pnl: -27.00}
   ]
 };
 
@@ -105,7 +105,7 @@ function renderAcct(acctId, bodyId){
       + '<td>' + sjEsc(t.qty) + '</td>'
       + '<td>' + sjEsc(t.entry) + '</td>'
       + '<td>' + sjEsc(t.exit) + '</td>'
-      + '<td style="color:var(--muted);font-size:12px">' + sjEsc(t.time) + '</td>'
+      + '<td style="color:var(--muted);font-size:12px">' + sjEsc(t.time) + (t.exit_time ? ' → ' + sjEsc(t.exit_time) : '') + '</td>'
       + '<td class="td-pnl ' + pc + '">' + ps + '</td>'
       + '</tr>'
       + '<tr class="note-row"><td colspan="8">'
