@@ -345,6 +345,7 @@ textarea::placeholder{color:#4A566A}
 .sr.pending{opacity:.5;border-left-style:dashed}
 .sr-date{font-size:13.5px;font-weight:600;color:var(--txt);display:flex;align-items:center;gap:5px}
 .sr-img{font-size:12px;opacity:.7}
+.sr-noimg{font-size:12px;color:var(--muted)}
 .sr-warn{font-size:12px}
 .sr-pnl{font-size:14px;font-weight:700;font-variant-numeric:tabular-nums;text-align:right;white-space:nowrap}
 .sr-r{font-size:12px;font-weight:650;font-variant-numeric:tabular-nums;text-align:right;white-space:nowrap;color:var(--dim)}
@@ -3291,7 +3292,17 @@ window.DAY_NOTES = {
     try{ last = localStorage.getItem('journal-last-view') || 'dashboard'; }catch(e){}
     // un lien #brief, #sessions… (menu des pages de séance) ouvre directement l'onglet demandé
     var fromHash = (window.location.hash || '').slice(1);
-    show(document.getElementById('view-' + fromHash) ? fromHash : last);
+    // #onglet/sous-page (menu des pages de séance) : la sous-page est mémorisée avant l'initialisation des sous-onglets, qui la restaure
+    var hp = fromHash.split('/'), hView = hp[0], hSub = hp[1] || null;
+    var SUBNAV_OF = { dashboard: 'dash-subnav', brief: 'brief-subnav', eco: 'eco-subnav', regles: 'regles-subnav' };
+    if(hSub && SUBNAV_OF[hView]){
+      try{ localStorage.setItem('journal-subnav-' + SUBNAV_OF[hView], hSub); }catch(e){}
+      window.addEventListener('load', function(){   // si le stockage local est indisponible : on clique la sous-page une fois tout chargé
+        var b = document.querySelector('#' + SUBNAV_OF[hView] + ' .sn-btn[data-sub="' + hSub + '"]');
+        if(b && !b.classList.contains('active')) b.click();
+      });
+    }
+    show(document.getElementById('view-' + hView) ? hView : last);
   });
 })();
 </script>
@@ -4065,6 +4076,7 @@ window.DAY_NOTES = {
           h += '<' + tag + ' class="sr ' + cls + '"' + attrs + '>';
           h += '<div class="sr-date">' + jourLabel(s.jour);
           if(hasImg) h += '<span class="sr-img" title="Capture(s) d\'écran enregistrée(s)">📷</span>';
+          else if(s.fichier && !isPending && s.trades > 0) h += '<span class="sr-noimg" title="Aucune capture d\'écran enregistrée pour cette séance">⚠︎</span>';
           if(missingReasons > 0) h += '<span class="sr-warn" title="' + missingReasons + ' trade(s) sans raison renseignée">⚠️</span>';
           if(isToday) h += '<span class="sr-badge today">Auj.</span>';
           else if(isNext) h += '<span class="sr-badge next">Prochaine</span>';

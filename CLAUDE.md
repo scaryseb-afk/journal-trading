@@ -23,7 +23,7 @@ sous-élément survolé/actif est mis en évidence. Chaque entrée du menu (site
 pages de séance, `SJ_NAV` dans `session.js`) porte un emoji devant son nom. Chaque sous-page du Tableau de bord a son propre titre ; l'en-tête
 et les widgets du haut (score de confluence, respect du plan, cartes) ne sont que
 sur « Vue d'ensemble ». Juste en dessous du sous-titre, une bannière du jour (`#day-banner`) tire un message parmi 30 (bonne séance) / 30 (séance difficile) — sens et message tirés du P&L du jour dans `window.SESSIONS`, ou à défaut du compteur live `daytrack_AAAA-MM-JJ` (boutons +Gagnant/+Perdant/+Neutre de l'onglet Règles) ; sans donnée pour aujourd'hui, elle reste neutre. Un seul message par jour (index déterministe sur la date), pour rester stable au fil des visites. Les pages de séance
-injectent le même menu (`.side-nav`, dans `session.js`) et partagent le thème
+injectent le même menu (`.side-nav`, dans `session.js` : les cinq onglets et, dès 960 px, les mêmes sous-entrées toujours dépliées qu'index.html — liste `SJ_NAV` à tenir à jour quand un `.sn-btn` est ajouté dans index.html ; les liens ouvrent `index.html#onglet/sous-page`, routage dans le script de navigation d'index.html ; complété le 20/10, le menu des pages de séance n'avait que les cinq onglets) et partagent le thème
 (`journal-theme`). Adaptations iOS/Safari mobile : meta
 `apple-mobile-web-app-*` + `apple-touch-icon.png` (icône générée avec
 `_systeme/` — à refaire avec le même script si la palette change), champs de
@@ -84,7 +84,7 @@ trade, relecture) — ne pas dupliquer ce CSS/JS dans le fichier de session.
   ligne) — pas de zone générale au niveau de la séance (retirée le 28/09,
   redondante avec les zones par trade). Redimensionnées et compressées côté
   navigateur avant stockage (voir `SJ_IMG_MAX_WIDTH`/`SJ_IMG_QUALITY` dans
-  `session.js`) avant d'être rangées dans IndexedDB (base `journal-images`, depuis le 16/10 : en localStorage, ~5 Mo pour tout le site, 15 à 30 captures suffisaient à afficher « Stockage plein » ; `localStorage` ne garde qu'un témoin `[1,…]` sous la même clé, qui sert à l'icône 📷 de l'onglet Sessions, et les anciennes captures encore en localStorage sont migrées toutes seules au chargement d'une page de séance, sans perte : le témoin ne remplace l'original qu'une fois l'écriture confirmée). Stockage 100%
+  `session.js`) avant d'être rangées dans IndexedDB (base `journal-images`, depuis le 16/10 : en localStorage, ~5 Mo pour tout le site, 15 à 30 captures suffisaient à afficher « Stockage plein » ; `localStorage` ne garde qu'un témoin `[1,…]` sous la même clé, qui sert à l'icône 📷 de l'onglet Sessions (une séance avec des trades mais sans capture y porte un triangle gris ⚠︎, demandé par Sébastien le 20/10), et les anciennes captures encore en localStorage sont migrées toutes seules au chargement d'une page de séance, sans perte : le témoin ne remplace l'original qu'une fois l'écriture confirmée). Stockage 100%
   local au navigateur — invisible pour Claude, donc ne pas s'appuyer dessus
   pour les calculs.
 - Relecture ("Erreur commise" / "Ce que j'aurais dû faire" / "Ce qui a bien

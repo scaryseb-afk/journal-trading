@@ -557,7 +557,17 @@ function sjInitTradeCopy(){
 }
 
 /* ---------- Menu latéral : même navigation que index.html, thème partagé (clé localStorage « journal-theme ») ---------- */
-var SJ_NAV = [['dashboard','📊 Tableau de bord'],['brief','🧭 Avant la séance'],['eco','🌐 Analyses éco'],['sessions','🗓️ Sessions'],['regles','⛔ Règles']];
+/* Même menu qu'index.html : onglets + sous-entrées toujours dépliées (≥ 960 px). Pour chaque onglet : [id, libellé, sous-page ouverte par le lien parent, [[sous-page, libellé], …]].
+   Les sous-pages sont celles des .sn-btn d'index.html (la première de chaque onglet, marquée data-nosidebar, n'est pas répétée) : à tenir à jour ici quand
+   un .sn-btn y est ajouté. Les liens ouvrent index.html#<onglet>/<sous-page> (routage dans le script de navigation d'index.html). */
+var SJ_NAV = [
+  ['dashboard','📊 Tableau de bord','overview',[['progression','📈 Progression'],['instrument','🪙 Par instrument'],['economie','💶 Économie & risque'],['comptes','🧮 Comptes & Analyse'],['risque','⚖️ Risque & R:R'],['bilan','📑 Bilan & Règles']]],
+  ['brief','🧭 Avant la séance','essentiel',[['consignes','✅ Consignes & actions'],['interdits','🚫 Interdits & repères'],['checklist','☑️ Checklist'],['comptes','🏦 Comptes']]],
+  ['eco','🌐 Analyses éco','overview',[['inflation','💰 Inflation & emploi'],['pmi','🏭 PMI'],['biais','🎯 Biais marché']]],
+  ['sessions','🗓️ Sessions',null,[]],
+  ['regles','⛔ Règles','outils',[['bilan','🧾 Bilan & discipline'],['communes','📜 Règles communes'],['v2','⚡ Stratégie V2 · iFVG M5'],['v1','🧩 Stratégie V1']]]
+];
+function sjEsc(t){ return String(t).replace(/&/g, '&amp;').replace(/</g, '&lt;'); }
 var SJ_THEMES = ['system','dark','light'];
 var SJ_THEME_LABELS = {system:'⚙️ Système', dark:'🌙 Sombre', light:'☀️ Clair'};
 function sjApplyTheme(t){
@@ -579,7 +589,11 @@ function sjInitSidebar(){
   var nav = document.createElement('nav');
   nav.className = 'side-nav';
   nav.innerHTML = '<div class="side-nav-brand"><b>Journal de trading</b><span>Futures · Tradovate / Lucid</span></div>'
-    + SJ_NAV.map(function(n){ return '<a href="../index.html#' + n[0] + '"' + (n[0] === 'sessions' ? ' class="on"' : '') + '>' + n[1] + '</a>'; }).join('')
+    + SJ_NAV.map(function(n){
+        var a = '<a href="../index.html#' + n[0] + (n[2] ? '/' + n[2] : '') + '"' + (n[0] === 'sessions' ? ' class="on"' : '') + '>' + sjEsc(n[1]) + '</a>';
+        if(!n[3].length) return a;
+        return a + '<div class="nav-sub">' + n[3].map(function(s){ return '<a href="../index.html#' + n[0] + '/' + s[0] + '">' + sjEsc(s[1]) + '</a>'; }).join('') + '</div>';
+      }).join('')
     + '<button type="button" class="theme-btn"></button>';
   document.body.insertBefore(nav, document.body.firstChild);
   document.body.classList.add('has-side-nav');
