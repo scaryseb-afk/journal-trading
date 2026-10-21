@@ -25,9 +25,9 @@
   <strong>+30,00 $ — un seul trade, pris sur deux comptes : 02b +500 $, 001 −470 $.</strong><br><br>
   <strong>1 · 02b — MNQ Long 2 contrats : +500 $.</strong> Achat à 16h35:21 à 29 892,00, vente à 17h36:34 à 30 017,00 : 125 pts en ta faveur en 1 h 01 min 13 (2 × 125 pts × 2 $). Objectif touché. Entré 1 h 05 après l'ouverture US (15h30).<br><br>
   <strong>1 (même trade) · 001 — MNQ Long 4 contrats : −470 $.</strong> Achat à 16h34:55 à 29 895,25, vente à 16h38:41 à 29 836,50 : 58,75 pts contre toi en 3 min 46 (4 × 58,75 pts × 2 $). Entré 26 s avant le 02b, 3,25 pts plus haut ; sorti à 29 836,50, soit 7 pts au-dessus du stop de la capture (29 829,50) : stop différent ou sortie manuelle — le CSV ne le dit pas. Le prix est ensuite remonté jusqu'à l'objectif du 02b.<br><br>
-  <strong>Ce que disent tes captures</strong> (TradingView, 1 min, 17h37 — la seconde une minute plus tard) : outil de position Long du 02b — <strong>entrée 29 892,5</strong> (ton fill : 29 892,00), <strong>stop 29 829,5</strong> (étiquette rouge), <strong>objectif 30 017,5</strong> (étiquette verte ; ta sortie : 30 017,00). Risque 63 pts, gain 125 pts : <strong>R:R ≈ 2,0</strong> (1,98 avec l'entrée de l'outil, 2,01 avec ton fill) — un peu au-dessus du 1,95 de la règle V2.8 (pour 1,95, l'objectif aurait été vers 30 015,4). <strong>R réalisé du 02b : +500 $ ÷ 250 $ de risque (62,5 pts × 2 contrats × 2 $) = +2,0 R.</strong> Le 001, lui, a perdu 470 $ sur un stop que je ne connais pas.<br><br>
+  <strong>Ce que disent tes captures</strong> (TradingView, 1 min, 17h37 : « 001 » à 17h37:22, « 006 » à 17h37:58 ; chacune est rangée sous le trade de son compte, et les deux montrent le même outil de position, aux mêmes niveaux) : outil de position Long — <strong>entrée 29 892,5</strong> (ton fill : 29 892,00), <strong>stop 29 829,5</strong> (étiquette rouge), <strong>objectif 30 017,5</strong> (étiquette verte ; ta sortie : 30 017,00). Risque 63 pts, gain 125 pts : <strong>R:R ≈ 2,0</strong> (1,98 avec l'entrée de l'outil, 2,01 avec ton fill) — un peu au-dessus du 1,95 de la règle V2.8 (pour 1,95, l'objectif aurait été vers 30 015,4). <strong>R réalisé du 02b : +500 $ ÷ 250 $ de risque (62,5 pts × 2 contrats × 2 $) = +2,0 R.</strong> <strong>Sur le 001</strong>, les mêmes niveaux donnent, avec son fill à 29 895,25 : risque 65,75 pts (4 contrats : 526 $), gain 122,25 pts, <strong>R:R ≈ 1,86</strong>. Il est sorti à 29 836,50 (−470 $), avant ce stop : <strong>≈ −0,9 R</strong> par rapport au stop de la capture (indicatif, son vrai stop n'est pas dans le CSV).<br><br>
   <strong>Comptage :</strong> une même position prise sur deux comptes = un seul trade (ta règle du 19/10), ici gagnant (+30 $ au total) ; règle 8 non enfreinte.<br><br>
-  <strong>Contrôle du plan — respecté :</strong> 1 trade (max 3) ✓ · aucune ré-entrée à moins de 10 min d'une perte ✓ · 4 et 2 contrats (plafond levé en octobre) · perte du 001 de 470 $, sous le budget de 500 $ ✓ · entrées après 15h30 ✓ · règle V2.1 : stop de 63 pts = 252 ticks, sous les 400 ticks ✓ · R:R ≈ 2,0 lu sur la capture (MME 1H et niveau de protection du stop, règle V2.2 : non évalués).<br><br>
+  <strong>Contrôle du plan — respecté :</strong> 1 trade (max 3) ✓ · aucune ré-entrée à moins de 10 min d'une perte ✓ · 4 et 2 contrats (plafond levé en octobre) · perte du 001 de 470 $, sous le budget de 500 $ ✓ (au stop de la capture, le risque du 001 aurait été de 526 $ : à vérifier s'il avait bien ce stop) · entrées après 15h30 ✓ · règle V2.1 : stop de 63 pts = 252 ticks, sous les 400 ticks ✓ · R:R ≈ 2,0 lu sur la capture (MME 1H et niveau de protection du stop, règle V2.2 : non évalués).<br><br>
   <strong>Plan Daxton (V2).</strong><br><br>
   <strong>Ce qui manque :</strong> le biais MME et le niveau de protection du stop (V2.2) ; le stop du 001.
 </div>
@@ -108,8 +108,11 @@ var ACCTS = {
 
 /* Captures et niveaux enregistrés par Claude (facultatif) : quand Sébastien colle une capture dans le chat, Claude lit le stop / l'objectif / le R:R dessus, copie l'image
    dans sessions/img/ et la place ici sous le bon trade. Clés : '<compte>_<n>' (zone « ce qui s'est passé ») ou '<compte>_<n>:fix:daxton' (« ce que j'aurais dû faire »). */
-var SJ_SHOTS = { '02b_1': ['img/2026-10-21_02b_1.jpg', 'img/2026-10-21_02b_1_b.jpg'] };
-var SJ_LEVELS = { '02b_1': { stop: '29829.50', objectif: '30017.50', src: 'lus sur la capture' } };
+var SJ_SHOTS = { '001_1': ['img/2026-10-21_001_1.jpg'], '02b_1': ['img/2026-10-21_02b_1.jpg'] };
+var SJ_LEVELS = {
+  '001_1': { stop: '29829.50', objectif: '30017.50', src: 'lus sur la capture « 001 »' },
+  '02b_1': { stop: '29829.50', objectif: '30017.50', src: 'lus sur la capture « 006 »' }
+};
 
 function renderAcct(acctId, bodyId){
   var notes = sjLoadNotes();
