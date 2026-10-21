@@ -90,7 +90,7 @@ var ACCTS = {
 /* Captures et niveaux enregistrés par Claude (facultatif) : quand Sébastien colle une capture dans le chat, Claude lit le stop / l'objectif / le R:R dessus, copie l'image
    dans sessions/img/ et la place ici sous le bon trade. Clés : '<compte>_<n>' (zone « ce qui s'est passé ») ou '<compte>_<n>:fix:daxton' (« ce que j'aurais dû faire »). */
 var SJ_SHOTS = {};    // ex. { '001_1': ['img/2026-10-19_001_1.jpg'] }
-var SJ_LEVELS = {};   // ex. { '001_1': { stop:'29795.00', objectif:'29640.00', src:'lus sur la capture' } }
+var SJ_LEVELS = {};   // ex. { '001_1': { stop:'29795.00', objectif:'29640.00', rr:'2.00', src:'lus sur la capture' } }
 
 function renderAcct(acctId, bodyId){
   var notes = sjLoadNotes();
