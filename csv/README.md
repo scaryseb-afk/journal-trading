@@ -33,6 +33,21 @@ explicite :
 | A | 665865960xxx (nouveau compte ouvert le 18/09, trade en 8 contrats dès le 1er jour) |
 | 02b | 679770490xxx (nouveau compte racheté le 29/09, remplace le 002 cramé/breached) |
 
+## Fuseau horaire des exports (changement d'heure du 25/10/2026)
+
+Les horodatages Tradovate suivent l'heure locale du navigateur. Depuis le passage
+à l'heure d'hiver (dimanche 25/10/2026), un export **ré-affiche tout l'historique
+une heure plus tôt** : les lignes du 19/10 au 22/10, déjà rangées ici, reviennent
+avec 1 h de moins (ex. 001, 19/10 : `15:43:28` ici, `14:43:28` dans l'export du
+26/10). On ne les réécrit pas : le dédoublonnage se fait sur le couple
+`buyFillId`/`sellFillId`, pas sur l'heure. Conséquence : les lignes enregistrées
+jusqu'au 22/10 sont en heure d'été (UTC+2), celles du 23/10 (ajoutée après le
+changement : `16:05:05` dans le fichier, soit 17:05:05 à l'heure d'été) et suivantes
+sont en heure d'hiver (UTC+1). Les trois scripts ne comparent que des lignes du
+même jour (chevauchement, ré-entrées à moins de 10 min), donc le mélange ne les
+fausse pas tant qu'un même jour reste dans un seul fuseau — **ne jamais ranger
+deux exports d'un même jour pris de part et d'autre du changement d'heure**.
+
 ## Règle pour toute session Claude qui traite un CSV envoyé par l'utilisateur
 
 1. **Toujours sauvegarder le fichier reçu** dans `csv/comptes/<numéro>.csv`

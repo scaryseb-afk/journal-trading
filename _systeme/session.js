@@ -33,12 +33,14 @@ function sjFindAcctTrade(key){
   var trades = (window.ACCTS && window.ACCTS[acct]) || [];
   return trades.filter(function(t){ return t.n === n; })[0];
 }
-/* Niveaux enregistrés dans la page par Claude (SJ_LEVELS, lus sur une capture collée dans le chat : { stop, objectif, rr, src }) : ils servent de
-   valeurs de départ ; ce que Sébastien saisit lui-même dans les champs (localStorage) prime. `src` s'affiche à côté du R:R tant que ce sont ces valeurs. */
+/* Niveaux enregistrés dans la page par Claude (SJ_LEVELS, lus sur une capture collée dans le chat : { stop, objectif, rr, entry, src }) : ils servent de
+   valeurs de départ ; ce que Sébastien saisit lui-même dans les champs (localStorage) prime. `src` s'affiche à côté du R:R tant que ce sont ces valeurs.
+   `entry` (facultatif) = prix d'entrée de l'outil de position quand il est décalé du fill du CSV (ex. 26/10 : outil 8 pts sous le fill) : le R:R se calcule alors
+   avec lui plutôt qu'avec le fill, pour retrouver celui de l'outil. */
 function sjLevels(key){
   var d = (window.SJ_LEVELS && window.SJ_LEVELS[key]) || {}, l = sjLoadStops()[key] || {};
   var mine = !!(l.stop || l.objectif || l.rr);
-  return { stop: l.stop || d.stop || '', objectif: l.objectif || d.objectif || '', rr: l.rr || d.rr || '', src: mine ? '' : (d.src || '') };
+  return { stop: l.stop || d.stop || '', objectif: l.objectif || d.objectif || '', rr: l.rr || d.rr || '', entry: mine ? '' : (d.entry || ''), src: mine ? '' : (d.src || '') };
 }
 function sjTradeRRRow(key){
   var s = sjLevels(key);
@@ -51,7 +53,7 @@ function sjTradeRRRow(key){
 }
 function sjComputeRR(t, rr){
   if(!rr || !rr.stop || !rr.objectif) return '—';
-  var entry = parseFloat(t.entry), stop = parseFloat(rr.stop), obj = parseFloat(rr.objectif);
+  var entry = parseFloat(rr.entry || t.entry), stop = parseFloat(rr.stop), obj = parseFloat(rr.objectif);
   if(!isFinite(entry) || !isFinite(stop) || !isFinite(obj)) return '—';
   var risk = Math.abs(entry - stop);
   if(risk === 0) return '—';

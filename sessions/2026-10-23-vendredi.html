@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<link rel="apple-touch-icon" href="../apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>Vendredi 23 oct. — Journal</title>
+<link rel="stylesheet" href="../_systeme/style.css">
+<link rel="stylesheet" href="../_systeme/apple.css">
+</head>
+<body>
+<div class="wrap">
+
+<a href="https://scaryseb-afk.github.io/journal-trading/#sessions" onclick="if(document.referrer){history.back();return false;}" class="sp-back">← Journal</a>
+
+<div class="sp-header">
+  <h1 class="sp-title">Vendredi 23 oct.</h1>
+  <span class="sp-pnl td-l">−234,00 $</span>
+</div>
+<div class="sp-meta">1 trade &nbsp;·&nbsp; 1 compte (02b) &nbsp;·&nbsp; le 001 n'a pas tradé</div>
+
+<div class="note-block">
+  <strong>−234,00 $ — un seul trade, perdant, sur le 02b (le 001 n'a pas tradé).</strong><br><br>
+  <strong>1 · 02b — MNQ Short 3 contrats : −234 $.</strong> Vente à 17h05:05 à 29 261,25, rachat à 18h02:32 à 29 300,25 : 39 pts contre toi en 57 min 27 (3 × 39 pts × 2 $). Entré 1 h 35 après l'ouverture US (15h30 ce jour-là).<br><br>
+  <strong>Heures :</strong> cette séance s'est jouée en heure d'été, mais l'export reçu le 26/10 est en heure d'hiver (le CSV dit 16:05:05 → 17:02:32) : j'ai ajouté 1 h pour garder les mêmes heures que les autres pages ; le fichier CSV garde les heures brutes (voir <code>csv/README.md</code>).<br><br>
+  <strong>À vérifier :</strong> tu as écrit « j'ai perdu 400 je crois » ; le CSV du 02b donne <strong>−234 $</strong>, et je n'ai aucune ligne du 001 le 23/10 (son export va du 19/10 au 22/10, puis le 26/10). Si un autre compte a tradé ce jour-là (le 005b, par exemple), il me manque son CSV.<br><br>
+  <strong>Contrôle du plan — respecté :</strong> 1 trade (max 3) ✓ · aucune ré-entrée à moins de 10 min d'une perte ✓ · 3 contrats (plafond levé en octobre) · perte de 234 $, sous le budget de 500 $ ✓ · entrée après l'ouverture US ✓ · stop, objectif, R:R et règle V2.1 : non évaluables (pas de capture) · MME 1H et niveau de protection du stop (règle V2.2) : non évalués.<br><br>
+  <strong>Plan Daxton (V2).</strong><br><br>
+  <strong>Ce qui manque :</strong> le stop, l'objectif et la raison du trade ; le biais MME et le niveau de protection du stop (V2.2).
+</div>
+
+<!-- Captures d'écran -->
+<!-- Trades par compte — dupliquer ce bloc pour chaque compte actif -->
+<div id="trades-section">
+
+  <div class="acct-header">
+    <span class="acct-label">Compte 02b — …4680006 (LucidFlex)</span>
+    <span class="acct-pnl td-l">−234,00 $</span>
+  </div>
+  <div class="tbl-wrap">
+    <table class="trades-table">
+      <thead><tr><th>#</th><th>Contrat</th><th>Sens</th><th>Qté</th><th>Entrée</th><th>Sortie</th><th>Heure</th><th>P&amp;L</th></tr></thead>
+      <tbody id="body-02b"></tbody>
+    </table>
+  </div>
+
+  <div class="total-bar">
+    <span class="total-label">Total journée — 1 compte</span>
+    <span class="total-val " style="color:var(--red)">−234,00 $</span></span>
+  </div>
+
+</div>
+
+<!-- Relecture — à remplir par Sébastien, sert à améliorer les séances suivantes -->
+<div class="section-title">🪞 Ta relecture</div>
+<div class="reflect-grid">
+  <div class="reflect-item err">
+    <label>Erreur commise</label>
+    <textarea class="reflect-note" data-key="reflect_erreur" placeholder="Qu'est-ce qui a foiré aujourd'hui, concrètement ?"></textarea>
+  </div>
+  <div class="reflect-item fix">
+    <label>Ce que j'aurais dû faire</label>
+    <textarea class="reflect-note" data-key="reflect_correction" placeholder="La version correcte de la décision"></textarea>
+  </div>
+  <div class="reflect-item ok">
+    <label>Ce qui a bien fonctionné</label>
+    <textarea class="reflect-note" data-key="reflect_ok" placeholder="À garder, à répéter"></textarea>
+  </div>
+</div>
+<div class="reflect-copy">
+  <button id="reflect-copy-btn" onclick="sjCopyReflect()" disabled>📋 Copier pour Claude</button>
+  <span class="hint">Colle ça dans le chat pour que ta prochaine séance en tienne compte.</span>
+</div>
+
+</div>
+<!-- Lightbox -->
+<div class="lb-overlay" id="lb" onclick="sjCloseLB(event)">
+  <span class="lb-close" onclick="document.getElementById('lb').classList.remove('open')">×</span>
+  <img id="lb-img" src="" alt="">
+</div>
+
+<script>
+var SESSION_KEY = '2026_10_23_vendredi';
+
+/* Trades hardcodés — un tableau par compte, rempli depuis les CSV. time = heure d'entrée, exit_time = heure de sortie (toujours les deux : le tableau affiche « entrée → sortie »). */
+var ACCTS = {
+  /* heures en heure d'été : l'export du 26/10 (heure d'hiver) dit 16:05:05 → 17:02:32 */
+  '02b': [
+    {n:1, contract:'MNQ', side:'Short', qty:'3', entry:'29261.25', exit:'29300.25', time:'17:05', exit_time:'18:02', pnl: -234.00}
+  ]
+};
+
+/* Captures et niveaux enregistrés par Claude (facultatif) : quand Sébastien colle une capture dans le chat, Claude lit le stop / l'objectif / le R:R dessus, copie l'image
+   dans sessions/img/ et la place ici sous le bon trade. Clés : '<compte>_<n>' (zone « ce qui s'est passé ») ou '<compte>_<n>:fix:daxton' (« ce que j'aurais dû faire »). */
+var SJ_SHOTS = {};    // ex. { '001_1': ['img/2026-10-19_001_1.jpg'] }
+var SJ_LEVELS = {};   // ex. { '001_1': { stop:'29795.00', objectif:'29640.00', rr:'2.00', src:'lus sur la capture' } } — ajouter entry:'…' si l'outil de position est décalé du fill du CSV
+
+function renderAcct(acctId, bodyId){
+  var notes = sjLoadNotes();
+  var trades = ACCTS[acctId] || [];
+  var html = '';
+  trades.forEach(function(t){
+    var ps = (t.pnl >= 0 ? '+' : '') + t.pnl.toFixed(2) + ' $';
+    var pc = t.pnl >= 0 ? 'td-w' : 'td-l';
+    var key = acctId + '_' + t.n;
+    var note = notes[key] || '';
+    html += '<tr class="trade-row">'
+      + '<td>' + t.n + '</td>'
+      + '<td><strong>' + sjEsc(t.contract) + '</strong></td>'
+      + '<td>' + sjEsc(t.side) + '</td>'
+      + '<td>' + sjEsc(t.qty) + '</td>'
+      + '<td>' + sjEsc(t.entry) + '</td>'
+      + '<td>' + sjEsc(t.exit) + '</td>'
+      + '<td style="color:var(--muted);font-size:12px">' + sjEsc(t.time) + (t.exit_time ? ' → ' + sjEsc(t.exit_time) : '') + '</td>'
+      + '<td class="td-pnl ' + pc + '">' + ps + '</td>'
+      + '</tr>'
+      + '<tr class="note-row"><td colspan="8">'
+      + '<textarea class="trade-note" placeholder="Setup, raison du trade, erreurs…" data-key="' + key + '" onblur="sjSaveNote(this)">'
+      + sjEsc(note)
+      + '</textarea>'
+      + sjTradeRRRow(key)
+      + '</td></tr>';
+  });
+  document.getElementById(bodyId).innerHTML = html;
+}
+
+window.addEventListener('DOMContentLoaded', function(){
+  renderAcct('02b', 'body-02b');
+});
+</script>
+<script src="../_systeme/session.js"></script>
+</body>
+</html>
