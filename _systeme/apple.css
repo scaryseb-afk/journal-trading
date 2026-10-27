@@ -43,6 +43,8 @@ td,th,[class*="val"],.sr-pnl,.cc-bal,.cc-sum b,.cc-row b,.ar-bal,.sp-pnl,.acct-p
     -webkit-backdrop-filter:saturate(1.8) blur(20px);backdrop-filter:saturate(1.8) blur(20px)}
 }
 .saveline{background:rgba(25,25,28,.78)!important;-webkit-backdrop-filter:saturate(1.8) blur(18px);backdrop-filter:saturate(1.8) blur(18px)}
+.sj-toast,.shot-menu{-webkit-backdrop-filter:saturate(1.6) blur(18px);backdrop-filter:saturate(1.6) blur(18px)}
+.shot-menu{background:color-mix(in srgb,var(--panel) 82%,transparent)}
 .lb-overlay{background:rgba(0,0,0,.6);-webkit-backdrop-filter:blur(18px) saturate(1.3);backdrop-filter:blur(18px) saturate(1.3)}
 .shot-preview{-webkit-backdrop-filter:blur(14px) saturate(1.3);backdrop-filter:blur(14px) saturate(1.3)}
 
@@ -78,6 +80,7 @@ details[open]>:not(summary){animation:apple-in var(--dur-sheet) var(--ease-sheet
 /* ── Cibles tactiles plus grandes sur écran tactile ── */
 @media(pointer:coarse){
   .sn-btn,.sf-filter,.score-btn,.theme-btn{min-height:40px}
+  .shot-act{width:36px;height:36px;font-size:17px}   /* boutons ⇄ / × des captures : cible tactile confortable */
   /* barre du haut des petits écrans : cibles de ~35 px sans qu'elle mange l'écran (2 rangées sur un téléphone) */
   .nav,.side-nav{row-gap:4px}
   .nav a,.side-nav a{padding-top:6px;padding-bottom:6px}
@@ -100,6 +103,9 @@ details[open]>:not(summary){animation:apple-in var(--dur-sheet) var(--ease-sheet
   .saveline{background:#19191C!important;-webkit-backdrop-filter:none;backdrop-filter:none}
   .lb-overlay{background:rgba(0,0,0,.94);-webkit-backdrop-filter:none;backdrop-filter:none}
   .shot-preview{background:rgba(0,0,0,.9);-webkit-backdrop-filter:none;backdrop-filter:none}
+  .sj-toast,.shot-menu{-webkit-backdrop-filter:none;backdrop-filter:none}
+  .shot-menu{background:var(--panel)}
+  .sj-toast{background:#19191C}
 }
 @media(prefers-contrast:more){
   /* fonds presque pleins, bordures bien marquées, texte secondaire plus lisible */

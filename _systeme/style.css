@@ -310,6 +310,23 @@ textarea::placeholder{color:var(--dim)}
 .screenshot-wrap{position:relative;border-radius:10px;overflow:hidden;border:1px solid var(--line);flex:0 0 auto;max-width:100%}
 .screenshot-wrap img{display:block;width:auto;max-width:100%;max-height:230px;object-fit:contain;background:var(--bg);cursor:zoom-in}
 .screenshot-del{position:absolute;top:8px;right:8px;background:rgba(0,0,0,.6);color:#fff;border:none;border-radius:50%;width:26px;height:26px;font-size:15px;line-height:26px;cursor:pointer;display:flex;align-items:center;justify-content:center}
+/* Boutons sur chaque capture : ⇄ déplacer, × retirer (toujours visibles, pas seulement au survol) ; la capture se glisse aussi sur une autre zone */
+.screenshot-wrap[draggable="true"]{cursor:grab}
+.screenshot-wrap.dragging{opacity:.4}
+.shot-acts{position:absolute;top:8px;right:8px;display:flex;gap:6px}
+.shot-act{background:rgba(0,0,0,.62);color:#fff;border:none;border-radius:50%;width:28px;height:28px;font-size:15px;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center;padding:0}
+.shot-act:hover,.shot-act:focus-visible{background:rgba(0,0,0,.9)}
+.shots-col.move-over{border-color:var(--accent);box-shadow:0 0 0 2px var(--accent)}
+.shots-hidden{font-size:11.5px;color:var(--dim);text-align:center;margin:-4px 0 8px}
+.shots-hidden:empty{display:none}
+.shots-hidden button{background:none;border:none;padding:0;margin-left:4px;font-size:inherit;font-weight:600;color:var(--accent);cursor:pointer;text-decoration:underline}
+.shot-menu{position:fixed;z-index:9996;min-width:240px;max-width:min(92vw,360px);max-height:62vh;overflow:auto;background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:6px;box-shadow:0 12px 40px rgba(0,0,0,.45)}
+.shot-menu-h{font-size:11px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);padding:6px 10px 4px}
+.shot-menu button{display:block;width:100%;text-align:left;background:none;border:none;border-radius:8px;padding:9px 10px;font-size:13px;color:var(--txt);cursor:pointer}
+.shot-menu button:hover,.shot-menu button:focus-visible{background:color-mix(in srgb,var(--accent) 16%,transparent);outline:none}
+.sj-toast{position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom));transform:translate(-50%,14px);opacity:0;pointer-events:none;z-index:9997;display:flex;align-items:center;gap:14px;max-width:min(92vw,560px);padding:11px 16px;border-radius:12px;background:rgba(25,25,28,.88);color:#fff;font-size:13px;box-shadow:0 12px 40px rgba(0,0,0,.4);transition:opacity .2s linear,transform .35s var(--ease-sheet,ease)}
+.sj-toast.show{opacity:1;transform:translate(-50%,0);pointer-events:auto}
+.sj-toast button{background:none;border:none;padding:0;font-size:13px;font-weight:700;color:#9DBBE6;cursor:pointer;white-space:nowrap}
 .clear-btn{background:none;border:1px solid var(--line);border-radius:6px;padding:5px 14px;font-size:12px;color:var(--muted);cursor:pointer;margin-top:12px}
 .clear-btn:hover{border-color:var(--red);color:var(--red)}
 

@@ -128,7 +128,7 @@ function sjReflectValue(key){
 function sjUpdateCopyState(){
   var btn = document.getElementById('reflect-copy-btn');
   if(!btn) return;
-  var hasContent = SJ_REFLECT_FIELDS.some(function(f){ return sjReflectValue(f.key); }) || sjStopsSummaryLines().length > 0;
+  var hasContent = SJ_REFLECT_FIELDS.some(function(f){ return sjReflectValue(f.key); }) || sjStopsSummaryLines().length > 0 || sjShotModsSummaryLines().length > 0;
   btn.disabled = !hasContent;
 }
 function sjCopyReflect(){
@@ -137,6 +137,11 @@ function sjCopyReflect(){
   if(stopLines.length){
     lines.push('', 'Stops / objectifs saisis :');
     stopLines.forEach(function(l){ lines.push('  ' + l); });
+  }
+  var shotLines = sjShotModsSummaryLines();
+  if(shotLines.length){
+    lines.push('', 'Captures de la page retirées / déplacées dans mon navigateur (à répercuter dans SJ_SHOTS) :');
+    shotLines.forEach(function(l){ lines.push('  ' + l); });
   }
   SJ_REFLECT_FIELDS.forEach(function(f){
     var v = sjReflectValue(f.key);
@@ -320,20 +325,51 @@ function sjInitImgStore(){
 }
 var sjImgReady = sjInitImgStore();
 /* Captures enregistrées dans la page par Claude (SJ_SHOTS : { clé de zone : ['img/….jpg', …] }, fichiers dans sessions/img/) : versionnées avec le site, donc visibles sur
-   tous les appareils et en ligne ; affichées avant celles que Sébastien dépose lui-même (stockées dans son navigateur), sans bouton de suppression. */
-function sjPageShots(key){ return (window.SJ_SHOTS && window.SJ_SHOTS[key]) || []; }
+   tous les appareils et en ligne ; affichées avant celles que Sébastien dépose lui-même (stockées dans son navigateur).
+   Depuis le 27/10, chaque capture (de la page ou déposée) porte deux boutons : ⇄ (la déplacer vers un autre trade de la journée ou vers la colonne
+   Daxton) et × (la retirer) ; on peut aussi la glisser sur une autre zone. Pour une capture DE LA PAGE, déplacer / retirer ne change que l'affichage dans
+   CE navigateur (localStorage « shotmod_<séance> » : { 'zone d'origine|fichier' : { t:'zone d'arrivée' } ou { h:1 } }) — le fichier reste dans le dépôt ;
+   « Copier pour Claude » remonte ces changements pour que Claude les répercute dans SJ_SHOTS. Une capture déposée par Sébastien est, elle, réellement déplacée / supprimée. */
+function sjKeyShotMods(){ return 'shotmod_' + SESSION_KEY; }
+function sjLoadShotMods(){ try{ return JSON.parse(localStorage.getItem(sjKeyShotMods()) || '{}') || {}; }catch(e){ return {}; } }
+function sjSaveShotMods(m){ try{ if(Object.keys(m).length) localStorage.setItem(sjKeyShotMods(), JSON.stringify(m)); else localStorage.removeItem(sjKeyShotMods()); }catch(e){} }
+function sjPageShotItems(key){   // captures de la page affichées dans cette zone : celles d'origine non retirées ni déplacées + celles déplacées ici
+  var mods = sjLoadShotMods(), all = window.SJ_SHOTS || {}, out = [];
+  Object.keys(all).forEach(function(from){
+    (all[from] || []).forEach(function(src){
+      var m = mods[from + '|' + src], at = m ? (m.h ? null : (m.t || from)) : from;
+      if(at === key) out.push({ src: src, from: from });
+    });
+  });
+  return out;
+}
+function sjHiddenShotItems(key){   // captures de la page retirées de cette zone d'origine
+  var mods = sjLoadShotMods();
+  return ((window.SJ_SHOTS && window.SJ_SHOTS[key]) || []).filter(function(src){ var m = mods[key + '|' + src]; return m && m.h; });
+}
+function sjPageShots(key){ return sjPageShotItems(key).map(function(x){ return x.src; }); }
 function sjHasShots(key){ return sjPageShots(key).length > 0 || sjLoadTradeImgs(key).length > 0; }
+function sjShotWrap(src, kind, id, key, from, title){
+  return '<div class="screenshot-wrap" draggable="true" data-kind="' + kind + '" data-id="' + sjEsc(id) + '" data-key="' + key + '" data-from="' + sjEsc(from) + '"' + (title ? ' title="' + sjEsc(title) + '"' : '') + '>'
+    + '<img src="' + sjEsc(src) + '" draggable="false" alt="" onclick="sjOpenLB(this.src)">'
+    + '<div class="shot-acts">'
+    + '<button type="button" class="shot-act" data-shot-act="mv" title="Déplacer vers un autre trade (ou glisser la capture sur une autre zone)" aria-label="Déplacer cette capture">⇄</button>'
+    + '<button type="button" class="shot-act" data-shot-act="del" title="' + (kind === 'p' ? 'Retirer de cette page (masquée dans ce navigateur, le fichier reste dans le dépôt)' : 'Supprimer cette capture') + '" aria-label="Supprimer cette capture">×</button>'
+    + '</div></div>';
+}
 function sjRenderTradeShots(key){
   var box = document.querySelector('.trade-shots[data-key="' + key + '"]');
   if(!box) return;
   var imgs = sjLoadTradeImgs(key);
-  var pre = sjPageShots(key).map(function(src){
-    return '<div class="screenshot-wrap" title="Capture enregistrée dans la page"><img src="' + sjEsc(src) + '" onclick="sjOpenLB(this.src)"></div>';
+  var pre = sjPageShotItems(key).map(function(it){
+    return sjShotWrap(it.src, 'p', it.src, key, it.from, it.from === key ? 'Capture enregistrée dans la page' : 'Capture enregistrée dans la page, déplacée ici (depuis ' + it.from + ')');
   }).join('');
-  box.querySelector('.trade-shots-list').innerHTML = pre + imgs.map(function(src, i){
-    return '<div class="screenshot-wrap"><img src="' + src + '" onclick="sjOpenLB(this.src)">'
-         + '<button type="button" class="screenshot-del" onclick="sjDelTradeShot(\'' + key + '\',' + i + ')" title="Supprimer">×</button></div>';
-  }).join('');
+  box.querySelector('.trade-shots-list').innerHTML = pre + imgs.map(function(src, i){ return sjShotWrap(src, 'u', String(i), key, '', ''); }).join('');
+  var hid = box.querySelector('.shots-hidden');
+  if(hid){
+    var n = sjHiddenShotItems(key).length;
+    hid.innerHTML = n ? n + ' capture' + (n > 1 ? 's' : '') + ' de la page retirée' + (n > 1 ? 's' : '') + ' <button type="button" data-shot-act="restore" data-key="' + key + '">Restaurer</button>' : '';
+  }
   var lg = box.closest('.shots-col.legacy');   // anciennes captures « ce que j'aurais dû faire » : la zone n'existe que tant qu'il en reste
   if(lg) lg.style.display = [].some.call(lg.querySelectorAll('.trade-shots-list'), function(l){ return l.children.length; }) ? '' : 'none';
 }
@@ -343,10 +379,174 @@ function sjDelTradeShot(key, i){
   sjSaveTradeImgs(key, imgs);
   sjRenderTradeShots(key);
 }
+
+/* ---------- Déplacer / retirer une capture ---------- */
+function sjShotData(w){ return { kind: w.getAttribute('data-kind'), id: w.getAttribute('data-id'), key: w.getAttribute('data-key'), from: w.getAttribute('data-from') }; }
+function sjToast(msg, undo){
+  var el = document.getElementById('sj-toast');
+  if(!el){ el = document.createElement('div'); el.id = 'sj-toast'; el.className = 'sj-toast'; el.setAttribute('role', 'status'); document.body.appendChild(el); }
+  el.innerHTML = '<span></span>' + (undo ? '<button type="button">Annuler</button>' : '');
+  el.firstChild.textContent = msg;
+  el.classList.add('show');
+  clearTimeout(sjToast.t);
+  var b = el.querySelector('button');
+  if(b) b.onclick = function(){ el.classList.remove('show'); undo(); };
+  sjToast.t = setTimeout(function(){ el.classList.remove('show'); }, 10000);
+}
+function sjShotDestinations(){   // toutes les zones de capture de la journée : chaque trade, « ce qui s'est passé » puis les colonnes « ce que j'aurais dû faire »
+  var out = [];
+  document.querySelectorAll('tr.note-row').forEach(function(row){
+    var ta = row.querySelector('textarea.trade-note'); if(!ta) return;
+    var key = ta.getAttribute('data-key'), t = sjFindAcctTrade(key), idx = key.lastIndexOf('_');
+    var base = 'Compte ' + key.slice(0, idx) + ' · trade ' + key.slice(idx + 1) + (t ? ' (' + t.side + ' ' + t.qty + ')' : '');
+    out.push({ key: key, label: base + ' — ce qui s\'est passé' });
+    SJ_FIX_WHO.forEach(function(w){ out.push({ key: key + ':fix:' + w[0], label: base + ' — ✅ ' + w[1] }); });
+  });
+  return out;
+}
+function sjShotRevealFix(toKey){
+  var box = document.querySelector('.trade-shots[data-key="' + toKey + '"]'), pair = box && box.closest('.shots-pair');
+  if(pair && toKey.indexOf(':fix:') >= 0) pair.classList.remove('no-fix');   // la colonne Daxton d'un trade gagnant est repliée : on l'ouvre pour montrer la capture
+}
+function sjShotLabel(key){
+  var d = sjShotDestinations().filter(function(x){ return x.key === key; })[0];
+  return d ? d.label : key;
+}
+function sjShotMove(d, toKey, quiet){   // d = { kind: 'p' (page) | 'u' (déposée), id, key: zone actuelle, from: zone d'origine d'une capture de la page }
+  if(!d || !toKey || d.key === toKey) return;
+  var undo;
+  if(d.kind === 'p'){
+    var mods = sjLoadShotMods(), id = d.from + '|' + d.id, prev = mods[id];
+    if(toKey === d.from) delete mods[id]; else mods[id] = { t: toKey };
+    sjSaveShotMods(mods);
+    undo = function(){ var m = sjLoadShotMods(); if(prev) m[id] = prev; else delete m[id]; sjSaveShotMods(m); sjRenderTradeShots(d.key); sjRenderTradeShots(toKey); sjUpdateCopyState(); };
+  } else {
+    var srcPrev = sjLoadTradeImgs(d.key), dstPrev = sjLoadTradeImgs(toKey), i = +d.id, url = srcPrev[i];
+    if(!url) return;
+    var srcNew = srcPrev.slice(); srcNew.splice(i, 1);
+    var dstNew = dstPrev.concat([url]), failed = false;
+    sjSaveTradeImgs(toKey, dstNew, function(ok){
+      if(ok) return;
+      failed = true;   // écriture refusée : la capture retourne là où elle était
+      if(SJ_IDB) SJ_IMG_MEM[sjKeyTradeImgs(toKey)] = dstPrev;
+      sjSaveTradeImgs(d.key, srcPrev);
+      sjRenderTradeShots(toKey); sjRenderTradeShots(d.key);
+      alert("Stockage plein : le navigateur limite l'espace disponible pour ce site. La capture est restée où elle était.");
+    });
+    if(!failed) sjSaveTradeImgs(d.key, srcNew);
+    undo = function(){ sjShotMove({ kind: 'u', id: String(dstNew.length - 1), key: toKey, from: '' }, d.key, true); };
+  }
+  sjImgReady.then(function(){ sjRenderTradeShots(d.key); sjRenderTradeShots(toKey); });
+  sjRenderTradeShots(d.key); sjRenderTradeShots(toKey);
+  sjShotRevealFix(toKey);
+  sjUpdateCopyState();
+  if(!quiet) sjToast('Capture déplacée vers : ' + sjShotLabel(toKey), undo);
+}
+function sjShotDelete(d){
+  if(d.kind === 'p'){
+    var mods = sjLoadShotMods(), id = d.from + '|' + d.id, prev = mods[id];
+    mods[id] = { h: 1 };
+    sjSaveShotMods(mods);
+    sjRenderTradeShots(d.key); sjRenderTradeShots(d.from);
+    sjUpdateCopyState();
+    sjToast('Capture retirée de cette page (masquée dans ce navigateur).', function(){
+      var m = sjLoadShotMods(); if(prev) m[id] = prev; else delete m[id]; sjSaveShotMods(m);
+      sjRenderTradeShots(d.key); sjRenderTradeShots(d.from); sjUpdateCopyState();
+    });
+  } else {
+    var arr = sjLoadTradeImgs(d.key).slice(), i = +d.id, url = arr[i];
+    if(!url) return;
+    arr.splice(i, 1);
+    sjSaveTradeImgs(d.key, arr);
+    sjRenderTradeShots(d.key);
+    sjToast('Capture supprimée.', function(){
+      var cur = sjLoadTradeImgs(d.key).slice(); cur.splice(Math.min(i, cur.length), 0, url);
+      sjSaveTradeImgs(d.key, cur);
+      sjRenderTradeShots(d.key);
+    });
+  }
+}
+function sjShotRestore(key){
+  var mods = sjLoadShotMods();
+  sjHiddenShotItems(key).forEach(function(src){ delete mods[key + '|' + src]; });
+  sjSaveShotMods(mods);
+  sjRenderTradeShots(key);
+  sjUpdateCopyState();
+}
+function sjShotModsSummaryLines(){
+  var mods = sjLoadShotMods(), lines = [];
+  Object.keys(mods).sort().forEach(function(id){
+    var p = id.indexOf('|'), from = id.slice(0, p), src = id.slice(p + 1), m = mods[id];
+    if(m.h) lines.push(src + ' retirée de ' + from);
+    else if(m.t) lines.push(src + ' déplacée de ' + from + ' vers ' + m.t);
+  });
+  return lines;
+}
+function sjCloseShotMenu(){ var m = document.getElementById('sj-shot-menu'); if(m) m.remove(); }
+function sjOpenShotMenu(btn){
+  sjCloseShotMenu();
+  var w = btn.closest('.screenshot-wrap'); if(!w) return;
+  var d = sjShotData(w), dests = sjShotDestinations().filter(function(x){ return x.key !== d.key; });
+  var menu = document.createElement('div');
+  menu.id = 'sj-shot-menu'; menu.className = 'shot-menu'; menu.setAttribute('role', 'menu');
+  menu.innerHTML = '<div class="shot-menu-h">Déplacer cette capture vers…</div>'
+    + (dests.length ? dests.map(function(x){ return '<button type="button" role="menuitem" data-to="' + x.key + '">' + sjEsc(x.label) + '</button>'; }).join('') : '<div class="shot-menu-h">Aucune autre zone dans cette séance.</div>');
+  document.body.appendChild(menu);
+  var r = btn.getBoundingClientRect();
+  menu.style.top = Math.max(8, Math.min(r.bottom + 6, window.innerHeight - menu.offsetHeight - 8)) + 'px';
+  menu.style.left = Math.max(8, Math.min(r.right - menu.offsetWidth, window.innerWidth - menu.offsetWidth - 8)) + 'px';
+  menu.addEventListener('click', function(e){
+    var b = e.target.closest ? e.target.closest('button[data-to]') : null;
+    if(!b) return;
+    sjCloseShotMenu();
+    sjShotMove(d, b.getAttribute('data-to'));
+  });
+  var first = menu.querySelector('button'); if(first) first.focus();
+}
+function sjIsShotDrag(e){ return !!(e.dataTransfer && [].indexOf.call(e.dataTransfer.types || [], 'text/x-sj-shot') >= 0); }
+function sjInitShotMove(){
+  document.addEventListener('click', function(e){
+    var b = e.target.closest ? e.target.closest('[data-shot-act]') : null;
+    if(!b){ if(!(e.target.closest && e.target.closest('#sj-shot-menu'))) sjCloseShotMenu(); return; }
+    var act = b.getAttribute('data-shot-act'), w = b.closest('.screenshot-wrap');
+    if(act === 'mv' && w){ e.stopPropagation(); if(document.getElementById('sj-shot-menu')) sjCloseShotMenu(); else sjOpenShotMenu(b); }
+    else if(act === 'del' && w){ sjCloseShotMenu(); sjShotDelete(sjShotData(w)); }
+    else if(act === 'restore'){ sjShotRestore(b.getAttribute('data-key')); }
+  });
+  document.addEventListener('keydown', function(e){ if(e.key === 'Escape') sjCloseShotMenu(); });
+  window.addEventListener('resize', sjCloseShotMenu);
+  window.addEventListener('scroll', sjCloseShotMenu, true);
+  // glisser-déposer : la capture se glisse sur une autre zone (la zone d'arrivée s'entoure) ; au toucher, le bouton ⇄ fait la même chose
+  document.addEventListener('dragstart', function(e){
+    var w = e.target.closest ? e.target.closest('.screenshot-wrap[draggable]') : null;
+    if(!w || !e.dataTransfer) return;
+    sjCloseShotMenu();
+    e.dataTransfer.setData('text/x-sj-shot', JSON.stringify(sjShotData(w)));
+    e.dataTransfer.effectAllowed = 'move';
+    w.classList.add('dragging');
+    var pv = document.querySelector('.shot-preview'); if(pv) pv.classList.remove('show');
+  });
+  document.addEventListener('dragend', function(){
+    document.querySelectorAll('.screenshot-wrap.dragging').forEach(function(w){ w.classList.remove('dragging'); });
+    document.querySelectorAll('.shots-col.move-over').forEach(function(c){ c.classList.remove('move-over'); });
+  });
+  document.querySelectorAll('.shots-col:not(.legacy)').forEach(function(col){
+    var box = col.querySelector('.trade-shots'); if(!box) return;
+    col.addEventListener('dragover', function(e){ if(!sjIsShotDrag(e)) return; e.preventDefault(); e.dataTransfer.dropEffect = 'move'; col.classList.add('move-over'); });
+    col.addEventListener('dragleave', function(e){ if(!col.contains(e.relatedTarget)) col.classList.remove('move-over'); });
+    col.addEventListener('drop', function(e){
+      if(!sjIsShotDrag(e)) return;
+      e.preventDefault(); col.classList.remove('move-over');
+      var d; try{ d = JSON.parse(e.dataTransfer.getData('text/x-sj-shot')); }catch(x){ return; }
+      sjShotMove(d, box.getAttribute('data-key'));
+    });
+  });
+}
 /* Zone de capture (clé = trade, ou trade + « :fix:daxton » pour « ce que j'aurais dû faire » selon Daxton) */
 function sjShotsBox(key, label){
   return '<div class="trade-shots" data-key="' + key + '">'
     + '<div class="screenshots trade-shots-list"></div>'
+    + '<div class="shots-hidden"></div>'
     + '<div class="trade-shots-drop">📸 ' + label + ' <span>— glisser, cliquer, ou survoler puis Ctrl+V</span></div>'
     + '<input type="file" accept="image/*" multiple style="display:none">'
     + '</div>';
@@ -630,6 +830,7 @@ function initSessionPage(){
   sjInitTradeRR();
   sjInitTradeCopy();
   sjInitTradeShots();
+  sjInitShotMove();
   sjInitHoverPreview();
 }
 window.addEventListener('DOMContentLoaded', initSessionPage);
