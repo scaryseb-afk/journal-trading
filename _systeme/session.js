@@ -780,7 +780,7 @@ function sjInitTradeCopy(){
    un .sn-btn y est ajouté. Les liens ouvrent index.html#<onglet>/<sous-page> (routage dans le script de navigation d'index.html). */
 var SJ_NAV = [
   ['dashboard','📊 Tableau de bord','overview',[['progression','📈 Progression'],['economie','💶 Économie & risque'],['comptes','🧮 Comptes & Analyse'],['risque','⚖️ Risque & R:R'],['bilan','📑 Constats d\'août']]],
-  ['brief','🧭 Avant la séance','essentiel',[['consignes','✅ Consignes & actions'],['interdits','🚫 Interdits & repères'],['checklist','☑️ Checklist'],['comptes','🏦 Comptes']]],
+  ['brief','🧭 Avant la séance','essentiel',[['comptes','🏦 Comptes'],['archive','🗄️ Archive de septembre']]],
   ['sessions','🗓️ Sessions',null,[]],
   ['regles','⛔ Règles','outils',[['bilan','🧾 Bilan & discipline'],['communes','📜 Règles communes'],['v2','⚡ Stratégie V2 · iFVG M5']]]
 ];

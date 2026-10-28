@@ -396,6 +396,19 @@ textarea::placeholder{color:#4A566A}
 .rules.recur .r.good .n{color:var(--green)}
 
 /* brief */
+.bs-today{background:var(--panel);border:1px solid var(--line);border-left:3px solid var(--accent);border-radius:14px;padding:12px 16px;margin:18px 0 4px}
+.bs-day{font-weight:700;font-size:15px}
+.bs-day::first-letter{text-transform:uppercase}
+.bs-chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
+.bs-chip{border:1px solid var(--line);background:var(--surface);color:var(--txt);border-radius:20px;padding:4px 11px;font-size:12.5px;font-variant-numeric:tabular-nums}
+.bs-links{font-size:13px;color:var(--muted);margin:14px 0 28px;line-height:1.7}
+.arch{background:var(--panel);border:1px solid var(--line);border-radius:12px;margin:0 0 12px}
+.arch>summary{cursor:pointer;padding:12px 16px;font-weight:650;font-size:14.5px;list-style:none}
+.arch>summary::-webkit-details-marker{display:none}
+.arch>summary::before{content:"▸";display:inline-block;margin-right:8px;color:var(--accent);transition:transform .2s var(--ease-move,ease)}
+.arch[open]>summary::before{transform:rotate(90deg)}
+.arch-body{padding:0 16px 16px}
+.arch-body>h2:first-child{margin-top:6px}
 #view-brief .d-clamp{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
 #view-brief .d-clamp.d-open{display:block;-webkit-line-clamp:unset}
 #view-brief .d-toggle{display:inline-block;margin-top:10px;background:none;border:none;padding:0;
@@ -800,7 +813,6 @@ textarea::placeholder{color:#4A566A}
   #view-brief h1{font-size:19px;margin-bottom:2px}
   #view-brief p.sub{font-size:11.5px;margin-bottom:4px;line-height:1.35}
   #view-brief p.eyebrow{font-size:10.5px;margin-bottom:0;line-height:1.3}
-  #view-brief .subview[data-subview="checklist"] h2{font-size:15px;margin:2px 0 6px}
   h1{font-size:30px}
   .plan-widget .pw-rule{display:none}
   .plan-widget{padding:9px 14px}
@@ -1072,19 +1084,92 @@ textarea::placeholder{color:#4A566A}
   </p>
 </section>
 <section class="view" id="view-brief">
-  <p class="eyebrow">Archive de septembre — consignes du 9/09, ré-entrées recalculées le 26/09 · règles à jour : <a href="#regles" data-open="regles/communes">onglet Règles</a></p>
-  <h1>Ta prochaine séance</h1>
-  <p class="sub">Ce qu'il faut faire, ce qu'il ne faut pas faire. Construit uniquement à partir de tes journaux.</p>
+  <p class="eyebrow">Préparation</p>
+  <h1>Avant la séance</h1>
+  <p class="sub">Cinq minutes, dans l'ordre : toi, le marché, tes limites du jour, puis l'entrée. Les règles complètes sont dans l'onglet <a href="#regles" data-open="regles/communes">Règles</a>.</p>
 
   <div class="subnav" id="brief-subnav">
-    <button class="sn-btn active" data-sub="essentiel" data-nosidebar>⭐ L'essentiel</button>
-    <button class="sn-btn" data-sub="consignes">✅ Consignes &amp; actions</button>
-    <button class="sn-btn" data-sub="interdits">🚫 Interdits &amp; repères</button>
-    <button class="sn-btn" data-sub="checklist">☑️ Checklist</button>
+    <button class="sn-btn active" data-sub="essentiel" data-nosidebar>🧭 Ma séance</button>
     <button class="sn-btn" data-sub="comptes">🏦 Comptes</button>
+    <button class="sn-btn" data-sub="archive">🗄️ Archive de septembre</button>
   </div>
 
   <div class="subview active" data-subview="essentiel">
+
+  <div class="bs-today" id="bs-today">
+    <div class="bs-day" id="bs-day">Aujourd'hui</div>
+    <div class="bs-chips">
+      <span class="bs-chip" id="bs-open">🕒 Ouverture US à 15h30 (Paris)</span>
+      <span class="bs-chip" id="bs-budget">💰 Budget : 500 $ par signal</span>
+      <span class="bs-chip" id="bs-cap">📏 Contrats : selon le stop</span>
+      <span class="bs-chip" id="bs-comptes">🏦 Comptes actifs</span>
+      <span class="bs-chip" id="bs-monday" style="display:none">📅 Lundi : on attend le début du marché</span>
+    </div>
+  </div>
+
+  <div class="v2-phase"><span class="v2-n">1</span><span class="v2-h">Toi</span><span class="v2-s">avant tout le reste</span></div>
+  <div class="chk-grid">
+  <div class="rules">
+    <div class="r" style="border-color:rgba(224,85,79,.4)"><div class="n">Règle 7</div><div class="t">Suis-je en état de trader, là, maintenant ?</div><div class="d">Sinon, tu fermes la plateforme : le reste ne sert à rien ce jour-là. Pas de trade sur téléphone, personne à côté de toi.</div></div>
+  </div>
+  <div class="dn-card" id="daynote">
+    <div class="dn-title">📝 Note du jour <span class="dn-date" id="dn-date"></span></div>
+    <div class="dn-sub">Question 0 en pratique : comment tu te sens, là, avant de trader ?</div>
+    <div class="dn-moods">
+      <button type="button" class="dn-mood" data-mood="bien">😌 Je le sens bien</button>
+      <button type="button" class="dn-mood" data-mood="neutre">😐 Neutre</button>
+      <button type="button" class="dn-mood" data-mood="pas-bien">😟 Pas bien</button>
+    </div>
+    <textarea id="dn-text" rows="2" placeholder="Une phrase : ton ressenti, ton biais, ce que tu attends de la séance…"></textarea>
+    <div class="dn-actions"><span class="dn-saved" id="dn-saved"></span><button type="button" id="dn-copy">📋 Copier pour Claude</button></div>
+    <div class="dn-hist" id="dn-hist"></div>
+  </div>
+  </div>
+
+  <div class="v2-phase"><span class="v2-n">2</span><span class="v2-h">Le marché</span><span class="v2-s">le biais du jour, les annonces, le moment</span></div>
+  <div class="chk-grid">
+  <div class="rules">
+    <div class="r"><div class="n">V2 · règle 4</div><div class="t">Quel est le biais : MME 5M, 15M et 1H ?</div><div class="d">Haussier → scénario Long ; baissier → Short. Tu dois pouvoir l'énoncer en une phrase : c'est ton biais, pas celui d'un autre.</div></div>
+    <div class="r"><div class="n">Règle 3</div><div class="t">Une annonce aujourd'hui ? (CPI, NFP, FOMC, chômage)</div><div class="d">1 à 2 contrats ou rien. Positions fermées 5 min avant, pas d'entrée dans les 10 min qui suivent.</div></div>
+    <div class="r"><div class="n">V2.6 · V2.7</div><div class="t">Quel jour, quelle heure ?</div><div class="d">Le lundi, on attend surtout le début du marché (pré-market : 20 % des cas). Si l'iFVG 5M est fait avant l'ouverture, on en refait un deuxième après, pour voir.</div></div>
+  </div>
+  </div>
+
+  <div class="v2-phase"><span class="v2-n">3</span><span class="v2-h">Tes limites du jour</span><span class="v2-s">elles ne se négocient pas en séance</span></div>
+  <div class="chk-grid">
+  <div class="rules">
+    <div class="r"><div class="n">Le plan</div><div class="t">3 trades maximum</div><div class="d">Pas de troisième trade après deux pertes.</div></div>
+    <div class="r"><div class="n">Règle 6</div><div class="t">10 minutes après chaque perte</div><div class="d">La montre décide, pas toi. Le minuteur est dans Règles → Outils du jour.</div></div>
+    <div class="r"><div class="n">Règle 1</div><div class="t">500 $ de risque maximum par signal</div><div class="d">Le nombre de contrats se déduit du stop et du budget (calculette de lots, Règles → Outils du jour), jamais l'inverse. Plafond de 4 contrats levé en octobre, à rétablir en novembre.</div></div>
+    <div class="r"><div class="n">Règle 5</div><div class="t">Aucune modification d'ordre en position</div><div class="d">Ni élargir, ni resserrer — sauf une règle écrite avant l'entrée et appliquée mécaniquement.</div></div>
+    <div class="r"><div class="n">Règle 8</div><div class="t">Pas de copy trader</div><div class="d">À la main, la même position sur plusieurs comptes est permise : c'est un seul trade.</div></div>
+  </div>
+  </div>
+
+  <div class="v2-phase"><span class="v2-n">4</span><span class="v2-h">Au moment d'entrer</span><span class="v2-s">la stratégie Daxton en cinq lignes</span></div>
+  <div class="chk-grid">
+  <div class="rules">
+    <div class="r"><div class="n">V2.1</div><div class="t">iFVG 5M du bon côté de la MME 1H</div><div class="d">En Long, un iFVG sous la MME 1H = on ne rentre pas (en Short, l'inverse).</div></div>
+    <div class="r"><div class="n">V2.1 · V2.2</div><div class="t">Stop à l'un des 3 niveaux de protection, sous 400 ticks</div><div class="d">400 ticks ou plus (100 pts sur MNQ) = on passe son tour, sans exception.</div></div>
+    <div class="r"><div class="n">Règles 1 · 2</div><div class="t">Taille calculée depuis le stop et le budget, lue à voix haute</div><div class="d">Bracket relu : quantité, stop, objectif.</div></div>
+    <div class="r"><div class="n">V2.8 · V2.3</div><div class="t">TP à 1,95 de R:R — break-even à 50 % du chemin</div><div class="d">Ou si le prix repasse du mauvais côté des 3 MME.</div></div>
+    <div class="r"><div class="n">V2.4</div><div class="t">Clôture 5M de l'autre côté de la MME 1H : 2e trade possible</div><div class="d">Dans le sens opposé, mêmes règles que le premier : 500 $ de perte max, 4 contrats max.</div></div>
+  </div>
+  </div>
+  <p class="bs-links"><a href="#regles" data-open="regles/v2">Stratégie V2 en détail</a> · <a href="#regles" data-open="regles/outils">Checklist interactive, calculette de lots et minuteur</a> · <a href="#regles" data-open="regles/communes">Règles communes 1 à 8</a></p>
+
+  </div>
+
+  <div class="subview" data-subview="comptes">
+  <h2 id="brief-comptes">Où en sont tes comptes</h2>
+  <div id="brief-comptes-clair"></div>
+  </div>
+
+  <div class="subview" data-subview="archive">
+  <h2 id="brief-archive" style="margin-top:28px">🗄️ Archive de septembre</h2>
+  <p class="sub">Les consignes écrites le 9/09 d'après tes journaux d'août et de septembre, gardées telles quelles ; ré-entrées recalculées le 26/09. Certaines ont été remplacées depuis (stratégie Daxton, budget de 500 $, règle 8 sur la copie) : en cas de doute, l'onglet <a href="#regles" data-open="regles/communes">Règles</a> fait foi.</p>
+
+  <details class="arch"><summary>🚨 Le calcul qui tue — stop, contrats et ratios</summary><div class="arch-body">
   <h2 style="margin-top:40px">🚨 Le calcul qui tue</h2>
   <div class="obs warn">
     <div class="t">« Je place un stop à −300, mais je crame les 5, ça fait −1 500 »</div>
@@ -1143,9 +1228,9 @@ textarea::placeholder{color:#4A566A}
     <div class="d">Quand tu dis « je crame les 5 », tu les mets tous en même temps (une seule décision, copiée sur 5 comptes — le sujet du rule 8), ou tu rentres 5 fois après une perte en mode revenge (le sujet du lockout 24h) ? Ce n'est pas la même erreur, et la correction n'est pas la même.</div>
   </div>
 
-  </div>
+  </div></details>
 
-  <div class="subview" data-subview="consignes">
+  <details class="arch"><summary>✅ Les cinq consignes et les neuf actions</summary><div class="arch-body">
   <h2 id="brief-consignes" style="margin-top:40px">Les cinq consignes de la semaine</h2>
   <div class="big" style="border-color:rgba(224,85,79,.6)">
     <div class="l">La consigne n°1</div>
@@ -1259,9 +1344,9 @@ textarea::placeholder{color:#4A566A}
     </div>
   </div>
 
-  </div>
+  </div></details>
 
-  <div class="subview" data-subview="interdits">
+  <details class="arch"><summary>🚫 Les six interdits et ce qui marche</summary><div class="arch-body">
   <h2 id="brief-interdits">Les six interdits</h2>
 
   <div class="dont">
@@ -1358,11 +1443,9 @@ textarea::placeholder{color:#4A566A}
     </div>
   </div>
 
-  </div>
+  </div></details>
 
-  <div class="subview" data-subview="checklist">
-  <h2 id="brief-questions">Les sept questions avant d'appuyer</h2>
-  <div class="chk-grid">
+  <details class="arch"><summary>❓ Les sept questions avant d'appuyer (version de septembre)</summary><div class="arch-body"><div class="chk-grid">
   <div class="rules">
     <div class="r" style="border-color:rgba(224,85,79,.4)"><div class="n">0</div><div class="t">Suis-je en état de trader, là, maintenant ?</div><div class="d">La question du 20/08. Si non, tu fermes la plateforme — tout le reste de cette liste ne sert à rien ce jour-là.</div></div>
     <div class="r"><div class="n">1</div><div class="t">Quelle phase AMD suis-je en train de jouer ?</div><div class="d">Si tu ne peux pas répondre en une phrase, tu ne rentres pas.</div></div>
@@ -1372,25 +1455,7 @@ textarea::placeholder{color:#4A566A}
     <div class="r"><div class="n">5</div><div class="t">Mes trois ordres sont posés — je m'engage à n'en déplacer aucun.</div><div class="d">Aucune exception, aucun sens — sauf une règle écrite avant l'entrée et appliquée mécaniquement.</div></div>
     <div class="r"><div class="n">6</div><div class="t">Ma dernière perte date de plus de 10 minutes ?</div><div class="d">Sinon, tu attends. La montre décide, pas toi.</div></div>
   </div>
-  <div class="dn-card" id="daynote">
-    <div class="dn-title">📝 Note du jour <span class="dn-date" id="dn-date"></span></div>
-    <div class="dn-sub">Question 0 en pratique : comment tu te sens, là, avant de trader ?</div>
-    <div class="dn-moods">
-      <button type="button" class="dn-mood" data-mood="bien">😌 Je le sens bien</button>
-      <button type="button" class="dn-mood" data-mood="neutre">😐 Neutre</button>
-      <button type="button" class="dn-mood" data-mood="pas-bien">😟 Pas bien</button>
-    </div>
-    <textarea id="dn-text" rows="2" placeholder="Une phrase : ton ressenti, ton biais, ce que tu attends de la séance…"></textarea>
-    <div class="dn-actions"><span class="dn-saved" id="dn-saved"></span><button type="button" id="dn-copy">📋 Copier pour Claude</button></div>
-    <div class="dn-hist" id="dn-hist"></div>
-  </div>
-  </div>
-
-  </div>
-
-  <div class="subview" data-subview="comptes">
-  <h2 id="brief-comptes">Où en sont tes comptes</h2>
-  <div id="brief-comptes-clair"></div>
+  </div></div></details>
   </div>
 
 </section>
@@ -1531,7 +1596,7 @@ textarea::placeholder{color:#4A566A}
       <div class="check-item" onclick="toggle(this)" style="padding:10px 12px">
         <input type="checkbox">
         <div class="check-box"><svg width="10" height="8" viewBox="0 0 10 8" fill="none"><path d="M1 4l3 3 5-6" stroke="#090b0e" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-        <div class="check-label" style="font-size:12.5px">Je suis en état de trader</div>
+        <div class="check-label" style="font-size:12.5px">Je suis en état de trader — seul, pas sur téléphone</div>
       </div>
       <div class="check-item" onclick="toggle(this)" style="padding:10px 12px">
         <input type="checkbox">
@@ -1541,32 +1606,32 @@ textarea::placeholder{color:#4A566A}
       <div class="check-item" onclick="toggle(this)" style="padding:10px 12px">
         <input type="checkbox">
         <div class="check-box"><svg width="10" height="8" viewBox="0 0 10 8" fill="none"><path d="M1 4l3 3 5-6" stroke="#090b0e" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-        <div class="check-label" style="font-size:12.5px">Phase AMD identifiée</div>
+        <div class="check-label" style="font-size:12.5px">Biais lu (MME 5M, 15M, 1H) — c'est le mien</div>
       </div>
       <div class="check-item" onclick="toggle(this)" style="padding:10px 12px">
         <input type="checkbox">
         <div class="check-box"><svg width="10" height="8" viewBox="0 0 10 8" fill="none"><path d="M1 4l3 3 5-6" stroke="#090b0e" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-        <div class="check-label" style="font-size:12.5px">Biais = le mien</div>
+        <div class="check-label" style="font-size:12.5px">iFVG 5M du bon côté de la MME 1H</div>
       </div>
       <div class="check-item" onclick="toggle(this)" style="padding:10px 12px">
         <input type="checkbox">
         <div class="check-box"><svg width="10" height="8" viewBox="0 0 10 8" fill="none"><path d="M1 4l3 3 5-6" stroke="#090b0e" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-        <div class="check-label" style="font-size:12.5px">Taille comptée à voix haute</div>
+        <div class="check-label" style="font-size:12.5px">Stop à un niveau de protection, sous 400 ticks</div>
       </div>
       <div class="check-item" onclick="toggle(this)" style="padding:10px 12px">
         <input type="checkbox">
         <div class="check-box"><svg width="10" height="8" viewBox="0 0 10 8" fill="none"><path d="M1 4l3 3 5-6" stroke="#090b0e" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-        <div class="check-label" style="font-size:12.5px">Bracket relu — qty, stop, ratio</div>
+        <div class="check-label" style="font-size:12.5px">Taille calculée depuis le stop et le budget — lue à voix haute</div>
       </div>
       <div class="check-item" onclick="toggle(this)" style="padding:10px 12px">
         <input type="checkbox">
         <div class="check-box"><svg width="10" height="8" viewBox="0 0 10 8" fill="none"><path d="M1 4l3 3 5-6" stroke="#090b0e" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-        <div class="check-label" style="font-size:12.5px">Stop ÷ contrats ≥ 80 ticks/contrat</div>
+        <div class="check-label" style="font-size:12.5px">Bracket relu — qty, stop, TP à 1,95 de R:R</div>
       </div>
       <div class="check-item" onclick="toggle(this)" style="padding:10px 12px">
         <input type="checkbox">
         <div class="check-box"><svg width="10" height="8" viewBox="0 0 10 8" fill="none"><path d="M1 4l3 3 5-6" stroke="#090b0e" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-        <div class="check-label" style="font-size:12.5px">Calm (pas stressed/revenge) — sinon 1 contrat max</div>
+        <div class="check-label" style="font-size:12.5px">Dernière perte &gt; 10 min — moins de 3 trades, pas de 3e après 2 pertes</div>
       </div>
     </div>
   </div>
@@ -2693,15 +2758,15 @@ window.DAY_NOTES = {
   function saveChecklist(){
     var items = document.querySelectorAll('#checklist .check-item');
     var state = Array.from(items).map(function(el){ return el.classList.contains('checked'); });
-    try{ localStorage.setItem('trading_checklist', JSON.stringify(state)); }catch(e){}
+    try{ localStorage.setItem('trading_checklist2', JSON.stringify(state)); }catch(e){}
   }
   function resetChecklist(){
     document.querySelectorAll('#checklist .check-item').forEach(function(el){ el.classList.remove('checked'); });
-    try{ localStorage.removeItem('trading_checklist'); }catch(e){}
+    try{ localStorage.removeItem('trading_checklist2'); }catch(e){}
   }
   (function(){
     try{
-      var state = JSON.parse(localStorage.getItem('trading_checklist')||'[]');
+      var state = JSON.parse(localStorage.getItem('trading_checklist2')||'[]');
       var items = document.querySelectorAll('#checklist .check-item');
       state.forEach(function(checked, i){ if(checked && items[i]) items[i].classList.add('checked'); });
     }catch(e){}
@@ -2932,6 +2997,44 @@ document.addEventListener('click', function(e){
   var b = p[1] && map[p[0]] ? document.querySelector('#' + map[p[0]] + ' .sn-btn[data-sub="' + p[1] + '"]') : null;
   if(b) b.click();
 });
+</script>
+<script>/* Avant la séance → Ma séance : bandeau « Aujourd'hui » — jour, ouverture US à l'heure de Paris (change deux fois par an), budget, plafond de contrats, comptes actifs */
+(function(){
+  function pad(n){ return n < 10 ? '0' + n : '' + n; }
+  function fr(v, d){ return Math.abs(v).toLocaleString('fr-FR', { minimumFractionDigits: d || 0, maximumFractionDigits: d || 0 }); }
+  function openParis(d){
+    try{
+      var ny = new Intl.DateTimeFormat('en-GB', { timeZone: 'America/New_York', hour: '2-digit', minute: '2-digit', hourCycle: 'h23' });
+      var pa = new Intl.DateTimeFormat('fr-FR', { timeZone: 'Europe/Paris', hour: '2-digit', minute: '2-digit', hourCycle: 'h23' });
+      var c = [Date.UTC(d.getFullYear(), d.getMonth(), d.getDate(), 13, 30), Date.UTC(d.getFullYear(), d.getMonth(), d.getDate(), 14, 30)];
+      for(var i = 0; i < c.length; i++){ if(ny.format(c[i]) === '09:30') return pa.format(c[i]).replace(':', 'h'); }
+    }catch(e){}
+    return null;
+  }
+  function set(id, txt){ var e = document.getElementById(id); if(e) e.innerHTML = txt; }
+  function fill(){
+    var d = new Date();
+    try{ set('bs-day', d.toLocaleDateString('fr-FR', { weekday: 'long', day: 'numeric', month: 'long' })); }catch(e){}
+    var o = openParis(d);
+    if(o){
+      var normal = o === '15h30';
+      set('bs-open', '🕒 Ouverture US à <b>' + o + '</b> (Paris)' + (normal ? '' : ' — décalage d\'heure Europe / États-Unis'));
+    }
+    var bud = null;
+    try{ bud = window.budgetOf ? window.budgetOf(pad(d.getDate()) + '/' + pad(d.getMonth() + 1)) : null; }catch(e){}
+    set('bs-budget', '💰 Budget : <b>' + fr(bud || 500) + ' $</b> par signal');
+    var nov = d.getFullYear() > 2026 || (d.getFullYear() === 2026 && d.getMonth() >= 10);
+    set('bs-cap', nov ? '📏 Plafond : <b>4 contrats</b> par trade (sauf avis contraire)' : '📏 Plafond de 4 contrats <b>levé en octobre</b> — le stop et le budget décident');
+    try{
+      var N = window.netActifs ? window.netActifs() : null;
+      if(N && N.n){
+        set('bs-comptes', '🏦 <b>' + N.n + ' compte' + (N.n > 1 ? 's' : '') + ' actif' + (N.n > 1 ? 's' : '') + '</b> (' + N.act.map(function(x){ return x.l; }).sort().join(', ') + ') · il reste ' + fr(3000 * N.n - N.net, 2) + ' $ à faire');
+      }
+    }catch(e){}
+    var m = document.getElementById('bs-monday'); if(m) m.style.display = d.getDay() === 1 ? '' : 'none';
+  }
+  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', fill); else fill();
+})();
 </script>
 <script>/* Avant la séance (#brief) : replie les paragraphes longs derrière "Voir le détail" */
 (function(){
