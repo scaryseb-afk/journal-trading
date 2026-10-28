@@ -1129,7 +1129,7 @@ textarea::placeholder{color:#4A566A}
   <div class="v2-phase"><span class="v2-n">2</span><span class="v2-h">Le marché</span><span class="v2-s">le biais du jour, les annonces, le moment</span></div>
   <div class="chk-grid">
   <div class="rules">
-    <div class="r"><div class="n">V2 · règle 4</div><div class="t">Quel est le biais : MME 5M, 15M et 1H ?</div><div class="d">Haussier → scénario Long ; baissier → Short. Tu dois pouvoir l'énoncer en une phrase : c'est ton biais, pas celui d'un autre.</div></div>
+    <div class="r"><div class="n">V2 · règle 4</div><div class="t">Quel est le biais, sur le M5 ?</div><div class="d">Haussier → scénario Long ; baissier → Short. Tu rentres toujours sur le M5 : ni M15 ni H1 pour lire le biais. Tu dois pouvoir l'énoncer en une phrase : c'est ton biais, pas celui d'un autre.</div></div>
     <div class="r"><div class="n">Règle 3</div><div class="t">Une annonce aujourd'hui ? (CPI, NFP, FOMC, chômage)</div><div class="d">1 à 2 contrats ou rien. Positions fermées 5 min avant, pas d'entrée dans les 10 min qui suivent.</div></div>
     <div class="r"><div class="n">V2.6 · V2.7</div><div class="t">Quel jour, quelle heure ?</div><div class="d">Le lundi, on attend surtout le début du marché (pré-market : 20 % des cas). Si l'iFVG 5M est fait avant l'ouverture, on en refait un deuxième après, pour voir.</div></div>
   </div>
@@ -1138,7 +1138,7 @@ textarea::placeholder{color:#4A566A}
   <div class="v2-phase"><span class="v2-n">3</span><span class="v2-h">Tes limites du jour</span><span class="v2-s">elles ne se négocient pas en séance</span></div>
   <div class="chk-grid">
   <div class="rules">
-    <div class="r"><div class="n">Le plan</div><div class="t">3 trades maximum</div><div class="d">Pas de troisième trade après deux pertes.</div></div>
+    <div class="r"><div class="n">Le plan</div><div class="t">2 trades maximum par jour</div><div class="d">Un troisième trade : une seule fois par semaine. Tes mots du 28/10 : « deux trades maximum, une fois par semaine » — à confirmer.</div></div>
     <div class="r"><div class="n">Règle 6</div><div class="t">10 minutes après chaque perte</div><div class="d">La montre décide, pas toi. Le minuteur est dans Règles → Outils du jour.</div></div>
     <div class="r"><div class="n">Règle 1</div><div class="t">500 $ de risque maximum par signal</div><div class="d">Le nombre de contrats se déduit du stop et du budget (calculette de lots, Règles → Outils du jour), jamais l'inverse. Plafond de 4 contrats levé en octobre, à rétablir en novembre.</div></div>
     <div class="r"><div class="n">Règle 5</div><div class="t">Aucune modification d'ordre en position</div><div class="d">Ni élargir, ni resserrer — sauf une règle écrite avant l'entrée et appliquée mécaniquement.</div></div>
@@ -1150,7 +1150,7 @@ textarea::placeholder{color:#4A566A}
   <div class="chk-grid">
   <div class="rules">
     <div class="r"><div class="n">V2.1</div><div class="t">iFVG 5M du bon côté de la MME 1H</div><div class="d">En Long, un iFVG sous la MME 1H = on ne rentre pas (en Short, l'inverse).</div></div>
-    <div class="r"><div class="n">V2.1 · V2.2</div><div class="t">Stop à l'un des 3 niveaux de protection, sous 400 ticks</div><div class="d">400 ticks ou plus (100 pts sur MNQ) = on passe son tour, sans exception.</div></div>
+    <div class="r"><div class="n">V2.1 · V2.2</div><div class="t">Stop à l'un des 3 niveaux de protection, sous 400 ticks</div><div class="d"><b>1</b> sous la FVG qui clôture · <b>2</b> sous la mèche de la bougie de clôture (corps par-dessus la FVG) · <b>3</b> sous la bougie précédente — ou la MME ? (à confirmer). En Short, au-dessus. 400 ticks ou plus (100 pts sur MNQ) = on passe son tour, sans exception.</div></div>
     <div class="r"><div class="n">Règles 1 · 2</div><div class="t">Taille calculée depuis le stop et le budget, lue à voix haute</div><div class="d">Bracket relu : quantité, stop, objectif.</div></div>
     <div class="r"><div class="n">V2.8 · V2.3</div><div class="t">TP à 1,95 de R:R — break-even à 50 % du chemin</div><div class="d">Ou si le prix repasse du mauvais côté des 3 MME.</div></div>
     <div class="r"><div class="n">V2.4</div><div class="t">Clôture 5M de l'autre côté de la MME 1H : 2e trade possible</div><div class="d">Dans le sens opposé, mêmes règles que le premier : 500 $ de perte max, 4 contrats max.</div></div>
@@ -1606,7 +1606,7 @@ textarea::placeholder{color:#4A566A}
       <div class="check-item" onclick="toggle(this)" style="padding:10px 12px">
         <input type="checkbox">
         <div class="check-box"><svg width="10" height="8" viewBox="0 0 10 8" fill="none"><path d="M1 4l3 3 5-6" stroke="#090b0e" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-        <div class="check-label" style="font-size:12.5px">Biais lu (MME 5M, 15M, 1H) — c'est le mien</div>
+        <div class="check-label" style="font-size:12.5px">Biais lu sur le M5 — c'est le mien</div>
       </div>
       <div class="check-item" onclick="toggle(this)" style="padding:10px 12px">
         <input type="checkbox">
@@ -1631,7 +1631,7 @@ textarea::placeholder{color:#4A566A}
       <div class="check-item" onclick="toggle(this)" style="padding:10px 12px">
         <input type="checkbox">
         <div class="check-box"><svg width="10" height="8" viewBox="0 0 10 8" fill="none"><path d="M1 4l3 3 5-6" stroke="#090b0e" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-        <div class="check-label" style="font-size:12.5px">Dernière perte &gt; 10 min — moins de 3 trades, pas de 3e après 2 pertes</div>
+        <div class="check-label" style="font-size:12.5px">Dernière perte &gt; 10 min — limite de trades du jour respectée</div>
       </div>
     </div>
   </div>
@@ -1855,8 +1855,8 @@ textarea::placeholder{color:#4A566A}
   <p class="sub">La seule stratégie que tu fais depuis le 20/10. Un trade en six temps ; chaque règle garde son numéro V2.x, que les pages de séance citent. Les règles communes 1 à 8 s'appliquent en plus.</p>
   <p class="v2-clock">🕒 Heure de Paris : l'ouverture US est à 15h30, mais à <strong>14h30 du 25/10 au 31/10</strong> (l'Europe est passée à l'heure d'hiver, pas les États-Unis) ; elle revient à 15h30 le 02/11. Les « 15h30 » des règles se lisent « à l'ouverture ».</p>
 
-  <div class="v2-phase"><span class="v2-n">1</span><span class="v2-h">Lire le biais</span><span class="v2-s">MME 5M, 15M et 1H</span></div>
-  <p class="v2-note">Biais haussier → scénario Long ; biais baissier → Short (symétrie à confirmer). La <strong>MME 1H</strong> est la rouge : la MME de l'heure, tracée sur le graphique 5M (précisé le 27/10). Ce sont probablement les « 3 MME » de la règle V2.3 — à confirmer.</p>
+  <div class="v2-phase"><span class="v2-n">1</span><span class="v2-h">Lire le biais</span><span class="v2-s">sur le M5</span></div>
+  <p class="v2-note">Biais haussier → scénario Long ; biais baissier → Short (symétrie à confirmer). <strong>Tu rentres toujours sur le M5</strong> : le biais se lit sur le M5, sans M15 ni H1 (précisé le 28/10). La <strong>MME 1H</strong> est la rouge : la MME de l'heure, tracée sur le graphique 5M (27/10) ; elle sert de filtre d'entrée à la règle V2.1. Les « 3 MME » de la règle V2.3 : lesquelles ? (voir « À préciser »).</p>
 <div class="rules-list">
 
   <div class="rc-rule warn">
@@ -1916,7 +1916,7 @@ textarea::placeholder{color:#4A566A}
     <div class="rule-body">
       <span class="rule-tag tag-stop">Stop V2</span>
       <div class="rule-stmt">Le SL se place à l'un des 3 niveaux de protection.</div>
-      <div class="rule-detail"><strong>1.</strong> Sous (Long) / au-dessus (Short) de la <strong>FVG 5M</strong>.<br><strong>2.</strong> Sous / au-dessus de la <strong>création de la bougie 5M</strong>.<br><strong>3.</strong> Sous / au-dessus de l'<strong>avant-dernier swing low / swing high 5M</strong>.<br>Quel que soit le niveau choisi, la règle V2.1 s'applique : si ça fait 400 ticks ou plus, pas d'entrée.</div>
+      <div class="rule-detail"><strong>Précisé par toi le 28/10</strong> — le stop se place :<br><strong>1.</strong> Sous (Long) / au-dessus (Short) de la <strong>FVG qui clôture</strong>.<br><strong>2.</strong> Sous / au-dessus de la <strong>mèche de la bougie de clôture</strong> — celle dont le corps clôture par-dessus la FVG.<br><strong>3.</strong> Sous / au-dessus de la <strong>bougie précédente</strong> (<em>previous candle</em>) — « ou alors la MME ? » : ta phrase finit par un point d'interrogation, à confirmer.<br><em>Avant le 28/10, le plan notait : FVG 5M · création de la bougie 5M · avant-dernier swing low / high 5M. Le swing n'est plus dans ta description.</em><br>Quel que soit le niveau choisi, la règle V2.1 s'applique : si ça fait 400 ticks ou plus, pas d'entrée.</div>
     </div>
   </div>
 
@@ -1953,7 +1953,7 @@ textarea::placeholder{color:#4A566A}
     <div class="rule-body">
       <span class="rule-tag tag-warn">Retournement V2</span>
       <div class="rule-stmt">Si une bougie 5M clôture de l'autre côté de la MME 1H (la rouge), le marché peut se retourner : on peut prendre un deuxième trade, dans le sens opposé au premier, qui vise à revenir à BE.</div>
-      <div class="rule-detail"><strong>Posé par toi le 06/10 :</strong> la MME 1H rouge n'est pas seulement un filtre d'entrée (V2.1) : ce qui compte, c'est la <strong>clôture</strong> d'une bougie de l'autre côté — pas une simple mèche.<br><strong>Précisé par toi le 07/10 :</strong> la bougie est une bougie <strong>5M</strong> ; le deuxième trade <strong>vise juste à revenir à BE</strong>.<br><strong>Précisé par toi le 27/10 :</strong> la MME rouge est celle de <strong>l'heure</strong> (1H) ; le deuxième trade <strong>peut se prendre dans le sens opposé</strong> au premier ; il a <strong>les mêmes règles que le premier</strong> : pas plus de 500 $ de perte, pas plus de 4 contrats, et les limites du plan (3 trades par jour, pas de trade après 2 pertes). C'est donc une exception à la règle 4 (« une direction pour la journée »), jamais sur l'avis de quelqu'un d'autre.<br><strong>« Revenir à BE » — lecture à confirmer :</strong> tu as écrit « BE pour le premier trade, je n'aurais pas dû prendre de deuxième ». Je lis : le deuxième trade ne vise qu'à ramener le <strong>premier trade</strong> à BE ; sans cet objectif, on n'en prend pas.<br>Pour un Short : tout est inversé.</div>
+      <div class="rule-detail"><strong>Posé par toi le 06/10 :</strong> la MME 1H rouge n'est pas seulement un filtre d'entrée (V2.1) : ce qui compte, c'est la <strong>clôture</strong> d'une bougie de l'autre côté — pas une simple mèche.<br><strong>Précisé par toi le 07/10 :</strong> la bougie est une bougie <strong>5M</strong> ; le deuxième trade <strong>vise juste à revenir à BE</strong>.<br><strong>Précisé par toi le 27/10 :</strong> la MME rouge est celle de <strong>l'heure</strong> (1H) ; le deuxième trade <strong>peut se prendre dans le sens opposé</strong> au premier ; il a <strong>les mêmes règles que le premier</strong> : pas plus de 500 $ de perte, pas plus de 4 contrats, et les limites du plan (nombre de trades par jour : à préciser, 28/10). C'est donc une exception à la règle 4 (« une direction pour la journée »), jamais sur l'avis de quelqu'un d'autre.<br><strong>« Revenir à BE » — lecture à confirmer :</strong> tu as écrit « BE pour le premier trade, je n'aurais pas dû prendre de deuxième ». Je lis : le deuxième trade ne vise qu'à ramener le <strong>premier trade</strong> à BE ; sans cet objectif, on n'en prend pas.<br>Pour un Short : tout est inversé.</div>
     </div>
   </div>
 
@@ -1961,6 +1961,19 @@ textarea::placeholder{color:#4A566A}
 
   <div class="v2-open">
     <div class="pt-title">❓ À préciser <span class="pt-tag">je n'invente rien — dis-moi et je complète</span></div>
+    <div class="v2-q"><b>Le plan · Nombre de trades</b>
+      <ol>
+        <li>Tes mots du 28/10 : « deux trades maximum, une fois par semaine ». Je lis : <strong>2 trades par jour</strong>, avec un <strong>3<sup>e</sup> trade permis une seule fois par semaine</strong> — c'est bien ça ? Qu'est-ce qui autorise ce 3<sup>e</sup> trade ?</li>
+        <li>« Pas de troisième trade après deux pertes » : à garder ou à retirer ?</li>
+        <li>Si c'est confirmé, je change le verrou du compteur de trades (il est à 3), le bandeau « Respect du plan » et les anciens « max 3 ». Aucune séance passée ne change de verdict : la seule à 3 trades, le 24/09, était déjà hors plan.</li>
+      </ol>
+    </div>
+    <div class="v2-q"><b>V2.1 · V2.3 · MME et timeframes</b>
+      <ol>
+        <li>Tu rentres toujours sur le M5 (28/10) : M15 et H1 sont oubliés pour le biais. La <strong>MME 1H (la rouge)</strong> reste-t-elle le filtre d'entrée de la règle V2.1 (« iFVG au-dessus de la MME 1H »), comme tu l'as écrit le 27/10 ?</li>
+        <li>Quelles sont les « 3 MME » de la règle V2.3 (leurs périodes) ? Je ne peux plus écrire que ce sont les MME 5M, 15M et 1H.</li>
+      </ol>
+    </div>
     <div class="v2-q"><b>V2.4 · Retournement</b>
       <ol>
         <li>« Revenir à BE » : le deuxième trade ne vise qu'à ramener le <em>premier trade</em> à BE — c'est bien ça ?</li>
@@ -1973,7 +1986,7 @@ textarea::placeholder{color:#4A566A}
         <li>Quelle est la « bougie d'entrée 5M » : celle qui crée ou clôture l'iFVG, ou celle sur laquelle tu entres ? Elle décide du sens par la direction de sa clôture (haussière → Long, baissière → Short) ?</li>
         <li>À quoi reconnais-tu un marché qui « range toute la journée » (amplitude, MME 1H plate, haut et bas du range) ?</li>
         <li>Dans un range, le filtre de la règle V2.1 (pas d'entrée si l'iFVG est du mauvais côté de la MME 1H) s'applique-t-il encore ?</li>
-        <li>Les limites du plan (3 trades par jour, pas de trade après 2 pertes, 4 contrats maximum) et la règle 4 (« une direction pour la journée ») : exception ici aussi ?</li>
+        <li>Les limites du plan (nombre de trades par jour, 4 contrats maximum) et la règle 4 (« une direction pour la journée ») : exception ici aussi ?</li>
       </ol>
     </div>
     <div class="v2-q"><b>V2.6 · Lundi, pré-market</b>
@@ -1994,8 +2007,8 @@ textarea::placeholder{color:#4A566A}
     </div>
     <div class="v2-q"><b>V2.2 · Stop</b>
       <ol>
-        <li>« Création de la bougie » : est-ce la même chose que la mèche ?</li>
-        <li>Le 3<sup>e</sup> niveau (avant-dernier swing 5M) : tu ne l'as pas repris sur ton dernier exemple — il reste dans la règle ?</li>
+        <li>Lecture : « création de la bougie » = la mèche de la bougie dont le corps clôture par-dessus la FVG (la bougie qui crée l'iFVG) — c'est bien ça ?</li>
+        <li>3<sup>e</sup> niveau : la <strong>bougie précédente</strong>, ou la <strong>MME</strong> (laquelle) ? Et l'avant-dernier swing 5M, qui n'est plus dans ta description, disparaît-il de la règle ?</li>
       </ol>
     </div>
     <div class="v2-q"><b>V2.8 · Objectif</b>
@@ -2018,7 +2031,7 @@ textarea::placeholder{color:#4A566A}
       <tr><td><b>Exécution</b></td><td>M5 – M1</td><td>entrée · confirmation · management</td></tr>
     </tbody>
   </table></div>
-  <p class="ord-ex">Par rapport à tes six temps ci-dessus : le biais y vient des MME 5M, 15M et 1H, et l'entrée de l'iFVG 5M. Rien n'y est écrit sur H4/1D ni sur la liquidité. Si ce cadre t'inspire, dis-moi ce que tu veux en reprendre et je l'ajoute dans ton plan — sinon cette carte se supprime.</p>
+  <p class="ord-ex">Par rapport à tes six temps ci-dessus : le biais y vient de la MME sur le M5 (tu rentres toujours sur le M5 : ni M15 ni H1 pour le biais), et l'entrée de l'iFVG 5M. Rien n'y est écrit sur H4/1D ni sur la liquidité. Si ce cadre t'inspire, dis-moi ce que tu veux en reprendre et je l'ajoute dans ton plan — sinon cette carte se supprime.</p>
 </div>
   </div>
 
