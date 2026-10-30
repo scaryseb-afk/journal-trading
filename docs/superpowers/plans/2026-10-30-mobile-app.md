@@ -849,10 +849,17 @@ git log --oneline -1 | cut -c1-90
   html.m-shell .sf-filter{min-height:44px;padding:0 18px;border-radius:22px;font-size:15px}
   html.m-shell .sf-legend{display:none}
   html.m-shell .sf-mh{position:sticky;top:0;z-index:20;min-height:52px;margin:10px 0 4px;padding:calc(6px + env(safe-area-inset-top)) 0 6px;background:var(--bg)}
-  html.m-shell .sf-mh-name,html.m-shell .sf-mh-sum{font-size:17px}
+  html.m-shell summary.sf-mh{display:grid;grid-template-columns:auto 1fr auto;grid-template-areas:"arrow name sum" ". wl r";align-items:center;gap:2px 10px}
+  html.m-shell summary.sf-mh .sf-arrow{grid-area:arrow}
+  html.m-shell summary.sf-mh .sf-mh-name{grid-area:name;font-size:17px}
+  html.m-shell summary.sf-mh .sf-mh-sum{grid-area:sum;font-size:17px;text-align:right}
+  html.m-shell summary.sf-mh .sf-mh-wl{grid-area:wl;font-size:13px}
+  html.m-shell summary.sf-mh .sf-mh-r{grid-area:r;font-size:13px;text-align:right}
+  html.m-shell summary.sf-mh .sf-mh-line,html.m-shell summary.sf-mh>span:not([class]){display:none !important}
   html.m-shell .sf{gap:8px}
-  html.m-shell .sf-wk{margin:14px 0 4px}
-  html.m-shell .sf-wk-name{font-size:13px}
+  html.m-shell .sf-wk{gap:8px;margin:14px 0 4px}
+  html.m-shell .sf-wk-name{font-size:12.5px}
+  html.m-shell .sf-wk-tr{display:none}
   html.m-shell .sr{grid-template-columns:1fr auto;grid-template-areas:"date pnl" "meta r";gap:4px 12px;align-items:center;min-height:64px;padding:12px 16px;border-radius:14px}
   html.m-shell .sr-date{grid-area:date;flex-wrap:wrap;font-size:17px;font-weight:650}
   html.m-shell .sr-pnl{grid-area:pnl;font-size:20px}
