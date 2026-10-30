@@ -1,0 +1,7 @@
+/* Couche « app iOS » — téléphone seulement (écran ≤ 700 px de large).
+   Conception : docs/superpowers/specs/2026-10-30-mobile-app-design.md
+   RÈGLE : tout est dans un @media (max-width:700px) et préfixé html.m-shell (classe posée par mobile.js) — voir tests/mobile/css-guard.test.js. */
+
+@media (max-width:700px){
+  /* les blocs des tâches suivantes sont ajoutés à la suite, chacun dans son propre @media */
+}
