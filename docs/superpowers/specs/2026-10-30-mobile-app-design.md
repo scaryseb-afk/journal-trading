@@ -95,3 +95,12 @@ Accessibilité : `prefers-reduced-motion` (fondus seulement), `prefers-reduced-t
 - **56 pages à toucher** pour une ligne `<link>` : modification mécanique (insertion après `apple.css`), vérifiée par `grep -c` (56 + template).
 - **Seuil 700 px** : un navigateur Mac réduit sous 700 px prend la mise en page téléphone ; c'est voulu (c'est aussi comme ça qu'on teste).
 - Rien n'est poussé sans ton accord ; le seuil, les tailles et les libellés se changent à un seul endroit (`mobile.css`).
+
+## 10. Écarts constatés à l'implémentation
+
+- Libellé de l'onglet : « **Avant séance** » (et non « Avant la séance », trop large sous une icône sur 375 px) ; le bouton de l'Accueil garde « Avant la séance ».
+- Toutes les règles sont aussi préfixées `html.m-shell` : si `mobile.js` échoue, le site garde sa mise en page téléphone d'avant (pas de page sans navigation).
+- Sous-pages ouvertes depuis « Plus » ou l'Accueil : elles s'affichent dans leur onglet avec la rangée de sous-pages ; seul l'écran « page d'une séance » est « poussé » (arrivée par la droite, bouton ‹ Séances).
+- La rangée « Dernière séance » de l'Accueil affiche la date et le P&L (pas le ≈ R, calculé à l'intérieur de la liste des séances).
+- `mobile.js` défait ses changements au passage en large (fenêtre élargie sans rechargement) : l'empreinte du Mac reste identique.
+- Ajustements de rendu faits à la vérification : les comptes de l'Accueil sont rangés par nom (001 avant 02b) ; la pastille d'attente « Enregistrement automatique » est masquée sur téléphone (elle recouvrait le contenu, seuls ses états ✓ et erreur s'affichent) ; en-têtes de mois et de semaine de la liste des séances recomposés pour tenir sur 343 px (le mini-graphique et le nombre de trades de la semaine sont masqués).
