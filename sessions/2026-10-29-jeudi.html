@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<link rel="apple-touch-icon" href="../apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>Jeudi 29 oct. — Journal</title>
+<link rel="stylesheet" href="../_systeme/style.css">
+<link rel="stylesheet" href="../_systeme/apple.css">
+</head>
+<body>
+<div class="wrap">
+
+<a href="https://scaryseb-afk.github.io/journal-trading/#sessions" onclick="if(document.referrer){history.back();return false;}" class="sp-back">← Journal</a>
+
+<div class="sp-header">
+  <h1 class="sp-title">Jeudi 29 oct.</h1>
+  <span class="sp-pnl td-l">−918,00 $</span>
+</div>
+<div class="sp-meta">1 trade (2 lignes CSV, une par compte) &nbsp;·&nbsp; 2 comptes (001, 02b) &nbsp;·&nbsp; même position Short sur les deux comptes, stoppée au même prix</div>
+
+<!-- Résumé écrit par Claude à partir des CSV + du contexte de la séance -->
+<div class="note-block">
+  <strong>−918,00 $ — un seul trade, perdant, pris sur deux comptes : 001 −437 $, 02b −481 $.</strong> La même position Short, sortie au même prix et à la même seconde sur les deux comptes.<br><br>
+  <strong>1 · 02b — MNQ Short 2 contrats : −481 $.</strong> Vente à 15h49:54 à 29 468,50, rachat à 16h01:35 à 29 588,75 : 120,25 pts contre toi en 11 min 41 (2 × 120,25 pts × 2 $). Entré 1 h 20 après l'ouverture US (14h30 cette semaine, 15h30 de nouveau dès le 02/11) ; heures du CSV, en heure d'hiver.<br><br>
+  <strong>1 (même trade) · 001 — MNQ Short 2 contrats : −437 $.</strong> Vente à 15h50:22 à 29 479,50 (28 s après le 02b, 11 pts plus haut), rachat à 16h01:35 à 29 588,75 : 109,25 pts contre toi en 11 min 13 (2 × 109,25 pts × 2 $).<br><br>
+  <strong>Comptage :</strong> même instrument, même sens, ouvertes à 28 s d'écart et fermées à la même seconde : une même position sur deux comptes = <strong>un seul trade</strong> (ta règle du 19/10).<br><br>
+  <strong>Le stop — à vérifier, règle V2.1 :</strong> les deux comptes sont sortis exactement au même prix (29 588,75) à la même seconde (16:01:35) : ça ressemble à un stop commun, mais le CSV ne le dit pas et je n'ai pas de capture de ton côté. Si c'était bien ton stop, il était à 109,25 pts (<strong>437 ticks</strong>) du fill du 001 et à 120,25 pts (<strong>481 ticks</strong>) de celui du 02b : <strong>au-dessus des 400 ticks</strong> à partir desquels on n'entre pas (V2.1), pour un risque de 437 $ et 481 $, sous le budget de 500 $. Dis-moi si c'était ton stop, et où il était prévu.<br><br>
+  <strong>Daxton, le même jour</strong> — tu m'as envoyé le 30/10 deux stories Instagram de daxtontrades (MNQ1! en 5 min). Je les ai lues ; je ne les ai pas mises sur le site, elles sont à lui (dis-moi si tu veux quand même les y voir ; tu peux aussi les coller dans la colonne « Daxton » de ce trade, elles restent alors dans ton navigateur) :<br>
+  · <strong>story 1 — « Closed at BE », Net P&amp;L +156 $</strong> : un trade Short dont l'outil de position va d'environ 13h10 à 15h51 sur l'axe de son graphique (heure de New York d'après l'étiquette NYSE), sans toucher son objectif, revenu à l'entrée = break-even. Prix affiché : 29 549,25, −429,25 pts (−1,43 %) sur la journée.<br>
+  · <strong>story 2 — « Missed this trade wasn't in front of charts »</strong> : une flèche jaune sur une bougie rouge vers 10h45 (New York), suivie d'une forte remontée jusqu'à 29 615,50 (−363,25 pts, −1,21 % sur la journée) vers 11h10. Si l'axe de son graphique est bien en heure de New York, c'est le créneau de ton Short (15h50→16h01 à Paris = 10h50→11h01 à New York) : ta position a été prise juste après cette bougie et stoppée par la remontée que Daxton dit avoir manquée. Le marché baissait ce jour-là : ton Short allait dans le sens de la journée, mais il a été pris contre le rebond.<br><br>
+  <strong>Contrôle du plan — respecté en attendant ta réponse :</strong> 1 trade ✓ · aucune ré-entrée ✓ (seul trade de la journée dans les exports reçus) · 2 contrats par compte ✓ · risque 437 $ et 481 $ si la sortie était le stop, sous le budget de 500 $ ✓ · entrée 1 h 20 après l'ouverture ✓ · règle V2.1 : voir plus haut · MME 1H, biais et niveau de protection du stop (règle V2.2) : non évalués.<br><br>
+  <strong>Pas d'export du 28/10 pour le 02b</strong> : son solde suppose qu'il n'a pas tradé ce jour-là.<br><br>
+  <strong>Plan Daxton (V2).</strong><br><br>
+  <strong>Ce qui manque :</strong> la raison du trade ; le biais MME ; ton stop réel et ta capture ; le niveau de protection (V2.2) ; l'objectif.
+</div>
+
+<!-- Captures d'écran -->
+<!-- Trades par compte — dupliquer ce bloc pour chaque compte actif -->
+<div id="trades-section">
+
+  <div class="acct-header">
+    <span class="acct-label">Compte 001 — …4680001</span>
+    <span class="acct-pnl td-l">−437,00 $</span>
+  </div>
+  <div class="tbl-wrap">
+    <table class="trades-table">
+      <thead><tr><th>#</th><th>Contrat</th><th>Sens</th><th>Qté</th><th>Entrée</th><th>Sortie</th><th>Heure</th><th>P&amp;L</th></tr></thead>
+      <tbody id="body-001"></tbody>
+    </table>
+  </div>
+
+  <div class="acct-header">
+    <span class="acct-label">Compte 02b — …4680006 (LucidFlex)</span>
+    <span class="acct-pnl td-l">−481,00 $</span>
+  </div>
+  <div class="tbl-wrap">
+    <table class="trades-table">
+      <thead><tr><th>#</th><th>Contrat</th><th>Sens</th><th>Qté</th><th>Entrée</th><th>Sortie</th><th>Heure</th><th>P&amp;L</th></tr></thead>
+      <tbody id="body-02b"></tbody>
+    </table>
+  </div>
+
+  <div class="total-bar">
+    <span class="total-label">Total journée — 2 comptes</span>
+    <span class="total-val " style="color:var(--red)">−918,00 $</span>
+  </div>
+
+</div>
+
+<!-- Relecture — à remplir par Sébastien, sert à améliorer les séances suivantes -->
+<div class="section-title">🪞 Ta relecture</div>
+<div class="reflect-grid">
+  <div class="reflect-item err">
+    <label>Erreur commise</label>
+    <textarea class="reflect-note" data-key="reflect_erreur" placeholder="Qu'est-ce qui a foiré aujourd'hui, concrètement ?"></textarea>
+  </div>
+  <div class="reflect-item fix">
+    <label>Ce que j'aurais dû faire</label>
+    <textarea class="reflect-note" data-key="reflect_correction" placeholder="La version correcte de la décision"></textarea>
+  </div>
+  <div class="reflect-item ok">
+    <label>Ce qui a bien fonctionné</label>
+    <textarea class="reflect-note" data-key="reflect_ok" placeholder="À garder, à répéter"></textarea>
+  </div>
+</div>
+<div class="reflect-copy">
+  <button id="reflect-copy-btn" onclick="sjCopyReflect()" disabled>📋 Copier pour Claude</button>
+  <span class="hint">Colle ça dans le chat pour que ta prochaine séance en tienne compte.</span>
+</div>
+
+</div>
+<!-- Lightbox -->
+<div class="lb-overlay" id="lb" onclick="sjCloseLB(event)">
+  <span class="lb-close" onclick="document.getElementById('lb').classList.remove('open')">×</span>
+  <img id="lb-img" src="" alt="">
+</div>
+
+<script>
+var SESSION_KEY = '2026_10_29_jeudi';
+
+/* Trades hardcodés — un tableau par compte, rempli depuis les CSV. time = heure d'entrée, exit_time = heure de sortie (toujours les deux : le tableau affiche « entrée → sortie »). */
+var ACCTS = {
+  /* heures en heure d'hiver (CSV du 29/10) : ouverture US à 14h30 cette semaine ; Short = entrée à la vente, sortie au rachat */
+  '001': [
+    {n:1, contract:'MNQ', side:'Short', qty:'2', entry:'29479.50', exit:'29588.75', time:'15:50', exit_time:'16:01', pnl: -437.00}
+  ],
+  '02b': [
+    {n:1, contract:'MNQ', side:'Short', qty:'2', entry:'29468.50', exit:'29588.75', time:'15:49', exit_time:'16:01', pnl: -481.00}
+  ]
+};
+
+/* Captures et niveaux enregistrés par Claude (facultatif) : quand Sébastien colle une capture dans le chat, Claude lit le stop / l'objectif / le R:R dessus, copie l'image
+   dans sessions/img/ et la place ici sous le bon trade. Clés : '<compte>_<n>' (zone « ce qui s'est passé ») ou '<compte>_<n>:fix:daxton' (« ce que j'aurais dû faire »). */
+var SJ_SHOTS = {};    // ex. { '001_1': ['img/2026-10-19_001_1.jpg'] }
+var SJ_LEVELS = {};   // ex. { '001_1': { stop:'29795.00', objectif:'29640.00', rr:'2.00', src:'lus sur la capture' } } — ajouter entry:'…' si l'outil de position est décalé du fill du CSV
+
+function renderAcct(acctId, bodyId){
+  var notes = sjLoadNotes();
+  var trades = ACCTS[acctId] || [];
+  var html = '';
+  trades.forEach(function(t){
+    var ps = (t.pnl >= 0 ? '+' : '') + t.pnl.toFixed(2) + ' $';
+    var pc = t.pnl >= 0 ? 'td-w' : 'td-l';
+    var key = acctId + '_' + t.n;
+    var note = notes[key] || '';
+    html += '<tr class="trade-row">'
+      + '<td>' + t.n + '</td>'
+      + '<td><strong>' + sjEsc(t.contract) + '</strong></td>'
+      + '<td>' + sjEsc(t.side) + '</td>'
+      + '<td>' + sjEsc(t.qty) + '</td>'
+      + '<td>' + sjEsc(t.entry) + '</td>'
+      + '<td>' + sjEsc(t.exit) + '</td>'
+      + '<td style="color:var(--muted);font-size:12px">' + sjEsc(t.time) + (t.exit_time ? ' → ' + sjEsc(t.exit_time) : '') + '</td>'
+      + '<td class="td-pnl ' + pc + '">' + ps + '</td>'
+      + '</tr>'
+      + '<tr class="note-row"><td colspan="8">'
+      + '<textarea class="trade-note" placeholder="Setup, raison du trade, erreurs…" data-key="' + key + '" onblur="sjSaveNote(this)">'
+      + sjEsc(note)
+      + '</textarea>'
+      + sjTradeRRRow(key)
+      + '</td></tr>';
+  });
+  document.getElementById(bodyId).innerHTML = html;
+}
+
+window.addEventListener('DOMContentLoaded', function(){
+  renderAcct('001', 'body-001');
+  renderAcct('02b', 'body-02b');
+});
+</script>
+<script src="../_systeme/session.js"></script>
+</body>
+</html>
