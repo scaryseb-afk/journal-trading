@@ -261,6 +261,33 @@
     off: unbuildHome
   });
 
+  /* ───────── Page d'une séance ───────── */
+  var noteSaved = null, backSaved = null;
+
+  feature({
+    page: 'session',
+    on: function(){
+      var back = document.querySelector('.sp-back');
+      if(back && backSaved === null){ backSaved = back.textContent; back.textContent = '‹ Séances'; }
+      var nb = document.querySelector('.sp-header ~ .note-block');
+      if(nb && noteSaved === null){
+        var r = splitNote(nb.innerHTML);
+        if(r){
+          noteSaved = nb.innerHTML;
+          nb.innerHTML = '<div class="m-head">' + r.head + '</div>' + r.sections.map(function(s){
+            return '<details class="m-sec"><summary>' + esc(s.title) + '</summary><div class="m-sec-body">' + s.html + '</div></details>';
+          }).join('');
+        }
+      }
+    },
+    off: function(){
+      var back = document.querySelector('.sp-back');
+      if(back && backSaved !== null){ back.textContent = backSaved; backSaved = null; }
+      var nb = document.querySelector('.sp-header ~ .note-block');
+      if(nb && noteSaved !== null){ nb.innerHTML = noteSaved; noteSaved = null; }
+    }
+  });
+
   /* @@FEATURES@@ */
 
   function apply(){

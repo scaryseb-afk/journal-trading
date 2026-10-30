@@ -976,6 +976,7 @@ Ajouter après la dernière ligne (`window.addEventListener('DOMContentLoaded', 
 @media (max-width:700px){
   @keyframes m-push{from{opacity:0;transform:translate3d(28px,0,0)}to{opacity:1;transform:none}}
   html.m-session .wrap{animation:m-push var(--dur-move,.5s) var(--ease-move,ease-out) both}
+  html.m-session body{overflow-x:clip}   /* l'arrivée par la droite ne doit pas créer de défilement horizontal pendant l'animation */
 
   html.m-shell .sp-back{display:inline-flex;align-items:center;min-height:48px;margin:0 0 2px;font-size:17px;font-weight:600;color:var(--accent)}
   html.m-shell .sp-header{flex-direction:column;align-items:flex-start;gap:10px;margin:2px 0 8px}
@@ -1000,16 +1001,16 @@ Ajouter après la dernière ligne (`window.addEventListener('DOMContentLoaded', 
   html.m-shell .trades-table tr.trade-row{display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 10px;margin-top:12px;padding:16px 16px 6px;border-radius:16px 16px 0 0;background:var(--panel)}
   html.m-shell .trades-table tr.trade-row::after{content:'';order:5;flex-basis:100%;height:0}
   html.m-shell .trades-table td{display:block;padding:0;border:0;background:none !important}
-  html.m-shell .trades-table td:nth-child(1){display:none}
-  html.m-shell .trades-table td:nth-child(3){order:1;font-size:22px;font-weight:750}
-  html.m-shell .trades-table td:nth-child(4){order:2;font-size:17px;font-weight:650;color:var(--muted)}
-  html.m-shell .trades-table td:nth-child(4)::before{content:'× '}
-  html.m-shell .trades-table td:nth-child(2){order:3;font-size:14px;color:var(--muted)}
-  html.m-shell .trades-table td:nth-child(8){order:4;margin-left:auto;font-size:24px;font-weight:800}
-  html.m-shell .trades-table td:nth-child(5){order:6;font-size:17px}
-  html.m-shell .trades-table td:nth-child(6){order:7;font-size:17px}
-  html.m-shell .trades-table td:nth-child(6)::before{content:'→ ';color:var(--dim)}
-  html.m-shell .trades-table td:nth-child(7){order:8;flex-basis:100%;font-size:14px !important;color:var(--muted)}
+  html.m-shell .trades-table tr.trade-row td:nth-child(1){display:none}
+  html.m-shell .trades-table tr.trade-row td:nth-child(3){order:1;font-size:22px;font-weight:750}
+  html.m-shell .trades-table tr.trade-row td:nth-child(4){order:2;font-size:17px;font-weight:650;color:var(--muted)}
+  html.m-shell .trades-table tr.trade-row td:nth-child(4)::before{content:'× '}
+  html.m-shell .trades-table tr.trade-row td:nth-child(2){order:3;font-size:14px;color:var(--muted)}
+  html.m-shell .trades-table tr.trade-row td:nth-child(8){order:4;margin-left:auto;font-size:24px;font-weight:800}
+  html.m-shell .trades-table tr.trade-row td:nth-child(5){order:6;font-size:17px}
+  html.m-shell .trades-table tr.trade-row td:nth-child(6){order:7;font-size:17px}
+  html.m-shell .trades-table tr.trade-row td:nth-child(6)::before{content:'→ ';color:var(--dim)}
+  html.m-shell .trades-table tr.trade-row td:nth-child(7){order:8;flex-basis:100%;font-size:14px !important;color:var(--muted)}
   html.m-shell .trades-table tr.note-row{display:block;padding:0 16px 16px;border-radius:0 0 16px 16px;background:var(--panel)}
   html.m-shell .trades-table tr.trade-row:has(.td-w),html.m-shell .trades-table tr.trade-row:has(.td-w)+tr.note-row{background:color-mix(in srgb,var(--green) 10%,var(--panel))}
   html.m-shell .trades-table tr.trade-row:has(.td-l),html.m-shell .trades-table tr.trade-row:has(.td-l)+tr.note-row{background:color-mix(in srgb,var(--red) 10%,var(--panel))}
@@ -1017,8 +1018,8 @@ Ajouter après la dernière ligne (`window.addEventListener('DOMContentLoaded', 
   /* saisies : grands champs, sans zoom Safari */
   html.m-shell .trade-rr{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;align-items:end;margin-top:12px;padding-top:12px}
   html.m-shell .trade-rr label{display:flex;flex-direction:column;align-items:stretch;gap:6px;font-size:13px;font-weight:600}
-  html.m-shell .trade-rr .trade-rr-input,html.m-shell .trade-rr .trade-rr-input[data-field="rr"]{width:100%;min-height:48px;padding:0 12px;border-radius:12px;font-size:17px !important}
-  html.m-shell .trade-rr-out{grid-column:1/-1;font-size:15px}
+  html.m-shell .trade-rr .trade-rr-input,html.m-shell .trade-rr .trade-rr-input[data-field="rr"]{width:100%;min-height:48px;padding:0 10px;border-radius:12px;font-size:16px !important}
+  html.m-shell .trade-rr-out{grid-column:1/-1;font-size:14px;font-weight:600;line-height:1.4;color:var(--muted)}
   html.m-shell .trade-note{min-height:96px;padding:12px 14px;border-radius:12px;font-size:17px !important}
   html.m-shell .trade-copy-btn{min-height:44px;padding:0 16px;border-radius:12px;font-size:15px}
   html.m-shell .trade-shots-drop{display:flex;align-items:center;justify-content:center;min-height:56px;padding:0 14px;border-radius:14px;font-size:16px}

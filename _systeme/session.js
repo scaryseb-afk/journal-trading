@@ -836,3 +836,12 @@ function initSessionPage(){
   sjInitHoverPreview();
 }
 window.addEventListener('DOMContentLoaded', initSessionPage);
+
+/* ---------- Couche « app iOS » du téléphone (≤ 700 px) : mobile.js décide seul s'il s'active (rien au-dessus de 700 px) ---------- */
+(function(){
+  var me = document.currentScript && document.currentScript.src;
+  if(!me) return;
+  var s = document.createElement('script');
+  s.src = me.replace(/session\.js(\?.*)?$/, 'mobile.js');
+  document.head.appendChild(s);
+})();
