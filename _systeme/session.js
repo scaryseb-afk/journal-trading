@@ -562,8 +562,10 @@ var SJ_FIX_WHO = [['daxton', 'Daxton']];
 var SJ_FIX_OLD = [':fix', ':fix:matt'];   // clés sans zone de dépôt, affichées dans « Anciennes captures »
 function sjFixKeys(key){ return SJ_FIX_WHO.map(function(w){ return key + ':fix:' + w[0]; }); }
 /* Sous chaque trade : deux colonnes — à gauche ce qui s'est passé, puis « ce que j'aurais dû faire » selon Daxton — puis
-   une petite remarque pleine largeur dessous. Visible d'office quand le trade est perdant ; sinon repliée derrière un bouton (un trade
-   gagnant peut aussi être raté). Au survol d'une capture, l'aperçu montre côte à côte celles des colonnes remplies (voir sjInitHoverPreview). */
+   une petite remarque pleine largeur dessous. Visible d'office sur tous les trades depuis le 30/10 (Sébastien : « tu n'as pas fait la place pour
+   la capture de daxton » — sur un trade gagnant, elle était repliée derrière un bouton alors que les stories de Daxton concernent toute la journée) ;
+   SJ_FIX_ALWAYS_OPEN = false rétablit l'ancien repli (ouverte seulement sur un trade perdant, ou déjà remplie). Au survol d'une capture, l'aperçu montre côte à côte celles des colonnes remplies (voir sjInitHoverPreview). */
+var SJ_FIX_ALWAYS_OPEN = true;
 function sjInitTradeShots(){
   document.querySelectorAll('tr.note-row').forEach(function(row){
     var ta = row.querySelector('textarea.trade-note'), cell = row.querySelector('td');
@@ -574,7 +576,7 @@ function sjInitTradeShots(){
     var fixNote = sjLoadNotes()[fixKey] || '';
     var fixImgs = fixKeys.concat(SJ_FIX_OLD.map(function(x){ return key + x; })).some(function(k){ return sjHasShots(k); });
     var pair = document.createElement('div');
-    pair.className = 'shots-pair' + ((failed || fixNote || fixImgs) ? '' : ' no-fix');
+    pair.className = 'shots-pair' + ((SJ_FIX_ALWAYS_OPEN || failed || fixNote || fixImgs) ? '' : ' no-fix');
     pair.innerHTML =
         '<div class="shots-col main"><div class="shots-col-h">Ce qui s\'est passé</div>' + sjShotsBox(key, 'Ajouter une capture')
       + '<button type="button" class="fix-toggle">＋ Ce que j\'aurais dû faire</button></div>'
