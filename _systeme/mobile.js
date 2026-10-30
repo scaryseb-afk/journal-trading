@@ -164,6 +164,103 @@
   /* fonctionnalités par page : on() quand l'écran devient étroit, off() quand il s'élargit (le Mac retrouve exactement son DOM) */
   var features = [];
   function feature(f){ features.push(f); }
+  /* ───────── Accueil (onglet Tableau de bord → Vue d'ensemble) ───────── */
+  var homeState = null;
+
+  function tzCard(re){   // valeur et sous-titre d'une carte .tz-card déjà remplie par le script du tableau de bord
+    var out = null;
+    [].forEach.call(document.querySelectorAll('#view-dashboard .tz-card'), function(c){
+      var l = c.querySelector('.lbl');
+      if(l && re.test(l.textContent)){
+        var v = c.querySelector('.tz-ring-val, .val'), s = c.querySelector('.tz-sub');
+        out = { val: v ? v.textContent.trim() : '', sub: s ? s.textContent.trim() : '' };
+      }
+    });
+    return out;
+  }
+
+  function buildHome(){
+    var host = document.querySelector('#view-dashboard .subview[data-subview="overview"]');
+    if(!host) return true;
+    if(homeState) return true;
+    var N = window.netActifs ? window.netActifs() : null;
+    if(!N || !N.n) return false;                       // données pas encore prêtes : on réessaie au chargement complet
+
+    var cible = 3000 * N.n, pct = Math.max(0, Math.min(100, N.net / cible * 100));
+    var tone = N.net < 0 ? 'neg' : (N.net > 0 ? 'pos' : '');
+    var reste = cible - N.net;
+    var dateTxt = new Date().toLocaleDateString('fr-FR', { weekday: 'long', day: 'numeric', month: 'long' });
+
+    var accts = N.act.slice().sort(function(a, b){ return a.l < b.l ? -1 : 1; }).map(function(x){
+      var c = x.c, cib = (c.objectif != null && c.depart != null) ? c.objectif - c.depart : 3000;
+      var p = Math.max(0, Math.min(100, x.d / cib * 100));
+      return '<div class="m-acct">'
+        + '<div class="m-acct-top"><b>' + esc(x.l) + '</b><span class="m-acct-bal">' + fr(c.solde) + ' $</span></div>'
+        + '<div class="m-acct-d ' + (x.d < 0 ? 'neg' : 'pos') + '">' + usd(x.d) + ' <span>depuis le départ</span></div>'
+        + '<div class="m-bar"><i style="width:' + p.toFixed(0) + '%"></i></div>'
+        + '<div class="m-acct-f">' + Math.round(p) + ' % de l’objectif' + (typeof c.buffer === 'number' ? '<br>Marge avant perte : ' + fr(c.buffer) + ' $' : '') + '</div>'
+        + '</div>';
+    }).join('');
+
+    var last = (window.SESSIONS || []).filter(function(s){ return s.pnl !== null && s.fichier; })[0];
+    var lastRow = last
+      ? '<div class="m-list"><a class="m-row m-last" href="sessions/' + esc(last.fichier) + '"><span class="m-last-l"><small>Dernière séance</small><b>' + esc(last.label || last.jour) + '</b></span>'
+        + '<span class="m-last-p ' + (last.pnl < 0 ? 'neg' : (last.pnl > 0 ? 'pos' : '')) + '">' + usd(last.pnl) + '</span><i class="m-chev" aria-hidden="true"></i></a></div>'
+      : '';
+
+    function mini(label, re){
+      var o = tzCard(re);
+      return o ? '<button type="button" class="m-mini-c" data-m-stats><small>' + label + '</small><b>' + esc(o.val) + '</b></button>' : '';
+    }
+    var BTNS = [['brief', 'Avant la séance', 'brief'], ['sessions', 'Séances', 'sessions'], ['regles', 'Règles', 'regles'], ['stats', 'Stats', 'stats']];
+
+    var home = el('div', 'm-home');
+    home.id = 'm-home';
+    home.innerHTML =
+        '<div class="m-home-head"><span class="m-home-eyebrow">Aujourd’hui</span><h1 class="m-home-title">' + esc(dateTxt.charAt(0).toUpperCase() + dateTxt.slice(1)) + '</h1></div>'
+      + '<div class="m-banner-slot"></div>'
+      + '<div class="m-net"><small>Net P&amp;L</small><div class="m-net-val ' + tone + '">' + usd(N.net) + '</div>'
+      +   '<div class="m-bar"><i style="width:' + pct.toFixed(0) + '%"></i></div>'
+      +   '<div class="m-net-sub">' + Math.round(pct) + ' % de ' + fr(cible) + ' $ · ' + (reste > 0 ? 'il reste ' + fr(reste) + ' $' : 'objectif atteint') + ' · ' + N.n + ' comptes actifs</div></div>'
+      + '<div class="m-accts">' + accts + '</div>'
+      + lastRow
+      + '<div class="m-mini">' + mini('Trades gagnants', /trade win/i) + mini('Profit factor', /profit factor/i) + mini('Jours gagnants', /day win/i) + '</div>'
+      + '<div class="m-grid">' + BTNS.map(function(b){ return '<button type="button" class="m-big" data-m-go="' + b[0] + '">' + ICON[b[2]] + '<span>' + b[1] + '</span></button>'; }).join('') + '</div>';
+
+    var nodes = [].slice.call(host.childNodes), banner = document.getElementById('day-banner');   // nœuds texte compris : le Mac retrouve exactement son DOM
+    var det = el('details', 'm-all', '<summary>Tout le tableau de bord</summary><div class="m-all-body"></div>');
+    var body = det.querySelector('.m-all-body');
+    nodes.forEach(function(n){ if(n !== banner) body.appendChild(n); });
+    host.appendChild(home);
+    host.appendChild(det);
+    if(banner) home.querySelector('.m-banner-slot').appendChild(banner);
+
+    home.addEventListener('click', function(e){
+      var t = e.target.closest ? e.target.closest('[data-m-go],[data-m-stats]') : null;
+      if(!t) return;
+      if(t.hasAttribute('data-m-stats') || t.getAttribute('data-m-go') === 'stats'){ openSheet(); return; }
+      goIndexTab(t.getAttribute('data-m-go'));
+      syncActive();
+    });
+    homeState = { host: host, home: home, det: det, nodes: nodes };
+    return true;
+  }
+
+  function unbuildHome(){
+    if(!homeState) return;
+    var s = homeState;
+    homeState = null;
+    s.nodes.forEach(function(n){ s.host.insertBefore(n, s.home); });   // dans l'ordre d'origine, bandeau du jour compris
+    s.host.removeChild(s.home);
+    s.host.removeChild(s.det);
+  }
+
+  feature({
+    page: 'index',
+    on: function(){ if(!buildHome()) window.addEventListener('load', function(){ if(MQ.matches) buildHome(); }, { once: true }); },
+    off: unbuildHome
+  });
+
   /* @@FEATURES@@ */
 
   function apply(){
@@ -171,6 +268,7 @@
     if(on && !built){ built = true; buildTabbar(); buildSheet(); watchNav(); }
     document.documentElement.classList.toggle('m-shell', on);
     document.documentElement.classList.toggle('m-session', on && IS_SESSION);
+    if(!document.documentElement.className) document.documentElement.removeAttribute('class');
     features.forEach(function(f){
       if(f.page !== (IS_SESSION ? 'session' : 'index')) return;
       if(on) f.on(); else f.off();

@@ -479,6 +479,7 @@ git log --oneline -1 | cut -c1-90
     if(on && !built){ built = true; buildTabbar(); buildSheet(); watchNav(); }
     document.documentElement.classList.toggle('m-shell', on);
     document.documentElement.classList.toggle('m-session', on && IS_SESSION);
+    if(!document.documentElement.className) document.documentElement.removeAttribute('class');
     features.forEach(function(f){
       if(f.page !== (IS_SESSION ? 'session' : 'index')) return;
       if(on) f.on(); else f.off();
@@ -502,6 +503,7 @@ git log --oneline -1 | cut -c1-90
   html.m-shell .nav,html.m-shell .side-nav{display:none}
   html.m-shell .wrap{padding:calc(12px + env(safe-area-inset-top)) var(--m-gut) calc(var(--m-bar) + 32px)}
   html.m-shell .saveline{right:12px;bottom:calc(var(--m-bar) + 10px)}
+  html.m-shell .saveline:not(.ok):not(.err){display:none}   /* le message d'attente « Enregistrement automatique » recouvrirait le contenu ; seuls les états ✓ / erreur s'affichent */
   html.m-shell .sj-toast{bottom:calc(var(--m-bar) + 16px)}
 
   /* grands titres */
@@ -660,14 +662,14 @@ git log --oneline -1 | cut -c1-90
     var reste = cible - N.net;
     var dateTxt = new Date().toLocaleDateString('fr-FR', { weekday: 'long', day: 'numeric', month: 'long' });
 
-    var accts = N.act.map(function(x){
+    var accts = N.act.slice().sort(function(a, b){ return a.l < b.l ? -1 : 1; }).map(function(x){
       var c = x.c, cib = (c.objectif != null && c.depart != null) ? c.objectif - c.depart : 3000;
       var p = Math.max(0, Math.min(100, x.d / cib * 100));
       return '<div class="m-acct">'
         + '<div class="m-acct-top"><b>' + esc(x.l) + '</b><span class="m-acct-bal">' + fr(c.solde) + ' $</span></div>'
         + '<div class="m-acct-d ' + (x.d < 0 ? 'neg' : 'pos') + '">' + usd(x.d) + ' <span>depuis le départ</span></div>'
         + '<div class="m-bar"><i style="width:' + p.toFixed(0) + '%"></i></div>'
-        + '<div class="m-acct-f">Objectif ' + fr(cib) + ' $ · ' + Math.round(p) + ' %' + (typeof c.buffer === 'number' ? '<br>Marge avant perte : ' + fr(c.buffer) + ' $' : '') + '</div>'
+        + '<div class="m-acct-f">' + Math.round(p) + ' % de l’objectif' + (typeof c.buffer === 'number' ? '<br>Marge avant perte : ' + fr(c.buffer) + ' $' : '') + '</div>'
         + '</div>';
     }).join('');
 
@@ -696,7 +698,7 @@ git log --oneline -1 | cut -c1-90
       + '<div class="m-mini">' + mini('Trades gagnants', /trade win/i) + mini('Profit factor', /profit factor/i) + mini('Jours gagnants', /day win/i) + '</div>'
       + '<div class="m-grid">' + BTNS.map(function(b){ return '<button type="button" class="m-big" data-m-go="' + b[0] + '">' + ICON[b[2]] + '<span>' + b[1] + '</span></button>'; }).join('') + '</div>';
 
-    var nodes = [].slice.call(host.children), banner = document.getElementById('day-banner');
+    var nodes = [].slice.call(host.childNodes), banner = document.getElementById('day-banner');   // nœuds texte compris : le Mac retrouve exactement son DOM
     var det = el('details', 'm-all', '<summary>Tout le tableau de bord</summary><div class="m-all-body"></div>');
     var body = det.querySelector('.m-all-body');
     nodes.forEach(function(n){ if(n !== banner) body.appendChild(n); });
@@ -756,7 +758,7 @@ git log --oneline -1 | cut -c1-90
   html.m-shell .m-acct-top b{font-size:17px}
   html.m-shell .m-acct-bal{font-size:19px;font-weight:750;font-variant-numeric:tabular-nums}
   html.m-shell .m-acct-d{font-size:17px;font-weight:700;font-variant-numeric:tabular-nums}
-  html.m-shell .m-acct-d span{font-size:13px;font-weight:500;color:var(--muted)}
+  html.m-shell .m-acct-d span{display:block;font-size:13px;font-weight:500;color:var(--muted)}
   html.m-shell .m-acct-f{font-size:13px;line-height:1.35;color:var(--muted)}
 
   html.m-shell .m-last{min-height:64px}
